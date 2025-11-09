@@ -37,48 +37,33 @@ export function Dashboard() {
     navigate(`/training?drill=${drill}`)
   }
 
-  // ⚠️ TEMPORARY: Auto-login with test credentials for Epic 5 testing
-  // TODO: Replace with proper login UI in Epic 6
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    navigate('/auth')
+  }
+
+  // Authentication check - redirect to /auth if not logged in
   useEffect(() => {
-    async function initAuth() {
-      console.log('[Dashboard] Checking auth...')
-      
-      // Check if already logged in
+    async function checkAuth() {
+      // Check if user is authenticated
       const { data: { session } } = await supabase.auth.getSession()
-      
+
       if (!session) {
-        console.log('[Dashboard] No session, attempting auto-login...')
-        // Auto-login with test credentials
-        const { error } = await supabase.auth.signInWithPassword({
-          email: 'test@hanzidojo.local',
-          password: 'testpassword123'
-        })
-        
-        if (error) {
-          console.error('[Dashboard] Auto-login failed:', error)
-          setAuthError('Failed to login. Please check test account setup.')
-          return
-        }
-        console.log('[Dashboard] Auto-login successful')
+        // No session - redirect to auth screen
+        navigate('/auth')
+        return
       }
 
-      // Load kid from authenticated user
+      // Load kid profile for authenticated user
       const { data: { user }, error: userError } = await supabase.auth.getUser()
 
-      if (userError) {
+      if (userError || !user) {
         console.error('[Dashboard] User auth error:', userError)
-        setAuthError('Authentication error')
+        navigate('/auth')
         return
       }
 
-      if (!user) {
-        console.log('[Dashboard] No user logged in')
-        setAuthError('Not logged in')
-        return
-      }
-
-      console.log('[Dashboard] User found:', user.id)
-
+      // Get kid profile
       const { data: kids, error: kidsError } = await supabase
         .from('kids')
         .select('id')
@@ -91,30 +76,24 @@ export function Dashboard() {
         return
       }
 
-      console.log('[Dashboard] Kids query result:', kids)
-
       if (kids && kids.length > 0) {
-        console.log('[Dashboard] Setting kidId:', kids[0].id)
         setKidId(kids[0].id)
       } else {
-        console.log('[Dashboard] No kids found for user')
-        setAuthError('No kid profile found. Please create one in Supabase.')
+        // No kid profile found - this shouldn't happen if AuthScreen creates one
+        setAuthError('No student profile found. Please contact support.')
       }
     }
 
-    initAuth()
-  }, [])
+    checkAuth()
+  }, [navigate])
 
   return (
     <div className="min-h-screen w-full bg-gray-50">
       {/* Auth Error Display */}
       {authError && (
         <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4">
-          <p className="font-bold">Authentication Error</p>
+          <p className="font-bold">Profile Error</p>
           <p>{authError}</p>
-          <p className="text-sm mt-2">
-            Please follow setup instructions in <code>docs/operational/EPIC5_TESTING_SETUP.md</code>
-          </p>
         </div>
       )}
 
@@ -124,10 +103,16 @@ export function Dashboard() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-4xl font-bold mb-2">漢字道場 Hanzi Dojo</h1>
-              <p className="text-red-100">Epic 5.5: UX Refinement</p>
+              <p className="text-red-100">Traditional Chinese Character Training</p>
             </div>
-            <div>
+            <div className="flex items-center gap-3">
               <ConnectionStatusBadge />
+              <button
+                onClick={handleSignOut}
+                className="px-4 py-2 bg-red-900 text-white rounded-lg hover:bg-red-950 transition-colors text-sm font-semibold"
+              >
+                Sign Out
+              </button>
             </div>
           </div>
 
