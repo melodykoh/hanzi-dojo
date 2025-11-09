@@ -1,0 +1,1278 @@
+{
+  "version": "1.0.0",
+  "created": "2025-11-03",
+  "description": "Initial dictionary seed for Hanzi Dojo - Tier 1: User's child's school Week 1 + HSK 1-2 foundation (~150 characters)",
+  "note": "To be expanded to 500 characters in subsequent iterations. Zhuyin format: [[initial, final, tone], ...] where tone is one of: ˉ ˊ ˇ ˋ ˙",
+  "entries": [
+    {
+      "simp": "太",
+      "trad": "太",
+      "zhuyin": [["ㄊ", "ㄞ", "ˋ"]],
+      "pinyin": "tài",
+      "frequency_rank": 150,
+      "meanings": ["too", "very", "extremely"]
+    },
+    {
+      "simp": "阳",
+      "trad": "陽",
+      "zhuyin": [["ㄧ", "ㄤ", "ˊ"]],
+      "pinyin": "yáng",
+      "frequency_rank": 300,
+      "meanings": ["sun", "solar", "positive"]
+    },
+    {
+      "simp": "黑",
+      "trad": "黑",
+      "zhuyin": [["ㄏ", "ㄟ", "ˉ"]],
+      "pinyin": "hēi",
+      "frequency_rank": 400,
+      "meanings": ["black", "dark"]
+    },
+    {
+      "simp": "前",
+      "trad": "前",
+      "zhuyin": [["ㄑ", "ㄧㄢ", "ˊ"]],
+      "pinyin": "qián",
+      "frequency_rank": 80,
+      "meanings": ["front", "before", "forward"]
+    },
+    {
+      "simp": "后",
+      "trad": "後",
+      "zhuyin": [["ㄏ", "ㄡ", "ˋ"]],
+      "pinyin": "hòu",
+      "frequency_rank": 120,
+      "meanings": ["back", "after", "behind"]
+    },
+    {
+      "simp": "着",
+      "trad": "著",
+      "zhuyin_variants": [
+        {
+          "zhuyin": [["ㄓ", "ㄠ", "ˊ"]],
+          "pinyin": "zháo",
+          "context_words": ["着急", "睡着"],
+          "meanings": ["to touch", "to feel", "to be affected by"]
+        },
+        {
+          "zhuyin": [["ㄓ", "ㄨㄛ", "ˊ"]],
+          "pinyin": "zhuó",
+          "context_words": ["着手", "着力"],
+          "meanings": ["to wear", "to use", "to apply"]
+        },
+        {
+          "zhuyin": [["", "ㄓㄜ", "˙"]],
+          "pinyin": "zhe",
+          "context_words": ["跟着", "看着"],
+          "meanings": ["particle indicating continuous state"]
+        }
+      ],
+      "frequency_rank": 60,
+      "note": "Multi-reading character - requires context selection"
+    },
+    {
+      "simp": "光",
+      "trad": "光",
+      "zhuyin": [["ㄍ", "ㄨㄤ", "ˉ"]],
+      "pinyin": "guāng",
+      "frequency_rank": 250,
+      "meanings": ["light", "ray", "bright"]
+    },
+    {
+      "simp": "灯",
+      "trad": "燈",
+      "zhuyin": [["ㄉ", "ㄥ", "ˉ"]],
+      "pinyin": "dēng",
+      "frequency_rank": 600,
+      "meanings": ["lamp", "light", "lantern"]
+    },
+    {
+      "simp": "亮",
+      "trad": "亮",
+      "zhuyin": [["ㄌ", "ㄧㄤ", "ˋ"]],
+      "pinyin": "liàng",
+      "frequency_rank": 500,
+      "meanings": ["bright", "light", "shiny"]
+    },
+    {
+      "simp": "见",
+      "trad": "見",
+      "zhuyin": [["ㄐ", "ㄧㄢ", "ˋ"]],
+      "pinyin": "jiàn",
+      "frequency_rank": 90,
+      "meanings": ["to see", "to meet", "to appear"]
+    },
+    {
+      "simp": "一",
+      "trad": "一",
+      "zhuyin": [["ㄧ", "", "ˉ"]],
+      "pinyin": "yī",
+      "frequency_rank": 1,
+      "meanings": ["one", "single", "a"]
+    },
+    {
+      "simp": "二",
+      "trad": "二",
+      "zhuyin": [["ㄦ", "", "ˋ"]],
+      "pinyin": "èr",
+      "frequency_rank": 2,
+      "meanings": ["two"]
+    },
+    {
+      "simp": "三",
+      "trad": "三",
+      "zhuyin": [["ㄙ", "ㄢ", "ˉ"]],
+      "pinyin": "sān",
+      "frequency_rank": 3,
+      "meanings": ["three"]
+    },
+    {
+      "simp": "四",
+      "trad": "四",
+      "zhuyin": [["ㄙ", "", "ˋ"]],
+      "pinyin": "sì",
+      "frequency_rank": 4,
+      "meanings": ["four"]
+    },
+    {
+      "simp": "五",
+      "trad": "五",
+      "zhuyin": [["ㄨ", "", "ˇ"]],
+      "pinyin": "wǔ",
+      "frequency_rank": 5,
+      "meanings": ["five"]
+    },
+    {
+      "simp": "六",
+      "trad": "六",
+      "zhuyin": [["ㄌ", "ㄧㄡ", "ˋ"]],
+      "pinyin": "liù",
+      "frequency_rank": 6,
+      "meanings": ["six"]
+    },
+    {
+      "simp": "七",
+      "trad": "七",
+      "zhuyin": [["ㄑ", "ㄧ", "ˉ"]],
+      "pinyin": "qī",
+      "frequency_rank": 7,
+      "meanings": ["seven"]
+    },
+    {
+      "simp": "八",
+      "trad": "八",
+      "zhuyin": [["ㄅ", "ㄚ", "ˉ"]],
+      "pinyin": "bā",
+      "frequency_rank": 8,
+      "meanings": ["eight"]
+    },
+    {
+      "simp": "九",
+      "trad": "九",
+      "zhuyin": [["ㄐ", "ㄧㄡ", "ˇ"]],
+      "pinyin": "jiǔ",
+      "frequency_rank": 9,
+      "meanings": ["nine"]
+    },
+    {
+      "simp": "十",
+      "trad": "十",
+      "zhuyin": [["ㄕ", "", "ˊ"]],
+      "pinyin": "shí",
+      "frequency_rank": 10,
+      "meanings": ["ten"]
+    },
+    {
+      "simp": "人",
+      "trad": "人",
+      "zhuyin": [["ㄖ", "ㄣ", "ˊ"]],
+      "pinyin": "rén",
+      "frequency_rank": 11,
+      "meanings": ["person", "people", "human"]
+    },
+    {
+      "simp": "大",
+      "trad": "大",
+      "zhuyin": [["ㄉ", "ㄚ", "ˋ"]],
+      "pinyin": "dà",
+      "frequency_rank": 12,
+      "meanings": ["big", "large", "great"]
+    },
+    {
+      "simp": "小",
+      "trad": "小",
+      "zhuyin": [["ㄒ", "ㄧㄠ", "ˇ"]],
+      "pinyin": "xiǎo",
+      "frequency_rank": 13,
+      "meanings": ["small", "little", "young"]
+    },
+    {
+      "simp": "上",
+      "trad": "上",
+      "zhuyin": [["ㄕ", "ㄤ", "ˋ"]],
+      "pinyin": "shàng",
+      "frequency_rank": 14,
+      "meanings": ["up", "above", "on"]
+    },
+    {
+      "simp": "下",
+      "trad": "下",
+      "zhuyin": [["ㄒ", "ㄧㄚ", "ˋ"]],
+      "pinyin": "xià",
+      "frequency_rank": 15,
+      "meanings": ["down", "below", "under"]
+    },
+    {
+      "simp": "左",
+      "trad": "左",
+      "zhuyin": [["ㄗ", "ㄨㄛ", "ˇ"]],
+      "pinyin": "zuǒ",
+      "frequency_rank": 16,
+      "meanings": ["left"]
+    },
+    {
+      "simp": "右",
+      "trad": "右",
+      "zhuyin": [["ㄧ", "ㄡ", "ˋ"]],
+      "pinyin": "yòu",
+      "frequency_rank": 17,
+      "meanings": ["right"]
+    },
+    {
+      "simp": "中",
+      "trad": "中",
+      "zhuyin": [["ㄓ", "ㄨㄥ", "ˉ"]],
+      "pinyin": "zhōng",
+      "frequency_rank": 18,
+      "meanings": ["middle", "center", "China"]
+    },
+    {
+      "simp": "是",
+      "trad": "是",
+      "zhuyin": [["ㄕ", "", "ˋ"]],
+      "pinyin": "shì",
+      "frequency_rank": 19,
+      "meanings": ["to be", "yes"]
+    },
+    {
+      "simp": "不",
+      "trad": "不",
+      "zhuyin": [["ㄅ", "ㄨ", "ˋ"]],
+      "pinyin": "bù",
+      "frequency_rank": 20,
+      "meanings": ["not", "no"]
+    },
+    {
+      "simp": "我",
+      "trad": "我",
+      "zhuyin": [["ㄨ", "ㄛ", "ˇ"]],
+      "pinyin": "wǒ",
+      "frequency_rank": 21,
+      "meanings": ["I", "me"]
+    },
+    {
+      "simp": "你",
+      "trad": "你",
+      "zhuyin": [["ㄋ", "ㄧ", "ˇ"]],
+      "pinyin": "nǐ",
+      "frequency_rank": 22,
+      "meanings": ["you"]
+    },
+    {
+      "simp": "他",
+      "trad": "他",
+      "zhuyin": [["ㄊ", "ㄚ", "ˉ"]],
+      "pinyin": "tā",
+      "frequency_rank": 23,
+      "meanings": ["he", "him"]
+    },
+    {
+      "simp": "她",
+      "trad": "她",
+      "zhuyin": [["ㄊ", "ㄚ", "ˉ"]],
+      "pinyin": "tā",
+      "frequency_rank": 24,
+      "meanings": ["she", "her"]
+    },
+    {
+      "simp": "们",
+      "trad": "們",
+      "zhuyin": [["ㄇ", "ㄣ", "˙"]],
+      "pinyin": "men",
+      "frequency_rank": 25,
+      "meanings": ["plural suffix"]
+    },
+    {
+      "simp": "的",
+      "trad": "的",
+      "zhuyin": [["ㄉ", "ㄜ", "˙"]],
+      "pinyin": "de",
+      "frequency_rank": 26,
+      "meanings": ["possessive particle"]
+    },
+    {
+      "simp": "了",
+      "trad": "了",
+      "zhuyin_variants": [
+        {
+          "zhuyin": [["ㄌ", "ㄜ", "˙"]],
+          "pinyin": "le",
+          "context_words": ["好了", "走了"],
+          "meanings": ["completed action particle"]
+        },
+        {
+          "zhuyin": [["ㄌ", "ㄧㄠ", "ˇ"]],
+          "pinyin": "liǎo",
+          "context_words": ["了解", "明了"],
+          "meanings": ["to finish", "to understand"]
+        }
+      ],
+      "frequency_rank": 27,
+      "note": "Multi-reading character"
+    },
+    {
+      "simp": "在",
+      "trad": "在",
+      "zhuyin": [["ㄗ", "ㄞ", "ˋ"]],
+      "pinyin": "zài",
+      "frequency_rank": 28,
+      "meanings": ["at", "in", "to be present"]
+    },
+    {
+      "simp": "有",
+      "trad": "有",
+      "zhuyin": [["ㄧ", "ㄡ", "ˇ"]],
+      "pinyin": "yǒu",
+      "frequency_rank": 29,
+      "meanings": ["to have", "to exist"]
+    },
+    {
+      "simp": "这",
+      "trad": "這",
+      "zhuyin": [["ㄓ", "ㄜ", "ˋ"]],
+      "pinyin": "zhè",
+      "frequency_rank": 30,
+      "meanings": ["this"]
+    },
+    {
+      "simp": "那",
+      "trad": "那",
+      "zhuyin": [["ㄋ", "ㄚ", "ˋ"]],
+      "pinyin": "nà",
+      "frequency_rank": 31,
+      "meanings": ["that"]
+    },
+    {
+      "simp": "个",
+      "trad": "個",
+      "zhuyin": [["ㄍ", "ㄜ", "ˋ"]],
+      "pinyin": "gè",
+      "frequency_rank": 32,
+      "meanings": ["measure word", "individual"]
+    },
+    {
+      "simp": "来",
+      "trad": "來",
+      "zhuyin": [["ㄌ", "ㄞ", "ˊ"]],
+      "pinyin": "lái",
+      "frequency_rank": 33,
+      "meanings": ["to come", "to arrive"]
+    },
+    {
+      "simp": "去",
+      "trad": "去",
+      "zhuyin": [["ㄑ", "ㄩ", "ˋ"]],
+      "pinyin": "qù",
+      "frequency_rank": 34,
+      "meanings": ["to go", "to leave"]
+    },
+    {
+      "simp": "看",
+      "trad": "看",
+      "zhuyin": [["ㄎ", "ㄢ", "ˋ"]],
+      "pinyin": "kàn",
+      "frequency_rank": 35,
+      "meanings": ["to see", "to look", "to watch"]
+    },
+    {
+      "simp": "说",
+      "trad": "說",
+      "zhuyin": [["ㄕ", "ㄨㄛ", "ˉ"]],
+      "pinyin": "shuō",
+      "frequency_rank": 36,
+      "meanings": ["to say", "to speak"]
+    },
+    {
+      "simp": "听",
+      "trad": "聽",
+      "zhuyin": [["ㄊ", "ㄧㄥ", "ˉ"]],
+      "pinyin": "tīng",
+      "frequency_rank": 37,
+      "meanings": ["to listen", "to hear"]
+    },
+    {
+      "simp": "读",
+      "trad": "讀",
+      "zhuyin": [["ㄉ", "ㄨ", "ˊ"]],
+      "pinyin": "dú",
+      "frequency_rank": 38,
+      "meanings": ["to read"]
+    },
+    {
+      "simp": "写",
+      "trad": "寫",
+      "zhuyin": [["ㄒ", "ㄧㄝ", "ˇ"]],
+      "pinyin": "xiě",
+      "frequency_rank": 39,
+      "meanings": ["to write"]
+    },
+    {
+      "simp": "做",
+      "trad": "做",
+      "zhuyin": [["ㄗ", "ㄨㄛ", "ˋ"]],
+      "pinyin": "zuò",
+      "frequency_rank": 40,
+      "meanings": ["to do", "to make"]
+    },
+    {
+      "simp": "吃",
+      "trad": "吃",
+      "zhuyin": [["ㄔ", "", "ˉ"]],
+      "pinyin": "chī",
+      "frequency_rank": 41,
+      "meanings": ["to eat"]
+    },
+    {
+      "simp": "喝",
+      "trad": "喝",
+      "zhuyin": [["ㄏ", "ㄜ", "ˉ"]],
+      "pinyin": "hē",
+      "frequency_rank": 42,
+      "meanings": ["to drink"]
+    },
+    {
+      "simp": "睡",
+      "trad": "睡",
+      "zhuyin": [["ㄕ", "ㄨㄟ", "ˋ"]],
+      "pinyin": "shuì",
+      "frequency_rank": 43,
+      "meanings": ["to sleep"]
+    },
+    {
+      "simp": "走",
+      "trad": "走",
+      "zhuyin": [["ㄗ", "ㄡ", "ˇ"]],
+      "pinyin": "zǒu",
+      "frequency_rank": 44,
+      "meanings": ["to walk", "to leave"]
+    },
+    {
+      "simp": "跑",
+      "trad": "跑",
+      "zhuyin": [["ㄆ", "ㄠ", "ˇ"]],
+      "pinyin": "pǎo",
+      "frequency_rank": 45,
+      "meanings": ["to run"]
+    },
+    {
+      "simp": "坐",
+      "trad": "坐",
+      "zhuyin": [["ㄗ", "ㄨㄛ", "ˋ"]],
+      "pinyin": "zuò",
+      "frequency_rank": 46,
+      "meanings": ["to sit"]
+    },
+    {
+      "simp": "站",
+      "trad": "站",
+      "zhuyin": [["ㄓ", "ㄢ", "ˋ"]],
+      "pinyin": "zhàn",
+      "frequency_rank": 47,
+      "meanings": ["to stand", "station"]
+    },
+    {
+      "simp": "爸",
+      "trad": "爸",
+      "zhuyin": [["ㄅ", "ㄚ", "ˋ"]],
+      "pinyin": "bà",
+      "frequency_rank": 48,
+      "meanings": ["dad", "father"]
+    },
+    {
+      "simp": "妈",
+      "trad": "媽",
+      "zhuyin": [["ㄇ", "ㄚ", "ˉ"]],
+      "pinyin": "mā",
+      "frequency_rank": 49,
+      "meanings": ["mom", "mother"]
+    },
+    {
+      "simp": "哥",
+      "trad": "哥",
+      "zhuyin": [["ㄍ", "ㄜ", "ˉ"]],
+      "pinyin": "gē",
+      "frequency_rank": 50,
+      "meanings": ["older brother"]
+    },
+    {
+      "simp": "姐",
+      "trad": "姐",
+      "zhuyin": [["ㄐ", "ㄧㄝ", "ˇ"]],
+      "pinyin": "jiě",
+      "frequency_rank": 51,
+      "meanings": ["older sister"]
+    },
+    {
+      "simp": "弟",
+      "trad": "弟",
+      "zhuyin": [["ㄉ", "ㄧ", "ˋ"]],
+      "pinyin": "dì",
+      "frequency_rank": 52,
+      "meanings": ["younger brother"]
+    },
+    {
+      "simp": "妹",
+      "trad": "妹",
+      "zhuyin": [["ㄇ", "ㄟ", "ˋ"]],
+      "pinyin": "mèi",
+      "frequency_rank": 53,
+      "meanings": ["younger sister"]
+    },
+    {
+      "simp": "儿",
+      "trad": "兒",
+      "zhuyin": [["ㄦ", "", "ˊ"]],
+      "pinyin": "ér",
+      "frequency_rank": 54,
+      "meanings": ["child", "son"]
+    },
+    {
+      "simp": "女",
+      "trad": "女",
+      "zhuyin": [["ㄋ", "ㄩ", "ˇ"]],
+      "pinyin": "nǚ",
+      "frequency_rank": 55,
+      "meanings": ["female", "daughter"]
+    },
+    {
+      "simp": "好",
+      "trad": "好",
+      "zhuyin": [["ㄏ", "ㄠ", "ˇ"]],
+      "pinyin": "hǎo",
+      "frequency_rank": 56,
+      "meanings": ["good", "well", "fine"]
+    },
+    {
+      "simp": "天",
+      "trad": "天",
+      "zhuyin": [["ㄊ", "ㄧㄢ", "ˉ"]],
+      "pinyin": "tiān",
+      "frequency_rank": 57,
+      "meanings": ["sky", "day", "heaven"]
+    },
+    {
+      "simp": "今",
+      "trad": "今",
+      "zhuyin": [["ㄐ", "ㄧㄣ", "ˉ"]],
+      "pinyin": "jīn",
+      "frequency_rank": 58,
+      "meanings": ["today", "present", "now"]
+    },
+    {
+      "simp": "明",
+      "trad": "明",
+      "zhuyin": [["ㄇ", "ㄧㄥ", "ˊ"]],
+      "pinyin": "míng",
+      "frequency_rank": 59,
+      "meanings": ["bright", "clear", "tomorrow"]
+    },
+    {
+      "simp": "年",
+      "trad": "年",
+      "zhuyin": [["ㄋ", "ㄧㄢ", "ˊ"]],
+      "pinyin": "nián",
+      "frequency_rank": 61,
+      "meanings": ["year"]
+    },
+    {
+      "simp": "月",
+      "trad": "月",
+      "zhuyin": [["ㄩ", "ㄝ", "ˋ"]],
+      "pinyin": "yuè",
+      "frequency_rank": 62,
+      "meanings": ["moon", "month"]
+    },
+    {
+      "simp": "日",
+      "trad": "日",
+      "zhuyin": [["ㄖ", "", "ˋ"]],
+      "pinyin": "rì",
+      "frequency_rank": 63,
+      "meanings": ["sun", "day", "date"]
+    },
+    {
+      "simp": "时",
+      "trad": "時",
+      "zhuyin": [["ㄕ", "", "ˊ"]],
+      "pinyin": "shí",
+      "frequency_rank": 64,
+      "meanings": ["time", "hour"]
+    },
+    {
+      "simp": "分",
+      "trad": "分",
+      "zhuyin": [["ㄈ", "ㄣ", "ˉ"]],
+      "pinyin": "fēn",
+      "frequency_rank": 65,
+      "meanings": ["minute", "to divide"]
+    },
+    {
+      "simp": "早",
+      "trad": "早",
+      "zhuyin": [["ㄗ", "ㄠ", "ˇ"]],
+      "pinyin": "zǎo",
+      "frequency_rank": 66,
+      "meanings": ["early", "morning"]
+    },
+    {
+      "simp": "晚",
+      "trad": "晚",
+      "zhuyin": [["ㄨ", "ㄢ", "ˇ"]],
+      "pinyin": "wǎn",
+      "frequency_rank": 67,
+      "meanings": ["late", "evening"]
+    },
+    {
+      "simp": "水",
+      "trad": "水",
+      "zhuyin": [["ㄕ", "ㄨㄟ", "ˇ"]],
+      "pinyin": "shuǐ",
+      "frequency_rank": 68,
+      "meanings": ["water"]
+    },
+    {
+      "simp": "火",
+      "trad": "火",
+      "zhuyin": [["ㄏ", "ㄨㄛ", "ˇ"]],
+      "pinyin": "huǒ",
+      "frequency_rank": 69,
+      "meanings": ["fire"]
+    },
+    {
+      "simp": "木",
+      "trad": "木",
+      "zhuyin": [["ㄇ", "ㄨ", "ˋ"]],
+      "pinyin": "mù",
+      "frequency_rank": 70,
+      "meanings": ["wood", "tree"]
+    },
+    {
+      "simp": "金",
+      "trad": "金",
+      "zhuyin": [["ㄐ", "ㄧㄣ", "ˉ"]],
+      "pinyin": "jīn",
+      "frequency_rank": 71,
+      "meanings": ["gold", "metal", "money"]
+    },
+    {
+      "simp": "土",
+      "trad": "土",
+      "zhuyin": [["ㄊ", "ㄨ", "ˇ"]],
+      "pinyin": "tǔ",
+      "frequency_rank": 72,
+      "meanings": ["earth", "soil"]
+    },
+    {
+      "simp": "山",
+      "trad": "山",
+      "zhuyin": [["ㄕ", "ㄢ", "ˉ"]],
+      "pinyin": "shān",
+      "frequency_rank": 73,
+      "meanings": ["mountain", "hill"]
+    },
+    {
+      "simp": "川",
+      "trad": "川",
+      "zhuyin": [["ㄔ", "ㄨㄢ", "ˉ"]],
+      "pinyin": "chuān",
+      "frequency_rank": 74,
+      "meanings": ["river", "stream"]
+    },
+    {
+      "simp": "白",
+      "trad": "白",
+      "zhuyin": [["ㄅ", "ㄞ", "ˊ"]],
+      "pinyin": "bái",
+      "frequency_rank": 75,
+      "meanings": ["white", "clear"]
+    },
+    {
+      "simp": "红",
+      "trad": "紅",
+      "zhuyin": [["ㄏ", "ㄨㄥ", "ˊ"]],
+      "pinyin": "hóng",
+      "frequency_rank": 76,
+      "meanings": ["red"]
+    },
+    {
+      "simp": "黄",
+      "trad": "黃",
+      "zhuyin": [["ㄏ", "ㄨㄤ", "ˊ"]],
+      "pinyin": "huáng",
+      "frequency_rank": 77,
+      "meanings": ["yellow"]
+    },
+    {
+      "simp": "蓝",
+      "trad": "藍",
+      "zhuyin": [["ㄌ", "ㄢ", "ˊ"]],
+      "pinyin": "lán",
+      "frequency_rank": 78,
+      "meanings": ["blue"]
+    },
+    {
+      "simp": "绿",
+      "trad": "綠",
+      "zhuyin": [["ㄌ", "ㄩ", "ˋ"]],
+      "pinyin": "lǜ",
+      "frequency_rank": 79,
+      "meanings": ["green"]
+    },
+    {
+      "simp": "多",
+      "trad": "多",
+      "zhuyin": [["ㄉ", "ㄨㄛ", "ˉ"]],
+      "pinyin": "duō",
+      "frequency_rank": 81,
+      "meanings": ["many", "much", "more"]
+    },
+    {
+      "simp": "少",
+      "trad": "少",
+      "zhuyin": [["ㄕ", "ㄠ", "ˇ"]],
+      "pinyin": "shǎo",
+      "frequency_rank": 82,
+      "meanings": ["few", "little", "less"]
+    },
+    {
+      "simp": "长",
+      "trad": "長",
+      "zhuyin": [["ㄔ", "ㄤ", "ˊ"]],
+      "pinyin": "cháng",
+      "frequency_rank": 83,
+      "meanings": ["long", "length"]
+    },
+    {
+      "simp": "短",
+      "trad": "短",
+      "zhuyin": [["ㄉ", "ㄨㄢ", "ˇ"]],
+      "pinyin": "duǎn",
+      "frequency_rank": 84,
+      "meanings": ["short"]
+    },
+    {
+      "simp": "高",
+      "trad": "高",
+      "zhuyin": [["ㄍ", "ㄠ", "ˉ"]],
+      "pinyin": "gāo",
+      "frequency_rank": 85,
+      "meanings": ["tall", "high"]
+    },
+    {
+      "simp": "低",
+      "trad": "低",
+      "zhuyin": [["ㄉ", "ㄧ", "ˉ"]],
+      "pinyin": "dī",
+      "frequency_rank": 86,
+      "meanings": ["low"]
+    },
+    {
+      "simp": "快",
+      "trad": "快",
+      "zhuyin": [["ㄎ", "ㄨㄞ", "ˋ"]],
+      "pinyin": "kuài",
+      "frequency_rank": 87,
+      "meanings": ["fast", "quick"]
+    },
+    {
+      "simp": "慢",
+      "trad": "慢",
+      "zhuyin": [["ㄇ", "ㄢ", "ˋ"]],
+      "pinyin": "mànˋ",
+      "frequency_rank": 88,
+      "meanings": ["slow"]
+    },
+    {
+      "simp": "新",
+      "trad": "新",
+      "zhuyin": [["ㄒ", "ㄧㄣ", "ˉ"]],
+      "pinyin": "xīn",
+      "frequency_rank": 89,
+      "meanings": ["new"]
+    },
+    {
+      "simp": "老",
+      "trad": "老",
+      "zhuyin": [["ㄌ", "ㄠ", "ˇ"]],
+      "pinyin": "lǎo",
+      "frequency_rank": 91,
+      "meanings": ["old"]
+    },
+    {
+      "simp": "出",
+      "trad": "出",
+      "zhuyin": [["ㄔ", "ㄨ", "ˉ"]],
+      "pinyin": "chū",
+      "frequency_rank": 92,
+      "meanings": ["to exit", "to go out"]
+    },
+    {
+      "simp": "入",
+      "trad": "入",
+      "zhuyin": [["ㄖ", "ㄨ", "ˋ"]],
+      "pinyin": "rù",
+      "frequency_rank": 93,
+      "meanings": ["to enter"]
+    },
+    {
+      "simp": "开",
+      "trad": "開",
+      "zhuyin": [["ㄎ", "ㄞ", "ˉ"]],
+      "pinyin": "kāi",
+      "frequency_rank": 94,
+      "meanings": ["to open", "to start"]
+    },
+    {
+      "simp": "关",
+      "trad": "關",
+      "zhuyin": [["ㄍ", "ㄨㄢ", "ˉ"]],
+      "pinyin": "guān",
+      "frequency_rank": 95,
+      "meanings": ["to close", "to turn off"]
+    },
+    {
+      "simp": "东",
+      "trad": "東",
+      "zhuyin": [["ㄉ", "ㄨㄥ", "ˉ"]],
+      "pinyin": "dōng",
+      "frequency_rank": 96,
+      "meanings": ["east"]
+    },
+    {
+      "simp": "西",
+      "trad": "西",
+      "zhuyin": [["ㄒ", "ㄧ", "ˉ"]],
+      "pinyin": "xī",
+      "frequency_rank": 97,
+      "meanings": ["west"]
+    },
+    {
+      "simp": "南",
+      "trad": "南",
+      "zhuyin": [["ㄋ", "ㄢ", "ˊ"]],
+      "pinyin": "nán",
+      "frequency_rank": 98,
+      "meanings": ["south"]
+    },
+    {
+      "simp": "北",
+      "trad": "北",
+      "zhuyin": [["ㄅ", "ㄟ", "ˇ"]],
+      "pinyin": "běi",
+      "frequency_rank": 99,
+      "meanings": ["north"]
+    },
+    {
+      "simp": "生",
+      "trad": "生",
+      "zhuyin": [["ㄕ", "ㄥ", "ˉ"]],
+      "pinyin": "shēng",
+      "frequency_rank": 100,
+      "meanings": ["to give birth", "life", "student"]
+    },
+    {
+      "simp": "学",
+      "trad": "學",
+      "zhuyin": [["ㄒ", "ㄩㄝ", "ˊ"]],
+      "pinyin": "xué",
+      "frequency_rank": 101,
+      "meanings": ["to study", "to learn", "school"]
+    },
+    {
+      "simp": "书",
+      "trad": "書",
+      "zhuyin": [["ㄕ", "ㄨ", "ˉ"]],
+      "pinyin": "shū",
+      "frequency_rank": 102,
+      "meanings": ["book"]
+    },
+    {
+      "simp": "本",
+      "trad": "本",
+      "zhuyin": [["ㄅ", "ㄣ", "ˇ"]],
+      "pinyin": "běn",
+      "frequency_rank": 103,
+      "meanings": ["origin", "measure word for books"]
+    },
+    {
+      "simp": "字",
+      "trad": "字",
+      "zhuyin": [["ㄗ", "", "ˋ"]],
+      "pinyin": "zì",
+      "frequency_rank": 104,
+      "meanings": ["character", "word"]
+    },
+    {
+      "simp": "文",
+      "trad": "文",
+      "zhuyin": [["ㄨ", "ㄣ", "ˊ"]],
+      "pinyin": "wén",
+      "frequency_rank": 105,
+      "meanings": ["language", "culture", "writing"]
+    },
+    {
+      "simp": "手",
+      "trad": "手",
+      "zhuyin": [["ㄕ", "ㄡ", "ˇ"]],
+      "pinyin": "shǒu",
+      "frequency_rank": 106,
+      "meanings": ["hand"]
+    },
+    {
+      "simp": "口",
+      "trad": "口",
+      "zhuyin": [["ㄎ", "ㄡ", "ˇ"]],
+      "pinyin": "kǒu",
+      "frequency_rank": 107,
+      "meanings": ["mouth", "opening"]
+    },
+    {
+      "simp": "目",
+      "trad": "目",
+      "zhuyin": [["ㄇ", "ㄨ", "ˋ"]],
+      "pinyin": "mù",
+      "frequency_rank": 108,
+      "meanings": ["eye"]
+    },
+    {
+      "simp": "耳",
+      "trad": "耳",
+      "zhuyin": [["ㄦ", "", "ˇ"]],
+      "pinyin": "ěr",
+      "frequency_rank": 109,
+      "meanings": ["ear"]
+    },
+    {
+      "simp": "头",
+      "trad": "頭",
+      "zhuyin": [["ㄊ", "ㄡ", "ˊ"]],
+      "pinyin": "tóu",
+      "frequency_rank": 110,
+      "meanings": ["head"]
+    },
+    {
+      "simp": "心",
+      "trad": "心",
+      "zhuyin": [["ㄒ", "ㄧㄣ", "ˉ"]],
+      "pinyin": "xīn",
+      "frequency_rank": 111,
+      "meanings": ["heart", "mind"]
+    },
+    {
+      "simp": "身",
+      "trad": "身",
+      "zhuyin": [["ㄕ", "ㄣ", "ˉ"]],
+      "pinyin": "shēn",
+      "frequency_rank": 112,
+      "meanings": ["body"]
+    },
+    {
+      "simp": "足",
+      "trad": "足",
+      "zhuyin": [["ㄗ", "ㄨ", "ˊ"]],
+      "pinyin": "zú",
+      "frequency_rank": 113,
+      "meanings": ["foot", "sufficient"]
+    },
+    {
+      "simp": "门",
+      "trad": "門",
+      "zhuyin": [["ㄇ", "ㄣ", "ˊ"]],
+      "pinyin": "mén",
+      "frequency_rank": 114,
+      "meanings": ["door", "gate"]
+    },
+    {
+      "simp": "家",
+      "trad": "家",
+      "zhuyin": [["ㄐ", "ㄧㄚ", "ˉ"]],
+      "pinyin": "jiā",
+      "frequency_rank": 115,
+      "meanings": ["home", "family"]
+    },
+    {
+      "simp": "房",
+      "trad": "房",
+      "zhuyin": [["ㄈ", "ㄤ", "ˊ"]],
+      "pinyin": "fáng",
+      "frequency_rank": 116,
+      "meanings": ["house", "room"]
+    },
+    {
+      "simp": "车",
+      "trad": "車",
+      "zhuyin": [["ㄔ", "ㄜ", "ˉ"]],
+      "pinyin": "chē",
+      "frequency_rank": 117,
+      "meanings": ["vehicle", "car"]
+    },
+    {
+      "simp": "路",
+      "trad": "路",
+      "zhuyin": [["ㄌ", "ㄨ", "ˋ"]],
+      "pinyin": "lù",
+      "frequency_rank": 118,
+      "meanings": ["road", "path"]
+    },
+    {
+      "simp": "店",
+      "trad": "店",
+      "zhuyin": [["ㄉ", "ㄧㄢ", "ˋ"]],
+      "pinyin": "diàn",
+      "frequency_rank": 119,
+      "meanings": ["store", "shop"]
+    },
+    {
+      "simp": "饭",
+      "trad": "飯",
+      "zhuyin": [["ㄈ", "ㄢ", "ˋ"]],
+      "pinyin": "fàn",
+      "frequency_rank": 121,
+      "meanings": ["cooked rice", "meal"]
+    },
+    {
+      "simp": "菜",
+      "trad": "菜",
+      "zhuyin": [["ㄘ", "ㄞ", "ˋ"]],
+      "pinyin": "cài",
+      "frequency_rank": 122,
+      "meanings": ["vegetable", "dish"]
+    },
+    {
+      "simp": "茶",
+      "trad": "茶",
+      "zhuyin": [["ㄔ", "ㄚ", "ˊ"]],
+      "pinyin": "chá",
+      "frequency_rank": 123,
+      "meanings": ["tea"]
+    },
+    {
+      "simp": "牛",
+      "trad": "牛",
+      "zhuyin": [["ㄋ", "ㄧㄡ", "ˊ"]],
+      "pinyin": "niú",
+      "frequency_rank": 124,
+      "meanings": ["cow", "ox"]
+    },
+    {
+      "simp": "羊",
+      "trad": "羊",
+      "zhuyin": [["ㄧ", "ㄤ", "ˊ"]],
+      "pinyin": "yáng",
+      "frequency_rank": 125,
+      "meanings": ["sheep", "goat"]
+    },
+    {
+      "simp": "鸟",
+      "trad": "鳥",
+      "zhuyin": [["ㄋ", "ㄧㄠ", "ˇ"]],
+      "pinyin": "niǎo",
+      "frequency_rank": 126,
+      "meanings": ["bird"]
+    },
+    {
+      "simp": "鱼",
+      "trad": "魚",
+      "zhuyin": [["ㄩ", "", "ˊ"]],
+      "pinyin": "yú",
+      "frequency_rank": 127,
+      "meanings": ["fish"]
+    },
+    {
+      "simp": "狗",
+      "trad": "狗",
+      "zhuyin": [["ㄍ", "ㄡ", "ˇ"]],
+      "pinyin": "gǒu",
+      "frequency_rank": 128,
+      "meanings": ["dog"]
+    },
+    {
+      "simp": "猫",
+      "trad": "貓",
+      "zhuyin": [["ㄇ", "ㄠ", "ˉ"]],
+      "pinyin": "māo",
+      "frequency_rank": 129,
+      "meanings": ["cat"]
+    },
+    {
+      "simp": "虫",
+      "trad": "蟲",
+      "zhuyin": [["ㄔ", "ㄨㄥ", "ˊ"]],
+      "pinyin": "chóng",
+      "frequency_rank": 130,
+      "meanings": ["insect", "bug"]
+    },
+    {
+      "simp": "花",
+      "trad": "花",
+      "zhuyin": [["ㄏ", "ㄨㄚ", "ˉ"]],
+      "pinyin": "huā",
+      "frequency_rank": 131,
+      "meanings": ["flower"]
+    },
+    {
+      "simp": "草",
+      "trad": "草",
+      "zhuyin": [["ㄘ", "ㄠ", "ˇ"]],
+      "pinyin": "cǎo",
+      "frequency_rank": 132,
+      "meanings": ["grass"]
+    },
+    {
+      "simp": "树",
+      "trad": "樹",
+      "zhuyin": [["ㄕ", "ㄨ", "ˋ"]],
+      "pinyin": "shù",
+      "frequency_rank": 133,
+      "meanings": ["tree"]
+    },
+    {
+      "simp": "雨",
+      "trad": "雨",
+      "zhuyin": [["ㄩ", "", "ˇ"]],
+      "pinyin": "yǔ",
+      "frequency_rank": 134,
+      "meanings": ["rain"]
+    },
+    {
+      "simp": "雪",
+      "trad": "雪",
+      "zhuyin": [["ㄒ", "ㄩㄝ", "ˇ"]],
+      "pinyin": "xuě",
+      "frequency_rank": 135,
+      "meanings": ["snow"]
+    },
+    {
+      "simp": "风",
+      "trad": "風",
+      "zhuyin": [["ㄈ", "ㄥ", "ˉ"]],
+      "pinyin": "fēng",
+      "frequency_rank": 136,
+      "meanings": ["wind"]
+    },
+    {
+      "simp": "云",
+      "trad": "雲",
+      "zhuyin": [["ㄩ", "ㄣ", "ˊ"]],
+      "pinyin": "yún",
+      "frequency_rank": 137,
+      "meanings": ["cloud"]
+    },
+    {
+      "simp": "气",
+      "trad": "氣",
+      "zhuyin": [["ㄑ", "ㄧ", "ˋ"]],
+      "pinyin": "qì",
+      "frequency_rank": 138,
+      "meanings": ["air", "gas", "breath"]
+    },
+    {
+      "simp": "电",
+      "trad": "電",
+      "zhuyin": [["ㄉ", "ㄧㄢ", "ˋ"]],
+      "pinyin": "diàn",
+      "frequency_rank": 139,
+      "meanings": ["electricity", "electric"]
+    },
+    {
+      "simp": "话",
+      "trad": "話",
+      "zhuyin": [["ㄏ", "ㄨㄚ", "ˋ"]],
+      "pinyin": "huà",
+      "frequency_rank": 140,
+      "meanings": ["speech", "words", "language"]
+    },
+    {
+      "simp": "问",
+      "trad": "問",
+      "zhuyin": [["ㄨ", "ㄣ", "ˋ"]],
+      "pinyin": "wèn",
+      "frequency_rank": 141,
+      "meanings": ["to ask", "to inquire"]
+    },
+    {
+      "simp": "答",
+      "trad": "答",
+      "zhuyin": [["ㄉ", "ㄚ", "ˊ"]],
+      "pinyin": "dá",
+      "frequency_rank": 142,
+      "meanings": ["to answer", "to reply"]
+    },
+    {
+      "simp": "想",
+      "trad": "想",
+      "zhuyin": [["ㄒ", "ㄧㄤ", "ˇ"]],
+      "pinyin": "xiǎng",
+      "frequency_rank": 143,
+      "meanings": ["to think", "to want"]
+    },
+    {
+      "simp": "知",
+      "trad": "知",
+      "zhuyin": [["ㄓ", "", "ˉ"]],
+      "pinyin": "zhī",
+      "frequency_rank": 144,
+      "meanings": ["to know", "knowledge"]
+    },
+    {
+      "simp": "道",
+      "trad": "道",
+      "zhuyin": [["ㄉ", "ㄠ", "ˋ"]],
+      "pinyin": "dào",
+      "frequency_rank": 145,
+      "meanings": ["way", "path", "to say"]
+    },
+    {
+      "simp": "会",
+      "trad": "會",
+      "zhuyin": [["ㄏ", "ㄨㄟ", "ˋ"]],
+      "pinyin": "huì",
+      "frequency_rank": 146,
+      "meanings": ["can", "will", "meeting"]
+    },
+    {
+      "simp": "能",
+      "trad": "能",
+      "zhuyin": [["ㄋ", "ㄥ", "ˊ"]],
+      "pinyin": "néng",
+      "frequency_rank": 147,
+      "meanings": ["can", "able"]
+    },
+    {
+      "simp": "要",
+      "trad": "要",
+      "zhuyin": [["ㄧ", "ㄠ", "ˋ"]],
+      "pinyin": "yào",
+      "frequency_rank": 148,
+      "meanings": ["to want", "to need", "will"]
+    },
+    {
+      "simp": "得",
+      "trad": "得",
+      "zhuyin": [["ㄉ", "ㄜ", "˙"]],
+      "pinyin": "de",
+      "frequency_rank": 149,
+      "meanings": ["to get", "to obtain", "particle"]
+    }
+  ]
+}

@@ -1,0 +1,265 @@
+# Hanzi Dojo Project Plan
+
+Status legend: ☐ Pending · ⧖ In Progress · ☑ Completed
+
+---
+
+## Epic 1 — Requirements & Dictionary Foundations ☑ COMPLETE
+- **Goal:** Finalize requirements and prepare the initial dictionary dataset.
+- **Completed:** 2025-11-03 (Session 1)
+- **Total Points:** 17 pts (100% complete)
+
+### Task 1.1 — Requirements Confirmation ☑ COMPLETE (7 pts)
+- Subtask 1.1.1 (2 pts) — Document end-to-end parent/child workflow based on user walkthrough ☑
+- Subtask 1.1.2 (2 pts) — Capture success metrics, automatic disqualifiers, and edge cases in specs ☑
+- Subtask 1.1.3 (3 pts) — Validate character examples and prioritize initial coverage list ☑
+
+### Task 1.2 — Seed Initial Dictionary Dataset ☑ COMPLETE (10 pts)
+- Subtask 1.2.1 (3 pts) — Assemble ~150 high-frequency characters with Trad/Zhuyin data (initial seed; expand to 500 in Epic 2+) ☑
+- Subtask 1.2.2 (2 pts) — Normalize into versioned JSON for import ☑
+- Subtask 1.2.3 (5 pts) — Create Supabase migrations and import strategy for `dictionary_entries`/`dictionary_confusions` ☑
+
+**Deliverables:**
+- ✅ `docs/REQUIREMENTS.md` — Complete specification
+- ✅ `data/dictionary_seed_v1.json` — 150 characters
+- ✅ `data/confusion_maps_v1.json` — Distractor generation rules
+- ✅ `supabase/migrations/001_initial_schema.sql` — 14 tables with RLS
+- ✅ `supabase/migrations/002_seed_dictionary.sql` — Import template
+- ✅ `SESSION_LOG.md` — Session 1 documented
+
+---
+
+## Epic 2 — Supabase Dictionary Services ☑ COMPLETE
+- **Goal:** Implement dictionary lookup RPCs, client caching, and missing-entry logging.
+- **Status:** Completed 2025-11-03 (Session 2)
+- **Total Points:** 16 pts (100% complete)
+
+### Task 2.1 — Dictionary Lookup Pipeline ☑ COMPLETE (3/3 subtasks complete)
+- Subtask 2.1.1 (3 pts) — Create migrations for dictionary tables, indexes, and RLS policies ☑ (completed in Session 1)
+- Subtask 2.1.2 (4 pts) — Build Supabase RPC returning canonical mapping + confusions ☑
+- Subtask 2.1.3 (4 pts) — Integrate frontend dictionary client with caching & fallback ☑
+
+### Task 2.2 — Missing Entry Workflow ☑ COMPLETE (3/3 subtasks complete)
+- Subtask 2.2.1 (2 pts) — Log unmatched entries to `dictionary_missing` from Add Item flow ☑
+- Subtask 2.2.2 (2 pts) — Surface review queue placeholder (admin view or export) ☑
+- Subtask 2.2.3 (1 pt) — Add analytics/telemetry for dictionary hit rate ☑
+
+**Deliverables:**
+- ✅ `supabase/migrations/003_import_dictionary_data.sql` — 155 characters imported
+- ✅ `supabase/migrations/004_fix_dictionary_rls.sql` — Public read access for dictionary
+- ✅ `supabase/migrations/005_dictionary_lookup_rpc.sql` — RPC functions for lookup
+- ✅ `src/lib/dictionaryClient.ts` — Client with in-memory caching
+- ✅ `src/lib/dictionaryLogger.ts` — Missing entry logging service
+- ✅ `src/components/DictionaryDemo.tsx` — Interactive test component
+- ✅ `src/components/DictionaryStats.tsx` — Analytics dashboard
+- ✅ `src/components/MissingEntriesView.tsx` — Admin review queue
+
+---
+
+## Epic 3 — Practice State & Familiarity Logic ☑ COMPLETE
+- **Goal:** Update schema and app logic for per-drill familiarity and dynamic known status.
+- **Completed:** 2025-11-04 (Session 3)
+- **Total Points:** 19 pts (95% complete - tests deferred to Epic 6)
+
+### Task 3.1 — Practice State Schema Upgrade ☑ COMPLETE (3/3 subtasks complete)
+- Subtask 3.1.1 (4 pts) — Migrate `practice_state` to per `(kid, entry, drill)` counters ☑ (already in schema from Session 1)
+- Subtask 3.1.2 (3 pts) — Refactor data layer models and Supabase queries ☑
+- Subtask 3.1.3 (2 pts) — Backfill or adapt existing records (if any) ☑ (N/A - fresh schema)
+
+### Task 3.2 — Familiarity & Known Computation ☑ COMPLETE (2/3 subtasks complete, 1 deferred)
+- Subtask 3.2.1 (4 pts) — Implement scoring updates (+1.0/+0.5) and demotion rules ☑
+- Subtask 3.2.2 (3 pts) — Update UI to display familiarity scores and known badges dynamically ☑
+- Subtask 3.2.3 (3 pts) — Add unit/integration tests for scoring and queue ordering ☐ (deferred to Epic 6)
+
+**Deliverables:**
+- ✅ `src/lib/practiceStateService.ts` — Scoring logic, familiarity computation, known status
+- ✅ `src/lib/practiceQueueService.ts` — Priority-based queue fetching and filtering
+- ✅ `src/lib/drillBuilders.ts` — Drill A & B option generation with confusion maps
+- ✅ `src/components/PracticeCard.tsx` — Interactive drill display with attempt tracking
+- ✅ `src/components/FeedbackToast.tsx` — Scoring feedback UI with Sensei messages
+- ✅ `src/components/KnownBadge.tsx` — Dynamic known status badges
+- ✅ `src/components/PracticeDemo.tsx` — Full practice flow testing interface
+
+---
+
+## Epic 4 — Training Mode UX & Guardrails ☑ COMPLETE
+- **Goal:** Deliver landscape-optimized full-screen kid training experience and offline guard.
+- **Completed:** 2025-11-04 (Session 4)
+- **Total Points:** 14 pts (scope reduced from 17 pts when passcode system removed)
+
+### Task 4.1 — Training Layout & Navigation ☑ COMPLETE
+- Subtask 4.1.1 (4 pts) — Implement landscape-first full-screen training layout ☑
+- Subtask 4.1.2 (2 pts) — Create `/training` route separate from demo interface ☑
+- Subtask 4.1.3 (2 pts) — Add "Exit Training" button to return to dashboard (no passcode needed) ☑
+
+### Task 4.2 — Offline & Error Handling ☑ COMPLETE
+- Subtask 4.2.1 (3 pts) — Detect offline state and pause training/Add Item interactions ☑ (OfflineGuard + connection hooks)
+- Subtask 4.2.2 (2 pts) — Design and integrate dojo-themed offline modal & messaging ☑
+- Subtask 4.2.3 (1 pt) — QA network transitions ☑ (manual checks pending polish for mobile landscape)
+
+**Deliverables:**
+- `src/App.tsx`, `src/main.tsx`, `src/components/Dashboard.tsx`, `src/components/TrainingMode.tsx`
+- Offline detection system in `src/lib/offlineDetection.ts`, `src/components/OfflineModal.tsx`, `src/components/OfflineBlocker.tsx`
+- Routing + full-screen UX verified in code review and smoke tests
+
+**Follow-ups:** Landscape CSS polish for mobile/tablet rotation remains open (tracked under Epic 7).
+
+---
+
+## Epic 5 — Parent Console Enhancements ☑ COMPLETE (Code)
+- **Goal:** Upgrade Add Item flow with dictionary auto-fill and refresh dashboard metrics.
+- **Completed:** 2025-11-04 (Session 5) — awaiting full QA + automated test alignment
+- **Total Points:** 13 pts (Add Item) + 10 pts (Dashboard Metrics)
+
+### Task 5.1 — Add Item Enhancements ☑ COMPLETE
+- Subtask 5.1.1 (4 pts) — Auto-fill Simplified/Traditional/Zhuyin with override UI ☑ (`AddItemForm.tsx`)
+- Subtask 5.1.2 (3 pts) — Prompt for multi-character confirmation and drill applicability ☑ (drill badge messaging)
+- Subtask 5.1.3 (3 pts) — Strengthen validation (duplicate detection, tone checking) ☑
+
+### Task 5.2 — Dashboard Metrics Refresh ☑ COMPLETE
+- Subtask 5.2.1 (3 pts) — Implement weekly familiarity and all-time tiles ☑
+- Subtask 5.2.2 (3 pts) — Compute accuracy & known counts dynamically from `practice_state` ☑
+- Subtask 5.2.3 (4 pts) — Render 7-day familiarity sparkline with responsive design ☑
+
+**Deliverables:**
+- `src/components/AddItemForm.tsx`, `DashboardMetrics.tsx`, supporting tests (currently failing, see Epic 6)
+- QA documentation updates in `docs/operational/QA_MANUAL_ONLY.md`
+- Hardcoded `TEST_KID_ID` workaround in `Dashboard.tsx` documented for removal
+
+**Follow-ups:**
+- Automated tests for Add Item & metrics rely on real Supabase; need mocking strategy (Epic 6)
+- Manual QA execution (Tier 1 checklist) still required before release (Epic 6)
+
+---
+
+## Epic 5.5 — UX Refinement: Priority Actions & Drill Selection ☑ COMPLETE
+- **Goal:** Improve parent workflow by surfacing primary actions and adding explicit drill selection with proficiency-based recommendations.
+
+**Deliverables:**
+- Sticky action bar with Add Item and Launch Training always visible in header
+- Pre-training drill selection modal with queue depth and proficiency metrics
+- Proficiency-based recommendation service (`drillBalanceService.ts`)
+- Dashboard drill balance widget showing accuracy comparison
+- Auto-selection of recommended drill based on proficiency gap, struggling items, or never-practiced status
+
+**Key Features:**
+- Primary actions front-and-center (no scrolling required)
+- Explicit drill choice before training starts (no default drill)
+- Smart recommendations based on accuracy, not just recency
+- Visual proficiency comparison on dashboard
+
+### Task 5.5.1 — Sticky Action Bar ☑ COMPLETE
+- Subtask 5.5.1.1 (2 pts) — Move Add Item and Launch Training to persistent header bar; clean up demo tabs ☑
+
+### Task 5.5.2 — Pre-Training Drill Selection Modal ☑ COMPLETE
+- Subtask 5.5.2.1 (3 pts) — Create DrillSelectionModal with queue depth display, radio selection, disabled state for empty drills ☑
+
+### Task 5.5.3 — Drill Balance Service (Proficiency-Based) ☑ COMPLETE
+- Subtask 5.5.3.1 (4 pts) — Implement drillBalanceService.ts with accuracy calculation and proficiency-based recommendation logic ☑
+
+### Task 5.5.4 — Enhanced Modal with Recommendations ☑ COMPLETE
+- Subtask 5.5.4.1 (2 pts) — Add proficiency metrics and smart recommendation display to DrillSelectionModal ☑
+
+### Task 5.5.5 — Dashboard Drill Balance Widget ☑ COMPLETE
+- Subtask 5.5.5.1 (1 pt) — Create DrillBalanceWidget showing accuracy comparison and struggling items ☑
+
+---
+
+## Epic 6 — QA, Testing & Release Readiness ☐ PENDING
+- **Goal:** Harden the system, align automated tests with implementation, and prepare deployment handoff.
+
+### Task 6.1 — Automated Testing & Validation ☐
+- Subtask 6.1.1 (5 pts) — Reconcile Vitest suites with production APIs (update signatures, handle async returns)
+- Subtask 6.1.2 (4 pts) — Introduce Supabase client mocks to eliminate network calls during tests
+- Subtask 6.1.3 (4 pts) — Add integration tests for Add Item → practice flow and TrainingMode queue progression
+- Subtask 6.1.4 (2 pts) — Ensure lint, typecheck, and `npm run test:run` pass in CI without external services
+- **Subtask 6.1.5 (3 pts) — 🐛 BUG: Add manual Zhuyin input for missing dictionary entries**
+  - AddItemForm currently shows read-only Zhuyin field when dictionary lookup fails
+  - **Replace with text input accepting both tone marks AND numeric format**
+  - Accept: `ㄊㄡˊ` (if pasted) OR `ㄊㄡ2` (numeric: 1=ˉ, 2=ˊ, 3=ˇ, 4=ˋ, 5=˙)
+  - **UI guidance:** Show placeholder "ㄊㄡ2" with helper text "Use numbers for tones: 1-5"
+  - Display live preview of converted Zhuyin below input field
+  - Parse input into ZhuyinSyllable array format: `[["ㄊ","ㄡ","ˊ"]]`
+  - Validate complete syllables before submission (consonant/vowel + tone)
+  - Still log to dictionary_missing even when manual entry succeeds
+  - Per REQUIREMENTS.md: "Manual entries fully functional in drills (no degraded experience)"
+- **Subtask 6.1.6 (2 pts) — 🐛 BUG: Exit Training shows no summary when clicked mid-session**
+  - Currently `exitTraining()` navigates directly to dashboard without summary
+  - Should show session stats modal (points, accuracy, progress) with "Exit" and "Continue" options
+  - Summary modal already exists for natural session end - reuse for manual exit
+- **Subtask 6.1.7 (3 pts) — 🐛 BUG: Drill B generates duplicate character options (e.g., "頭頭")**
+  - Fallback padding logic duplicates last character when confusion maps insufficient
+  - Line 353 in drillBuilders.ts: `correctTraditional + correctTraditional[correctTraditional.length - 1]`
+  - Need better fallback: use dictionary entries for random valid characters, or simpler visual variants
+  - Expand CONFUSE_TRAD_VISUAL confusion maps to cover common characters (頭, 門, etc.)
+
+### Task 6.2 — Release Preparation & Authentication ☐
+- Subtask 6.2.1 (3 pts) — Implement proper login/signup UI (replace auto-login in Dashboard.tsx)
+- Subtask 6.2.2 (3 pts) — Set up seeded test kid/profile data and fixtures for manual QA & demos
+- Subtask 6.2.3 (2 pts) — Execute Tier 1 manual QA scenarios; capture issues in SESSION_LOG.md
+- Subtask 6.2.4 (2 pts) — Update deployment checklist with new auth/backups requirements; confirm Vercel env vars
+- Subtask 6.2.5 (1 pt) — Remove auto-login code from Dashboard.tsx and delete test account `test@hanzidojo.local`
+
+### Task 6.3 — Entry Catalog (Dojo Wall) ☑ COMPLETE **RELEASE BLOCKER RESOLVED**
+- **Subtask 6.3.1 (3 pts) — Create EntryCatalog component with sortable/filterable entry list** ☑
+  - Card grid view showing: Character (Simp/Trad), Known status (⭐/⚠️), Familiarity score, Last practiced
+  - Sort options: Recently added, Familiarity (low to high), Struggling items first
+  - Filter options: Show all, Known only, Not known yet, Same form (Simp=Trad), Different forms (Simp≠Trad)
+  - Display entry count: "X character(s) added"
+  - Responsive grid: 1/2/3 columns based on screen width
+- **Subtask 6.3.2 (2 pts) — Add basic entry management actions** ☑
+  - Details modal with drill-by-drill practice stats (first-try, second-try, miss streak, known status)
+  - Delete entry with confirmation modal (cascades to practice_state and practice_events)
+  - "Practice" button opens drill selection modal (same UX as Launch Training)
+- **Subtask 6.3.3 (1 pt) — Integrate catalog into Dashboard tabs** ☑
+  - Added "📚 My Characters" tab between Dashboard and Practice Demo
+  - Empty state: "No Characters Yet - Add your first character to get started!"
+  - Passes onLaunchTraining callback for drill selection
+
+### Task 6.4 — Dashboard Metrics Simplification ☑ COMPLETE
+- **Subtask 6.4.1 (3 pts) — Streamline dashboard tiles to 4 actionable metrics** ☑
+  - **Tile 1:** All-Time Points (🎯) - Total familiarity earned
+  - **Tile 2:** Last Practiced (📅) - "Today", "2 days ago", "Never" with motivational message ("Time to practice!" if >3 days)
+  - **Tile 3:** Accuracy Streak (🔥) - Shows both "X improving 🔥" AND "Y perfect 💯" simultaneously
+  - **Tile 4:** Characters Mastered (⭐) - "X of Y mastered" with congratulatory message when complete
+  - Removed: Weekly familiarity tile, 7-day sparkline component
+- **Subtask 6.4.2 (2 pts) — Implement session-level accuracy tracking** ☑
+  - Sessions grouped by 2-hour window gaps in practice_events
+  - First-try accuracy calculated per session (consistent with drill balance)
+  - Improving streak: counts consecutive sessions where accuracy increases
+  - Perfect streak: counts consecutive 100% accuracy sessions
+  - Computed on-demand (no new table needed)
+- **Subtask 6.4.3 (1 pt) — Unify accuracy definition across app to first-try only** ☑
+  - All accuracy calculations now use first-try attempts only (attempt_index = 1)
+  - Consistent across Drill Balance Widget, Dashboard Metrics, and session tracking
+  - Documented in DASHBOARD_METRICS_LOGIC.md
+
+---
+
+## Epic 7 — Mobile Polish & Field Readiness ☐ PENDING
+- **Goal:** Resolve remaining UX polish gaps discovered during device testing and document operational guardrails.
+- **Deferred to V1.1:** Multi-character word support (4 pts) - parent can add characters separately for V1
+- **Deferred to V2:** Belt animations (2 pts), Summary modal enhancements (2 pts), Grade/week UI fields (2 pts backlog)
+
+### Task 7.1 — Landscape & Responsive Fixes ☐
+- **Subtask 7.1.1 (2 pts) — Fix TrainingMode portrait/vertical mode layout issues**
+  - **UX Issue:** Next button appears below fold in portrait mode after selecting drill option (requires scrolling)
+  - Adjust PracticeCard vertical layout to fit all elements in viewport
+  - Reduce spacing or adjust button positioning to eliminate scrolling need
+  - Test: All buttons (Exit Training, Next, drill options) visible without scrolling in portrait mode
+- Subtask 7.1.2 (2 pts) — Refine TrainingMode layout for tablet/mobile landscape (padding, flex wrap)
+- Subtask 7.1.3 (2 pts) — Validate portrait ↔ landscape rotation handling in PracticeCard and top bar
+
+### Task 7.2 — UI Polish & Consistency ☐
+- Subtask 7.2.1 (1 pt) — Fix sticky action bar button width inconsistency (Add Item vs Launch Training)
+- Subtask 7.2.2 (1 pt) — Tighten session summary modal vertical spacing to fit buttons in viewport
+- Subtask 7.2.3 (2 pts) — Document/test connectivity workarounds for restrictive Wi-Fi environments
+- Subtask 7.2.4 (3 pts) — Provide Supabase seed script + reset instructions for QA/staging datasets
+
+### Task 7.3 — Analytics & Telemetry Prep ☐
+- Subtask 7.3.1 (2 pts) — Add optional logging for offline transitions and dictionary misses (for future monitoring)
+- Subtask 7.3.2 (1 pt) — Capture belt progression baseline metrics for parent dashboard handoff
+
+---
+
+> Check off subtasks as they’re completed; when all subtasks in a task are done, mark the task, then the epic. Update SESSION_LOG.md after each session to reflect progress and new findings from test runs.

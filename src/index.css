@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Animations for feedback toast */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, 10px);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-bounce-in {
+  animation: bounce-in 0.5s ease-out;
+}
+
+/* Hanzi Dojo Custom Styles */
+
+@layer base {
+  html, body {
+    @apply bg-rice-white text-ink-black font-sans;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .dojo-card {
+    @apply bg-white rounded-lg shadow-md p-6 border border-gray-200;
+  }
+  
+  .dojo-button-primary {
+    @apply bg-dojo-red text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors;
+  }
+  
+  .dojo-button-secondary {
+    @apply bg-dojo-gold text-ink-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-colors;
+  }
+}

@@ -1,0 +1,86 @@
+# Roadmap — Hanzi Dojo (漢字道場)
+
+## 🚀 V1 — Core Release
+**Focus:** Foundational dojo experience.
+
+### Included
+- Core drills:  
+  - **Drill A:** Zhuyin recognition (tone required).  
+  - **Drill B:** Simplified → Traditional mapping.  
+- Points & belt progression system powered by familiarity scoring (+1.0 / +0.5).  
+- Dojo-themed UI and Sensei feedback.  
+- Supabase dictionary-assisted Add Item with missing-term logging.  
+- Full-screen landscape-optimized kid training mode (parent supervision, no passcode needed).  
+- Offline guardrails (training paused when offline with dojo-themed modal).  
+- Parent login and single-child support.  
+
+### Goals
+- Establish core loop: Train → Earn points → Rank up.  
+- Validate Supabase schema, dictionary RPCs, and familiarity scoring model.  
+- Ensure <250ms latency per interaction.
+
+---
+
+## 🔄 V1.1 — Refinement & Resilience
+**Focus:** Data durability, motivation, and consistency.
+
+### Additions
+- Automatic Supabase backups (JSON snapshot) with parent-initiated restore.  
+- Expand dictionary seed beyond 1,000 entries guided by `dictionary_missing`.  
+- Daily training streaks and badge indicators.  
+- Animated belt transitions and visual polish.  
+- Minor UX tuning (faster drill loading, smoother transitions).  
+
+### Goals
+- Guarantee data persistence across sessions/devices.  
+- Reinforce positive habit-building through streaks.  
+
+---
+
+## 🌱 V2 — Expansion: Story & Sentence Mode
+**Focus:** Contextual learning and creative engagement.
+
+### New Features
+- **Story Mode:** “Scrolls of Hanzi” — short tales generated using known words.  
+- **Sentence Practice:** Fill-in or match-the-word sentence tasks.  
+- **Sensei Zì Mascot:** Interactive guide offering tips and encouragement.  
+- **Teacher/Class Dojo Mode:** Optional multi-user cohort view (for families or classrooms).  
+- **Multi-child profiles:** Parents can switch between learners easily.
+
+### Goals
+- Increase immersion and retention.  
+- Connect learned characters with context and storytelling.  
+
+---
+
+## ⚙️ V3 — Personalization & Intelligence
+**Focus:** Smart adaptation and performance analytics.
+
+### Concepts
+- Personalized word review queues (spaced repetition).  
+- Adaptive difficulty (auto-skip well-known words).  
+- Detailed analytics for parents (accuracy trends, focus areas).  
+- Voice pronunciation check (stretch goal).  
+- PWA offline installable mode.
+
+### Goals
+- Reduce repetition fatigue.  
+- Introduce adaptive learning logic.  
+- Deliver teacher/parent insight dashboards.
+
+---
+
+## 🧭 Long-Term Vision — “Path to Mastery”
+**Hanzi Dojo (漢字道場)** aims to become the most engaging bilingual tool for character acquisition by blending structured repetition with joyful mastery.
+
+### Vision Themes
+- Cross-device continuity (desktop, tablet, phone).  
+- Bilingual (English + Chinese + Zhuyin) UI.  
+- Gamified dojo world with new ranks and environments.  
+- Expand to community and co-learning spaces (“Family Dojo”).  
+
+---
+
+## 🪄 Guiding Principle
+> *“Every stroke practiced with focus is progress made.”*  
+> Hanzi Dojo is not about rote memorization — it’s about **discipline, delight, and discovery**.
