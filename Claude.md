@@ -186,6 +186,8 @@ Before coding:
 - **2025-11-05 (Session 6 - AI-8 QA):** Epic 5.5 scoped and implemented: Primary actions moved to sticky header bar; pre-training drill selection modal with proficiency metrics; recommendation logic prioritizes accuracy over recency; dashboard widget shows drill balance.
 - **2025-11-05 (Session 6 - Epic 5.5):** Proficiency-based drill recommendations use: (1) struggling items (consecutive_miss >= 2), (2) never-practiced drills, (3) accuracy gap >= 15%, (4) balanced if similar performance.
 - **2025-11-04 (Session 5):** Home network AP isolation blocks mobile testing; desktop mobile simulation provides effective alternative until router configured.
+- **2025-11-09 (Session 7):** Bulk character upload deferred to V1.1 - validation complexity (multi-pronunciation, manual Zhuyin, drill applicability) requires human review per character regardless of CSV import, making it not significantly faster than current one-at-a-time workflow for V1 usage patterns.
+- **2025-11-09 (Session 7):** Production deployment complete - Database Safety Protocol established for all future migrations (READ-ONLY analysis, backup strategy, syntax validation, incremental execution).
 
 ---
 
@@ -196,52 +198,57 @@ Before coding:
 - **Epic 4 (Training Mode UX & Guardrails):** ✅ COMPLETE
 - **Epic 5 (Entry Management & Belt System):** ✅ COMPLETE
 - **Epic 5.5 (UX Refinement: Priority Actions & Drill Selection):** ✅ COMPLETE
-- **Epic 6 (QA, Testing & Release Readiness):** **IN PROGRESS** (34 of 41 pts complete - 83%)
+- **Epic 6 (QA, Testing & Release Readiness):** ✅ **PRODUCTION DEPLOYED** (41 of 41 core pts complete - 100%)
 
-**Status:** Excellent progress on Epic 6! All critical bugs fixed and tested. Repository structure cleaned. README.md created.
+**Status:** 🎉 **V1 Production Deployment Complete!** App live at https://hanzi-dojo.vercel.app
 
 **Epic 6 Completed Tasks:**
-- ✅ **Task 6.3 - Entry Catalog (6 pts)** - RELEASE BLOCKER RESOLVED
-  - Sortable/filterable catalog with 3 sort options, 5 filter options
-  - Details modal with drill-by-drill stats
-  - Delete with confirmation, Practice button opens drill selection
-  - Icon improvement: Changed Drill A from 🔤 to ㄅ (Zhuyin character)
-- ✅ **Task 6.4 - Dashboard Metrics Simplification (6 pts)**
-  - 4 streamlined tiles: All-Time Points, Last Practiced, Accuracy Streak, Characters Mastered
-  - Session-based accuracy tracking (2-hour windows)
-  - Dual streaks: improving + perfect sessions
-  - Removed confusing weekly familiarity and sparkline
-- ✅ **Session 7 Bug Fixes (8 pts equivalent)** - 2025-11-09
-  - Fixed Bug 6.1.5: Manual Zhuyin input with numeric tone notation (3 pts)
-  - Fixed Bug 6.1.6: Exit Training shows summary mid-session (2 pts)
-  - Fixed Bug 6.1.7: Drill B duplicate character options (3 pts)
-  - Fixed EntryCatalog details modal "Zhuyin display pending"
-  - Fixed Continue Training repeating same character
-  - Fixed Zhuyin text wrapping in drill options (UX)
-  - Repository cleanup: Deleted scattered session summary file
-  - Created comprehensive README.md
+- ✅ **Task 6.1 (Bug Fixes) - 8 pts** - All RESOLVED & TESTED
+  - Manual Zhuyin input with numeric tone notation
+  - Exit Training shows summary mid-session
+  - Drill B duplicate character options
+  - EntryCatalog pronunciation display
+  - Continue Training character repeat
+  - Zhuyin text wrapping
+- ✅ **Task 6.2 (Authentication & Deployment) - 12 pts** - COMPLETE
+  - Implemented proper login/signup UI (AuthScreen component)
+  - Removed auto-login code from Dashboard
+  - Deployed to Vercel production
+  - Fixed Vercel SPA routing (vercel.json)
+  - Fixed environment variable configuration
+  - Fixed TypeScript build (excluded test files)
+  - Fixed RLS policy for kid profile creation
+  - Fixed kid profile schema mismatch
+  - Fixed race condition in profile creation
+- ✅ **Task 6.3 (Entry Catalog) - 6 pts**
+  - Sortable/filterable catalog, details modal
+  - Drill A icon: 🔤 → ㄅ (Bopomofo)
+- ✅ **Task 6.4 (Dashboard Metrics) - 6 pts**
+  - 4 streamlined tiles, session-based accuracy
+- ✅ **Task 6.2.4 (Deployment Prep) - 2 pts**
+  - Repository structure cleanup
+  - README.md created
+  - Database migration applied safely
 
-**All Original Bugs:** ✅ **RESOLVED & TESTED**
+**Production Configuration:**
+- URL: https://hanzi-dojo.vercel.app
+- Supabase Auth: Email confirmation ENABLED
+- Multi-user ready with RLS isolation
+- Dictionary: 155 characters (sufficient for V1)
 
-**QA Testing Status:**
-- ✅ AI-8: Add Item → Practice flow
-- ✅ DM-2: Dashboard Metrics (completed with redesign)
-- ✅ NET-1: Offline transitions
+**Remaining Optional:**
+- Task 6.1.1-6.1.4 (Automated test alignment - 15 pts) - Can defer to V1.1
 
-**Next Steps:**
-1. **Epic 6 Remaining Tasks:**
-   - **Priority 1:** Task 6.2 - Authentication & deployment (12 pts)
-     - Remove auto-login from Dashboard.tsx
-     - Implement proper login/signup UI
-     - Deploy to Vercel production
-   - **Priority 2:** Task 6.1 - Automated test alignment (15 pts - can defer)
-     - Update test signatures to match current code
-     - Implement Supabase mocking
-     - Integration tests
-2. **Epic 7 - Polish** (7 pts - UX improvements)
-   - Landscape scrolling fix (layout redesign)
-   - Portrait mode spacing
-   - Button width consistency
+**Next Steps (Post-V1):**
+1. **Epic 7 - Polish (7 pts - Optional UX improvements)**
+   - Task 7.1.1 (2 pts): Fix landscape scrolling issue (layout redesign)
+   - Task 7.1.2 (3 pts): Refine landscape layout for tablet/mobile
+   - Task 7.2.1 (1 pt): Fix sticky action bar button width inconsistency
+   - Task 7.2.2 (1 pt): Tighten session summary modal vertical spacing
+2. **Optional Cleanup:**
+   - Delete test account (`test@hanzidojo.local`) from Supabase Auth
+   - Dictionary expansion: 155 → 500 characters (via migration)
+   - Monitor `dictionary_missing` table for needed additions
 
 ---
 
@@ -274,9 +281,15 @@ Before coding:
 ---
 
 ## 🔄 **FUTURE ENHANCEMENTS**
-- V1.1: Automatic Supabase backups, streak tracking, larger dictionary seed, animated belts.
+- V1.1: Bulk character upload (CSV with validation workflow), automatic Supabase backups, streak tracking, larger dictionary seed, animated belts.
 - V2: Story mode, sentence drills, multi-child and teacher cohorts, Sensei Zì interactive guide.
 - V3+: Adaptive spacing, analytics dashboards, voice pronunciation, PWA installability.
+
+**Bulk Upload Decision (Session 7):**
+- Deferred to V1.1 due to validation complexity
+- Even with CSV upload, each character requires human review (multi-pronunciation selection, manual Zhuyin for dictionary misses, drill applicability confirmation)
+- Current one-at-a-time workflow sufficient for V1 usage pattern (add characters as encountered in stories/homework)
+- Future implementation will include CSV template, batch dictionary lookup, preview/validation queue, and bulk insert
 
 ---
 
