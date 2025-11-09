@@ -125,15 +125,6 @@ export function TrainingMode() {
     setShowSummary(false)
   }
 
-  const restartSession = () => {
-    // Reset everything and start from beginning
-    setCurrentIndex(0)
-    setSessionScore(0)
-    setSessionCorrect(0)
-    setSessionTotal(0)
-    setShowSummary(false)
-  }
-
   // Get current queue entry
   const currentEntry = currentQueue[currentIndex]
 
