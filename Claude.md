@@ -252,16 +252,24 @@ Before coding:
 - Audio pronunciation and story/sentence drills deferred to later roadmap.
 - **Landscape mode scrolling (Epic 7):** On mobile landscape, Training Mode requires vertical scrolling to see Next button after selecting options. Requires layout redesign to fit all elements in viewport. Deferred to Epic 7 polish phase.
 
-### **⚠️ TEMPORARY: Epic 5 Testing Uses Auto-Login**
-For Epic 5 testing, the Dashboard auto-logs in with test credentials:
-- **Email:** `test@hanzidojo.local`
-- **Password:** `testpassword123`
-- **Setup:** See `docs/operational/EPIC5_TESTING_SETUP.md`
+### **✅ Production Authentication (Epic 6.2.1 Complete)**
+**Deployment:** Production at https://hanzi-dojo.vercel.app
 
-**Epic 6 Changes Required:**
-- Remove auto-login code from `Dashboard.tsx` useEffect
-- Implement proper login/signup UI
-- Delete test account from Supabase Auth
+**Authentication Setup:**
+- Proper login/signup UI implemented (AuthScreen component)
+- Supabase Auth with email confirmation **ENABLED** (security best practice)
+- Session-based authentication with RLS policies
+- Auto-creates kid profile on first signup (name: "My Student", grade: 1, belt: white)
+
+**Multi-User Support:**
+- Each user gets isolated data via Row Level Security
+- Users can only access their own kids, entries, and practice data
+- Dictionary is shared read-only reference data
+
+**Test Account (Optional):**
+- Email: `test@hanzidojo.local`
+- Password: `testpassword123`
+- Can be deleted once production testing complete
 
 ---
 

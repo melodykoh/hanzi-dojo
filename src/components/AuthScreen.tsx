@@ -61,8 +61,7 @@ export function AuthScreen() {
               .insert([{
                 owner_id: user.id,
                 name: 'My Student', // Default name, can be edited later
-                grade_level: 1,
-                belt: 'white'
+                belt_rank: 'white'
               }])
 
             if (kidError) {
