@@ -25,15 +25,29 @@
 **Focus:** Data durability, motivation, and consistency.
 
 ### Additions
-- Automatic Supabase backups (JSON snapshot) with parent-initiated restore.  
-- Expand dictionary seed beyond 1,000 entries guided by `dictionary_missing`.  
-- Daily training streaks and badge indicators.  
-- Animated belt transitions and visual polish.  
-- Minor UX tuning (faster drill loading, smoother transitions).  
+- **Bulk character upload:** CSV import with validation workflow for batch entry management.
+- Automatic Supabase backups (JSON snapshot) with parent-initiated restore.
+- Expand dictionary seed beyond 1,000 entries guided by `dictionary_missing`.
+- Daily training streaks and badge indicators.
+- Animated belt transitions and visual polish.
+- Minor UX tuning (faster drill loading, smoother transitions).
 
 ### Goals
-- Guarantee data persistence across sessions/devices.  
-- Reinforce positive habit-building through streaks.  
+- Reduce friction for parents managing large character lists.
+- Guarantee data persistence across sessions/devices.
+- Reinforce positive habit-building through streaks.
+
+### Bulk Upload Feature Design
+**Rationale:** Deferred from V1 due to validation complexity. Even with CSV upload, each character requires human review for:
+- Multi-pronunciation selection (着/著, 了, etc.)
+- Manual Zhuyin entry when dictionary lookup fails
+- Drill applicability confirmation (identical simp/trad cases)
+
+**Planned Implementation:**
+- CSV template download (columns: simplified, traditional, zhuyin, notes)
+- Batch dictionary lookup with preview
+- Character-by-character validation queue
+- Bulk insert after approval  
 
 ---
 
