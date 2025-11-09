@@ -67,6 +67,9 @@ export function AuthScreen() {
             if (kidError) {
               console.error('Failed to create kid profile:', kidError)
               // Don't throw - user can create manually later
+            } else {
+              // Wait a moment for the insert to fully commit
+              await new Promise(resolve => setTimeout(resolve, 500))
             }
           }
         }
