@@ -29,19 +29,13 @@ export function DictionaryDemo() {
     }
   }
 
-  const handleBatchTest = async () => {
-    setLoading(true)
-    try {
-      const testChars = ['太', '阳', '黑', '前', '后', '着', '光', '灯', '亮', '见']
-      await dictionaryClient.batchLookup(testChars)
-      setStats(dictionaryClient.getStats())
-      alert(`Batch lookup complete! Loaded ${testChars.length} characters.\nCheck console for details.`)
-    } catch (err) {
-      console.error('Batch lookup error:', err)
-    } finally {
-      setLoading(false)
-    }
-  }
+  // Batch Test removed from UI - developer testing only
+  // To test batch lookup in console:
+  // import { dictionaryClient } from './lib/dictionaryClient'
+  // await dictionaryClient.batchLookup(['太', '阳', '黑', '前', '后', '着', '光', '灯', '亮', '见'])
+  //
+  // Rationale: Batch Test was confusing for end users (no clear purpose)
+  // Lookup button provides all user-facing value (check if character exists before adding)
 
   return (
     <div className="space-y-6">
@@ -60,16 +54,9 @@ export function DictionaryDemo() {
           <button
             onClick={handleLookup}
             disabled={loading}
-            className="dojo-button-primary disabled:opacity-50"
+            className="dojo-button-primary disabled:opacity-50 whitespace-nowrap"
           >
             {loading ? 'Looking up...' : 'Lookup'}
-          </button>
-          <button
-            onClick={handleBatchTest}
-            disabled={loading}
-            className="dojo-button-secondary disabled:opacity-50"
-          >
-            Batch Test
           </button>
         </div>
 

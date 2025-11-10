@@ -175,7 +175,7 @@ export function PracticeCard({
         </div>
         
         {/* Options */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           {drillAOptions.map((option, index) => {
             const isDisabled = disabledOptions.has(index)
             const isSelected = selectedOption === index
@@ -188,14 +188,14 @@ export function PracticeCard({
                 onClick={() => handleOptionClick(index)}
                 disabled={isDisabled || attemptState === 'complete' || isSubmitting}
                 className={`
-                  p-6 text-3xl font-sans rounded-lg border-2 transition-all whitespace-nowrap
+                  p-6 text-3xl font-sans rounded-lg border-2 transition-all
                   ${isDisabled ? 'opacity-30 cursor-not-allowed bg-gray-100 border-gray-300' : ''}
                   ${isWrong ? 'border-red-500 bg-red-50' : ''}
                   ${showAsCorrect ? 'border-green-500 bg-green-50' : ''}
                   ${!isDisabled && !isSelected && !showAsCorrect ? 'border-gray-300 hover:border-gray-400 hover:bg-gray-50' : ''}
                 `}
               >
-                {option.display}
+                <span className="break-words">{option.display}</span>
               </button>
             )
           })}

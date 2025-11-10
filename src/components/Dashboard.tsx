@@ -137,7 +137,7 @@ export function Dashboard() {
         </div>
       </div>
 
-      {/* Tabs - Demo/Debug Views Only */}
+      {/* Tabs */}
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex gap-2 border-b border-gray-200 overflow-x-auto">
           <button
@@ -171,16 +171,6 @@ export function Dashboard() {
             🥋 Practice Demo
           </button>
           <button
-            onClick={() => setActiveTab('stats')}
-            className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
-              activeTab === 'stats'
-                ? 'text-red-600 border-b-2 border-red-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            📈 Analytics
-          </button>
-          <button
             onClick={() => setActiveTab('demo')}
             className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
               activeTab === 'demo'
@@ -200,6 +190,20 @@ export function Dashboard() {
           >
             🔍 Missing
           </button>
+          {/* Analytics tab hidden - developer-only metrics (cache hit rates, etc.) */}
+          {/* To re-enable: uncomment below */}
+          {/*
+          <button
+            onClick={() => setActiveTab('stats')}
+            className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
+              activeTab === 'stats'
+                ? 'text-red-600 border-b-2 border-red-600'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            📈 Analytics
+          </button>
+          */}
         </div>
       </div>
 

@@ -59,6 +59,21 @@ Before coding:
 - [ ] Propose cleanup if structure violations found
 - [ ] Confirm user's priority for today's session
 
+### **Deployment Workflow Checklist**
+
+For significant changes (>50 lines or >3 files):
+- [ ] Create feature branch: `git checkout -b feature/name`
+- [ ] Commit with descriptive message and co-author
+- [ ] Push branch: `git push -u origin feature/name`
+- [ ] Create PR: `gh pr create --title "..." --body "..." --base main`
+- [ ] Wait for Vercel preview (~2 min), test thoroughly
+- [ ] Merge via GitHub UI or `gh pr merge <#>`
+- [ ] Update local: `git checkout main && git pull`
+- [ ] Clean up: `git branch -d feature/name`
+- [ ] Verify production at https://hanzi-dojo.vercel.app
+
+**Reference:** `docs/DEVELOPMENT_AND_DEPLOYMENT.md` for full workflow
+
 ---
 
 ## 🚨 **MANDATORY: Complete Before Any Coding**
@@ -210,6 +225,32 @@ Before coding:
 - 300ms debounced dictionary lookup for responsiveness
 - Drill selection modal before training (proficiency-based recommendations)
 - Sticky action bar for primary functions (Add Item, Launch Training)
+
+### Dashboard Tabs - User-Facing Features
+**Decision (Session 8, Nov 10 2025):** Keep useful tools visible, hide only pure developer metrics
+
+**Visible Tabs (5 total):**
+- **Dashboard** - Progress metrics, weekly stats, belt progression
+- **My Characters** - Entry catalog management
+- **Practice Demo** - Test drills without affecting kid stats (sandbox mode, mockMode=true)
+- **Dictionary** - Lookup characters before adding (check if in dictionary, view Zhuyin/variants)
+- **Missing** - Track missing dictionary entries (helps plan Epic 8 expansion)
+
+**Hidden Tab:**
+- **Analytics** - Cache hit rates, dictionary client stats (developer metrics only, no user value)
+
+**Rationale:** 
+- Practice Demo useful for parents to preview drills
+- Dictionary Lookup saves time (check before adding)
+- Missing Entries helps planning (know what needs seeding)
+- Analytics is purely technical (cache performance, not actionable for users)
+
+**Developer access to Analytics:** 
+- Uncomment in Dashboard.tsx (lines ~190-200)
+- Console: `dictionaryClient.getStats()`
+
+**Other removals:**
+- **Batch Test button** - Removed from Dictionary Demo (Session 8, cache testing only)
 
 **For detailed historical context and session-by-session discoveries, see:** `SESSION_LOG.md`
 
