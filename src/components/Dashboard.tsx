@@ -18,6 +18,7 @@ export function Dashboard() {
   const [activeTab, setActiveTab] = useState<'metrics' | 'catalog' | 'practice' | 'demo' | 'stats' | 'missing'>('metrics')
   const [showAddItemForm, setShowAddItemForm] = useState(false)
   const [showDrillSelection, setShowDrillSelection] = useState(false)
+  const [catalogRefreshTrigger, setCatalogRefreshTrigger] = useState(0)
 
   const [kidId, setKidId] = useState<string | null>(null)
   const [authError, setAuthError] = useState<string | null>(null)
@@ -219,6 +220,7 @@ export function Dashboard() {
           <EntryCatalog 
             kidId={kidId} 
             onLaunchTraining={handleLaunchTraining}
+            refreshTrigger={catalogRefreshTrigger}
           />
         )}
         {activeTab === 'catalog' && !kidId && (
@@ -244,6 +246,7 @@ export function Dashboard() {
               kidId={kidId}
               onSuccess={() => {
                 setShowAddItemForm(false)
+                setCatalogRefreshTrigger(prev => prev + 1)  // Trigger catalog reload
                 alert('✅ Item added successfully!')
               }}
               onCancel={() => setShowAddItemForm(false)}
