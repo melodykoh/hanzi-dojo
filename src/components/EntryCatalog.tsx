@@ -8,6 +8,7 @@ import type { Entry, PracticeState, ZhuyinSyllable, DictionaryEntry } from '../t
 interface EntryCatalogProps {
   kidId: string
   onLaunchTraining?: (drill?: string) => void
+  refreshTrigger?: number  // When this changes, reload entries
 }
 
 type SortOption = 'recent' | 'familiarity' | 'struggling'
@@ -30,7 +31,7 @@ function formatZhuyin(syllables: ZhuyinSyllable[]): string {
   return syllables.map(([initial, final, tone]) => `${initial}${final}${tone}`).join(' ')
 }
 
-export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
+export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryCatalogProps) {
   const [items, setItems] = useState<EntryCatalogItem[]>([])
   const [filteredItems, setFilteredItems] = useState<EntryCatalogItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -44,7 +45,7 @@ export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
 
   useEffect(() => {
     loadEntries()
-  }, [kidId])
+  }, [kidId, refreshTrigger])
 
   useEffect(() => {
     applyFiltersAndSort()
