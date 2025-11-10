@@ -1,8 +1,8 @@
 {
   "version": "2.0.0",
   "created": "2025-11-10",
-  "description": "Dictionary expansion - added 920 HSK 1-4 characters",
-  "note": "Zhuyin converted from Chinese characters via pinyin library. May require manual review for multi-pronunciation characters.",
+  "description": "Dictionary expansion - added 912 HSK 1-4 characters",
+  "note": "Zhuyin converted from Chinese characters via pinyin library. Deduplicated by simplified character.",
   "entries": [
     {
       "simp": "么",
@@ -1532,7 +1532,8 @@
       "hsk_level": 1,
       "frequency_rank": 1077,
       "meanings": [
-        "inside; Chinese mile (~.5 km)"
+        "inside; Chinese mile (~.5 km)",
+        "kilometer"
       ]
     },
     {
@@ -1677,7 +1678,8 @@
       "frequency_rank": 1085,
       "meanings": [
         "why?; for what reason?",
-        "because"
+        "because",
+        "become; turn into"
       ]
     },
     {
@@ -3171,7 +3173,8 @@
       "frequency_rank": 1163,
       "meanings": [
         "trip; journey; tour",
-        "to swim"
+        "to swim",
+        "tour guide"
       ]
     },
     {
@@ -4355,7 +4358,8 @@
       "frequency_rank": 1228,
       "meanings": [
         "about; regarding; concerning",
-        "at last; in the end; finally"
+        "at last; in the end; finally",
+        "regarding; as far as sth. is concerned; with regards to; for"
       ]
     },
     {
@@ -4911,7 +4915,8 @@
       "hsk_level": 3,
       "frequency_rank": 1257,
       "meanings": [
-        "history"
+        "history",
+        "undergo; to experience"
       ]
     },
     {
@@ -5064,14 +5069,20 @@
           "ㄓ",
           "",
           ""
+        ],
+        [
+          "ㄓ",
+          "",
+          "ˇ"
         ]
       ],
-      "pinyin": "zhī",
+      "pinyin": "zhī, zhǐ",
       "hsk_level": 3,
       "frequency_rank": 1265,
       "meanings": [
         "but; only; merely; just | (mw for birds and certain animals)",
-        "only"
+        "only",
+        "have to; be forced to"
       ]
     },
     {
@@ -5374,7 +5385,9 @@
       "hsk_level": 3,
       "frequency_rank": 1281,
       "meanings": [
-        "revise; to review"
+        "revise; to review",
+        "photocopy; duplicate",
+        "complicated; complex"
       ]
     },
     {
@@ -5730,7 +5743,9 @@
       "hsk_level": 3,
       "frequency_rank": 1300,
       "meanings": [
-        "clean; neat and tidy"
+        "clean; neat and tidy",
+        "biscuit; cracker; cookie",
+        "to drink a toast; cheers!; bottoms up!"
       ]
     },
     {
@@ -8973,29 +8988,6 @@
       ]
     },
     {
-      "simp": "为",
-      "trad": "爲",
-      "zhuyin": [
-        [
-          "",
-          "ㄨㄟ",
-          "ˊ"
-        ],
-        [
-          "",
-          "ㄨㄟ",
-          "ˋ"
-        ]
-      ],
-      "pinyin": "wéi, wèi",
-      "hsk_level": 4,
-      "frequency_rank": 1477,
-      "meanings": [
-        "become; turn into",
-        "think (mistakenly); consider (that); believe"
-      ]
-    },
-    {
       "simp": "举",
       "trad": "舉",
       "zhuyin": [
@@ -9007,7 +8999,7 @@
       ],
       "pinyin": "jǔ",
       "hsk_level": 4,
-      "frequency_rank": 1478,
+      "frequency_rank": 1477,
       "meanings": [
         "lift; raise; cite",
         "to conduct; to hold"
@@ -9025,7 +9017,7 @@
       ],
       "pinyin": "zhī",
       "hsk_level": 4,
-      "frequency_rank": 1479,
+      "frequency_rank": 1478,
       "meanings": [
         "percent",
         "(literary equivalent to 的); (pronoun); of"
@@ -9043,7 +9035,7 @@
       ],
       "pinyin": "pīng",
       "hsk_level": 4,
-      "frequency_rank": 1480,
+      "frequency_rank": 1479,
       "meanings": [
         "ping pong; table tennis"
       ]
@@ -9060,7 +9052,7 @@
       ],
       "pinyin": "pāng",
       "hsk_level": 4,
-      "frequency_rank": 1481,
+      "frequency_rank": 1480,
       "meanings": [
         "ping pong; table tennis"
       ]
@@ -9082,7 +9074,7 @@
       ],
       "pinyin": "chéng, shèng",
       "hsk_level": 4,
-      "frequency_rank": 1482,
+      "frequency_rank": 1481,
       "meanings": [
         "ride; get into (a vehicle)"
       ]
@@ -9099,7 +9091,7 @@
       ],
       "pinyin": "luàn",
       "hsk_level": 4,
-      "frequency_rank": 1483,
+      "frequency_rank": 1482,
       "meanings": [
         "disorder; confusion; arbitrarily"
       ]
@@ -9116,27 +9108,9 @@
       ],
       "pinyin": "zhēng",
       "hsk_level": 4,
-      "frequency_rank": 1484,
+      "frequency_rank": 1483,
       "meanings": [
         "compete"
-      ]
-    },
-    {
-      "simp": "于",
-      "trad": "于",
-      "zhuyin": [
-        [
-          "",
-          "ㄩ",
-          "ˊ"
-        ]
-      ],
-      "pinyin": "yú",
-      "hsk_level": 4,
-      "frequency_rank": 1485,
-      "meanings": [
-        "regarding; as far as sth. is concerned; with regards to; for",
-        "due to; owing to; as a result of; thanks to"
       ]
     },
     {
@@ -9151,7 +9125,7 @@
       ],
       "pinyin": "hù",
       "hsk_level": 4,
-      "frequency_rank": 1486,
+      "frequency_rank": 1484,
       "meanings": [
         "Internet",
         "mutually; with each other"
@@ -9174,7 +9148,7 @@
       ],
       "pinyin": "yā, yà",
       "hsk_level": 4,
-      "frequency_rank": 1487,
+      "frequency_rank": 1485,
       "meanings": [
         "Asia"
       ]
@@ -9191,7 +9165,7 @@
       ],
       "pinyin": "jiāo",
       "hsk_level": 4,
-      "frequency_rank": 1488,
+      "frequency_rank": 1486,
       "meanings": [
         "deliver; turn over; intersect; to pay (money); friendship",
         "communicate; exchange; give and take; interaction; to alternate"
@@ -9214,7 +9188,7 @@
       ],
       "pinyin": "qīn, qìng",
       "hsk_level": 4,
-      "frequency_rank": 1489,
+      "frequency_rank": 1487,
       "meanings": [
         "father",
         "mother"
@@ -9237,7 +9211,7 @@
       ],
       "pinyin": "jǐn, jìn",
       "hsk_level": 4,
-      "frequency_rank": 1490,
+      "frequency_rank": 1488,
       "meanings": [
         "not only; not just"
       ]
@@ -9254,7 +9228,7 @@
       ],
       "pinyin": "réng",
       "hsk_level": 4,
-      "frequency_rank": 1491,
+      "frequency_rank": 1489,
       "meanings": [
         "still; yet"
       ]
@@ -9281,7 +9255,7 @@
       ],
       "pinyin": "zī, zǐ, zǎi",
       "hsk_level": 4,
-      "frequency_rank": 1492,
+      "frequency_rank": 1490,
       "meanings": [
         "careful; attentive; cautious"
       ]
@@ -9298,7 +9272,7 @@
       ],
       "pinyin": "fù",
       "hsk_level": 4,
-      "frequency_rank": 1493,
+      "frequency_rank": 1491,
       "meanings": [
         "to pay"
       ]
@@ -9320,7 +9294,7 @@
       ],
       "pinyin": "jià, jie",
       "hsk_level": 4,
-      "frequency_rank": 1494,
+      "frequency_rank": 1492,
       "meanings": [
         "price"
       ]
@@ -9342,7 +9316,7 @@
       ],
       "pinyin": "rèn, rén",
       "hsk_level": 4,
-      "frequency_rank": 1495,
+      "frequency_rank": 1493,
       "meanings": [
         "any; whatever; whichever",
         "a mission; an assignment; a task"
@@ -9365,7 +9339,7 @@
       ],
       "pinyin": "fèn, bīn",
       "hsk_level": 4,
-      "frequency_rank": 1496,
+      "frequency_rank": 1494,
       "meanings": [
         "part; portion; (mw for documents, papers, jobs, etc.)"
       ]
@@ -9382,7 +9356,7 @@
       ],
       "pinyin": "zhòng",
       "hsk_level": 4,
-      "frequency_rank": 1497,
+      "frequency_rank": 1495,
       "meanings": [
         "spectator; audience"
       ]
@@ -9399,7 +9373,7 @@
       ],
       "pinyin": "yōu",
       "hsk_level": 4,
-      "frequency_rank": 1498,
+      "frequency_rank": 1496,
       "meanings": [
         "merit; good point; a strength; a benefit",
         "outstanding; excellent"
@@ -9417,7 +9391,7 @@
       ],
       "pinyin": "huǒ",
       "hsk_level": 4,
-      "frequency_rank": 1499,
+      "frequency_rank": 1497,
       "meanings": [
         "young man; lad; youngster"
       ]
@@ -9439,7 +9413,7 @@
       ],
       "pinyin": "chuán, zhuàn",
       "hsk_level": 4,
-      "frequency_rank": 1500,
+      "frequency_rank": 1498,
       "meanings": [
         "fax; facsimile"
       ]
@@ -9456,7 +9430,7 @@
       ],
       "pinyin": "shāng",
       "hsk_level": 4,
-      "frequency_rank": 1501,
+      "frequency_rank": 1499,
       "meanings": [
         "sad; grieve; brokenhearted"
       ]
@@ -9478,7 +9452,7 @@
       ],
       "pinyin": "gū, gù",
       "hsk_level": 4,
-      "frequency_rank": 1502,
+      "frequency_rank": 1500,
       "meanings": [
         "appraise; estimate"
       ]
@@ -9505,7 +9479,7 @@
       ],
       "pinyin": "hé, hē, hè",
       "hsk_level": 4,
-      "frequency_rank": 1503,
+      "frequency_rank": 1501,
       "meanings": [
         "any; whatever; whichever"
       ]
@@ -9522,7 +9496,7 @@
       ],
       "pinyin": "shǐ",
       "hsk_level": 4,
-      "frequency_rank": 1504,
+      "frequency_rank": 1502,
       "meanings": [
         "embassy",
         "even if; even though"
@@ -9540,7 +9514,7 @@
       ],
       "pinyin": "lì",
       "hsk_level": 4,
-      "frequency_rank": 1505,
+      "frequency_rank": 1503,
       "meanings": [
         "for example; for instance"
       ]
@@ -9562,7 +9536,7 @@
       ],
       "pinyin": "gōng, gòng",
       "hsk_level": 4,
-      "frequency_rank": 1506,
+      "frequency_rank": 1504,
       "meanings": [
         "to supply; provide; furnish"
       ]
@@ -9579,7 +9553,7 @@
       ],
       "pinyin": "bǎo",
       "hsk_level": 4,
-      "frequency_rank": 1507,
+      "frequency_rank": 1505,
       "meanings": [
         "to protect; to defend",
         "to guarantee; ensure"
@@ -9602,7 +9576,7 @@
       ],
       "pinyin": "liǎng, liǎ",
       "hsk_level": 4,
-      "frequency_rank": 1508,
+      "frequency_rank": 1506,
       "meanings": [
         "(colloquial) two (people)"
       ]
@@ -9619,7 +9593,7 @@
       ],
       "pinyin": "xiū",
       "hsk_level": 4,
-      "frequency_rank": 1509,
+      "frequency_rank": 1507,
       "meanings": [
         "to repair; perform maintenance; to overhaul"
       ]
@@ -9636,7 +9610,7 @@
       ],
       "pinyin": "bèi",
       "hsk_level": 4,
-      "frequency_rank": 1510,
+      "frequency_rank": 1508,
       "meanings": [
         "(two, three, etc)-fold; times (multiplier)"
       ]
@@ -9658,7 +9632,7 @@
       ],
       "pinyin": "dǎo, dào",
       "hsk_level": 4,
-      "frequency_rank": 1511,
+      "frequency_rank": 1509,
       "meanings": [
         "to collapse; to fall; fail; to exchange | to pour; contrary to expectations"
       ]
@@ -9675,7 +9649,7 @@
       ],
       "pinyin": "zhí",
       "hsk_level": 4,
-      "frequency_rank": 1512,
+      "frequency_rank": 1510,
       "meanings": [
         "be worth; deserve"
       ]
@@ -9692,7 +9666,7 @@
       ],
       "pinyin": "tíng",
       "hsk_level": 4,
-      "frequency_rank": 1513,
+      "frequency_rank": 1511,
       "meanings": [
         "to stop; to halt; to park (a car)"
       ]
@@ -9709,7 +9683,7 @@
       ],
       "pinyin": "ǒu",
       "hsk_level": 4,
-      "frequency_rank": 1514,
+      "frequency_rank": 1512,
       "meanings": [
         "occasionally; once in a while; sometimes"
       ]
@@ -9726,7 +9700,7 @@
       ],
       "pinyin": "fù",
       "hsk_level": 4,
-      "frequency_rank": 1515,
+      "frequency_rank": 1513,
       "meanings": [
         "master; qualified worker; teacher"
       ]
@@ -9743,7 +9717,7 @@
       ],
       "pinyin": "ào",
       "hsk_level": 4,
-      "frequency_rank": 1516,
+      "frequency_rank": 1514,
       "meanings": [
         "proud; arrogant; conceited; take pride in"
       ]
@@ -9760,7 +9734,7 @@
       ],
       "pinyin": "yǔn",
       "hsk_level": 4,
-      "frequency_rank": 1517,
+      "frequency_rank": 1515,
       "meanings": [
         "to permit; allow"
       ]
@@ -9777,7 +9751,7 @@
       ],
       "pinyin": "kè",
       "hsk_level": 4,
-      "frequency_rank": 1518,
+      "frequency_rank": 1516,
       "meanings": [
         "chocolate"
       ]
@@ -9794,7 +9768,7 @@
       ],
       "pinyin": "miǎn",
       "hsk_level": 4,
-      "frequency_rank": 1519,
+      "frequency_rank": 1517,
       "meanings": [
         "free (of charge); no cost"
       ]
@@ -9811,7 +9785,7 @@
       ],
       "pinyin": "quán",
       "hsk_level": 4,
-      "frequency_rank": 1520,
+      "frequency_rank": 1518,
       "meanings": [
         "safe; safety; secure; security",
         "whole; entire; complete"
@@ -9829,7 +9803,7 @@
       ],
       "pinyin": "jù",
       "hsk_level": 4,
-      "frequency_rank": 1521,
+      "frequency_rank": 1519,
       "meanings": [
         "furniture"
       ]
@@ -9846,7 +9820,7 @@
       ],
       "pinyin": "yǎng",
       "hsk_level": 4,
-      "frequency_rank": 1522,
+      "frequency_rank": 1520,
       "meanings": [
         "cultivate; acquire; to form"
       ]
@@ -9863,7 +9837,7 @@
       ],
       "pinyin": "nèi",
       "hsk_level": 4,
-      "frequency_rank": 1523,
+      "frequency_rank": 1521,
       "meanings": [
         "inside; inner; internal; within",
         "content; substance; details"
@@ -9881,7 +9855,7 @@
       ],
       "pinyin": "kuàng",
       "hsk_level": 4,
-      "frequency_rank": 1524,
+      "frequency_rank": 1522,
       "meanings": [
         "circumstance; state of affairs; situation"
       ]
@@ -9903,7 +9877,7 @@
       ],
       "pinyin": "liáng, liàng",
       "hsk_level": 4,
-      "frequency_rank": 1525,
+      "frequency_rank": 1523,
       "meanings": [
         "nice and cool; pleasantly cool"
       ]
@@ -9920,7 +9894,7 @@
       ],
       "pinyin": "jiǎn",
       "hsk_level": 4,
-      "frequency_rank": 1526,
+      "frequency_rank": 1524,
       "meanings": [
         "go on a diet; lose weight",
         "reduce; to decrease"
@@ -9938,7 +9912,7 @@
       ],
       "pinyin": "dāo",
       "hsk_level": 4,
-      "frequency_rank": 1527,
+      "frequency_rank": 1525,
       "meanings": [
         "knife; blade (Kangxi radical 18)"
       ]
@@ -9960,7 +9934,7 @@
       ],
       "pinyin": "qiē, qiè",
       "hsk_level": 4,
-      "frequency_rank": 1528,
+      "frequency_rank": 1526,
       "meanings": [
         "all; every; everything"
       ]
@@ -9982,7 +9956,7 @@
       ],
       "pinyin": "huá, huà",
       "hsk_level": 4,
-      "frequency_rank": 1529,
+      "frequency_rank": 1527,
       "meanings": [
         "plan; project"
       ]
@@ -9999,7 +9973,7 @@
       ],
       "pinyin": "liè",
       "hsk_level": 4,
-      "frequency_rank": 1530,
+      "frequency_rank": 1528,
       "meanings": [
         "arrange; align; permutation"
       ]
@@ -10016,7 +9990,7 @@
       ],
       "pinyin": "zé",
       "hsk_level": 4,
-      "frequency_rank": 1531,
+      "frequency_rank": 1529,
       "meanings": [
         "if not; otherwise; or else"
       ]
@@ -10033,7 +10007,7 @@
       ],
       "pinyin": "pàn",
       "hsk_level": 4,
-      "frequency_rank": 1532,
+      "frequency_rank": 1530,
       "meanings": [
         "to judge; judgment; to decide"
       ]
@@ -10050,7 +10024,7 @@
       ],
       "pinyin": "lì",
       "hsk_level": 4,
-      "frequency_rank": 1533,
+      "frequency_rank": 1531,
       "meanings": [
         "fluent",
         "go smoothly; without a hitch; successful"
@@ -10068,7 +10042,7 @@
       ],
       "pinyin": "jù",
       "hsk_level": 4,
-      "frequency_rank": 1534,
+      "frequency_rank": 1532,
       "meanings": [
         "Beijing Opera"
       ]
@@ -10085,7 +10059,7 @@
       ],
       "pinyin": "shèng",
       "hsk_level": 4,
-      "frequency_rank": 1535,
+      "frequency_rank": 1533,
       "meanings": [
         "have as remainder; be left over; surplus"
       ]
@@ -10102,7 +10076,7 @@
       ],
       "pinyin": "gōng",
       "hsk_level": 4,
-      "frequency_rank": 1536,
+      "frequency_rank": 1534,
       "meanings": [
         "success; to succeed",
         "kung fu; skill; art; labor"
@@ -10120,7 +10094,7 @@
       ],
       "pinyin": "lì",
       "hsk_level": 4,
-      "frequency_rank": 1537,
+      "frequency_rank": 1535,
       "meanings": [
         "encourage; inspire"
       ]
@@ -10137,7 +10111,7 @@
       ],
       "pinyin": "yǒng",
       "hsk_level": 4,
-      "frequency_rank": 1538,
+      "frequency_rank": 1536,
       "meanings": [
         "brave; courageous"
       ]
@@ -10154,7 +10128,7 @@
       ],
       "pinyin": "sháo",
       "hsk_level": 4,
-      "frequency_rank": 1539,
+      "frequency_rank": 1537,
       "meanings": [
         "spoon; scoop; ladle"
       ]
@@ -10176,7 +10150,7 @@
       ],
       "pinyin": "chí, shi",
       "hsk_level": 4,
-      "frequency_rank": 1540,
+      "frequency_rank": 1538,
       "meanings": [
         "key"
       ]
@@ -10198,7 +10172,7 @@
       ],
       "pinyin": "qū, ōu",
       "hsk_level": 4,
-      "frequency_rank": 1541,
+      "frequency_rank": 1539,
       "meanings": [
         "suburbs; outskirts",
         "difference; distinguish"
@@ -10216,7 +10190,7 @@
       ],
       "pinyin": "bó",
       "hsk_level": 4,
-      "frequency_rank": 1542,
+      "frequency_rank": 1540,
       "meanings": [
         "doctor; PhD"
       ]
@@ -10238,7 +10212,7 @@
       ],
       "pinyin": "zhān, zhàn",
       "hsk_level": 4,
-      "frequency_rank": 1543,
+      "frequency_rank": 1541,
       "meanings": [
         "the (phone) line is busy"
       ]
@@ -10255,7 +10229,7 @@
       ],
       "pinyin": "wèi",
       "hsk_level": 4,
-      "frequency_rank": 1544,
+      "frequency_rank": 1542,
       "meanings": [
         "restroom; bathroom; water closet (WC)"
       ]
@@ -10272,7 +10246,7 @@
       ],
       "pinyin": "yìn",
       "hsk_level": 4,
-      "frequency_rank": 1545,
+      "frequency_rank": 1543,
       "meanings": [
         "to print",
         "photocopy; duplicate"
@@ -10290,7 +10264,7 @@
       ],
       "pinyin": "wēi",
       "hsk_level": 4,
-      "frequency_rank": 1546,
+      "frequency_rank": 1544,
       "meanings": [
         "danger; dangerous; perilous"
       ]
@@ -10307,7 +10281,7 @@
       ],
       "pinyin": "jí",
       "hsk_level": 4,
-      "frequency_rank": 1547,
+      "frequency_rank": 1545,
       "meanings": [
         "even if; even though"
       ]
@@ -10324,7 +10298,7 @@
       ],
       "pinyin": "què",
       "hsk_level": 4,
-      "frequency_rank": 1548,
+      "frequency_rank": 1546,
       "meanings": [
         "but; yet; however"
       ]
@@ -10341,27 +10315,10 @@
       ],
       "pinyin": "tīng",
       "hsk_level": 4,
-      "frequency_rank": 1549,
+      "frequency_rank": 1547,
       "meanings": [
         "dining hall; cafeteria; restaurant",
         "living room; parlor"
-      ]
-    },
-    {
-      "simp": "历",
-      "trad": "曆",
-      "zhuyin": [
-        [
-          "ㄌ",
-          "ㄧ",
-          "ˋ"
-        ]
-      ],
-      "pinyin": "lì",
-      "hsk_level": 4,
-      "frequency_rank": 1550,
-      "meanings": [
-        "undergo; to experience"
       ]
     },
     {
@@ -10376,7 +10333,7 @@
       ],
       "pinyin": "lì",
       "hsk_level": 4,
-      "frequency_rank": 1551,
+      "frequency_rank": 1548,
       "meanings": [
         "terrible; formidable; fierce; cool; awesome"
       ]
@@ -10398,7 +10355,7 @@
       ],
       "pinyin": "yā, yà",
       "hsk_level": 4,
-      "frequency_rank": 1552,
+      "frequency_rank": 1549,
       "meanings": [
         "pressure; stress"
       ]
@@ -10415,7 +10372,7 @@
       ],
       "pinyin": "yàn",
       "hsk_level": 4,
-      "frequency_rank": 1553,
+      "frequency_rank": 1550,
       "meanings": [
         "to hate; loathe; disgusting; troublesome"
       ]
@@ -10432,7 +10389,7 @@
       ],
       "pinyin": "cè",
       "hsk_level": 4,
-      "frequency_rank": 1554,
+      "frequency_rank": 1551,
       "meanings": [
         "bathroom; toilet; lavatory"
       ]
@@ -10449,7 +10406,7 @@
       ],
       "pinyin": "hòu",
       "hsk_level": 4,
-      "frequency_rank": 1555,
+      "frequency_rank": 1552,
       "meanings": [
         "thick (for flat things); generous"
       ]
@@ -10466,7 +10423,7 @@
       ],
       "pinyin": "yuán",
       "hsk_level": 4,
-      "frequency_rank": 1556,
+      "frequency_rank": 1553,
       "meanings": [
         "original; former; as it turns out",
         "to excuse; forgive; to pardon"
@@ -10484,7 +10441,7 @@
       ],
       "pinyin": "chú",
       "hsk_level": 4,
-      "frequency_rank": 1557,
+      "frequency_rank": 1554,
       "meanings": [
         "kitchen"
       ]
@@ -10501,7 +10458,7 @@
       ],
       "pinyin": "jí",
       "hsk_level": 4,
-      "frequency_rank": 1558,
+      "frequency_rank": 1555,
       "meanings": [
         "timely; in time; promptly; without delay",
         "there's not enough time (to do something); it's too late"
@@ -10519,7 +10476,7 @@
       ],
       "pinyin": "fǎn",
       "hsk_level": 4,
-      "frequency_rank": 1559,
+      "frequency_rank": 1556,
       "meanings": [
         "oppose; fight against",
         "opposite; contrary"
@@ -10537,7 +10494,7 @@
       ],
       "pinyin": "qǔ",
       "hsk_level": 4,
-      "frequency_rank": 1560,
+      "frequency_rank": 1557,
       "meanings": [
         "to take; get; choose"
       ]
@@ -10554,7 +10511,7 @@
       ],
       "pinyin": "shòu",
       "hsk_level": 4,
-      "frequency_rank": 1561,
+      "frequency_rank": 1558,
       "meanings": [
         "accept; receive (honors, etc.)",
         "feel unwell; to suffer pain"
@@ -10572,32 +10529,9 @@
       ],
       "pinyin": "lìng",
       "hsk_level": 4,
-      "frequency_rank": 1562,
+      "frequency_rank": 1559,
       "meanings": [
         "another; in addition; besides"
-      ]
-    },
-    {
-      "simp": "只",
-      "trad": "只",
-      "zhuyin": [
-        [
-          "ㄓ",
-          "",
-          ""
-        ],
-        [
-          "ㄓ",
-          "",
-          "ˇ"
-        ]
-      ],
-      "pinyin": "zhī, zhǐ",
-      "hsk_level": 4,
-      "frequency_rank": 1563,
-      "meanings": [
-        "have to; be forced to",
-        "so long as; if only; provided that"
       ]
     },
     {
@@ -10617,7 +10551,7 @@
       ],
       "pinyin": "tái, tāi",
       "hsk_level": 4,
-      "frequency_rank": 1564,
+      "frequency_rank": 1560,
       "meanings": [
         "platform; Taiwan (abbr.); desk; stage; typhoon; (mw for machines); (classical) you (in letters)"
       ]
@@ -10634,7 +10568,7 @@
       ],
       "pinyin": "yè",
       "hsk_level": 4,
-      "frequency_rank": 1565,
+      "frequency_rank": 1561,
       "meanings": [
         "leaves"
       ]
@@ -10656,7 +10590,7 @@
       ],
       "pinyin": "gè, gě",
       "hsk_level": 4,
-      "frequency_rank": 1566,
+      "frequency_rank": 1562,
       "meanings": [
         "each; every"
       ]
@@ -10678,7 +10612,7 @@
       ],
       "pinyin": "hé, gě",
       "hsk_level": 4,
-      "frequency_rank": 1567,
+      "frequency_rank": 1563,
       "meanings": [
         "in keeping with; in accordance with; conform",
         "qualified; up to standard"
@@ -10701,7 +10635,7 @@
       ],
       "pinyin": "fǒu, pǐ",
       "hsk_level": 4,
-      "frequency_rank": 1568,
+      "frequency_rank": 1564,
       "meanings": [
         "if not; otherwise; or else",
         "whether (or not); if"
@@ -10719,7 +10653,7 @@
       ],
       "pinyin": "xī",
       "hsk_level": 4,
-      "frequency_rank": 1569,
+      "frequency_rank": 1565,
       "meanings": [
         "attract (interest, investment, etc.)"
       ]
@@ -10741,7 +10675,7 @@
       ],
       "pinyin": "yā, ya",
       "hsk_level": 4,
-      "frequency_rank": 1570,
+      "frequency_rank": 1566,
       "meanings": [
         "ah; oh; (used for 啊 after words ending with a, e, i, o, or ü)"
       ]
@@ -10758,7 +10692,7 @@
       ],
       "pinyin": "wèi",
       "hsk_level": 4,
-      "frequency_rank": 1571,
+      "frequency_rank": 1567,
       "meanings": [
         "flavor; taste"
       ]
@@ -10775,7 +10709,7 @@
       ],
       "pinyin": "hū",
       "hsk_level": 4,
-      "frequency_rank": 1572,
+      "frequency_rank": 1568,
       "meanings": [
         "notify; greet; inform"
       ]
@@ -10792,7 +10726,7 @@
       ],
       "pinyin": "mìng",
       "hsk_level": 4,
-      "frequency_rank": 1573,
+      "frequency_rank": 1569,
       "meanings": [
         "life"
       ]
@@ -10819,7 +10753,7 @@
       ],
       "pinyin": "zán, zá, zǎ",
       "hsk_level": 4,
-      "frequency_rank": 1574,
+      "frequency_rank": 1570,
       "meanings": [
         "we (including the listener); us; our"
       ]
@@ -10841,7 +10775,7 @@
       ],
       "pinyin": "ké, hāi",
       "hsk_level": 4,
-      "frequency_rank": 1575,
+      "frequency_rank": 1571,
       "meanings": [
         "to cough"
       ]
@@ -10858,7 +10792,7 @@
       ],
       "pinyin": "xián",
       "hsk_level": 4,
-      "frequency_rank": 1576,
+      "frequency_rank": 1572,
       "meanings": [
         "salty; salted; all"
       ]
@@ -10875,7 +10809,7 @@
       ],
       "pinyin": "shòu",
       "hsk_level": 4,
-      "frequency_rank": 1577,
+      "frequency_rank": 1573,
       "meanings": [
         "salesclerk; shop assistant"
       ]
@@ -10892,7 +10826,7 @@
       ],
       "pinyin": "sòu",
       "hsk_level": 4,
-      "frequency_rank": 1578,
+      "frequency_rank": 1574,
       "meanings": [
         "to cough"
       ]
@@ -10909,7 +10843,7 @@
       ],
       "pinyin": "kùn",
       "hsk_level": 4,
-      "frequency_rank": 1579,
+      "frequency_rank": 1575,
       "meanings": [
         "sleepy; surround; hard-pressed",
         "difficulty; difficult; problem"
@@ -10927,7 +10861,7 @@
       ],
       "pinyin": "wéi",
       "hsk_level": 4,
-      "frequency_rank": 1580,
+      "frequency_rank": 1576,
       "meanings": [
         "surroundings; vicinity; environment"
       ]
@@ -10944,7 +10878,7 @@
       ],
       "pinyin": "jī",
       "hsk_level": 4,
-      "frequency_rank": 1581,
+      "frequency_rank": 1577,
       "meanings": [
         "garbage can"
       ]
@@ -10961,7 +10895,7 @@
       ],
       "pinyin": "zhǐ",
       "hsk_level": 4,
-      "frequency_rank": 1582,
+      "frequency_rank": 1578,
       "meanings": [
         "address"
       ]
@@ -10978,7 +10912,7 @@
       ],
       "pinyin": "jiān",
       "hsk_level": 4,
-      "frequency_rank": 1583,
+      "frequency_rank": 1579,
       "meanings": [
         "persist in; persevere"
       ]
@@ -10995,7 +10929,7 @@
       ],
       "pinyin": "lā",
       "hsk_level": 4,
-      "frequency_rank": 1584,
+      "frequency_rank": 1580,
       "meanings": [
         "garbage can"
       ]
@@ -11012,7 +10946,7 @@
       ],
       "pinyin": "jī",
       "hsk_level": 4,
-      "frequency_rank": 1585,
+      "frequency_rank": 1581,
       "meanings": [
         "base; foundation"
       ]
@@ -11029,7 +10963,7 @@
       ],
       "pinyin": "dǔ",
       "hsk_level": 4,
-      "frequency_rank": 1586,
+      "frequency_rank": 1582,
       "meanings": [
         "traffic jam"
       ]
@@ -11046,7 +10980,7 @@
       ],
       "pinyin": "sù",
       "hsk_level": 4,
-      "frequency_rank": 1587,
+      "frequency_rank": 1583,
       "meanings": [
         "plastic bag"
       ]
@@ -11068,7 +11002,7 @@
       ],
       "pinyin": "tián, zhèn",
       "hsk_level": 4,
-      "frequency_rank": 1588,
+      "frequency_rank": 1584,
       "meanings": [
         "fill in the blanks; fill a vacancy"
       ]
@@ -11085,7 +11019,7 @@
       ],
       "pinyin": "zēng",
       "hsk_level": 4,
-      "frequency_rank": 1589,
+      "frequency_rank": 1585,
       "meanings": [
         "to increase; to raise; add"
       ]
@@ -11102,7 +11036,7 @@
       ],
       "pinyin": "shì",
       "hsk_level": 4,
-      "frequency_rank": 1590,
+      "frequency_rank": 1586,
       "meanings": [
         "doctor; PhD",
         "nurse"
@@ -11120,28 +11054,10 @@
       ],
       "pinyin": "chǔ",
       "hsk_level": 4,
-      "frequency_rank": 1591,
+      "frequency_rank": 1587,
       "meanings": [
         "everywhere; in all places; all over",
         "benefit; advantage"
-      ]
-    },
-    {
-      "simp": "复",
-      "trad": "複",
-      "zhuyin": [
-        [
-          "ㄈ",
-          "ㄨ",
-          "ˋ"
-        ]
-      ],
-      "pinyin": "fù",
-      "hsk_level": 4,
-      "frequency_rank": 1592,
-      "meanings": [
-        "photocopy; duplicate",
-        "complicated; complex"
       ]
     },
     {
@@ -11156,7 +11072,7 @@
       ],
       "pinyin": "gòu",
       "hsk_level": 4,
-      "frequency_rank": 1593,
+      "frequency_rank": 1588,
       "meanings": [
         "enough; to reach"
       ]
@@ -11173,7 +11089,7 @@
       ],
       "pinyin": "shī",
       "hsk_level": 4,
-      "frequency_rank": 1594,
+      "frequency_rank": 1589,
       "meanings": [
         "be defeated; fail; lose",
         "disappointed; lose hope"
@@ -11191,7 +11107,7 @@
       ],
       "pinyin": "fèn",
       "hsk_level": 4,
-      "frequency_rank": 1595,
+      "frequency_rank": 1590,
       "meanings": [
         "excitement； be excited"
       ]
@@ -11208,7 +11124,7 @@
       ],
       "pinyin": "jiǎng",
       "hsk_level": 4,
-      "frequency_rank": 1596,
+      "frequency_rank": 1591,
       "meanings": [
         "bonus"
       ]
@@ -11225,7 +11141,7 @@
       ],
       "pinyin": "cún",
       "hsk_level": 4,
-      "frequency_rank": 1597,
+      "frequency_rank": 1592,
       "meanings": [
         "exist; to deposit; to store"
       ]
@@ -11247,7 +11163,7 @@
       ],
       "pinyin": "sūn, xùn",
       "hsk_level": 4,
-      "frequency_rank": 1598,
+      "frequency_rank": 1593,
       "meanings": [
         "grandson; son's son"
       ]
@@ -11264,7 +11180,7 @@
       ],
       "pinyin": "jì",
       "hsk_level": 4,
-      "frequency_rank": 1599,
+      "frequency_rank": 1594,
       "meanings": [
         "send by mail"
       ]
@@ -11281,7 +11197,7 @@
       ],
       "pinyin": "mì",
       "hsk_level": 4,
-      "frequency_rank": 1600,
+      "frequency_rank": 1595,
       "meanings": [
         "password; secret code"
       ]
@@ -11298,7 +11214,7 @@
       ],
       "pinyin": "fù",
       "hsk_level": 4,
-      "frequency_rank": 1601,
+      "frequency_rank": 1596,
       "meanings": [
         "rich; enrich; abundant; plentiful",
         "wealthy"
@@ -11316,7 +11232,7 @@
       ],
       "pinyin": "hán",
       "hsk_level": 4,
-      "frequency_rank": 1602,
+      "frequency_rank": 1597,
       "meanings": [
         "winter vacation"
       ]
@@ -11333,7 +11249,7 @@
       ],
       "pinyin": "chá",
       "hsk_level": 4,
-      "frequency_rank": 1603,
+      "frequency_rank": 1598,
       "meanings": [
         "police"
       ]
@@ -11350,7 +11266,7 @@
       ],
       "pinyin": "dǎo",
       "hsk_level": 4,
-      "frequency_rank": 1604,
+      "frequency_rank": 1599,
       "meanings": [
         "tour guide"
       ]
@@ -11367,7 +11283,7 @@
       ],
       "pinyin": "fēng",
       "hsk_level": 4,
-      "frequency_rank": 1605,
+      "frequency_rank": 1600,
       "meanings": [
         "envelope"
       ]
@@ -11389,7 +11305,7 @@
       ],
       "pinyin": "jiāng, jiàng",
       "hsk_level": 4,
-      "frequency_rank": 1606,
+      "frequency_rank": 1601,
       "meanings": [
         "the future"
       ]
@@ -11406,7 +11322,7 @@
       ],
       "pinyin": "zūn",
       "hsk_level": 4,
-      "frequency_rank": 1607,
+      "frequency_rank": 1602,
       "meanings": [
         "esteem; to respect; to value; to honor"
       ]
@@ -11423,7 +11339,7 @@
       ],
       "pinyin": "ěr",
       "hsk_level": 4,
-      "frequency_rank": 1608,
+      "frequency_rank": 1603,
       "meanings": [
         "occasionally; once in a while; sometimes"
       ]
@@ -11440,7 +11356,7 @@
       ],
       "pinyin": "cháng",
       "hsk_level": 4,
-      "frequency_rank": 1609,
+      "frequency_rank": 1604,
       "meanings": [
         "to taste; flavor; (past tense marker)"
       ]
@@ -11457,7 +11373,7 @@
       ],
       "pinyin": "yóu",
       "hsk_level": 4,
-      "frequency_rank": 1610,
+      "frequency_rank": 1605,
       "meanings": [
         "especially; particularly"
       ]
@@ -11474,7 +11390,7 @@
       ],
       "pinyin": "jìn",
       "hsk_level": 4,
-      "frequency_rank": 1611,
+      "frequency_rank": 1606,
       "meanings": [
         "despite; although; even though | freely; without hesitation"
       ]
@@ -11491,7 +11407,7 @@
       ],
       "pinyin": "jú",
       "hsk_level": 4,
-      "frequency_rank": 1612,
+      "frequency_rank": 1607,
       "meanings": [
         "post office"
       ]
@@ -11508,7 +11424,7 @@
       ],
       "pinyin": "zhǎn",
       "hsk_level": 4,
-      "frequency_rank": 1613,
+      "frequency_rank": 1608,
       "meanings": [
         "develop; development; growth"
       ]
@@ -11525,7 +11441,7 @@
       ],
       "pinyin": "qiǎo",
       "hsk_level": 4,
-      "frequency_rank": 1614,
+      "frequency_rank": 1609,
       "meanings": [
         "chocolate"
       ]
@@ -11542,7 +11458,7 @@
       ],
       "pinyin": "jīn",
       "hsk_level": 4,
-      "frequency_rank": 1615,
+      "frequency_rank": 1610,
       "meanings": [
         "towel; washcloth"
       ]
@@ -11559,27 +11475,9 @@
       ],
       "pinyin": "shuài",
       "hsk_level": 4,
-      "frequency_rank": 1616,
+      "frequency_rank": 1611,
       "meanings": [
         "handsome; graceful; commander-in-chief"
-      ]
-    },
-    {
-      "simp": "干",
-      "trad": "幹",
-      "zhuyin": [
-        [
-          "ㄍ",
-          "ㄢ",
-          "ˋ"
-        ]
-      ],
-      "pinyin": "gàn",
-      "hsk_level": 4,
-      "frequency_rank": 1617,
-      "meanings": [
-        "biscuit; cracker; cookie",
-        "to drink a toast; cheers!; bottoms up!"
       ]
     },
     {
@@ -11594,7 +11492,7 @@
       ],
       "pinyin": "bìng",
       "hsk_level": 4,
-      "frequency_rank": 1618,
+      "frequency_rank": 1612,
       "meanings": [
         "and; besides; moreover"
       ]
@@ -11611,7 +11509,7 @@
       ],
       "pinyin": "xìng",
       "hsk_level": 4,
-      "frequency_rank": 1619,
+      "frequency_rank": 1613,
       "meanings": [
         "happy; blessed; fortunate"
       ]
@@ -11628,7 +11526,7 @@
       ],
       "pinyin": "yōu",
       "hsk_level": 4,
-      "frequency_rank": 1620,
+      "frequency_rank": 1614,
       "meanings": [
         "humorous"
       ]
@@ -11645,7 +11543,7 @@
       ],
       "pinyin": "guǎng",
       "hsk_level": 4,
-      "frequency_rank": 1621,
+      "frequency_rank": 1615,
       "meanings": [
         "broadcast; on the air",
         "advertisement; a commercial"
@@ -11663,7 +11561,7 @@
       ],
       "pinyin": "xù",
       "hsk_level": 4,
-      "frequency_rank": 1622,
+      "frequency_rank": 1616,
       "meanings": [
         "sequence; order"
       ]
@@ -11685,7 +11583,7 @@
       ],
       "pinyin": "dǐ, de",
       "hsk_level": 4,
-      "frequency_rank": 1623,
+      "frequency_rank": 1617,
       "meanings": [
         "after all; in the end (used in a question)",
         "bottom; background; base"
@@ -11708,7 +11606,7 @@
       ],
       "pinyin": "dù, duó",
       "hsk_level": 4,
-      "frequency_rank": 1624,
+      "frequency_rank": 1618,
       "meanings": [
         "speed; rate; velocity",
         "manner; bearing; attitude"
@@ -11726,7 +11624,7 @@
       ],
       "pinyin": "zuò",
       "hsk_level": 4,
-      "frequency_rank": 1625,
+      "frequency_rank": 1619,
       "meanings": [
         "(mw for mountains, bridges, tall buildings, etc.); | seat; base; stand; constellation",
         "seat; place"
@@ -11744,7 +11642,7 @@
       ],
       "pinyin": "jiàn",
       "hsk_level": 4,
-      "frequency_rank": 1626,
+      "frequency_rank": 1620,
       "meanings": [
         "to propose; to suggest; recommend"
       ]
@@ -11761,7 +11659,7 @@
       ],
       "pinyin": "qì",
       "hsk_level": 4,
-      "frequency_rank": 1627,
+      "frequency_rank": 1621,
       "meanings": [
         "abandon; renounce; give up"
       ]
@@ -11783,7 +11681,7 @@
       ],
       "pinyin": "nòng, lòng",
       "hsk_level": 4,
-      "frequency_rank": 1628,
+      "frequency_rank": 1622,
       "meanings": [
         "do; manage; to handle; make"
       ]
@@ -11800,7 +11698,7 @@
       ],
       "pinyin": "shì",
       "hsk_level": 4,
-      "frequency_rank": 1629,
+      "frequency_rank": 1623,
       "meanings": [
         "formal; official"
       ]
@@ -11817,7 +11715,7 @@
       ],
       "pinyin": "yǐn",
       "hsk_level": 4,
-      "frequency_rank": 1630,
+      "frequency_rank": 1624,
       "meanings": [
         "attract (interest, investment, etc.)",
         "give rise to; lead to; to cause; arouse"
@@ -11840,7 +11738,7 @@
       ],
       "pinyin": "dàn, tán",
       "hsk_level": 4,
-      "frequency_rank": 1631,
+      "frequency_rank": 1625,
       "meanings": [
         "play the piano"
       ]
@@ -11857,7 +11755,7 @@
       ],
       "pinyin": "cǎi",
       "hsk_level": 4,
-      "frequency_rank": 1632,
+      "frequency_rank": 1626,
       "meanings": [
         "brilliant; spectacular; wonderful"
       ]
@@ -11874,7 +11772,7 @@
       ],
       "pinyin": "lǜ",
       "hsk_level": 4,
-      "frequency_rank": 1633,
+      "frequency_rank": 1627,
       "meanings": [
         "law; statute",
         "lawyer"
@@ -11892,7 +11790,7 @@
       ],
       "pinyin": "wēi",
       "hsk_level": 4,
-      "frequency_rank": 1634,
+      "frequency_rank": 1628,
       "meanings": [
         "a little bit; slightly"
       ]
@@ -11909,7 +11807,7 @@
       ],
       "pinyin": "yì",
       "hsk_level": 4,
-      "frequency_rank": 1635,
+      "frequency_rank": 1629,
       "meanings": [
         "to recall; recollect"
       ]
@@ -11926,7 +11824,7 @@
       ],
       "pinyin": "zhì",
       "hsk_level": 4,
-      "frequency_rank": 1636,
+      "frequency_rank": 1630,
       "meanings": [
         "magazine"
       ]
@@ -11943,7 +11841,7 @@
       ],
       "pinyin": "huái",
       "hsk_level": 4,
-      "frequency_rank": 1637,
+      "frequency_rank": 1631,
       "meanings": [
         "doubt; to suspect; be skeptical"
       ]
@@ -11960,7 +11858,7 @@
       ],
       "pinyin": "tài",
       "hsk_level": 4,
-      "frequency_rank": 1638,
+      "frequency_rank": 1632,
       "meanings": [
         "manner; bearing; attitude"
       ]
@@ -11977,7 +11875,7 @@
       ],
       "pinyin": "lián",
       "hsk_level": 4,
-      "frequency_rank": 1639,
+      "frequency_rank": 1633,
       "meanings": [
         "pitiful; poor; pathetic"
       ]
@@ -11994,7 +11892,7 @@
       ],
       "pinyin": "xìng",
       "hsk_level": 4,
-      "frequency_rank": 1640,
+      "frequency_rank": 1634,
       "meanings": [
         "gender; sex; sexual distinction",
         "nature; personality; temperament"
@@ -12012,7 +11910,7 @@
       ],
       "pinyin": "kǒng",
       "hsk_level": 4,
-      "frequency_rank": 1641,
+      "frequency_rank": 1635,
       "meanings": [
         "be afraid; to fear; I'm afraid that..."
       ]
@@ -12029,7 +11927,7 @@
       ],
       "pinyin": "nǎo",
       "hsk_level": 4,
-      "frequency_rank": 1642,
+      "frequency_rank": 1636,
       "meanings": [
         "worried; vexed"
       ]
@@ -12046,7 +11944,7 @@
       ],
       "pinyin": "xī",
       "hsk_level": 4,
-      "frequency_rank": 1643,
+      "frequency_rank": 1637,
       "meanings": [
         "familiar with; know well"
       ]
@@ -12063,7 +11961,7 @@
       ],
       "pinyin": "huǐ",
       "hsk_level": 4,
-      "frequency_rank": 1644,
+      "frequency_rank": 1638,
       "meanings": [
         "to regret; repent"
       ]
@@ -12080,7 +11978,7 @@
       ],
       "pinyin": "jīng",
       "hsk_level": 4,
-      "frequency_rank": 1645,
+      "frequency_rank": 1639,
       "meanings": [
         "be startled; be shocked; be amazed"
       ]
@@ -12097,7 +11995,7 @@
       ],
       "pinyin": "xī",
       "hsk_level": 4,
-      "frequency_rank": 1646,
+      "frequency_rank": 1640,
       "meanings": [
         "it's a pity; regrettable; too bad"
       ]
@@ -12119,7 +12017,7 @@
       ],
       "pinyin": "yú, tōu",
       "hsk_level": 4,
-      "frequency_rank": 1647,
+      "frequency_rank": 1641,
       "meanings": [
         "happy; cheerful; delightful"
       ]
@@ -12136,7 +12034,7 @@
       ],
       "pinyin": "mù",
       "hsk_level": 4,
-      "frequency_rank": 1648,
+      "frequency_rank": 1642,
       "meanings": [
         "to envy; admire"
       ]
@@ -12153,7 +12051,7 @@
       ],
       "pinyin": "lǎn",
       "hsk_level": 4,
-      "frequency_rank": 1649,
+      "frequency_rank": 1643,
       "meanings": [
         "lazy"
       ]
@@ -12170,7 +12068,7 @@
       ],
       "pinyin": "qī",
       "hsk_level": 4,
-      "frequency_rank": 1650,
+      "frequency_rank": 1644,
       "meanings": [
         "a relative (i.e. family relation)"
       ]
@@ -12187,7 +12085,7 @@
       ],
       "pinyin": "dài",
       "hsk_level": 4,
-      "frequency_rank": 1651,
+      "frequency_rank": 1645,
       "meanings": [
         "put on; to wear; to respect"
       ]
@@ -12204,7 +12102,7 @@
       ],
       "pinyin": "hù",
       "hsk_level": 4,
-      "frequency_rank": 1652,
+      "frequency_rank": 1646,
       "meanings": [
         "window"
       ]
@@ -12221,7 +12119,7 @@
       ],
       "pinyin": "rēng",
       "hsk_level": 4,
-      "frequency_rank": 1653,
+      "frequency_rank": 1647,
       "meanings": [
         "to throw; throw away"
       ]
@@ -12238,7 +12136,7 @@
       ],
       "pinyin": "yáng",
       "hsk_level": 4,
-      "frequency_rank": 1654,
+      "frequency_rank": 1648,
       "meanings": [
         "to praise; commend"
       ]
@@ -12255,7 +12153,7 @@
       ],
       "pinyin": "bàn",
       "hsk_level": 4,
-      "frequency_rank": 1655,
+      "frequency_rank": 1649,
       "meanings": [
         "dress up; put on make up"
       ]
@@ -12272,7 +12170,7 @@
       ],
       "pinyin": "rǎo",
       "hsk_level": 4,
-      "frequency_rank": 1656,
+      "frequency_rank": 1650,
       "meanings": [
         "disturb"
       ]
@@ -12289,7 +12187,7 @@
       ],
       "pinyin": "pī",
       "hsk_level": 4,
-      "frequency_rank": 1657,
+      "frequency_rank": 1651,
       "meanings": [
         "criticize"
       ]
@@ -12306,7 +12204,7 @@
       ],
       "pinyin": "jì",
       "hsk_level": 4,
-      "frequency_rank": 1658,
+      "frequency_rank": 1652,
       "meanings": [
         "technology; technique; skill"
       ]
@@ -12333,7 +12231,7 @@
       ],
       "pinyin": "zhē, zhé, shé",
       "hsk_level": 4,
-      "frequency_rank": 1659,
+      "frequency_rank": 1653,
       "meanings": [
         "sell at a discount"
       ]
@@ -12350,7 +12248,7 @@
       ],
       "pinyin": "tái",
       "hsk_level": 4,
-      "frequency_rank": 1660,
+      "frequency_rank": 1654,
       "meanings": [
         "to lift; to raise (with both palms up); carry (together)"
       ]
@@ -12367,7 +12265,7 @@
       ],
       "pinyin": "bào",
       "hsk_level": 4,
-      "frequency_rank": 1661,
+      "frequency_rank": 1655,
       "meanings": [
         "to hold; to hug; carry in one's arms; to cradle",
         "be sorry; feel apologetic; to regret"
@@ -12385,7 +12283,7 @@
       ],
       "pinyin": "chōu",
       "hsk_level": 4,
-      "frequency_rank": 1662,
+      "frequency_rank": 1656,
       "meanings": [
         "to smoke (a cigarette, pipe, etc.)"
       ]
@@ -12407,7 +12305,7 @@
       ],
       "pinyin": "lā, lá",
       "hsk_level": 4,
-      "frequency_rank": 1663,
+      "frequency_rank": 1657,
       "meanings": [
         "to pull; to play (string instruments); to drag"
       ]
@@ -12424,7 +12322,7 @@
       ],
       "pinyin": "jù",
       "hsk_level": 4,
-      "frequency_rank": 1664,
+      "frequency_rank": 1658,
       "meanings": [
         "to refuse; to decline; to reject"
       ]
@@ -12441,7 +12339,7 @@
       ],
       "pinyin": "zhāo",
       "hsk_level": 4,
-      "frequency_rank": 1665,
+      "frequency_rank": 1659,
       "meanings": [
         "notify; greet; inform",
         "recruitment; take job applications for a job"
@@ -12459,7 +12357,7 @@
       ],
       "pinyin": "bài",
       "hsk_level": 4,
-      "frequency_rank": 1666,
+      "frequency_rank": 1660,
       "meanings": [
         "Sunday"
       ]
@@ -12481,7 +12379,7 @@
       ],
       "pinyin": "shí, shè",
       "hsk_level": 4,
-      "frequency_rank": 1667,
+      "frequency_rank": 1661,
       "meanings": [
         "to tidy; put in order; to repair; to settle with; punish"
       ]
@@ -12498,7 +12396,7 @@
       ],
       "pinyin": "chí",
       "hsk_level": 4,
-      "frequency_rank": 1668,
+      "frequency_rank": 1662,
       "meanings": [
         "persist in; persevere",
         "sustain; hold out; | support; stand by (e.g. international support)"
@@ -12516,7 +12414,7 @@
       ],
       "pinyin": "guà",
       "hsk_level": 4,
-      "frequency_rank": 1669,
+      "frequency_rank": 1663,
       "meanings": [
         "hang; put up; suspend"
       ]
@@ -12533,7 +12431,7 @@
       ],
       "pinyin": "zhǐ",
       "hsk_level": 4,
-      "frequency_rank": 1670,
+      "frequency_rank": 1664,
       "meanings": [
         "finger; to point (at, to, out); refer to"
       ]
@@ -12550,7 +12448,7 @@
       ],
       "pinyin": "àn",
       "hsk_level": 4,
-      "frequency_rank": 1671,
+      "frequency_rank": 1665,
       "meanings": [
         "on time; on schedule",
         "according to; in accordance with; in light of"
@@ -12568,7 +12466,7 @@
       ],
       "pinyin": "tǐng",
       "hsk_level": 4,
-      "frequency_rank": 1672,
+      "frequency_rank": 1666,
       "meanings": [
         "straighten up; stick out; rather (good); very"
       ]
@@ -12585,7 +12483,7 @@
       ],
       "pinyin": "shòu",
       "hsk_level": 4,
-      "frequency_rank": 1673,
+      "frequency_rank": 1667,
       "meanings": [
         "professor; instruct; to lecture"
       ]
@@ -12602,7 +12500,7 @@
       ],
       "pinyin": "diào",
       "hsk_level": 4,
-      "frequency_rank": 1674,
+      "frequency_rank": 1668,
       "meanings": [
         "to drop; to fall"
       ]
@@ -12624,7 +12522,7 @@
       ],
       "pinyin": "pái, pǎi",
       "hsk_level": 4,
-      "frequency_rank": 1675,
+      "frequency_rank": 1669,
       "meanings": [
         "arrange; to plan",
         "queue; stand in line"
@@ -12642,7 +12540,7 @@
       ],
       "pinyin": "tuī",
       "hsk_level": 4,
-      "frequency_rank": 1676,
+      "frequency_rank": 1670,
       "meanings": [
         "to push; to scrape; to decline; postpone; elect",
         "postpone; defer"
@@ -12660,7 +12558,7 @@
       ],
       "pinyin": "bō",
       "hsk_level": 4,
-      "frequency_rank": 1677,
+      "frequency_rank": 1671,
       "meanings": [
         "broadcast; on the air"
       ]
@@ -12677,7 +12575,7 @@
       ],
       "pinyin": "cā",
       "hsk_level": 4,
-      "frequency_rank": 1678,
+      "frequency_rank": 1672,
       "meanings": [
         "to wipe; to rub; to polish"
       ]
@@ -12694,7 +12592,7 @@
       ],
       "pinyin": "zhī",
       "hsk_level": 4,
-      "frequency_rank": 1679,
+      "frequency_rank": 1673,
       "meanings": [
         "sustain; hold out; | support; stand by (e.g. international support)"
       ]
@@ -12711,7 +12609,7 @@
       ],
       "pinyin": "shōu",
       "hsk_level": 4,
-      "frequency_rank": 1680,
+      "frequency_rank": 1674,
       "meanings": [
         "receive; accept; collect; to harvest",
         "take in; income; revenue"
@@ -12729,7 +12627,7 @@
       ],
       "pinyin": "gǎi",
       "hsk_level": 4,
-      "frequency_rank": 1681,
+      "frequency_rank": 1675,
       "meanings": [
         "to change; alter; to transform"
       ]
@@ -12746,7 +12644,7 @@
       ],
       "pinyin": "xiào",
       "hsk_level": 4,
-      "frequency_rank": 1682,
+      "frequency_rank": 1676,
       "meanings": [
         "effect; result"
       ]
@@ -12763,7 +12661,7 @@
       ],
       "pinyin": "gǎn",
       "hsk_level": 4,
-      "frequency_rank": 1683,
+      "frequency_rank": 1677,
       "meanings": [
         "to dare",
         "brave; courageous"
@@ -12786,7 +12684,7 @@
       ],
       "pinyin": "sàn, sǎn",
       "hsk_level": 4,
-      "frequency_rank": 1684,
+      "frequency_rank": 1678,
       "meanings": [
         "to go for a walk"
       ]
@@ -12803,7 +12701,7 @@
       ],
       "pinyin": "qiāo",
       "hsk_level": 4,
-      "frequency_rank": 1685,
+      "frequency_rank": 1679,
       "meanings": [
         "knock; blackmail"
       ]
@@ -12820,7 +12718,7 @@
       ],
       "pinyin": "zhěng",
       "hsk_level": 4,
-      "frequency_rank": 1686,
+      "frequency_rank": 1680,
       "meanings": [
         "put in order; arrange; straighten up; to tidy; to pack (luggage)"
       ]
@@ -12837,7 +12735,7 @@
       ],
       "pinyin": "duàn",
       "hsk_level": 4,
-      "frequency_rank": 1687,
+      "frequency_rank": 1681,
       "meanings": [
         "to judge; judgment; to decide"
       ]
@@ -12854,7 +12752,7 @@
       ],
       "pinyin": "zú",
       "hsk_level": 4,
-      "frequency_rank": 1688,
+      "frequency_rank": 1682,
       "meanings": [
         "nationality; ethnic group"
       ]
@@ -12871,7 +12769,7 @@
       ],
       "pinyin": "wú",
       "hsk_level": 4,
-      "frequency_rank": 1689,
+      "frequency_rank": 1683,
       "meanings": [
         "have not; without; not (Kangxi radical 71)",
         "nonsense; bored; silly; stupid"
@@ -12889,7 +12787,7 @@
       ],
       "pinyin": "jì",
       "hsk_level": 4,
-      "frequency_rank": 1690,
+      "frequency_rank": 1684,
       "meanings": [
         "since; given that; now that"
       ]
@@ -12906,7 +12804,7 @@
       ],
       "pinyin": "pǔ",
       "hsk_level": 4,
-      "frequency_rank": 1691,
+      "frequency_rank": 1685,
       "meanings": [
         "common; universal; general; widespread",
         "Mandarin (common language)"
@@ -12929,7 +12827,7 @@
       ],
       "pinyin": "jǐng, yǐng",
       "hsk_level": 4,
-      "frequency_rank": 1692,
+      "frequency_rank": 1686,
       "meanings": [
         "scenery; landscape; scene; view"
       ]
@@ -12946,7 +12844,7 @@
       ],
       "pinyin": "zàn",
       "hsk_level": 4,
-      "frequency_rank": 1693,
+      "frequency_rank": 1687,
       "meanings": [
         "temporary; transient; for the moment"
       ]
@@ -12963,7 +12861,7 @@
       ],
       "pinyin": "shǔ",
       "hsk_level": 4,
-      "frequency_rank": 1694,
+      "frequency_rank": 1688,
       "meanings": [
         "have summer vacation"
       ]
@@ -12980,7 +12878,7 @@
       ],
       "pinyin": "nuǎn",
       "hsk_level": 4,
-      "frequency_rank": 1695,
+      "frequency_rank": 1689,
       "meanings": [
         "warm; nice and warm"
       ]
@@ -12997,7 +12895,7 @@
       ],
       "pinyin": "shù",
       "hsk_level": 4,
-      "frequency_rank": 1696,
+      "frequency_rank": 1690,
       "meanings": [
         "technology; technique; skill",
         "art"
@@ -13015,7 +12913,7 @@
       ],
       "pinyin": "zá",
       "hsk_level": 4,
-      "frequency_rank": 1697,
+      "frequency_rank": 1691,
       "meanings": [
         "complicated; complex",
         "magazine"
@@ -13033,7 +12931,7 @@
       ],
       "pinyin": "cái",
       "hsk_level": 4,
-      "frequency_rank": 1698,
+      "frequency_rank": 1692,
       "meanings": [
         "material"
       ]
@@ -13050,7 +12948,7 @@
       ],
       "pinyin": "sōng",
       "hsk_level": 4,
-      "frequency_rank": 1699,
+      "frequency_rank": 1693,
       "meanings": [
         "relax; loosen; slacken",
         "relaxed; gentle; easygoing"
@@ -13068,7 +12966,7 @@
       ],
       "pinyin": "lín",
       "hsk_level": 4,
-      "frequency_rank": 1700,
+      "frequency_rank": 1694,
       "meanings": [
         "forest"
       ]
@@ -13085,7 +12983,7 @@
       ],
       "pinyin": "rǎn",
       "hsk_level": 4,
-      "frequency_rank": 1701,
+      "frequency_rank": 1695,
       "meanings": [
         "pollution; contamination"
       ]
@@ -13102,7 +13000,7 @@
       ],
       "pinyin": "shì",
       "hsk_level": 4,
-      "frequency_rank": 1702,
+      "frequency_rank": 1696,
       "meanings": [
         "tomato"
       ]
@@ -13119,7 +13017,7 @@
       ],
       "pinyin": "biāo",
       "hsk_level": 4,
-      "frequency_rank": 1703,
+      "frequency_rank": 1697,
       "meanings": [
         "(an official) standard; norm; criterion"
       ]
@@ -13136,7 +13034,7 @@
       ],
       "pinyin": "gé",
       "hsk_level": 4,
-      "frequency_rank": 1704,
+      "frequency_rank": 1698,
       "meanings": [
         "form (document)",
         "qualified; up to standard"
@@ -13154,7 +13052,7 @@
       ],
       "pinyin": "àn",
       "hsk_level": 4,
-      "frequency_rank": 1705,
+      "frequency_rank": 1699,
       "meanings": [
         "answer; solution"
       ]
@@ -13171,7 +13069,7 @@
       ],
       "pinyin": "qiáo",
       "hsk_level": 4,
-      "frequency_rank": 1706,
+      "frequency_rank": 1700,
       "meanings": [
         "bridge"
       ]
@@ -13188,7 +13086,7 @@
       ],
       "pinyin": "tǒng",
       "hsk_level": 4,
-      "frequency_rank": 1707,
+      "frequency_rank": 1701,
       "meanings": [
         "garbage can"
       ]
@@ -13205,7 +13103,7 @@
       ],
       "pinyin": "mèng",
       "hsk_level": 4,
-      "frequency_rank": 1708,
+      "frequency_rank": 1702,
       "meanings": [
         "to dream"
       ]
@@ -13222,7 +13120,7 @@
       ],
       "pinyin": "bàng",
       "hsk_level": 4,
-      "frequency_rank": 1709,
+      "frequency_rank": 1703,
       "meanings": [
         "stick; club; good; excellent"
       ]
@@ -13239,7 +13137,7 @@
       ],
       "pinyin": "sēn",
       "hsk_level": 4,
-      "frequency_rank": 1710,
+      "frequency_rank": 1704,
       "meanings": [
         "forest"
       ]
@@ -13256,7 +13154,7 @@
       ],
       "pinyin": "kē",
       "hsk_level": 4,
-      "frequency_rank": 1711,
+      "frequency_rank": 1705,
       "meanings": [
         "(mw for plants)"
       ]
@@ -13273,7 +13171,7 @@
       ],
       "pinyin": "zhí",
       "hsk_level": 4,
-      "frequency_rank": 1712,
+      "frequency_rank": 1706,
       "meanings": [
         "plant; botanical; vegetation"
       ]
@@ -13290,7 +13188,7 @@
       ],
       "pinyin": "gài",
       "hsk_level": 4,
-      "frequency_rank": 1713,
+      "frequency_rank": 1707,
       "meanings": [
         "probably; roughly; approximate"
       ]
@@ -13307,7 +13205,7 @@
       ],
       "pinyin": "xiàng",
       "hsk_level": 4,
-      "frequency_rank": 1714,
+      "frequency_rank": 1708,
       "meanings": [
         "rubber; an eraser"
       ]
@@ -13324,7 +13222,7 @@
       ],
       "pinyin": "kuǎn",
       "hsk_level": 4,
-      "frequency_rank": 1715,
+      "frequency_rank": 1709,
       "meanings": [
         "to pay"
       ]
@@ -13341,7 +13239,7 @@
       ],
       "pinyin": "qiàn",
       "hsk_level": 4,
-      "frequency_rank": 1716,
+      "frequency_rank": 1710,
       "meanings": [
         "be sorry; feel apologetic; to regret",
         "apologize; make an apology"
@@ -13359,7 +13257,7 @@
       ],
       "pinyin": "zhǐ",
       "hsk_level": 4,
-      "frequency_rank": 1717,
+      "frequency_rank": 1711,
       "meanings": [
         "to ban; prohibit"
       ]
@@ -13376,7 +13274,7 @@
       ],
       "pinyin": "cǐ",
       "hsk_level": 4,
-      "frequency_rank": 1718,
+      "frequency_rank": 1712,
       "meanings": [
         "therefore; thus; that is why; because of this"
       ]
@@ -13393,7 +13291,7 @@
       ],
       "pinyin": "sǐ",
       "hsk_level": 4,
-      "frequency_rank": 1719,
+      "frequency_rank": 1713,
       "meanings": [
         "to die; dead; fixed; impassible; extremely"
       ]
@@ -13410,7 +13308,7 @@
       ],
       "pinyin": "mǔ",
       "hsk_level": 4,
-      "frequency_rank": 1720,
+      "frequency_rank": 1714,
       "meanings": [
         "mother"
       ]
@@ -13427,7 +13325,7 @@
       ],
       "pinyin": "bì",
       "hsk_level": 4,
-      "frequency_rank": 1721,
+      "frequency_rank": 1715,
       "meanings": [
         "to graduate; to finish school"
       ]
@@ -13444,7 +13342,7 @@
       ],
       "pinyin": "máo",
       "hsk_level": 4,
-      "frequency_rank": 1722,
+      "frequency_rank": 1716,
       "meanings": [
         "hair; fur; feather; dime (Kangxi radical 82)",
         "towel; washcloth"
@@ -13462,7 +13360,7 @@
       ],
       "pinyin": "mín",
       "hsk_level": 4,
-      "frequency_rank": 1723,
+      "frequency_rank": 1717,
       "meanings": [
         "nationality; ethnic group"
       ]
@@ -13479,7 +13377,7 @@
       ],
       "pinyin": "yǒng",
       "hsk_level": 4,
-      "frequency_rank": 1724,
+      "frequency_rank": 1718,
       "meanings": [
         "forever; eternal; always"
       ]
@@ -13496,7 +13394,7 @@
       ],
       "pinyin": "zhī",
       "hsk_level": 4,
-      "frequency_rank": 1725,
+      "frequency_rank": 1719,
       "meanings": [
         "fruit juice"
       ]
@@ -13518,7 +13416,7 @@
       ],
       "pinyin": "hàn, hán",
       "hsk_level": 4,
-      "frequency_rank": 1726,
+      "frequency_rank": 1720,
       "meanings": [
         "sweat; perspiration; Khan"
       ]
@@ -13535,7 +13433,7 @@
       ],
       "pinyin": "jiāng",
       "hsk_level": 4,
-      "frequency_rank": 1727,
+      "frequency_rank": 1721,
       "meanings": [
         "the Yangtze River; the Changjiang River"
       ]
@@ -13552,7 +13450,7 @@
       ],
       "pinyin": "wū",
       "hsk_level": 4,
-      "frequency_rank": 1728,
+      "frequency_rank": 1722,
       "meanings": [
         "pollution; contamination"
       ]
@@ -13574,7 +13472,7 @@
       ],
       "pinyin": "tāng, shāng",
       "hsk_level": 4,
-      "frequency_rank": 1729,
+      "frequency_rank": 1723,
       "meanings": [
         "soup; broth"
       ]
@@ -13596,7 +13494,7 @@
       ],
       "pinyin": "shā, shà",
       "hsk_level": 4,
-      "frequency_rank": 1730,
+      "frequency_rank": 1724,
       "meanings": [
         "sofa"
       ]
@@ -13613,7 +13511,7 @@
       ],
       "pinyin": "yóu",
       "hsk_level": 4,
-      "frequency_rank": 1731,
+      "frequency_rank": 1725,
       "meanings": [
         "gas station"
       ]
@@ -13630,7 +13528,7 @@
       ],
       "pinyin": "quán",
       "hsk_level": 4,
-      "frequency_rank": 1732,
+      "frequency_rank": 1726,
       "meanings": [
         "mineral water"
       ]
@@ -13647,7 +13545,7 @@
       ],
       "pinyin": "pō",
       "hsk_level": 4,
-      "frequency_rank": 1733,
+      "frequency_rank": 1727,
       "meanings": [
         "lively; vivacious"
       ]
@@ -13664,7 +13562,7 @@
       ],
       "pinyin": "yáng",
       "hsk_level": 4,
-      "frequency_rank": 1734,
+      "frequency_rank": 1728,
       "meanings": [
         "ocean"
       ]
@@ -13681,7 +13579,7 @@
       ],
       "pinyin": "zhōu",
       "hsk_level": 4,
-      "frequency_rank": 1735,
+      "frequency_rank": 1729,
       "meanings": [
         "Asia"
       ]
@@ -13698,7 +13596,7 @@
       ],
       "pinyin": "huó",
       "hsk_level": 4,
-      "frequency_rank": 1736,
+      "frequency_rank": 1730,
       "meanings": [
         "activity; exercise; move about",
         "lively; vivacious"
@@ -13716,7 +13614,7 @@
       ],
       "pinyin": "liú",
       "hsk_level": 4,
-      "frequency_rank": 1737,
+      "frequency_rank": 1731,
       "meanings": [
         "communicate; exchange; give and take; interaction; to alternate",
         "fluent"
@@ -13739,7 +13637,7 @@
       ],
       "pinyin": "jì, jǐ",
       "hsk_level": 4,
-      "frequency_rank": 1738,
+      "frequency_rank": 1732,
       "meanings": [
         "economy; economic"
       ]
@@ -13756,7 +13654,7 @@
       ],
       "pinyin": "làng",
       "hsk_level": 4,
-      "frequency_rank": 1739,
+      "frequency_rank": 1733,
       "meanings": [
         "to waste; squander",
         "romantic"
@@ -13774,7 +13672,7 @@
       ],
       "pinyin": "hǎi",
       "hsk_level": 4,
-      "frequency_rank": 1740,
+      "frequency_rank": 1734,
       "meanings": [
         "ocean"
       ]
@@ -13791,7 +13689,7 @@
       ],
       "pinyin": "xiāo",
       "hsk_level": 4,
-      "frequency_rank": 1741,
+      "frequency_rank": 1735,
       "meanings": [
         "news; information"
       ]
@@ -13808,7 +13706,7 @@
       ],
       "pinyin": "shēn",
       "hsk_level": 4,
-      "frequency_rank": 1742,
+      "frequency_rank": 1736,
       "meanings": [
         "deep; profound; dark (of colors)"
       ]
@@ -13825,26 +13723,9 @@
       ],
       "pinyin": "wēn",
       "hsk_level": 4,
-      "frequency_rank": 1743,
+      "frequency_rank": 1737,
       "meanings": [
         "temperature"
-      ]
-    },
-    {
-      "simp": "游",
-      "trad": "遊",
-      "zhuyin": [
-        [
-          "",
-          "ㄧㄡ",
-          "ˊ"
-        ]
-      ],
-      "pinyin": "yóu",
-      "hsk_level": 4,
-      "frequency_rank": 1744,
-      "meanings": [
-        "tour guide"
       ]
     },
     {
@@ -13859,7 +13740,7 @@
       ],
       "pinyin": "yǎn",
       "hsk_level": 4,
-      "frequency_rank": 1745,
+      "frequency_rank": 1738,
       "meanings": [
         "perform; to play",
         "to act (in a play); to perform; to put on a show; performance"
@@ -13877,7 +13758,7 @@
       ],
       "pinyin": "màn",
       "hsk_level": 4,
-      "frequency_rank": 1746,
+      "frequency_rank": 1739,
       "meanings": [
         "romantic"
       ]
@@ -13894,7 +13775,7 @@
       ],
       "pinyin": "jī",
       "hsk_level": 4,
-      "frequency_rank": 1747,
+      "frequency_rank": 1740,
       "meanings": [
         "excite; agitate"
       ]
@@ -13911,7 +13792,7 @@
       ],
       "pinyin": "yān",
       "hsk_level": 4,
-      "frequency_rank": 1748,
+      "frequency_rank": 1741,
       "meanings": [
         "to smoke (a cigarette, pipe, etc.)"
       ]
@@ -13928,7 +13809,7 @@
       ],
       "pinyin": "kǎo",
       "hsk_level": 4,
-      "frequency_rank": 1749,
+      "frequency_rank": 1742,
       "meanings": [
         "roast duck"
       ]
@@ -13945,7 +13826,7 @@
       ],
       "pinyin": "fán",
       "hsk_level": 4,
-      "frequency_rank": 1750,
+      "frequency_rank": 1743,
       "meanings": [
         "worried; vexed",
         "trouble (someone); troubling; bothersome"
@@ -13963,7 +13844,7 @@
       ],
       "pinyin": "shú",
       "hsk_level": 4,
-      "frequency_rank": 1751,
+      "frequency_rank": 1744,
       "meanings": [
         "familiar with; know well"
       ]
@@ -13985,7 +13866,7 @@
       ],
       "pinyin": "fù, fǔ",
       "hsk_level": 4,
-      "frequency_rank": 1752,
+      "frequency_rank": 1745,
       "meanings": [
         "father"
       ]
@@ -14002,7 +13883,7 @@
       ],
       "pinyin": "pái",
       "hsk_level": 4,
-      "frequency_rank": 1753,
+      "frequency_rank": 1746,
       "meanings": [
         "boarding pass"
       ]
@@ -14019,7 +13900,7 @@
       ],
       "pinyin": "cāi",
       "hsk_level": 4,
-      "frequency_rank": 1754,
+      "frequency_rank": 1747,
       "meanings": [
         "to guess"
       ]
@@ -14036,7 +13917,7 @@
       ],
       "pinyin": "qín",
       "hsk_level": 4,
-      "frequency_rank": 1755,
+      "frequency_rank": 1748,
       "meanings": [
         "play the piano"
       ]
@@ -14058,7 +13939,7 @@
       ],
       "pinyin": "shèn, shén",
       "hsk_level": 4,
-      "frequency_rank": 1756,
+      "frequency_rank": 1749,
       "meanings": [
         "even (to the point of); so much so that"
       ]
@@ -14075,7 +13956,7 @@
       ],
       "pinyin": "yóu",
       "hsk_level": 4,
-      "frequency_rank": 1757,
+      "frequency_rank": 1750,
       "meanings": [
         "follow; from; by; through",
         "due to; owing to; as a result of; thanks to"
@@ -14093,7 +13974,7 @@
       ],
       "pinyin": "shēn",
       "hsk_level": 4,
-      "frequency_rank": 1758,
+      "frequency_rank": 1751,
       "meanings": [
         "apply for; application"
       ]
@@ -14115,7 +13996,7 @@
       ],
       "pinyin": "yí, nǐ",
       "hsk_level": 4,
-      "frequency_rank": 1759,
+      "frequency_rank": 1752,
       "meanings": [
         "doubt; to suspect; be skeptical"
       ]
@@ -14132,7 +14013,7 @@
       ],
       "pinyin": "dēng",
       "hsk_level": 4,
-      "frequency_rank": 1760,
+      "frequency_rank": 1753,
       "meanings": [
         "boarding pass"
       ]
@@ -14149,7 +14030,7 @@
       ],
       "pinyin": "yán",
       "hsk_level": 4,
-      "frequency_rank": 1761,
+      "frequency_rank": 1754,
       "meanings": [
         "salt"
       ]
@@ -14166,7 +14047,7 @@
       ],
       "pinyin": "hé",
       "hsk_level": 4,
-      "frequency_rank": 1762,
+      "frequency_rank": 1755,
       "meanings": [
         "box"
       ]
@@ -14188,7 +14069,7 @@
       ],
       "pinyin": "shěng, xǐng",
       "hsk_level": 4,
-      "frequency_rank": 1763,
+      "frequency_rank": 1756,
       "meanings": [
         "to save; economize; omit; province"
       ]
@@ -14205,7 +14086,7 @@
       ],
       "pinyin": "kuàng",
       "hsk_level": 4,
-      "frequency_rank": 1764,
+      "frequency_rank": 1757,
       "meanings": [
         "mineral water"
       ]
@@ -14222,7 +14103,7 @@
       ],
       "pinyin": "mǎ",
       "hsk_level": 4,
-      "frequency_rank": 1765,
+      "frequency_rank": 1758,
       "meanings": [
         "number",
         "password; secret code"
@@ -14245,7 +14126,7 @@
       ],
       "pinyin": "yán, yàn",
       "hsk_level": 4,
-      "frequency_rank": 1766,
+      "frequency_rank": 1759,
       "meanings": [
         "to study; to research"
       ]
@@ -14262,7 +14143,7 @@
       ],
       "pinyin": "pò",
       "hsk_level": 4,
-      "frequency_rank": 1767,
+      "frequency_rank": 1760,
       "meanings": [
         "broken; damaged; to split"
       ]
@@ -14279,7 +14160,7 @@
       ],
       "pinyin": "chǔ",
       "hsk_level": 4,
-      "frequency_rank": 1768,
+      "frequency_rank": 1761,
       "meanings": [
         "base; foundation"
       ]
@@ -14301,7 +14182,7 @@
       ],
       "pinyin": "shuò, shí",
       "hsk_level": 4,
-      "frequency_rank": 1769,
+      "frequency_rank": 1762,
       "meanings": [
         "Master's degree (M.A.)"
       ]
@@ -14318,7 +14199,7 @@
       ],
       "pinyin": "què",
       "hsk_level": 4,
-      "frequency_rank": 1770,
+      "frequency_rank": 1763,
       "meanings": [
         "indeed; in truth; reliable",
         "correct; proper"
@@ -14336,7 +14217,7 @@
       ],
       "pinyin": "shì",
       "hsk_level": 4,
-      "frequency_rank": 1771,
+      "frequency_rank": 1764,
       "meanings": [
         "express; show; indicate"
       ]
@@ -14353,7 +14234,7 @@
       ],
       "pinyin": "shè",
       "hsk_level": 4,
-      "frequency_rank": 1772,
+      "frequency_rank": 1765,
       "meanings": [
         "society"
       ]
@@ -14370,7 +14251,7 @@
       ],
       "pinyin": "zhù",
       "hsk_level": 4,
-      "frequency_rank": 1773,
+      "frequency_rank": 1766,
       "meanings": [
         "congratulate"
       ]
@@ -14392,7 +14273,7 @@
       ],
       "pinyin": "jīn, jìn",
       "hsk_level": 4,
-      "frequency_rank": 1774,
+      "frequency_rank": 1767,
       "meanings": [
         "to ban; prohibit"
       ]
@@ -14409,7 +14290,7 @@
       ],
       "pinyin": "fú",
       "hsk_level": 4,
-      "frequency_rank": 1775,
+      "frequency_rank": 1768,
       "meanings": [
         "happy; blessed; fortunate"
       ]
@@ -14426,7 +14307,7 @@
       ],
       "pinyin": "xiù",
       "hsk_level": 4,
-      "frequency_rank": 1776,
+      "frequency_rank": 1769,
       "meanings": [
         "outstanding; excellent"
       ]
@@ -14443,7 +14324,7 @@
       ],
       "pinyin": "kē",
       "hsk_level": 4,
-      "frequency_rank": 1777,
+      "frequency_rank": 1770,
       "meanings": [
         "science; scientific knowledge"
       ]
@@ -14460,7 +14341,7 @@
       ],
       "pinyin": "miǎo",
       "hsk_level": 4,
-      "frequency_rank": 1778,
+      "frequency_rank": 1771,
       "meanings": [
         "second (unit of time or angle)"
       ]
@@ -14477,7 +14358,7 @@
       ],
       "pinyin": "jī",
       "hsk_level": 4,
-      "frequency_rank": 1779,
+      "frequency_rank": 1772,
       "meanings": [
         "active; positive; energetic",
         "accumulate; accumulation"
@@ -14495,7 +14376,7 @@
       ],
       "pinyin": "chéng",
       "hsk_level": 4,
-      "frequency_rank": 1780,
+      "frequency_rank": 1773,
       "meanings": [
         "course of events; process"
       ]
@@ -14517,7 +14398,7 @@
       ],
       "pinyin": "shāo, shào",
       "hsk_level": 4,
-      "frequency_rank": 1781,
+      "frequency_rank": 1774,
       "meanings": [
         "a little bit; slightly"
       ]
@@ -14534,7 +14415,7 @@
       ],
       "pinyin": "jiū",
       "hsk_level": 4,
-      "frequency_rank": 1782,
+      "frequency_rank": 1775,
       "meanings": [
         "after all; when all is said and done; actually",
         "to study; to research"
@@ -14552,7 +14433,7 @@
       ],
       "pinyin": "qióng",
       "hsk_level": 4,
-      "frequency_rank": 1783,
+      "frequency_rank": 1776,
       "meanings": [
         "poor; exhausted"
       ]
@@ -14569,7 +14450,7 @@
       ],
       "pinyin": "chuāng",
       "hsk_level": 4,
-      "frequency_rank": 1784,
+      "frequency_rank": 1777,
       "meanings": [
         "window"
       ]
@@ -14586,7 +14467,7 @@
       ],
       "pinyin": "jìng",
       "hsk_level": 4,
-      "frequency_rank": 1785,
+      "frequency_rank": 1778,
       "meanings": [
         "compete"
       ]
@@ -14603,7 +14484,7 @@
       ],
       "pinyin": "tóng",
       "hsk_level": 4,
-      "frequency_rank": 1786,
+      "frequency_rank": 1779,
       "meanings": [
         "child; children"
       ]
@@ -14620,7 +14501,7 @@
       ],
       "pinyin": "fú",
       "hsk_level": 4,
-      "frequency_rank": 1787,
+      "frequency_rank": 1780,
       "meanings": [
         "in keeping with; in accordance with; conform"
       ]
@@ -14637,7 +14518,7 @@
       ],
       "pinyin": "bèn",
       "hsk_level": 4,
-      "frequency_rank": 1788,
+      "frequency_rank": 1781,
       "meanings": [
         "stupid; foolish; silly; dumb; clumsy"
       ]
@@ -14654,7 +14535,7 @@
       ],
       "pinyin": "qiān",
       "hsk_level": 4,
-      "frequency_rank": 1789,
+      "frequency_rank": 1782,
       "meanings": [
         "visa"
       ]
@@ -14671,7 +14552,7 @@
       ],
       "pinyin": "guǎn",
       "hsk_level": 4,
-      "frequency_rank": 1790,
+      "frequency_rank": 1783,
       "meanings": [
         "no matter (what, how, etc.); regardless of",
         "supervise; manage"
@@ -14689,7 +14570,7 @@
       ],
       "pinyin": "piān",
       "hsk_level": 4,
-      "frequency_rank": 1791,
+      "frequency_rank": 1784,
       "meanings": [
         "sheet; (mw for articles); piece of writing"
       ]
@@ -14706,7 +14587,7 @@
       ],
       "pinyin": "jí",
       "hsk_level": 4,
-      "frequency_rank": 1792,
+      "frequency_rank": 1785,
       "meanings": [
         "nationality"
       ]
@@ -14723,7 +14604,7 @@
       ],
       "pinyin": "cū",
       "hsk_level": 4,
-      "frequency_rank": 1793,
+      "frequency_rank": 1786,
       "meanings": [
         "careless; inadvertent; negligent"
       ]
@@ -14740,7 +14621,7 @@
       ],
       "pinyin": "jīng",
       "hsk_level": 4,
-      "frequency_rank": 1794,
+      "frequency_rank": 1787,
       "meanings": [
         "brilliant; spectacular; wonderful"
       ]
@@ -14757,7 +14638,7 @@
       ],
       "pinyin": "táng",
       "hsk_level": 4,
-      "frequency_rank": 1795,
+      "frequency_rank": 1788,
       "meanings": [
         "sugar; candy; sweets"
       ]
@@ -14779,7 +14660,7 @@
       ],
       "pinyin": "yuē, yāo",
       "hsk_level": 4,
-      "frequency_rank": 1796,
+      "frequency_rank": 1789,
       "meanings": [
         "approximately; about",
         "frugal; to save"
@@ -14797,7 +14678,7 @@
       ],
       "pinyin": "jì",
       "hsk_level": 4,
-      "frequency_rank": 1797,
+      "frequency_rank": 1790,
       "meanings": [
         "century"
       ]
@@ -14814,7 +14695,7 @@
       ],
       "pinyin": "jǐn",
       "hsk_level": 4,
-      "frequency_rank": 1798,
+      "frequency_rank": 1791,
       "meanings": [
         "nervous; tension; strain"
       ]
@@ -14831,7 +14712,7 @@
       ],
       "pinyin": "xiàn",
       "hsk_level": 4,
-      "frequency_rank": 1799,
+      "frequency_rank": 1792,
       "meanings": [
         "the (phone) line is busy"
       ]
@@ -14848,7 +14729,7 @@
       ],
       "pinyin": "xì",
       "hsk_level": 4,
-      "frequency_rank": 1800,
+      "frequency_rank": 1793,
       "meanings": [
         "detailed; in detail; minute",
         "careful; attentive; cautious"
@@ -14866,7 +14747,7 @@
       ],
       "pinyin": "jué",
       "hsk_level": 4,
-      "frequency_rank": 1801,
+      "frequency_rank": 1794,
       "meanings": [
         "to refuse; to decline; to reject"
       ]
@@ -14883,7 +14764,7 @@
       ],
       "pinyin": "jì",
       "hsk_level": 4,
-      "frequency_rank": 1802,
+      "frequency_rank": 1795,
       "meanings": [
         "to continue; to go on; to proceed"
       ]
@@ -14900,7 +14781,7 @@
       ],
       "pinyin": "xù",
       "hsk_level": 4,
-      "frequency_rank": 1803,
+      "frequency_rank": 1796,
       "meanings": [
         "to continue; to go on; to proceed"
       ]
@@ -14917,7 +14798,7 @@
       ],
       "pinyin": "quē",
       "hsk_level": 4,
-      "frequency_rank": 1804,
+      "frequency_rank": 1797,
       "meanings": [
         "weak point; defect; fault; shortcoming",
         "to lack; be short of; be deficient in"
@@ -14935,7 +14816,7 @@
       ],
       "pinyin": "měi",
       "hsk_level": 4,
-      "frequency_rank": 1805,
+      "frequency_rank": 1798,
       "meanings": [
         "beautiful"
       ]
@@ -14952,7 +14833,7 @@
       ],
       "pinyin": "xiū",
       "hsk_level": 4,
-      "frequency_rank": 1806,
+      "frequency_rank": 1799,
       "meanings": [
         "blush; shy"
       ]
@@ -14969,7 +14850,7 @@
       ],
       "pinyin": "xiàn",
       "hsk_level": 4,
-      "frequency_rank": 1807,
+      "frequency_rank": 1800,
       "meanings": [
         "to envy; admire"
       ]
@@ -14986,7 +14867,7 @@
       ],
       "pinyin": "yǔ",
       "hsk_level": 4,
-      "frequency_rank": 1808,
+      "frequency_rank": 1801,
       "meanings": [
         "badminton"
       ]
@@ -15003,7 +14884,7 @@
       ],
       "pinyin": "fān",
       "hsk_level": 4,
-      "frequency_rank": 1809,
+      "frequency_rank": 1802,
       "meanings": [
         "translate; translation; interpret"
       ]
@@ -15020,7 +14901,7 @@
       ],
       "pinyin": "nài",
       "hsk_level": 4,
-      "frequency_rank": 1810,
+      "frequency_rank": 1803,
       "meanings": [
         "to be patient"
       ]
@@ -15037,7 +14918,7 @@
       ],
       "pinyin": "zhí",
       "hsk_level": 4,
-      "frequency_rank": 1811,
+      "frequency_rank": 1804,
       "meanings": [
         "profession; occupation"
       ]
@@ -15054,7 +14935,7 @@
       ],
       "pinyin": "lián",
       "hsk_level": 4,
-      "frequency_rank": 1812,
+      "frequency_rank": 1805,
       "meanings": [
         "Internet",
         "integrate; link; connection; contact"
@@ -15072,7 +14953,7 @@
       ],
       "pinyin": "pìn",
       "hsk_level": 4,
-      "frequency_rank": 1813,
+      "frequency_rank": 1806,
       "meanings": [
         "accept a job offer; to apply for a job",
         "recruitment; take job applications for a job"
@@ -15090,7 +14971,7 @@
       ],
       "pinyin": "jù",
       "hsk_level": 4,
-      "frequency_rank": 1814,
+      "frequency_rank": 1807,
       "meanings": [
         "hold a meeting; get together; a party"
       ]
@@ -15112,7 +14993,7 @@
       ],
       "pinyin": "dù, dǔ",
       "hsk_level": 4,
-      "frequency_rank": 1815,
+      "frequency_rank": 1808,
       "meanings": [
         "belly; abdomen; stomach"
       ]
@@ -15129,7 +15010,7 @@
       ],
       "pinyin": "fū",
       "hsk_level": 4,
-      "frequency_rank": 1816,
+      "frequency_rank": 1809,
       "meanings": [
         "skin"
       ]
@@ -15146,7 +15027,7 @@
       ],
       "pinyin": "féi",
       "hsk_level": 4,
-      "frequency_rank": 1817,
+      "frequency_rank": 1810,
       "meanings": [
         "go on a diet; lose weight"
       ]
@@ -15163,7 +15044,7 @@
       ],
       "pinyin": "kěn",
       "hsk_level": 4,
-      "frequency_rank": 1818,
+      "frequency_rank": 1811,
       "meanings": [
         "sure; definite; affirm; approve"
       ]
@@ -15185,7 +15066,7 @@
       ],
       "pinyin": "gē, gé",
       "hsk_level": 4,
-      "frequency_rank": 1819,
+      "frequency_rank": 1812,
       "meanings": [
         "arm"
       ]
@@ -15202,7 +15083,7 @@
       ],
       "pinyin": "zāng",
       "hsk_level": 4,
-      "frequency_rank": 1820,
+      "frequency_rank": 1813,
       "meanings": [
         "filthy; dirty"
       ]
@@ -15219,7 +15100,7 @@
       ],
       "pinyin": "tuō",
       "hsk_level": 4,
-      "frequency_rank": 1821,
+      "frequency_rank": 1814,
       "meanings": [
         "to shed; take off; to escape"
       ]
@@ -15236,7 +15117,7 @@
       ],
       "pinyin": "pí",
       "hsk_level": 4,
-      "frequency_rank": 1822,
+      "frequency_rank": 1815,
       "meanings": [
         "temperament; disposition; temper"
       ]
@@ -15253,7 +15134,7 @@
       ],
       "pinyin": "bó",
       "hsk_level": 4,
-      "frequency_rank": 1823,
+      "frequency_rank": 1816,
       "meanings": [
         "arm"
       ]
@@ -15275,7 +15156,7 @@
       ],
       "pinyin": "gāo, gào",
       "hsk_level": 4,
-      "frequency_rank": 1824,
+      "frequency_rank": 1817,
       "meanings": [
         "toothpaste"
       ]
@@ -15292,7 +15173,7 @@
       ],
       "pinyin": "zhì",
       "hsk_level": 4,
-      "frequency_rank": 1825,
+      "frequency_rank": 1818,
       "meanings": [
         "even (to the point of); so much so that",
         "at least; (to say the) least"
@@ -15310,7 +15191,7 @@
       ],
       "pinyin": "háng",
       "hsk_level": 4,
-      "frequency_rank": 1826,
+      "frequency_rank": 1819,
       "meanings": [
         "scheduled flight; flight number"
       ]
@@ -15327,7 +15208,7 @@
       ],
       "pinyin": "yì",
       "hsk_level": 4,
-      "frequency_rank": 1827,
+      "frequency_rank": 1820,
       "meanings": [
         "art"
       ]
@@ -15344,7 +15225,7 @@
       ],
       "pinyin": "kǔ",
       "hsk_level": 4,
-      "frequency_rank": 1828,
+      "frequency_rank": 1821,
       "meanings": [
         "bitter; miserable",
         "hard; exhausting; toilsome; laborious"
@@ -15362,7 +15243,7 @@
       ],
       "pinyin": "huò",
       "hsk_level": 4,
-      "frequency_rank": 1829,
+      "frequency_rank": 1822,
       "meanings": [
         "obtain; acquire; to gain"
       ]
@@ -15379,7 +15260,7 @@
       ],
       "pinyin": "táo",
       "hsk_level": 4,
-      "frequency_rank": 1830,
+      "frequency_rank": 1823,
       "meanings": [
         "grape"
       ]
@@ -15406,7 +15287,7 @@
       ],
       "pinyin": "luò, là, lào",
       "hsk_level": 4,
-      "frequency_rank": 1831,
+      "frequency_rank": 1824,
       "meanings": [
         "descend; to land; put down"
       ]
@@ -15423,7 +15304,7 @@
       ],
       "pinyin": "pú",
       "hsk_level": 4,
-      "frequency_rank": 1832,
+      "frequency_rank": 1825,
       "meanings": [
         "grape"
       ]
@@ -15440,7 +15321,7 @@
       ],
       "pinyin": "hǔ",
       "hsk_level": 4,
-      "frequency_rank": 1833,
+      "frequency_rank": 1826,
       "meanings": [
         "tiger",
         "careless; sloppy; casual"
@@ -15458,7 +15339,7 @@
       ],
       "pinyin": "lǜ",
       "hsk_level": 4,
-      "frequency_rank": 1834,
+      "frequency_rank": 1827,
       "meanings": [
         "think over; consider"
       ]
@@ -15475,7 +15356,7 @@
       ],
       "pinyin": "dài",
       "hsk_level": 4,
-      "frequency_rank": 1835,
+      "frequency_rank": 1828,
       "meanings": [
         "plastic bag"
       ]
@@ -15492,7 +15373,7 @@
       ],
       "pinyin": "wà",
       "hsk_level": 4,
-      "frequency_rank": 1836,
+      "frequency_rank": 1829,
       "meanings": [
         "socks; stockings"
       ]
@@ -15514,7 +15395,7 @@
       ],
       "pinyin": "guān, guàn",
       "hsk_level": 4,
-      "frequency_rank": 1837,
+      "frequency_rank": 1830,
       "meanings": [
         "to visit (a place, such as a tourist spot); inspect",
         "spectator; audience"
@@ -15532,7 +15413,7 @@
       ],
       "pinyin": "guī",
       "hsk_level": 4,
-      "frequency_rank": 1838,
+      "frequency_rank": 1831,
       "meanings": [
         "regulation; stipulate; fix; set"
       ]
@@ -15549,7 +15430,7 @@
       ],
       "pinyin": "yán",
       "hsk_level": 4,
-      "frequency_rank": 1839,
+      "frequency_rank": 1832,
       "meanings": [
         "language"
       ]
@@ -15566,7 +15447,7 @@
       ],
       "pinyin": "jì",
       "hsk_level": 4,
-      "frequency_rank": 1840,
+      "frequency_rank": 1833,
       "meanings": [
         "appraise; estimate",
         "plan; project"
@@ -15584,7 +15465,7 @@
       ],
       "pinyin": "tǎo",
       "hsk_level": 4,
-      "frequency_rank": 1841,
+      "frequency_rank": 1834,
       "meanings": [
         "to discuss; discussion; to talk over",
         "to hate; loathe; disgusting; troublesome"
@@ -15602,7 +15483,7 @@
       ],
       "pinyin": "xū",
       "hsk_level": 4,
-      "frequency_rank": 1842,
+      "frequency_rank": 1835,
       "meanings": [
         "many; a lot; much",
         "perhaps; probably; maybe"
@@ -15625,7 +15506,7 @@
       ],
       "pinyin": "lùn, lún",
       "hsk_level": 4,
-      "frequency_rank": 1843,
+      "frequency_rank": 1836,
       "meanings": [
         "to discuss; discussion; to talk over",
         "no matter what; regardless of whether..."
@@ -15643,7 +15524,7 @@
       ],
       "pinyin": "zhèng",
       "hsk_level": 4,
-      "frequency_rank": 1844,
+      "frequency_rank": 1837,
       "meanings": [
         "to guarantee; ensure",
         "visa"
@@ -15661,7 +15542,7 @@
       ],
       "pinyin": "píng",
       "hsk_level": 4,
-      "frequency_rank": 1845,
+      "frequency_rank": 1838,
       "meanings": [
         "criticize"
       ]
@@ -15678,7 +15559,7 @@
       ],
       "pinyin": "yì",
       "hsk_level": 4,
-      "frequency_rank": 1846,
+      "frequency_rank": 1839,
       "meanings": [
         "translate; translation; interpret"
       ]
@@ -15695,7 +15576,7 @@
       ],
       "pinyin": "chéng",
       "hsk_level": 4,
-      "frequency_rank": 1847,
+      "frequency_rank": 1840,
       "meanings": [
         "honest; honorable"
       ]
@@ -15712,7 +15593,7 @@
       ],
       "pinyin": "xiáng",
       "hsk_level": 4,
-      "frequency_rank": 1848,
+      "frequency_rank": 1841,
       "meanings": [
         "detailed; in detail; minute"
       ]
@@ -15729,7 +15610,7 @@
       ],
       "pinyin": "wù",
       "hsk_level": 4,
-      "frequency_rank": 1849,
+      "frequency_rank": 1842,
       "meanings": [
         "error; mistake; mistaken",
         "to misunderstand; to mistake"
@@ -15747,7 +15628,7 @@
       ],
       "pinyin": "liàng",
       "hsk_level": 4,
-      "frequency_rank": 1850,
+      "frequency_rank": 1843,
       "meanings": [
         "to excuse; forgive; to pardon"
       ]
@@ -15764,7 +15645,7 @@
       ],
       "pinyin": "tán",
       "hsk_level": 4,
-      "frequency_rank": 1851,
+      "frequency_rank": 1844,
       "meanings": [
         "to talk; to chat; discuss"
       ]
@@ -15781,7 +15662,7 @@
       ],
       "pinyin": "yì",
       "hsk_level": 4,
-      "frequency_rank": 1852,
+      "frequency_rank": 1845,
       "meanings": [
         "friendship; companionship"
       ]
@@ -15798,7 +15679,7 @@
       ],
       "pinyin": "jǐng",
       "hsk_level": 4,
-      "frequency_rank": 1853,
+      "frequency_rank": 1846,
       "meanings": [
         "police"
       ]
@@ -15815,7 +15696,7 @@
       ],
       "pinyin": "xiàng",
       "hsk_level": 4,
-      "frequency_rank": 1854,
+      "frequency_rank": 1847,
       "meanings": [
         "impression"
       ]
@@ -15832,7 +15713,7 @@
       ],
       "pinyin": "mào",
       "hsk_level": 4,
-      "frequency_rank": 1855,
+      "frequency_rank": 1848,
       "meanings": [
         "courtesy; politeness; manners"
       ]
@@ -15849,7 +15730,7 @@
       ],
       "pinyin": "fù",
       "hsk_level": 4,
-      "frequency_rank": 1856,
+      "frequency_rank": 1849,
       "meanings": [
         "responsible for (something); in charge of"
       ]
@@ -15871,7 +15752,7 @@
       ],
       "pinyin": "zé, zhài",
       "hsk_level": 4,
-      "frequency_rank": 1857,
+      "frequency_rank": 1850,
       "meanings": [
         "responsible for (something); in charge of",
         "responsibility; blame; duty"
@@ -15889,7 +15770,7 @@
       ],
       "pinyin": "bài",
       "hsk_level": 4,
-      "frequency_rank": 1858,
+      "frequency_rank": 1851,
       "meanings": [
         "be defeated; fail; lose"
       ]
@@ -15906,7 +15787,7 @@
       ],
       "pinyin": "huò",
       "hsk_level": 4,
-      "frequency_rank": 1859,
+      "frequency_rank": 1852,
       "meanings": [
         "salesclerk; shop assistant"
       ]
@@ -15923,7 +15804,7 @@
       ],
       "pinyin": "zhì",
       "hsk_level": 4,
-      "frequency_rank": 1860,
+      "frequency_rank": 1853,
       "meanings": [
         "quality; mass (physics)"
       ]
@@ -15940,7 +15821,7 @@
       ],
       "pinyin": "gòu",
       "hsk_level": 4,
-      "frequency_rank": 1861,
+      "frequency_rank": 1854,
       "meanings": [
         "go shopping; buy goods"
       ]
@@ -15957,7 +15838,7 @@
       ],
       "pinyin": "fèi",
       "hsk_level": 4,
-      "frequency_rank": 1862,
+      "frequency_rank": 1855,
       "meanings": [
         "to waste; squander",
         "free (of charge); no cost"
@@ -15975,7 +15856,7 @@
       ],
       "pinyin": "hè",
       "hsk_level": 4,
-      "frequency_rank": 1863,
+      "frequency_rank": 1856,
       "meanings": [
         "congratulate"
       ]
@@ -15992,7 +15873,7 @@
       ],
       "pinyin": "zī",
       "hsk_level": 4,
-      "frequency_rank": 1864,
+      "frequency_rank": 1857,
       "meanings": [
         "wages; pay; earnings; salary"
       ]
@@ -16014,7 +15895,7 @@
       ],
       "pinyin": "zhuàn, zuàn",
       "hsk_level": 4,
-      "frequency_rank": 1865,
+      "frequency_rank": 1858,
       "meanings": [
         "earn; make a profit"
       ]
@@ -16031,7 +15912,7 @@
       ],
       "pinyin": "yíng",
       "hsk_level": 4,
-      "frequency_rank": 1866,
+      "frequency_rank": 1859,
       "meanings": [
         "to win; to beat; to profit"
       ]
@@ -16048,7 +15929,7 @@
       ],
       "pinyin": "gǎn",
       "hsk_level": 4,
-      "frequency_rank": 1867,
+      "frequency_rank": 1860,
       "meanings": [
         "catch up; overtake; drive away"
       ]
@@ -16070,7 +15951,7 @@
       ],
       "pinyin": "tàng, tāng",
       "hsk_level": 4,
-      "frequency_rank": 1868,
+      "frequency_rank": 1861,
       "meanings": [
         "(mw for trips times) | to wade"
       ]
@@ -16087,7 +15968,7 @@
       ],
       "pinyin": "jù",
       "hsk_level": 4,
-      "frequency_rank": 1869,
+      "frequency_rank": 1862,
       "meanings": [
         "distance; be apart; away from"
       ]
@@ -16104,7 +15985,7 @@
       ],
       "pinyin": "tǎng",
       "hsk_level": 4,
-      "frequency_rank": 1870,
+      "frequency_rank": 1863,
       "meanings": [
         "recline; lie down (on back or side)"
       ]
@@ -16121,7 +16002,7 @@
       ],
       "pinyin": "zhuǎn",
       "hsk_level": 4,
-      "frequency_rank": 1871,
+      "frequency_rank": 1864,
       "meanings": [
         "to turn; to change; pass on | revolve; rotate"
       ]
@@ -16138,7 +16019,7 @@
       ],
       "pinyin": "shū",
       "hsk_level": 4,
-      "frequency_rank": 1872,
+      "frequency_rank": 1865,
       "meanings": [
         "to transport; to lose (a game, etc.)"
       ]
@@ -16155,7 +16036,7 @@
       ],
       "pinyin": "xīn",
       "hsk_level": 4,
-      "frequency_rank": 1873,
+      "frequency_rank": 1866,
       "meanings": [
         "hard; exhausting; toilsome; laborious"
       ]
@@ -16172,7 +16053,7 @@
       ],
       "pinyin": "là",
       "hsk_level": 4,
-      "frequency_rank": 1874,
+      "frequency_rank": 1867,
       "meanings": [
         "hot (spicy)"
       ]
@@ -16189,7 +16070,7 @@
       ],
       "pinyin": "lián",
       "hsk_level": 4,
-      "frequency_rank": 1875,
+      "frequency_rank": 1868,
       "meanings": [
         "even; including; join"
       ]
@@ -16206,7 +16087,7 @@
       ],
       "pinyin": "mí",
       "hsk_level": 4,
-      "frequency_rank": 1876,
+      "frequency_rank": 1869,
       "meanings": [
         "to get lost"
       ]
@@ -16223,7 +16104,7 @@
       ],
       "pinyin": "shì",
       "hsk_level": 4,
-      "frequency_rank": 1877,
+      "frequency_rank": 1870,
       "meanings": [
         "suitable; proper; appropriate",
         "to suit; to fit"
@@ -16241,7 +16122,7 @@
       ],
       "pinyin": "tōng",
       "hsk_level": 4,
-      "frequency_rank": 1878,
+      "frequency_rank": 1871,
       "meanings": [
         "traffic; transportation",
         "Mandarin (common language)"
@@ -16259,7 +16140,7 @@
       ],
       "pinyin": "guàng",
       "hsk_level": 4,
-      "frequency_rank": 1879,
+      "frequency_rank": 1872,
       "meanings": [
         "to stroll; to visit; go window shopping"
       ]
@@ -16276,7 +16157,7 @@
       ],
       "pinyin": "sù",
       "hsk_level": 4,
-      "frequency_rank": 1880,
+      "frequency_rank": 1873,
       "meanings": [
         "highway",
         "speed; rate; velocity"
@@ -16294,7 +16175,7 @@
       ],
       "pinyin": "biàn",
       "hsk_level": 4,
-      "frequency_rank": 1881,
+      "frequency_rank": 1874,
       "meanings": [
         "a time; everywhere; turn; (mw for times or turns)",
         "common; universal; general; widespread"
@@ -16312,7 +16193,7 @@
       ],
       "pinyin": "yāo",
       "hsk_level": 4,
-      "frequency_rank": 1882,
+      "frequency_rank": 1875,
       "meanings": [
         "to invite"
       ]
@@ -16329,7 +16210,7 @@
       ],
       "pinyin": "jiāo",
       "hsk_level": 4,
-      "frequency_rank": 1883,
+      "frequency_rank": 1876,
       "meanings": [
         "suburbs; outskirts"
       ]
@@ -16346,7 +16227,7 @@
       ],
       "pinyin": "bù",
       "hsk_level": 4,
-      "frequency_rank": 1884,
+      "frequency_rank": 1877,
       "meanings": [
         "part; share; section",
         "whole; entire; complete"
@@ -16364,7 +16245,7 @@
       ],
       "pinyin": "suān",
       "hsk_level": 4,
-      "frequency_rank": 1885,
+      "frequency_rank": 1878,
       "meanings": [
         "sour; sore; ache"
       ]
@@ -16381,7 +16262,7 @@
       ],
       "pinyin": "xǐng",
       "hsk_level": 4,
-      "frequency_rank": 1886,
+      "frequency_rank": 1879,
       "meanings": [
         "remind; call attention to; warn of",
         "wake up"
@@ -16399,26 +16280,9 @@
       ],
       "pinyin": "shì",
       "hsk_level": 4,
-      "frequency_rank": 1887,
+      "frequency_rank": 1880,
       "meanings": [
         "to explain"
-      ]
-    },
-    {
-      "simp": "里",
-      "trad": "裏",
-      "zhuyin": [
-        [
-          "ㄌ",
-          "ㄧ",
-          "ˇ"
-        ]
-      ],
-      "pinyin": "lǐ",
-      "hsk_level": 4,
-      "frequency_rank": 1888,
-      "meanings": [
-        "kilometer"
       ]
     },
     {
@@ -16438,7 +16302,7 @@
       ],
       "pinyin": "liáng, liàng",
       "hsk_level": 4,
-      "frequency_rank": 1889,
+      "frequency_rank": 1881,
       "meanings": [
         "consult; talk over; discuss",
         "amount; quantity; number"
@@ -16456,7 +16320,7 @@
       ],
       "pinyin": "zhēn",
       "hsk_level": 4,
-      "frequency_rank": 1890,
+      "frequency_rank": 1882,
       "meanings": [
         "inject; get a shot"
       ]
@@ -16478,7 +16342,7 @@
       ],
       "pinyin": "gāng, gàng",
       "hsk_level": 4,
-      "frequency_rank": 1891,
+      "frequency_rank": 1883,
       "meanings": [
         "play the piano"
       ]
@@ -16495,7 +16359,7 @@
       ],
       "pinyin": "yuè",
       "hsk_level": 4,
-      "frequency_rank": 1892,
+      "frequency_rank": 1884,
       "meanings": [
         "key"
       ]
@@ -16512,7 +16376,7 @@
       ],
       "pinyin": "jiàn",
       "hsk_level": 4,
-      "frequency_rank": 1893,
+      "frequency_rank": 1885,
       "meanings": [
         "crucial; key; pivotal"
       ]
@@ -16529,7 +16393,7 @@
       ],
       "pinyin": "jìng",
       "hsk_level": 4,
-      "frequency_rank": 1894,
+      "frequency_rank": 1886,
       "meanings": [
         "mirror",
         "glasses; spectacles"
@@ -16547,7 +16411,7 @@
       ],
       "pinyin": "nào",
       "hsk_level": 4,
-      "frequency_rank": 1895,
+      "frequency_rank": 1887,
       "meanings": [
         "bustling; lively; busy"
       ]
@@ -16564,7 +16428,7 @@
       ],
       "pinyin": "yuè",
       "hsk_level": 4,
-      "frequency_rank": 1896,
+      "frequency_rank": 1888,
       "meanings": [
         "read; reading"
       ]
@@ -16586,7 +16450,7 @@
       ],
       "pinyin": "duì, zhuì",
       "hsk_level": 4,
-      "frequency_rank": 1897,
+      "frequency_rank": 1889,
       "meanings": [
         "queue; stand in line"
       ]
@@ -16603,7 +16467,7 @@
       ],
       "pinyin": "jì",
       "hsk_level": 4,
-      "frequency_rank": 1898,
+      "frequency_rank": 1890,
       "meanings": [
         "international",
         "actual; reality; practice"
@@ -16626,7 +16490,7 @@
       ],
       "pinyin": "jiàng, xiáng",
       "hsk_level": 4,
-      "frequency_rank": 1899,
+      "frequency_rank": 1891,
       "meanings": [
         "reduce; to lower; to drop",
         "descend; to land; put down"
@@ -16644,7 +16508,7 @@
       ],
       "pinyin": "xiǎn",
       "hsk_level": 4,
-      "frequency_rank": 1900,
+      "frequency_rank": 1892,
       "meanings": [
         "danger; dangerous; perilous"
       ]
@@ -16661,7 +16525,7 @@
       ],
       "pinyin": "péi",
       "hsk_level": 4,
-      "frequency_rank": 1901,
+      "frequency_rank": 1893,
       "meanings": [
         "accompany; keep company"
       ]
@@ -16678,7 +16542,7 @@
       ],
       "pinyin": "suí",
       "hsk_level": 4,
-      "frequency_rank": 1902,
+      "frequency_rank": 1894,
       "meanings": [
         "as one pleases; informal; random; casual",
         "along with; in the wake of"
@@ -16696,7 +16560,7 @@
       ],
       "pinyin": "jìng",
       "hsk_level": 4,
-      "frequency_rank": 1903,
+      "frequency_rank": 1895,
       "meanings": [
         "unexpectedly; to one's surprise; go so far as to",
         "after all; when all is said and done; actually"
@@ -16714,7 +16578,7 @@
       ],
       "pinyin": "zhāng",
       "hsk_level": 4,
-      "frequency_rank": 1904,
+      "frequency_rank": 1896,
       "meanings": [
         "article; essay"
       ]
@@ -16731,7 +16595,7 @@
       ],
       "pinyin": "yè",
       "hsk_level": 4,
-      "frequency_rank": 1905,
+      "frequency_rank": 1897,
       "meanings": [
         "page; leaf (Kangxi radical 181)"
       ]
@@ -16748,7 +16612,7 @@
       ],
       "pinyin": "shùn",
       "hsk_level": 4,
-      "frequency_rank": 1906,
+      "frequency_rank": 1898,
       "meanings": [
         "conveniently; in passing; on the way",
         "go smoothly; without a hitch; successful"
@@ -16766,7 +16630,7 @@
       ],
       "pinyin": "yù",
       "hsk_level": 4,
-      "frequency_rank": 1907,
+      "frequency_rank": 1899,
       "meanings": [
         "(of students) prepare a lesson before class; preview"
       ]
@@ -16783,7 +16647,7 @@
       ],
       "pinyin": "jiǎo",
       "hsk_level": 4,
-      "frequency_rank": 1908,
+      "frequency_rank": 1900,
       "meanings": [
         "dumpling; potsticker"
       ]
@@ -16800,7 +16664,7 @@
       ],
       "pinyin": "bǐng",
       "hsk_level": 4,
-      "frequency_rank": 1909,
+      "frequency_rank": 1901,
       "meanings": [
         "biscuit; cracker; cookie"
       ]
@@ -16817,7 +16681,7 @@
       ],
       "pinyin": "cān",
       "hsk_level": 4,
-      "frequency_rank": 1910,
+      "frequency_rank": 1902,
       "meanings": [
         "dining hall; cafeteria; restaurant"
       ]
@@ -16834,7 +16698,7 @@
       ],
       "pinyin": "shǒu",
       "hsk_level": 4,
-      "frequency_rank": 1911,
+      "frequency_rank": 1903,
       "meanings": [
         "capital (city)",
         "first (of all); in the first place; firstly"
@@ -16852,7 +16716,7 @@
       ],
       "pinyin": "jiāo",
       "hsk_level": 4,
-      "frequency_rank": 1912,
+      "frequency_rank": 1904,
       "meanings": [
         "proud; arrogant; conceited; take pride in"
       ]
@@ -16869,7 +16733,7 @@
       ],
       "pinyin": "yàn",
       "hsk_level": 4,
-      "frequency_rank": 1913,
+      "frequency_rank": 1905,
       "meanings": [
         "experience"
       ]
@@ -16886,7 +16750,7 @@
       ],
       "pinyin": "piàn",
       "hsk_level": 4,
-      "frequency_rank": 1914,
+      "frequency_rank": 1906,
       "meanings": [
         "to cheat; to swindle; deceive"
       ]
@@ -16903,7 +16767,7 @@
       ],
       "pinyin": "yā",
       "hsk_level": 4,
-      "frequency_rank": 1915,
+      "frequency_rank": 1907,
       "meanings": [
         "roast duck"
       ]
@@ -16920,7 +16784,7 @@
       ],
       "pinyin": "má",
       "hsk_level": 4,
-      "frequency_rank": 1916,
+      "frequency_rank": 1908,
       "meanings": [
         "trouble (someone); troubling; bothersome"
       ]
@@ -16937,7 +16801,7 @@
       ],
       "pinyin": "mò",
       "hsk_level": 4,
-      "frequency_rank": 1917,
+      "frequency_rank": 1909,
       "meanings": [
         "humorous"
       ]
@@ -16954,7 +16818,7 @@
       ],
       "pinyin": "gǔ",
       "hsk_level": 4,
-      "frequency_rank": 1918,
+      "frequency_rank": 1910,
       "meanings": [
         "encourage; inspire"
       ]
@@ -16971,7 +16835,7 @@
       ],
       "pinyin": "líng",
       "hsk_level": 4,
-      "frequency_rank": 1919,
+      "frequency_rank": 1911,
       "meanings": [
         "(a person's) age"
       ]

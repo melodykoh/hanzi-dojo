@@ -196,22 +196,66 @@ const entries = newChars.map((char, index) => {
 
 console.log(`Successfully converted ${entries.length} characters`);
 
+// Final deduplication by simp character (merge variants)
+const finalMap = new Map();
+
+entries.forEach(entry => {
+  if (finalMap.has(entry.simp)) {
+    // Merge with existing entry
+    const existing = finalMap.get(entry.simp);
+
+    // Combine zhuyin readings (deduplicate)
+    const zhuyinSet = new Set(
+      [...existing.zhuyin, ...entry.zhuyin].map(z => JSON.stringify(z))
+    );
+    existing.zhuyin = Array.from(zhuyinSet).map(z => JSON.parse(z));
+
+    // Take lower HSK level
+    existing.hsk_level = Math.min(existing.hsk_level, entry.hsk_level);
+
+    // Combine meanings
+    const meaningSet = new Set([
+      ...existing.meanings,
+      ...entry.meanings
+    ]);
+    existing.meanings = Array.from(meaningSet).slice(0, 3);
+
+    // Update pinyin string
+    const pinyinParts = existing.pinyin.split(', ').concat(entry.pinyin.split(', '));
+    existing.pinyin = [...new Set(pinyinParts)].join(', ');
+  } else {
+    finalMap.set(entry.simp, entry);
+  }
+});
+
+const dedupedEntries = Array.from(finalMap.values())
+  .sort((a, b) => {
+    if (a.hsk_level !== b.hsk_level) return a.hsk_level - b.hsk_level;
+    return a.simp.localeCompare(b.simp);
+  })
+  .map((entry, index) => ({
+    ...entry,
+    frequency_rank: 1000 + index  // Reassign sequential ranks
+  }));
+
+console.log(`After deduplication: ${dedupedEntries.length} unique characters`);
+
 // Save to new JSON file
 const output = {
   version: '2.0.0',
   created: new Date().toISOString().split('T')[0],
-  description: `Dictionary expansion - added ${entries.length} HSK 1-4 characters`,
-  note: 'Zhuyin converted from Chinese characters via pinyin library. May require manual review for multi-pronunciation characters.',
-  entries: entries
+  description: `Dictionary expansion - added ${dedupedEntries.length} HSK 1-4 characters`,
+  note: 'Zhuyin converted from Chinese characters via pinyin library. Deduplicated by simplified character.',
+  entries: dedupedEntries
 };
 
 fs.writeFileSync('./data/dictionary_expansion_v2.json', JSON.stringify(output, null, 2));
-console.log(`\n✅ Saved ${entries.length} new characters to data/dictionary_expansion_v2.json`);
-console.log(`Total dictionary size will be: ${existingDict.entries.length + entries.length} characters`);
+console.log(`\n✅ Saved ${dedupedEntries.length} new characters to data/dictionary_expansion_v2.json`);
+console.log(`Total dictionary size will be: ${existingDict.entries.length + dedupedEntries.length} characters`);
 
 // Print a sample to verify
 console.log(`\nSample entries (with all pronunciations):`);
-const samples = ['什', '么', '习', '人', '的', '了', '为'].map(c => entries.find(e => e.simp === c)).filter(Boolean);
+const samples = ['什', '么', '习', '人', '的', '了', '为'].map(c => dedupedEntries.find(e => e.simp === c)).filter(Boolean);
 samples.forEach(s => {
   const zhuyinStrs = s.zhuyin.map(z => z.join('')).join(', ');
   const multiMark = s.zhuyin.length > 1 ? ' (multi)' : '';
