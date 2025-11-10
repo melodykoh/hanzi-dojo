@@ -226,11 +226,24 @@ For significant changes (>50 lines or >3 files):
 - Drill selection modal before training (proficiency-based recommendations)
 - Sticky action bar for primary functions (Add Item, Launch Training)
 
-### Dictionary Demo Interface
-- **Lookup button:** User-facing feature - check if character exists before adding to Entry Catalog
-- **Batch Test button:** Removed from UI (Session 8, Nov 10 2025) - was developer-only testing tool with no user value
-- **Rationale:** Batch Test confused users ("What does this do? Why these 10 characters?")
-- **Developer access:** Still available via browser console: `dictionaryClient.batchLookup(['太', '阳', ...])`
+### Developer Tools Hidden from Production UI
+**Decision (Session 8, Nov 10 2025):** Hide testing/debugging interfaces from end users
+
+**Tabs removed from Dashboard:**
+- **Practice Demo** - Testing drills without real training (use Launch Training instead)
+- **Analytics** - Cache hit rates, dictionary stats (developer metrics only)
+- **Dictionary** - Lookup test (replaced by Add Item auto-fill functionality)
+- **Missing** - Logged missing dictionary entries (developer debugging)
+- **Batch Test button** - Removed from Dictionary Demo (cache performance testing)
+
+**Rationale:** 
+- Users only need: Dashboard (metrics) + My Characters (catalog) + Launch Training (button)
+- Developer tools confused users: "What does Analytics do? What is Missing?"
+- Cleaner UI with 2 tabs instead of 6
+
+**Developer access:** 
+- Uncomment tabs in Dashboard.tsx to restore (lines 167-207)
+- Console access: `dictionaryClient.batchLookup([...])`, `dictionaryClient.getStats()`
 
 **For detailed historical context and session-by-session discoveries, see:** `SESSION_LOG.md`
 
