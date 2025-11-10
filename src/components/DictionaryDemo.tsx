@@ -48,7 +48,7 @@ export function DictionaryDemo() {
       <div>
         <h3 className="text-xl font-bold mb-4">Dictionary Lookup Test</h3>
         
-        <div className="flex gap-2 mb-4">
+        <div className="flex flex-col sm:flex-row gap-2 mb-4">
           <input
             type="text"
             value={searchChar}
@@ -57,20 +57,22 @@ export function DictionaryDemo() {
             placeholder="Enter character (e.g., 太)"
             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dojo-red"
           />
-          <button
-            onClick={handleLookup}
-            disabled={loading}
-            className="dojo-button-primary disabled:opacity-50"
-          >
-            {loading ? 'Looking up...' : 'Lookup'}
-          </button>
-          <button
-            onClick={handleBatchTest}
-            disabled={loading}
-            className="dojo-button-secondary disabled:opacity-50"
-          >
-            Batch Test
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={handleLookup}
+              disabled={loading}
+              className="flex-1 sm:flex-none dojo-button-primary disabled:opacity-50 whitespace-nowrap"
+            >
+              {loading ? 'Looking up...' : 'Lookup'}
+            </button>
+            <button
+              onClick={handleBatchTest}
+              disabled={loading}
+              className="flex-1 sm:flex-none dojo-button-secondary disabled:opacity-50 whitespace-nowrap"
+            >
+              Batch Test
+            </button>
+          </div>
         </div>
 
         {/* Cache Stats */}
