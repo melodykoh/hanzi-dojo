@@ -1,7 +1,8 @@
 -- Dictionary Expansion Migration
 -- Adds 920 HSK 1-4 characters to production dictionary
--- Generated: 2025-11-10T01:48:44.152Z
+-- Generated: 2025-11-10T01:51:38.124Z
 -- Source: HSK 1-4 official word lists (processed via pinyin library)
+-- Note: Uses ON CONFLICT DO UPDATE to handle duplicates and update pronunciations
 
 INSERT INTO dictionary_entries (simp, trad, zhuyin, frequency_rank) VALUES
   ('么', '麼', '[["ㄇ","ㄛ","ˊ"],["ㄇ","ㄜ","˙"]]'::jsonb, 1000),
@@ -923,8 +924,13 @@ INSERT INTO dictionary_entries (simp, trad, zhuyin, frequency_rank) VALUES
   ('麻', '麻', '[["ㄇ","ㄚ","ˊ"]]'::jsonb, 1916),
   ('默', '默', '[["ㄇ","ㄛ","ˋ"]]'::jsonb, 1917),
   ('鼓', '鼓', '[["ㄍ","ㄨ","ˇ"]]'::jsonb, 1918),
-  ('龄', '齡', '[["ㄌ","ㄧㄥ","ˊ"]]'::jsonb, 1919);
+  ('龄', '齡', '[["ㄌ","ㄧㄥ","ˊ"]]'::jsonb, 1919)
+ON CONFLICT (simp) DO UPDATE SET
+  zhuyin = EXCLUDED.zhuyin,
+  trad = EXCLUDED.trad,
+  frequency_rank = EXCLUDED.frequency_rank;
 
 -- Migration complete
--- Total characters added: 920
+-- Total characters added/updated: 920
 -- Dictionary size after migration: ~1075 characters
+-- Note: Existing entries updated with complete multi-pronunciation data
