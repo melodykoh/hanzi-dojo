@@ -29,26 +29,20 @@ export function DictionaryDemo() {
     }
   }
 
-  const handleBatchTest = async () => {
-    setLoading(true)
-    try {
-      const testChars = ['太', '阳', '黑', '前', '后', '着', '光', '灯', '亮', '见']
-      await dictionaryClient.batchLookup(testChars)
-      setStats(dictionaryClient.getStats())
-      alert(`Batch lookup complete! Loaded ${testChars.length} characters.\nCheck console for details.`)
-    } catch (err) {
-      console.error('Batch lookup error:', err)
-    } finally {
-      setLoading(false)
-    }
-  }
+  // Batch Test removed from UI - developer testing only
+  // To test batch lookup in console:
+  // import { dictionaryClient } from './lib/dictionaryClient'
+  // await dictionaryClient.batchLookup(['太', '阳', '黑', '前', '后', '着', '光', '灯', '亮', '见'])
+  //
+  // Rationale: Batch Test was confusing for end users (no clear purpose)
+  // Lookup button provides all user-facing value (check if character exists before adding)
 
   return (
     <div className="space-y-6">
       <div>
         <h3 className="text-xl font-bold mb-4">Dictionary Lookup Test</h3>
         
-        <div className="flex flex-col sm:flex-row gap-2 mb-4">
+        <div className="flex gap-2 mb-4">
           <input
             type="text"
             value={searchChar}
@@ -57,22 +51,13 @@ export function DictionaryDemo() {
             placeholder="Enter character (e.g., 太)"
             className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dojo-red"
           />
-          <div className="flex gap-2">
-            <button
-              onClick={handleLookup}
-              disabled={loading}
-              className="flex-1 sm:flex-none dojo-button-primary disabled:opacity-50 whitespace-nowrap"
-            >
-              {loading ? 'Looking up...' : 'Lookup'}
-            </button>
-            <button
-              onClick={handleBatchTest}
-              disabled={loading}
-              className="flex-1 sm:flex-none dojo-button-secondary disabled:opacity-50 whitespace-nowrap"
-            >
-              Batch Test
-            </button>
-          </div>
+          <button
+            onClick={handleLookup}
+            disabled={loading}
+            className="dojo-button-primary disabled:opacity-50 whitespace-nowrap"
+          >
+            {loading ? 'Looking up...' : 'Lookup'}
+          </button>
         </div>
 
         {/* Cache Stats */}

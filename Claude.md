@@ -59,6 +59,21 @@ Before coding:
 - [ ] Propose cleanup if structure violations found
 - [ ] Confirm user's priority for today's session
 
+### **Deployment Workflow Checklist**
+
+For significant changes (>50 lines or >3 files):
+- [ ] Create feature branch: `git checkout -b feature/name`
+- [ ] Commit with descriptive message and co-author
+- [ ] Push branch: `git push -u origin feature/name`
+- [ ] Create PR: `gh pr create --title "..." --body "..." --base main`
+- [ ] Wait for Vercel preview (~2 min), test thoroughly
+- [ ] Merge via GitHub UI or `gh pr merge <#>`
+- [ ] Update local: `git checkout main && git pull`
+- [ ] Clean up: `git branch -d feature/name`
+- [ ] Verify production at https://hanzi-dojo.vercel.app
+
+**Reference:** `docs/DEVELOPMENT_AND_DEPLOYMENT.md` for full workflow
+
 ---
 
 ## 🚨 **MANDATORY: Complete Before Any Coding**
@@ -210,6 +225,12 @@ Before coding:
 - 300ms debounced dictionary lookup for responsiveness
 - Drill selection modal before training (proficiency-based recommendations)
 - Sticky action bar for primary functions (Add Item, Launch Training)
+
+### Dictionary Demo Interface
+- **Lookup button:** User-facing feature - check if character exists before adding to Entry Catalog
+- **Batch Test button:** Removed from UI (Session 8, Nov 10 2025) - was developer-only testing tool with no user value
+- **Rationale:** Batch Test confused users ("What does this do? Why these 10 characters?")
+- **Developer access:** Still available via browser console: `dictionaryClient.batchLookup(['太', '阳', ...])`
 
 **For detailed historical context and session-by-session discoveries, see:** `SESSION_LOG.md`
 
