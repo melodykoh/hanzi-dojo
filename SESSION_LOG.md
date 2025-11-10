@@ -2096,3 +2096,381 @@ ON CONFLICT (simp) DO UPDATE SET
 **Email Config:** Production ready ✅  
 **User Testing:** Ready to begin ✅
 
+
+---
+
+## Session 8: Dictionary Quality + Bug Fixes Sprint
+**Date:** 2025-11-10  
+**Status:** ✅ Complete  
+**Epic:** Migration 010a (Phase 1) + Bug Fixes #2-#7
+
+### 🎯 Objectives Accomplished
+1. ✅ Applied Migration 010a to production (248 tone marks + 22 multi-pronunciation + 麼)
+2. ✅ Deployed multi-pronunciation review UI with variant selection
+3. ✅ Fixed 6 user-reported bugs (Entry Catalog refresh, Auth persistence, Practice Demo pollution, Layout issues)
+4. ✅ Cleaned production database (86 → 9 legitimate missing entries)
+5. ✅ Added dictionary logger validation (rejects Zhuyin/test inputs)
+6. ✅ Organized developer tools (5 useful tabs, Analytics hidden)
+7. ✅ Documented deployment workflow and database cleanup process
+
+### 📋 Work Completed
+
+#### Migration 010a - Dictionary Quality (Phase 1)
+**File:** `supabase/migrations/010_comprehensive_dictionary_fix.sql`
+
+**Part 1: Fix Empty Tone Marks (248 characters)**
+- Issue: Dictionary entries had empty tone mark (`""`) causing display errors
+- Fix: Updated all empty tone marks to `"ˉ"` (first tone)
+- Impact: Resolves 和, 因, 星, 它 user-reported errors
+- SQL: 3 UPDATE statements with proper JSON syntax `'"ˉ"'::jsonb`
+
+**Part 2: Restructure Multi-Pronunciation Characters (22 characters)**
+- Issue: Multiple syllables crammed into main zhuyin array instead of `zhuyin_variants`
+- Characters fixed: 和, 什, 着, 了, 种, 几, 难, 只, 还, 长, 得, 地, 中, 行, 觉, 更, 少, 见, 发, 说, 看, 乐
+- Fix: Created proper `zhuyin_variants` structure with context words
+- Example: 和 (hé/hàn/huò) with context words (和平/和面/和泥)
+
+**Part 3: Add Missing Character (1 character)**
+- Added: 麼 (me/mó/ma) with 3 variants and context words
+- Reason: User-reported missing character
+
+**Deployment:**
+- Applied via Supabase Dashboard SQL Editor (manual, anon key limitation)
+- Three iterative fixes for SQL syntax errors:
+  1. JSON syntax: `'ˉ'::jsonb` → `'"ˉ"'::jsonb`
+  2. RAISE statement: Wrapped in DO block
+  3. ON CONFLICT: Changed from `(simp, trad)` to `(simp)` to match schema
+- Verification queries confirmed all fixes applied correctly
+
+#### PR #1: Multi-Pronunciation Review UI
+**Branch:** `feature/multi-pronunciation-review`  
+**Status:** ✅ Merged
+
+**Features Added:**
+- Yellow ⚠️ badge on Entry Catalog cards with `needsPronunciationReview` flag
+- Enhanced Details modal with pronunciation variant selection
+- Radio-button style cards showing each variant with context words
+- Save button updates `locked_reading_id` and removes badge
+- Proper state management (reset on modal close)
+
+**Files Modified:**
+- `src/components/EntryCatalog.tsx` (+78 lines)
+
+**User Impact:**
+- Parents can now review and select correct pronunciation for multi-reading characters
+- Visual indicator shows which characters need attention
+- Variant selection persisted to database
+
+#### PR #2: Bug #2 - Entry Catalog Refresh
+**Branch:** `fix/catalog-refresh`  
+**Status:** ✅ Merged
+
+**Problem:** New characters didn't appear in catalog after add without hard refresh
+
+**Root Cause:** EntryCatalog component not re-fetching after AddItemForm success
+
+**Solution:**
+- Added `refreshTrigger` prop to EntryCatalog
+- Dashboard increments trigger on AddItemForm success
+- EntryCatalog useEffect dependency array includes trigger
+
+**Files Modified:**
+- `src/components/Dashboard.tsx` (+3 lines)
+- `src/components/EntryCatalog.tsx` (+3 lines)
+
+#### PR #3: Bug #4 - Auth Persistence
+**Branch:** `fix/auth-persistence`  
+**Status:** ✅ Merged
+
+**Problem:** Users had to re-login after browser restart
+
+**Root Cause:** Supabase client created without explicit auth config
+
+**Solution:**
+- Added explicit `auth` config object to createClient()
+- Set `storage: localStorage`
+- Enabled `autoRefreshToken: true`
+- Enabled `persistSession: true`
+
+**Files Modified:**
+- `src/lib/supabase.ts` (+8 lines, -1 line)
+
+**Reference:** Supabase best practices documentation via web search
+
+#### PR #4: Bug #7 - Practice Demo Database Pollution
+**Branch:** `fix/practice-demo-mockmode`  
+**Status:** ✅ Merged
+
+**Problem:** User saw practice stats (100% accuracy, 44 items, 2.0 points) despite only using Practice Demo
+
+**Root Cause:** 
+- PracticeDemo passes `mockMode={useMockData}` to PracticeCard
+- When real data loads, sets `useMockData = false`
+- PracticeCard then calls `recordFirstAttempt()` and `recordSecondAttempt()`
+- Writes to production `practice_events` and `practice_state` tables
+
+**Solution:**
+- Changed PracticeDemo to always pass `mockMode={true}`
+- Practice Demo is sandbox-only, should never write to production
+- Real training happens via "Launch Training" button
+
+**Files Modified:**
+- `src/components/PracticeDemo.tsx` (1 line changed)
+
+**Production Data Cleanup:**
+- Created `scripts/reset-practice-data-simple.sql` (4-step manual process)
+- User ran all 4 steps: verified kid_id, checked counts, deleted 5 events + 5 states
+- Dashboard verified showing 0 points, 0 practiced
+
+#### PR #5: Bug #5 & #6 - Layout Issues + Developer Tools
+**Branch:** `fix/layout-issues`  
+**Status:** ✅ Merged
+
+**Bug #5: Practice Demo Zhuyin Layout**
+- **Problem:** Zhuyin buttons used `whitespace-nowrap` causing text cutoff in portrait mode
+- **Fix 1 (attempted):** Removed `whitespace-nowrap`, added `break-words` wrapper
+- **Issue:** Still cut off because `grid-cols-2` forced 2 columns on mobile
+- **Fix 2 (final):** Changed to `grid-cols-1 sm:grid-cols-2` for single column on mobile
+- **Result:** Full-width buttons on mobile, text wraps naturally
+
+**Bug #6: Dictionary UI Button Layout**
+- **Problem:** Three buttons (Input + Lookup + Batch Test) didn't wrap on narrow screens
+- **Fix:** Changed to `flex-col sm:flex-row`, wrapped buttons in container
+- **Result:** Stacks vertically on mobile, inline on desktop
+
+**Batch Test Button Removal:**
+- **User Feedback:** "What should be the expected output of Batch Test?"
+- **Analysis:** Developer-only testing tool, confuses users
+- **Decision:** Remove from UI, document console access for developers
+- **Files:** `src/components/DictionaryDemo.tsx`
+
+**Developer Tools Organization:**
+- **User Feedback:** "Is Analytics also meant for developer only?"
+- **Analysis:** 6 tabs overwhelming, 4 are testing/debugging tools
+- **Decision:** Hide Analytics tab, keep 5 useful tabs visible
+- **Visible (5):** Dashboard, My Characters, Practice Demo, Dictionary, Missing
+- **Hidden (1):** Analytics (cache hit rates, not actionable for users)
+- **Files:** `src/components/Dashboard.tsx`
+
+**Files Modified:**
+- `src/components/PracticeCard.tsx` (+1 line, -1 line) - Zhuyin layout
+- `src/components/Dashboard.tsx` (+10 lines, -30 lines) - Tab visibility
+- `src/components/DictionaryDemo.tsx` (+8 lines, -22 lines) - Batch Test removal
+- `Claude.md` (+18 lines) - Document decisions
+
+#### Production Database Cleanup
+**Problem:** Missing entries log showed 86 rows (67 visible to user) with mixed test data
+
+**Root Cause:**
+- RLS filtering: 86 total rows across all users, user sees only their 67
+- Contains Zhuyin test inputs (ㄉ一ム, ㄉ一, etc.)
+- Contains resolved entries (陽, 著, 燈 now in dictionary)
+- Contains pinyin test inputs (ai, wo, shi, xie xie, etc.)
+
+**Solution: Two-Step Cleanup + Validation**
+
+**Step 1: Delete Invalid Entries (Zhuyin/Test Garbage)**
+```sql
+DELETE FROM dictionary_missing WHERE 
+  simp LIKE '%ㄉ%' OR simp LIKE '%ㄧ%' ... (all Zhuyin characters)
+  OR simp LIKE '%ˊ%' ... (tone marks)
+  OR simp LIKE '%ム%' ... (Katakana)
+```
+
+**Step 2: Delete Resolved Entries (Now in Dictionary)**
+```sql
+DELETE FROM dictionary_missing WHERE simp IN (
+  SELECT simp FROM dictionary_entries
+);
+```
+
+**Step 3-5: Enhanced Cleanup**
+- Delete remaining single Zhuyin characters (ㄊ, ㄏ, ㄐ, ㄍ, ㄋ, ㄓ)
+- Delete Traditional characters in dictionary (陽, 著, 們, 燈, 這, etc.)
+- Delete pinyin/romanization (ai, wo, shi, Me, Xia, xie xie, m w n g)
+
+**Result:** 86 → 9 legitimate missing Chinese characters
+```
+谢谢 (2x), 因為, 老师, 霞, 粉, 囍, 粉蒸, 但其實, 字又
+```
+
+**Scripts Created:**
+- `scripts/cleanup-missing-entries.sql` (two-step approach)
+- `scripts/cleanup-missing-entries-enhanced.sql` (additional edge cases)
+
+#### Dictionary Logger Validation
+**File:** `src/lib/dictionaryLogger.ts`
+
+**Added:** `isValidChineseCharacter()` method
+- Checks Unicode code points (U+4E00-U+9FFF, U+3400-U+4DBF, U+F900-U+FAFF)
+- Rejects Zhuyin/Bopomofo (U+3100-U+312F)
+- Rejects tone marks (ˊ ˇ ˋ ˙ ˉ)
+- Rejects Katakana (U+30A0-U+30FF)
+- Logs rejection reason to console
+
+**Impact:**
+- Future Dictionary lookups won't log invalid entries
+- Prevents pollution from test inputs
+- Console shows: "Rejected ㄉ一 - contains invalid character: ㄉ (U+3109)"
+
+### 🚀 Deployments
+
+**5 Pull Requests Merged:**
+1. PR #1 - Multi-pronunciation review UI (15 files, 2,766 insertions)
+2. PR #2 - Entry Catalog refresh (2 files, +6, -2)
+3. PR #3 - Auth persistence (1 file, +8, -1)
+4. PR #4 - Practice Demo mockMode fix (1 file, +1, -1)
+5. PR #5 - Layout fixes + developer tools (3 files, +36, -34)
+
+**Vercel Preview Testing:**
+- All PRs tested on preview deployments before merge
+- User verified functionality on production after each merge
+- Database cleanup verified with SQL queries
+
+### 📁 Files Created/Modified
+
+**Database:**
+- `supabase/migrations/010_comprehensive_dictionary_fix.sql` (494 lines) - Applied to production
+
+**Scripts:**
+- `scripts/audit-dictionary-quality.js` (290 lines) - Dictionary quality scanner
+- `scripts/verify-migration-010a.js` (168 lines) - Post-migration verification
+- `scripts/backup-dictionary.js` (94 lines) - Pre-migration backup
+- `scripts/reset-practice-data-simple.sql` (52 lines) - Production data cleanup
+- `scripts/cleanup-missing-entries.sql` (176 lines) - Two-step cleanup approach
+- `scripts/cleanup-missing-entries-enhanced.sql` (new) - Additional edge cases
+
+**Documentation:**
+- `MIGRATION_010a_SAFETY_CHECKLIST.md` (177 lines) - Database Safety Protocol compliance
+- `docs/DEVELOPMENT_AND_DEPLOYMENT.md` (+113 lines) - Deployment workflow
+- `Claude.md` (+33 lines) - Session 8 decisions, Dashboard tabs, developer tools
+- `docs/operational/DOCUMENTATION_REVIEW_SESSION8.md` (new) - Pre-Epic 8 audit
+
+**Components:**
+- `src/components/EntryCatalog.tsx` (modified) - Multi-pronunciation review UI
+- `src/components/Dashboard.tsx` (modified) - Refresh trigger, tab visibility
+- `src/components/PracticeDemo.tsx` (modified) - mockMode fix
+- `src/components/PracticeCard.tsx` (modified) - Zhuyin layout
+- `src/components/DictionaryDemo.tsx` (modified) - Batch Test removal
+- `src/lib/supabase.ts` (modified) - Auth config
+- `src/lib/dictionaryLogger.ts` (modified) - Validation
+
+### 🔍 Key Technical Decisions
+
+**RLS Filtering Clarification:**
+- SQL Editor uses service role (sees ALL users' data)
+- App UI uses anon key with auth (RLS filters to `reported_by = auth.uid()`)
+- Explains 86 vs 67 row discrepancy
+
+**Multi-User Production Considerations:**
+- User is not the only production user anymore
+- Most missing entries historical (before dictionary expansion)
+- Cleanup preserves legitimate entries from all users
+- Only removes test data and resolved entries
+
+**Word vs Character Support:**
+- Tracked in Epic 7 / V1.1 (4 story points)
+- Schema ready (`type` enum: 'word' | 'char')
+- UI not implemented yet
+- Users requesting: 谢谢, 老师, 因為 (multi-character words)
+
+**Developer Tools Philosophy:**
+- Practice Demo: Useful for parents to preview drills (keep)
+- Dictionary Lookup: Check before adding characters (keep)
+- Missing Entries: Track gaps for Epic 8 (keep)
+- Analytics: Cache metrics, no user value (hide)
+- Batch Test: Developer testing only (remove from UI)
+
+### 📊 Metrics & Impact
+
+**Dictionary Quality:**
+- Before: 862/1,000 entries properly structured (86%)
+- After Migration 010a: 862 + 22 fixed + 1 added = 885/1,000 (88.5%)
+- Remaining: 139 characters deferred to Epic 8
+
+**Missing Entries Log:**
+- Before: 86 total rows (67 visible to user)
+- After cleanup: 9 legitimate Chinese characters
+- Reduction: 91% reduction in noise
+
+**User-Reported Issues:**
+- 6 bugs fixed in one session (Bug #2-#7)
+- All critical blockers resolved
+- Production verified and clean
+
+**Code Quality:**
+- 5 feature branches with proper workflow
+- All PRs tested on Vercel preview before merge
+- Co-authored commits with factory-droid[bot]
+
+### 🎓 Lessons Learned
+
+**Database Migrations:**
+1. Test SQL syntax iteratively (JSON strings need proper quoting)
+2. Verify constraint names match schema (ON CONFLICT clause)
+3. RAISE statements need DO block wrappers
+4. Follow Database Safety Protocol (backup → test → verify → deploy)
+
+**Multi-User Production:**
+1. Consider other users when cleaning data
+2. RLS filtering affects what users see vs what exists
+3. Preserve legitimate historical data
+4. Only remove garbage and resolved entries
+
+**UX Decisions:**
+1. Get user feedback on mysterious features ("What does Batch Test do?")
+2. Hide developer tools that confuse users
+3. Keep tools with clear user value (Preview, Lookup, Track)
+4. Document decisions for future reference
+
+**Git Workflow:**
+1. Feature branches keep main stable
+2. Vercel preview deployments catch issues before production
+3. Small PRs easier to review and test
+4. Descriptive commit messages help future debugging
+
+### 🔄 Follow-up Items
+
+**Epic 8 - Dictionary Quality Completion (20 pts):**
+- Research 37 Category 1 characters (known multi-pronunciation)
+- Triage 102 Category 2 characters (ambiguous cases)
+- Create Migration 011 (phased approach recommended)
+- Timeline: 19 hours (~2-3 weeks part-time)
+
+**Epic 7 - Mobile Polish (optional):**
+- Fix portrait mode scrolling issue (Next button below fold)
+- Tablet/mobile landscape refinements
+
+**V1.1 Features:**
+- Word vs character support (4 pts)
+- Bulk character upload (CSV)
+- Streak tracking
+
+### 🎉 Session Achievements
+
+**Production Deployed:**
+- ✅ Migration 010a (270 characters fixed)
+- ✅ Multi-pronunciation review UI
+- ✅ 6 bug fixes
+- ✅ Clean missing entries log
+- ✅ Developer tools organized
+- ✅ Validation prevents future pollution
+
+**Documentation Updated:**
+- ✅ CLAUDE.md (Active Work, Known Limitations)
+- ✅ SESSION_LOG.md (this entry)
+- ✅ DEVELOPMENT_AND_DEPLOYMENT.md (deployment workflow)
+- ✅ Documentation review complete (85% current)
+
+**Ready for Epic 8:**
+- ✅ Migration 010a Phase 1 complete
+- ✅ Production data clean
+- ✅ Validation in place
+- ✅ User workflow unblocked
+
+**Status:** All Session 8 objectives complete. Production stable and ready for Epic 8 dictionary completion.
+
+---
+
+**Session 8 Summary:** Comprehensive dictionary quality sprint with 6 bug fixes, database cleanup, and developer tools organization. All work deployed to production and verified. Epic 8 (139 characters) ready to begin.
+

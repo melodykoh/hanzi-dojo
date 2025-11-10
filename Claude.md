@@ -264,20 +264,20 @@ For significant changes (>50 lines or >3 files):
 - Dictionary: 1,067 characters (HSK 1-4), 86% properly structured
 - All core features complete: Drills A/B, familiarity scoring, entry management, training mode
 
-### **Active Work (Session 8)**
-**Priority:** Fix user-reported dictionary bugs via Migration 010a
+### **Session 8 Complete (Nov 10, 2025)** ✅
+**Status:** All planned work deployed to production
 
-**Migration 010a - Ready to Apply:**
-- File: `supabase/migrations/010_comprehensive_dictionary_fix.sql`
-- Fixes: 248 empty tone marks + 22 critical multi-pronunciation chars + adds 麼
-- User impact: Resolves 和, 因, 星, 它 errors
-- Next: Apply migration, test fixes, add variant selection UI indicators
+**Completed & Deployed:**
+1. ✅ **Migration 010a** - Applied and verified (248 tone marks + 22 multi-pronunciation + 麼)
+2. ✅ **Multi-pronunciation review UI** - Variant selection with yellow badges (PR #1)
+3. ✅ **Bug #2** - Entry Catalog refresh after add character (PR #2)
+4. ✅ **Bug #4** - Auth persistence with explicit localStorage config (PR #3)
+5. ✅ **Bug #7** - Practice Demo mockMode always true (PR #4)
+6. ✅ **Bug #5 & #6** - Layout fixes + developer tools cleanup (PR #5)
+7. ✅ **Production data cleanup** - 86 → 9 legitimate missing entries
+8. ✅ **Dictionary logger validation** - Rejects Zhuyin/test inputs going forward
 
-**Backlog (Post-Migration):**
-1. Entry catalog not refreshing after add character (Bug #2)
-2. Auth not persisting across sessions (Bug #4)
-3. Practice demo vertical layout too narrow (Bug #5)
-4. Dictionary UI button cutoff (Bug #6)
+**Next Priority:** Epic 8 - Dictionary Quality Completion (139 chars, 20 pts, phased approach)
 
 ### **Epic Status Overview**
 - Epic 1-6: ✅ COMPLETE (V1 production deployed)
@@ -297,10 +297,15 @@ For significant changes (>50 lines or >3 files):
 - **Dictionary coverage:** 1,067 chars (86% structured), 139 chars deferred to Epic 8
 - **No audio/stories:** Audio pronunciation and story drills deferred to V2+
 
-### Open Issues (Tracked in Active Work)
-- **Mobile landscape:** Next button requires scrolling after option selection (Epic 7 polish)
-- **Entry catalog refresh:** New characters don't appear until hard refresh (Bug #2)
-- **Auth persistence:** Session not staying logged in across browser restarts (Bug #4)
+### Open Issues
+- **Mobile landscape:** Next button requires scrolling after option selection (Epic 7, optional polish)
+
+### Recently Fixed (Session 8 - Nov 10, 2025)
+- ✅ **Bug #2** - Entry Catalog refresh after add character (PR #2)
+- ✅ **Bug #4** - Auth persistence across browser restarts (PR #3)
+- ✅ **Bug #5** - Practice Demo Zhuyin layout in portrait mode (PR #5)
+- ✅ **Bug #6** - Dictionary UI button cutoff on mobile (PR #5)
+- ✅ **Bug #7** - Practice Demo writing to production database (PR #4)
 
 ### Test Account (Can be deleted)
 - Email: `test@hanzidojo.local`
