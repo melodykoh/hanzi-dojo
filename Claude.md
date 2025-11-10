@@ -226,24 +226,31 @@ For significant changes (>50 lines or >3 files):
 - Drill selection modal before training (proficiency-based recommendations)
 - Sticky action bar for primary functions (Add Item, Launch Training)
 
-### Developer Tools Hidden from Production UI
-**Decision (Session 8, Nov 10 2025):** Hide testing/debugging interfaces from end users
+### Dashboard Tabs - User-Facing Features
+**Decision (Session 8, Nov 10 2025):** Keep useful tools visible, hide only pure developer metrics
 
-**Tabs removed from Dashboard:**
-- **Practice Demo** - Testing drills without real training (use Launch Training instead)
-- **Analytics** - Cache hit rates, dictionary stats (developer metrics only)
-- **Dictionary** - Lookup test (replaced by Add Item auto-fill functionality)
-- **Missing** - Logged missing dictionary entries (developer debugging)
-- **Batch Test button** - Removed from Dictionary Demo (cache performance testing)
+**Visible Tabs (5 total):**
+- **Dashboard** - Progress metrics, weekly stats, belt progression
+- **My Characters** - Entry catalog management
+- **Practice Demo** - Test drills without affecting kid stats (sandbox mode, mockMode=true)
+- **Dictionary** - Lookup characters before adding (check if in dictionary, view Zhuyin/variants)
+- **Missing** - Track missing dictionary entries (helps plan Epic 8 expansion)
+
+**Hidden Tab:**
+- **Analytics** - Cache hit rates, dictionary client stats (developer metrics only, no user value)
 
 **Rationale:** 
-- Users only need: Dashboard (metrics) + My Characters (catalog) + Launch Training (button)
-- Developer tools confused users: "What does Analytics do? What is Missing?"
-- Cleaner UI with 2 tabs instead of 6
+- Practice Demo useful for parents to preview drills
+- Dictionary Lookup saves time (check before adding)
+- Missing Entries helps planning (know what needs seeding)
+- Analytics is purely technical (cache performance, not actionable for users)
 
-**Developer access:** 
-- Uncomment tabs in Dashboard.tsx to restore (lines 167-207)
-- Console access: `dictionaryClient.batchLookup([...])`, `dictionaryClient.getStats()`
+**Developer access to Analytics:** 
+- Uncomment in Dashboard.tsx (lines ~190-200)
+- Console: `dictionaryClient.getStats()`
+
+**Other removals:**
+- **Batch Test button** - Removed from Dictionary Demo (Session 8, cache testing only)
 
 **For detailed historical context and session-by-session discoveries, see:** `SESSION_LOG.md`
 

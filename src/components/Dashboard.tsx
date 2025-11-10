@@ -160,11 +160,6 @@ export function Dashboard() {
           >
             📚 My Characters
           </button>
-          {/* Developer-only tabs hidden from production UI (Session 8, Nov 10 2025) */}
-          {/* Rationale: Practice Demo, Analytics, Dictionary Lookup, Missing Entries are testing/debugging tools */}
-          {/* Users should use: Dashboard (metrics) + My Characters (catalog) + Launch Training (real practice) */}
-          {/* To re-enable for development: uncomment tabs below */}
-          {/*
           <button
             onClick={() => setActiveTab('practice')}
             className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
@@ -174,16 +169,6 @@ export function Dashboard() {
             }`}
           >
             🥋 Practice Demo
-          </button>
-          <button
-            onClick={() => setActiveTab('stats')}
-            className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
-              activeTab === 'stats'
-                ? 'text-red-600 border-b-2 border-red-600'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            📈 Analytics
           </button>
           <button
             onClick={() => setActiveTab('demo')}
@@ -204,6 +189,19 @@ export function Dashboard() {
             }`}
           >
             🔍 Missing
+          </button>
+          {/* Analytics tab hidden - developer-only metrics (cache hit rates, etc.) */}
+          {/* To re-enable: uncomment below */}
+          {/*
+          <button
+            onClick={() => setActiveTab('stats')}
+            className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
+              activeTab === 'stats'
+                ? 'text-red-600 border-b-2 border-red-600'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            📈 Analytics
           </button>
           */}
         </div>
