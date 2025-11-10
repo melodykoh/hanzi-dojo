@@ -28,6 +28,7 @@
 - **Bulk character upload:** CSV import with validation workflow for batch entry management.
 - Automatic Supabase backups (JSON snapshot) with parent-initiated restore.
 - Expand dictionary seed beyond 1,000 entries guided by `dictionary_missing`.
+- **Multiple entries per character:** Allow adding same character with different pronunciations (e.g., 和 as "hé" and "huó") with visual indicators on Entry Catalog cards to distinguish them.
 - Daily training streaks and badge indicators.
 - Animated belt transitions and visual polish.
 - Minor UX tuning (faster drill loading, smoother transitions).

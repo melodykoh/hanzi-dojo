@@ -241,6 +241,172 @@ Status legend: ☐ Pending · ⧖ In Progress · ☑ Completed
 - **Deferred to V1.1:** Multi-character word support (4 pts) - parent can add characters separately for V1
 - **Deferred to V2:** Belt animations (2 pts), Summary modal enhancements (2 pts), Grade/week UI fields (2 pts backlog)
 
+---
+
+## Epic 8 — Dictionary Quality Completion ☐ PLANNED
+- **Goal:** Complete dictionary quality improvements for remaining 139 multi-pronunciation characters
+- **Status:** Planned (Post-V1)
+- **Priority:** Medium
+- **Total Points:** 20 pts (research-heavy, phased approach)
+
+### Background
+**Context:** Nov 2025 comprehensive audit identified 161 characters with malformed multi-pronunciation data (multiple syllables crammed into main array instead of `zhuyin_variants`).
+
+**Migration 010a (Phase 1) Fixed:**
+- ✅ 248 empty tone marks → "ˉ" (first tone)
+- ✅ 22 critical multi-pronunciation characters (user-reported: 和, 什, plus high-syllable-count cases)
+- ✅ Added missing character 麼
+
+**Remaining Work:**
+- 139 characters still have malformed data (86% → 100% completion needed)
+
+### Scope - Two Categories Requiring Different Approaches
+
+**Category 1: Known Multi-Pronunciation (37 chars) - HIGH PRIORITY**
+```
+为, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将, 干, 应, 弹, 扫, 把, 
+担, 教, 更, 正, 没, 相, 省, 种, 系, 结, 给, 行, 觉, 角, 调, 
+还, 都, 重, 量
+```
+These are confirmed multi-pronunciation in standard dictionaries (e.g., 行 xíng/háng, 重 zhòng/chóng). Need context word research and proper `zhuyin_variants` structure.
+
+**Category 2: Ambiguous Cases (102 chars) - MEDIUM PRIORITY**
+```
+且, 丽, 么, 乘, 于, 亚, 些, 亲, 仅, 从, 价, 任, 份, 休, 估, 体,
+[... 86 more - see docs/operational/DICTIONARY_REMAINING_WORK.md for full list]
+```
+These have 2 syllables but unclear if multi-pronunciation or data errors. Requires triage using MDBG/Taiwan MOE dictionaries.
+
+### Task 8.1 — Research & Triage (12 pts)
+**8.1.1 (5 pts) — Research Category 1 Characters**
+- For each of 37 known multi-pronunciation characters:
+  - Document all pronunciation variants (pinyin + zhuyin)
+  - Find 2-3 context words per variant
+  - Identify most common usage (becomes default)
+  - Source: MDBG, Taiwan MOE Dictionary, Pleco
+- Output: `data/multi_pronunciation_category1.json`
+- Timeline: ~6 hours (37 chars × 10 min each)
+
+**8.1.2 (5 pts) — Triage Category 2 Characters**
+- For each of 102 ambiguous characters:
+  - Check MDBG/Taiwan MOE for multiple pronunciations
+  - Classify as: multi-pronunciation, data error, or regional variant
+  - Document decision rationale
+  - If multi-pronunciation: research variants as in 8.1.1
+  - If data error: identify correct single pronunciation
+- Output: `data/multi_pronunciation_category2.json` with classifications
+- Timeline: ~8 hours (102 chars × 5 min each)
+
+**8.1.3 (2 pts) — Create Migration Generator Script**
+- Node.js script to convert JSON research data → SQL UPDATE statements
+- Generate: `supabase/migrations/011_dictionary_quality_phase2.sql`
+- Include verification queries and rollback capability
+- Timeline: ~2 hours
+
+### Task 8.2 — Apply Migration (5 pts)
+**8.2.1 (3 pts) — Test Migration on Staging**
+- Apply generated migration to local Supabase instance
+- Verify variant selection UI appears in AddItemForm for 20 sample characters
+- Test drill generation with corrected pronunciations
+- Document any issues discovered
+- Timeline: ~2 hours
+
+**8.2.2 (2 pts) — Production Deployment**
+- Follow Database Safety Protocol (docs/operational/DICTIONARY_MIGRATION_GUIDE.md)
+- Apply Migration 011 to production
+- Run verification queries
+- Confirm 0 malformed multi-pronunciation characters remaining
+- Timeline: ~1 hour
+
+### Task 8.3 — Documentation & Verification (3 pts)
+**8.3.1 (2 pts) — End-to-End Testing**
+- Test AddItemForm variant selection for 10 chars from each category
+- Verify drills use selected pronunciation correctly
+- Confirm user can review/change pronunciation in Entry Catalog
+- Document in SESSION_LOG.md
+- Timeline: ~1.5 hours
+
+**8.3.2 (1 pt) — Update Documentation**
+- Mark Epic 8 complete in PROJECT_PLAN.md
+- Update CLAUDE.md dictionary status to 100% coverage
+- Archive research files in `data/archive/`
+- Timeline: ~30 minutes
+
+### Phased Rollout Strategy (Recommended)
+
+**Phase 1 (Week 1-2): High-Value Quick Wins**
+- Research top 10 most common Category 1 characters (行, 重, 还, 为, 给, 都, 没, 教, 正, 更)
+- Create Migration 011a with just these 10
+- Deploy and verify user impact
+- **Points:** ~8 pts
+
+**Phase 2 (Week 3-4): Complete Category 1**
+- Research remaining 27 Category 1 characters
+- Create Migration 011b
+- **Points:** ~6 pts
+
+**Phase 3 (Week 5-8): Category 2 Triage & Fix**
+- Triage all 102 ambiguous characters
+- Create Migration 011c for confirmed multi-pronunciation
+- Create Migration 011d to fix data errors
+- **Points:** ~6 pts
+
+### Success Criteria
+- [ ] All 37 Category 1 characters have proper `zhuyin_variants` with context words
+- [ ] All 102 Category 2 characters resolved (either variants or single pronunciation)
+- [ ] Comprehensive audit shows 0 malformed multi-pronunciation characters
+- [ ] AddItemForm shows variant selection for all true multi-pronunciation characters
+- [ ] Dictionary coverage: 1,000 entries, 100% properly structured
+
+### Deliverables
+- `data/multi_pronunciation_category1.json` — Researched variant data (37 chars)
+- `data/multi_pronunciation_category2.json` — Triaged classification + data (102 chars)
+- `supabase/migrations/011_dictionary_quality_phase2.sql` — Complete migration (or 011a/b/c/d if phased)
+- Updated `docs/operational/DICTIONARY_REMAINING_WORK.md` — Progress tracking
+
+### Resources & Research Tools
+**Dictionaries:**
+- MDBG Chinese Dictionary: https://www.mdbg.net/
+- Taiwan MOE Dictionary: https://dict.revised.moe.edu.tw/
+- Pleco app (iOS/Android)
+
+**Verification Tools:**
+- `scripts/verify-multi-pronunciation-complete.js` — Re-run audit after migration
+- `scripts/triage-results.json` — Initial audit findings
+
+**Documentation:**
+- `docs/operational/DICTIONARY_REMAINING_WORK.md` — Detailed character lists and research checklist
+- `docs/operational/DICTIONARY_MIGRATION_GUIDE.md` — Database safety protocol
+- `docs/operational/MULTI_PRONUNCIATION_REVIEW.md` — Sample research format
+
+### Risks & Mitigation
+**Risk 1: Ambiguous pronunciations**
+- Some characters have context-dependent pronunciation that's hard to capture
+- **Mitigation:** Use most common pronunciation as default; rely on parent manual selection
+
+**Risk 2: Taiwan vs Mainland differences**
+- Regional pronunciation variations exist
+- **Mitigation:** Prioritize Taiwan standard (project uses Traditional Chinese); document variants
+
+**Risk 3: Time commitment**
+- Research-heavy work requires significant manual effort
+- **Mitigation:** Use phased approach; prioritize high-frequency characters first
+
+### Timeline Estimate
+- **Research (Category 1):** 6 hours
+- **Research (Category 2):** 8 hours  
+- **Implementation:** 3 hours
+- **Testing & Documentation:** 2 hours
+- **Total:** 19 hours (~2-3 weeks part-time work)
+
+### Notes
+- Epic 8 is **non-blocking** for V1 production
+- Can be completed incrementally (phased approach recommended)
+- User can manually override pronunciations in meantime via AddItemForm
+- Migration 010a already resolves user's immediate pain points (和, 因, 星, 它, 麼)
+
+---
+
 ### Task 7.1 — Landscape & Responsive Fixes ☐
 - **Subtask 7.1.1 (2 pts) — Fix TrainingMode portrait/vertical mode layout issues**
   - **UX Issue:** Next button appears below fold in portrait mode after selecting drill option (requires scrolling)

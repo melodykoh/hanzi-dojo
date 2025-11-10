@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
-import type { Entry, PracticeState, ZhuyinSyllable } from '../types'
+import type { Entry, PracticeState, ZhuyinSyllable, DictionaryEntry } from '../types'
 
 interface EntryCatalogProps {
   kidId: string
@@ -21,6 +21,8 @@ interface EntryCatalogItem {
   isKnown: boolean
   strugglingCount: number
   lastPracticed: string | null
+  needsPronunciationReview: boolean
+  dictionaryEntry: DictionaryEntry | null
 }
 
 // Helper function to format Zhuyin for display
@@ -37,6 +39,8 @@ export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
   const [selectedEntry, setSelectedEntry] = useState<EntryCatalogItem | null>(null)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null)
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState<number | null>(null)
+  const [isSavingVariant, setIsSavingVariant] = useState(false)
 
   useEffect(() => {
     loadEntries()
@@ -75,10 +79,20 @@ export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
 
       if (readingsError) throw readingsError
 
+      // Fetch dictionary entries for all characters (to check for variants)
+      const uniqueSimps = [...new Set((entries || []).map(e => e.simp))]
+      const { data: dictEntries, error: dictError } = await supabase
+        .from('dictionary_entries')
+        .select('*')
+        .in('simp', uniqueSimps)
+
+      if (dictError) throw dictError
+
       // Combine entries with their practice states and readings
       const catalogItems: EntryCatalogItem[] = (entries || []).map(entry => {
         const entryStates = (states || []).filter(s => s.entry_id === entry.id)
         const reading = (readings || []).find(r => r.entry_id === entry.id)
+        const dictionaryEntry = (dictEntries || []).find(d => d.simp === entry.simp)
         
         // Calculate familiarity
         const familiarity = entryStates.reduce((sum, s) => 
@@ -116,6 +130,14 @@ export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
           .sort()
           .reverse()[0] || null
 
+        // Check if needs pronunciation review
+        // True when: dictionary has variants AND entry doesn't have locked_reading_id
+        const needsPronunciationReview = !!(
+          dictionaryEntry?.zhuyin_variants && 
+          dictionaryEntry.zhuyin_variants.length > 0 && 
+          !entry.locked_reading_id
+        )
+
         return {
           entry,
           practiceStates: entryStates,
@@ -123,7 +145,9 @@ export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
           familiarity,
           isKnown,
           strugglingCount,
-          lastPracticed
+          lastPracticed,
+          needsPronunciationReview,
+          dictionaryEntry
         }
       })
 
@@ -214,6 +238,77 @@ export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
     // Open drill selection modal to choose which drill to practice
     if (onLaunchTraining) {
       onLaunchTraining()
+    }
+  }
+
+  async function handleSavePronunciation() {
+    if (!selectedEntry || selectedVariantIndex === null) return
+    
+    setIsSavingVariant(true)
+    try {
+      const variant = selectedEntry.dictionaryEntry?.zhuyin_variants?.[selectedVariantIndex]
+      if (!variant) throw new Error('Variant not found')
+
+      // Create or update reading with the selected variant
+      const { data: existingReading } = await supabase
+        .from('readings')
+        .select('id')
+        .eq('entry_id', selectedEntry.entry.id)
+        .single()
+
+      let readingId: string
+
+      if (existingReading) {
+        // Update existing reading
+        const { data: updatedReading, error: updateError } = await supabase
+          .from('readings')
+          .update({
+            zhuyin: variant.zhuyin,
+            pinyin: variant.pinyin,
+            sense: variant.meanings?.join(', '),
+            context_words: variant.context_words
+          })
+          .eq('id', existingReading.id)
+          .select('id')
+          .single()
+
+        if (updateError) throw updateError
+        readingId = updatedReading.id
+      } else {
+        // Create new reading
+        const { data: newReading, error: insertError } = await supabase
+          .from('readings')
+          .insert({
+            entry_id: selectedEntry.entry.id,
+            zhuyin: variant.zhuyin,
+            pinyin: variant.pinyin,
+            sense: variant.meanings?.join(', '),
+            context_words: variant.context_words
+          })
+          .select('id')
+          .single()
+
+        if (insertError) throw insertError
+        readingId = newReading.id
+      }
+
+      // Update entry with locked_reading_id
+      const { error: entryError } = await supabase
+        .from('entries')
+        .update({ locked_reading_id: readingId })
+        .eq('id', selectedEntry.entry.id)
+
+      if (entryError) throw entryError
+
+      // Reload entries to update UI
+      await loadEntries()
+      setSelectedEntry(null)
+      setSelectedVariantIndex(null)
+    } catch (error) {
+      console.error('[EntryCatalog] Failed to save pronunciation:', error)
+      alert('Failed to save pronunciation. Please try again.')
+    } finally {
+      setIsSavingVariant(false)
     }
   }
 
@@ -312,12 +407,21 @@ export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
                   <div className="text-2xl text-gray-600">{item.entry.trad}</div>
                 )}
               </div>
-              {item.isKnown && (
-                <div className="text-2xl" title="Known">⭐</div>
-              )}
-              {!item.isKnown && item.strugglingCount > 0 && (
-                <div className="text-2xl" title="Needs practice">⚠️</div>
-              )}
+              <div className="flex gap-1">
+                {item.isKnown && (
+                  <div className="text-2xl" title="Known">⭐</div>
+                )}
+                {!item.isKnown && item.strugglingCount > 0 && (
+                  <div className="text-2xl" title="Needs practice">⚠️</div>
+                )}
+                {item.needsPronunciationReview && (
+                  <div className="text-2xl" title="Review pronunciation">
+                    <span className="inline-block bg-yellow-100 text-yellow-600 rounded-full px-2 text-base font-semibold">
+                      ⚠️
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Stats */}
@@ -378,24 +482,92 @@ export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
                 )}
               </div>
               <button
-                onClick={() => setSelectedEntry(null)}
+                onClick={() => {
+                  setSelectedEntry(null)
+                  setSelectedVariantIndex(null)
+                }}
                 className="text-gray-400 hover:text-gray-600 text-3xl leading-none"
               >
                 ×
               </button>
             </div>
 
-            {/* Pronunciation - Using Zhuyin from reading */}
-            <div className="mb-6">
-              <h4 className="text-sm font-semibold text-gray-700 mb-2">Pronunciation</h4>
-              <div className="text-2xl text-gray-900">
-                {selectedEntry.zhuyin ? (
-                  formatZhuyin(selectedEntry.zhuyin)
-                ) : (
-                  <span className="text-gray-400 text-base">No pronunciation data</span>
-                )}
+            {/* Pronunciation Review Section (if needed) */}
+            {selectedEntry.needsPronunciationReview && selectedEntry.dictionaryEntry?.zhuyin_variants && (
+              <div className="mb-6 bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xl">⚠️</span>
+                  <h4 className="text-base font-bold text-gray-900">Review Pronunciation</h4>
+                </div>
+                <p className="text-sm text-gray-700 mb-4">
+                  This character has multiple pronunciations. Select the one you're learning:
+                </p>
+                
+                <div className="space-y-2">
+                  {selectedEntry.dictionaryEntry.zhuyin_variants.map((variant, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedVariantIndex(index)}
+                      className={`w-full text-left p-3 rounded-lg border-2 transition-all ${
+                        selectedVariantIndex === index
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200 bg-white hover:border-gray-300'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="text-lg font-bold text-gray-900 mb-1">
+                            {formatZhuyin(variant.zhuyin)}
+                            {variant.pinyin && (
+                              <span className="ml-2 text-base text-gray-600">({variant.pinyin})</span>
+                            )}
+                          </div>
+                          {variant.meanings && variant.meanings.length > 0 && (
+                            <div className="text-sm text-gray-600 mb-1">
+                              {variant.meanings.join(', ')}
+                            </div>
+                          )}
+                          {variant.context_words && variant.context_words.length > 0 && (
+                            <div className="text-sm text-gray-500">
+                              Examples: {variant.context_words.join(', ')}
+                            </div>
+                          )}
+                        </div>
+                        {selectedVariantIndex === index && (
+                          <div className="ml-2 text-blue-500 text-xl">✓</div>
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={handleSavePronunciation}
+                  disabled={selectedVariantIndex === null || isSavingVariant}
+                  className={`w-full mt-4 px-6 py-3 font-bold rounded-lg transition-colors ${
+                    selectedVariantIndex === null || isSavingVariant
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                  }`}
+                >
+                  {isSavingVariant ? 'Saving...' : 'Save Pronunciation'}
+                </button>
               </div>
-            </div>
+            )}
+
+            {/* Pronunciation - Using Zhuyin from reading */}
+            {!selectedEntry.needsPronunciationReview && (
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-gray-700 mb-2">Pronunciation</h4>
+                <div className="text-2xl text-gray-900">
+                  {selectedEntry.zhuyin ? (
+                    formatZhuyin(selectedEntry.zhuyin)
+                  ) : (
+                    <span className="text-gray-400 text-base">No pronunciation data</span>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Practice Stats */}
             <div className="mb-6">
@@ -455,7 +627,10 @@ export function EntryCatalog({ kidId, onLaunchTraining }: EntryCatalogProps) {
             </div>
 
             <button
-              onClick={() => setSelectedEntry(null)}
+              onClick={() => {
+                setSelectedEntry(null)
+                setSelectedVariantIndex(null)
+              }}
               className="w-full px-6 py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors"
             >
               Close
