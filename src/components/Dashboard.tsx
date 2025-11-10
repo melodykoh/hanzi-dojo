@@ -137,7 +137,7 @@ export function Dashboard() {
         </div>
       </div>
 
-      {/* Tabs - Demo/Debug Views Only */}
+      {/* Tabs */}
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex gap-2 border-b border-gray-200 overflow-x-auto">
           <button
@@ -160,6 +160,11 @@ export function Dashboard() {
           >
             📚 My Characters
           </button>
+          {/* Developer-only tabs hidden from production UI (Session 8, Nov 10 2025) */}
+          {/* Rationale: Practice Demo, Analytics, Dictionary Lookup, Missing Entries are testing/debugging tools */}
+          {/* Users should use: Dashboard (metrics) + My Characters (catalog) + Launch Training (real practice) */}
+          {/* To re-enable for development: uncomment tabs below */}
+          {/*
           <button
             onClick={() => setActiveTab('practice')}
             className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
@@ -200,6 +205,7 @@ export function Dashboard() {
           >
             🔍 Missing
           </button>
+          */}
         </div>
       </div>
 
