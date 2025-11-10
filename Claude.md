@@ -188,6 +188,8 @@ Before coding:
 - **2025-11-04 (Session 5):** Home network AP isolation blocks mobile testing; desktop mobile simulation provides effective alternative until router configured.
 - **2025-11-09 (Session 7):** Bulk character upload deferred to V1.1 - validation complexity (multi-pronunciation, manual Zhuyin, drill applicability) requires human review per character regardless of CSV import, making it not significantly faster than current one-at-a-time workflow for V1 usage patterns.
 - **2025-11-09 (Session 7):** Production deployment complete - Database Safety Protocol established for all future migrations (READ-ONLY analysis, backup strategy, syntax validation, incremental execution).
+- **2025-11-09 (Session 7 - Dictionary Expansion):** Dictionary expanded from 155 → 1,067 characters using HSK 1-4 word lists; critical learnings: (1) use ON CONFLICT DO UPDATE (not DO NOTHING) to allow re-running migrations with updated data, (2) deduplicate by simplified character at final stage to prevent SQL "cannot affect row a second time" errors, (3) convert ALL pinyin readings to zhuyin for multi-pronunciation characters (多音字) using heteronym mode, (4) use character-level pinyin extraction (not word-level) via `pinyin` npm library for accuracy.
+- **2025-11-09 (Session 7 - Dictionary Expansion):** Created comprehensive Dictionary Migration Guide (`docs/operational/DICTIONARY_MIGRATION_GUIDE.md`) documenting best practices, common pitfalls, validation queries, and lessons learned from production migration issues.
 
 ---
 
@@ -234,7 +236,7 @@ Before coding:
 - URL: https://hanzi-dojo.vercel.app
 - Supabase Auth: Email confirmation ENABLED
 - Multi-user ready with RLS isolation
-- Dictionary: 155 characters (sufficient for V1)
+- Dictionary: 1,067 characters (HSK 1-4 coverage, includes multi-pronunciation support)
 
 **Remaining Optional:**
 - Task 6.1.1-6.1.4 (Automated test alignment - 15 pts) - Can defer to V1.1
