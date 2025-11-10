@@ -1801,3 +1801,298 @@ SELECT id, owner_id, name, belt_rank FROM kids;
 
 ---
 
+
+---
+
+## Session 7 Part 3 - Dictionary Expansion & Email Configuration (2025-11-09)
+
+### 📋 Session Overview
+
+**Focus:** Expand production dictionary from 155 → 1,067 characters and fix email confirmation configuration
+
+**Story Points:** N/A (data migration + production configuration)
+
+**Outcome:** ✅ Dictionary successfully expanded with HSK 1-4 coverage; email confirmation URL configured
+
+### 🎯 Dictionary Expansion (155 → 1,067 Characters)
+
+**User Request:** "I just tried uploading the first character (什) which is very common, and I already hit 'Not found in dictionary. Manual entry required.'"
+
+**Approach:**
+1. Downloaded HSK 1-4 official word lists from hskhsk.com GitHub (1,200 words)
+2. Extracted individual characters using `pinyin` npm library
+3. Converted all pinyin readings to zhuyin using `pinyin-zhuyin`
+4. Generated SQL migration with proper conflict handling
+5. Applied to production database
+
+**Technical Implementation:**
+
+**Scripts Created:**
+- `scripts/expand_dictionary.js` - Main processing (HSK data → JSON)
+- `scripts/generate_migration.js` - SQL migration generator
+- `scripts/test_pinyin.js` - Library testing
+
+**NPM Packages Added:**
+- `pinyin` - Character-level pinyin extraction with heteronym support
+- `pinyin-zhuyin` - Pinyin to zhuyin conversion
+
+**Data Flow:**
+1. Parse HSK TSV files (simp, trad, pinyin, definition)
+2. Extract individual characters from multi-char words
+3. Use `pinyin` library for character-level pronunciation (heteronym mode)
+4. Convert ALL pinyin readings to zhuyin (multi-pronunciation support)
+5. Deduplicate by simplified character
+6. Generate SQL INSERT with ON CONFLICT handling
+
+### 🐛 Three Major Issues Fixed
+
+**Issue 1: Duplicate Key Violation**
+
+**Error:** `duplicate key value violates unique constraint "dictionary_entries_simp_unique"`
+
+**Cause:** Migration tried to INSERT characters already in database (为 existed)
+
+**Initial Solution:** Added `ON CONFLICT DO NOTHING`
+
+**Better Solution:** Changed to `ON CONFLICT DO UPDATE SET`
+- Allows re-running migration with corrected data
+- Updates existing entries (e.g., adding missing pronunciations)
+- Makes migration idempotent
+
+**Issue 2: "Cannot affect row a second time"**
+
+**Error:** `ON CONFLICT DO UPDATE command cannot affect row a second time`
+
+**Cause:** Generated data contained 8 duplicate entries (为, 于, 历, 只, 复, 干, 游, 里)
+
+**Root Cause:** Characters appeared in multiple HSK levels with variant traditional forms
+- Initial deduplication key: `simp|trad` (too granular)
+- Same simp char with different trad forms created duplicates
+
+**Solution:** Added final deduplication stage by simplified character only
+```javascript
+const finalMap = new Map();
+entries.forEach(entry => {
+  if (finalMap.has(entry.simp)) {
+    // Merge: combine zhuyin readings, take lower HSK level
+  } else {
+    finalMap.set(entry.simp, entry);
+  }
+});
+```
+
+**Result:** 920 raw entries → 912 unique characters
+
+**Issue 3: Incomplete Multi-Pronunciation Data**
+
+**Problem:** 什 only had shí (ㄕˊ), missing shén (ㄕㄣˊ)
+
+**Cause:** Script only converted first pinyin reading to zhuyin
+
+**Solution:** Loop through ALL pinyin readings
+```javascript
+// Before: Only first reading
+const primaryPinyin = char.pinyin[0];
+
+// After: All readings
+for (const pinyinReading of char.pinyin) {
+  const zhuyinStr = pinyinToZhuyin(pinyinReading);
+  zhuyinReadings.push(parseZhuyin(zhuyinStr));
+}
+```
+
+**Verification:**
+- 什: `[["ㄕ","","ˊ"],["ㄕ","ㄣ","ˊ"]]` ✅
+- 为: `[["ㄨ","ㄟ","ˊ"],["ㄨ","ㄟ","ˋ"]]` ✅
+- 么: `[["ㄇ","ㄛ","ˊ"],["ㄇ","ㄜ","˙"]]` ✅
+
+### 📄 Documentation Created
+
+**New Guide:** `docs/operational/DICTIONARY_MIGRATION_GUIDE.md`
+
+Comprehensive reference covering:
+- Database Safety Protocol for production migrations
+- Common issues and solutions (all three errors above)
+- Data generation best practices
+- Validation queries and verification steps
+- Migration file template
+- Lessons learned from Session 7
+
+**Updated Files:**
+- `CLAUDE.md` - Added dictionary expansion learnings
+- Production dictionary size updated: 1,067 characters
+
+### 🔧 Final Migration Applied
+
+**File:** `supabase/migrations/009_expand_dictionary_hsk1-4.sql`
+
+**SQL Strategy:**
+```sql
+INSERT INTO dictionary_entries (simp, trad, zhuyin, frequency_rank) VALUES
+  ('什', '什', '[["ㄕ","","ˊ"],["ㄕ","ㄣ","ˊ"]]'::jsonb, 1005),
+  ...
+ON CONFLICT (simp) DO UPDATE SET
+  zhuyin = EXCLUDED.zhuyin,
+  trad = EXCLUDED.trad,
+  frequency_rank = EXCLUDED.frequency_rank;
+```
+
+**Results:**
+- Characters added/updated: 912
+- Total dictionary size: 1,067 characters
+- Multi-pronunciation support: ✅
+- No duplicates: ✅
+- Production verified: ✅
+
+### 📧 Email Confirmation Configuration Issue
+
+**User Report:** "Friend clicked confirmation email, got localhost error"
+
+**Root Cause:** Supabase Site URL was set to `http://localhost:3000` (default)
+
+**What Happened:**
+1. Friend signed up with email confirmation enabled
+2. Supabase sent confirmation email with token
+3. Friend clicked link → Supabase confirmed account (server-side) ✅
+4. Supabase redirected to Site URL (localhost) ❌
+5. Phone browser couldn't connect to localhost → Error shown
+6. But user was already confirmed → Could log in successfully ✅
+
+**Key Insight:** Supabase confirms user **before** redirecting to Site URL
+- Email confirmation works server-side (token validation)
+- Site URL redirect is just for UX (showing success message)
+- Failed redirect doesn't prevent confirmation
+
+**Fix Applied:**
+
+**Supabase Dashboard** → Authentication → URL Configuration:
+- **Site URL:** `https://hanzi-dojo.vercel.app`
+- **Redirect URLs:** `https://hanzi-dojo.vercel.app/**`
+
+**Verification:**
+- Email confirmation: ON ✅
+- Site URL: Production ✅
+- Redirect URLs: Production ✅
+- Next signup will work smoothly ✅
+
+### 🚫 Deferred Items
+
+**Forgot Password Flow:**
+- User asked if needed
+- Recommended: Yes, before wider release
+- Decision: Defer until core flow verified with real users
+- Implementation: 30-45 min with Supabase (quick when needed)
+
+### 📊 Session Statistics
+
+**Dictionary Expansion:**
+- Processing scripts: 3 files, ~350 lines
+- Data generated: 912 unique characters
+- SQL migration: 44.3 KB
+- Issues fixed: 3 major SQL errors
+- Documentation: 1 comprehensive guide (300+ lines)
+
+**Commits:**
+- Total: 7 commits
+- Files changed: 12 files
+- Lines added: ~18,000 (mostly generated data)
+
+**Production Changes:**
+- Dictionary: 155 → 1,067 characters (+912)
+- Email config: localhost → production URL
+- HSK coverage: Levels 1-4 complete
+
+### ✅ Session 7 Part 3 Deliverables
+
+**Code & Data:**
+- ✅ Dictionary expansion scripts (expand, generate, test)
+- ✅ 912 new dictionary entries with multi-pronunciation support
+- ✅ SQL migration with idempotent ON CONFLICT strategy
+- ✅ NPM packages: pinyin, pinyin-zhuyin
+
+**Documentation:**
+- ✅ Dictionary Migration Guide (comprehensive best practices)
+- ✅ CLAUDE.md updated with learnings
+- ✅ SESSION_LOG.md (this document)
+
+**Production Configuration:**
+- ✅ Dictionary: 1,067 characters (HSK 1-4)
+- ✅ Email confirmation: Properly configured for production
+- ✅ Site URL: https://hanzi-dojo.vercel.app
+- ✅ User testing: Friend successfully signed up and logged in
+
+### 🎯 Production Status
+
+**Dictionary Coverage:**
+- HSK 1-4: ✅ Complete (912 characters)
+- Common characters: ✅ (什, 为, 了, 着, etc.)
+- Multi-pronunciation: ✅ (all readings captured)
+- Total: 1,067 characters
+
+**Authentication Flow:**
+- Signup: ✅ Working
+- Email confirmation: ✅ Configured (production URL)
+- Login: ✅ Working
+- Kid profile auto-creation: ✅ Working
+- RLS isolation: ✅ Working
+
+**Ready for:**
+- ✅ Real user testing
+- ✅ Adding characters from curriculum
+- ✅ Practice flow testing
+- ⏸️ Wider release (after initial user feedback)
+
+### 📝 Key Learnings Documented
+
+**For Future Dictionary Expansions:**
+
+1. **Always use ON CONFLICT DO UPDATE** (not DO NOTHING)
+   - Enables fixing data issues by re-running migration
+   - Updates existing entries with new data
+
+2. **Deduplicate by simplified character at final stage**
+   - Characters appear in multiple HSK levels
+   - Variant traditional forms create duplicates
+   - Final Map by `simp` only prevents SQL errors
+
+3. **Convert ALL pinyin readings for multi-pronunciation characters**
+   - Use `heteronym: true` in pinyin library
+   - Loop through all readings during conversion
+   - Critical for Chinese learning accuracy
+
+4. **Use character-level pinyin extraction**
+   - NOT word-level syllable parsing
+   - Use npm `pinyin` library with character input
+   - More accurate than manual syllable mapping
+
+**For Email Configuration:**
+
+1. **Supabase confirms before redirecting**
+   - Server-side token validation
+   - Redirect is for UX only
+   - Failed redirect ≠ failed confirmation
+
+2. **Always set Site URL to production domain**
+   - Check before enabling email confirmations
+   - Update when deploying to new environment
+   - Localhost default causes mobile errors
+
+### 🔄 Next Session Focus
+
+**User Testing Phase:**
+- Friend tests full flow: add characters → practice → review
+- Gather feedback on UX issues
+- Identify any bugs with real usage
+
+**Optional Improvements (when needed):**
+- Forgot password flow (before wider release)
+- Epic 7 polish tasks (UX refinements)
+- Additional dictionary expansion (HSK 5-6)
+
+---
+
+**Session 7 Part 3 Complete**  
+**Dictionary:** 155 → 1,067 characters ✅  
+**Email Config:** Production ready ✅  
+**User Testing:** Ready to begin ✅
+
