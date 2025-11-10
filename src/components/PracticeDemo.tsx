@@ -331,7 +331,7 @@ export function PracticeDemo() {
           kidId={useMockData ? 'mock-kid' : (kidId || 'mock-kid')}
           onComplete={handleCardComplete}
           onError={handleError}
-          mockMode={useMockData}
+          mockMode={true}  // ALWAYS mock mode - Practice Demo should never write to production
         />
       ) : !showSummary ? (
         <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
