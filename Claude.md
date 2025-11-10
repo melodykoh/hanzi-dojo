@@ -158,150 +158,166 @@ Before coding:
 
 ---
 
-## 📝 **DISCOVERED REQUIREMENTS LOG**
-- **2025-11-03 (Session 1):** Familiarity scoring (+1.0/+0.5) replaces stored known flag; known computed per drill with demotion after two misses.
-- **2025-11-03 (Session 1):** Supabase dictionary tables (`dictionary_entries`, `dictionary_confusions`, `dictionary_missing`) instituted; missing lookups logged for future seeding.
-- **2025-11-03 (Session 1):** Training mode runs full-screen landscape-optimized; manual exports deferred to V1.1 automatic backups.
-- **2025-11-04 (Session 3):** Removed parent passcode system - kid won't navigate away, parent supervision assumed; simplified Epic 4 scope.
-- **2025-11-03 (Session 1):** User workflow documented: Weekly newsletter → homework → weekend practice → storybook reading ad-hoc entry.
-- **2025-11-03 (Session 1):** Multi-pronunciation characters (着/著, 了) require context selection during Add Item with example words.
-- **2025-11-03 (Session 1):** Initial dictionary seed: 150 characters (HSK 1-2 + user's Week 1 curriculum); expand to 500 guided by `dictionary_missing`.
-- **2025-11-03 (Session 2):** Dictionary client uses in-memory caching (Map) for session; IndexedDB deferred to Epic 4+ if offline persistence needed.
-- **2025-11-03 (Session 2):** Dictionary RLS policies allow public reads (reference data) but restrict writes to admin/service role.
-- **2025-11-03 (Session 2):** Zhuyin displayed horizontally (ㄓㄠˊ) matching book format, not vertically stacked.
-- **2025-11-03 (Session 2):** Missing entry logging deduplicates per session to avoid spam from repeated searches of same character.
-- **2025-11-04 (Session 4):** Offline detection uses dual check (navigator.onLine + Supabase test query) to avoid false positives; training pauses automatically with dojo-themed modal.
-- **2025-11-04 (Session 4):** React Router navigation implemented: `/` for dashboard, `/training` for full-screen training mode; browser back button supported.
-- **2025-11-04 (Session 4):** Add Item and other database operations blocked when offline with visual indicators and clear messaging.
-- **2025-11-04 (Session 4):** Landscape CSS needs polish - layout breaks/looks messy when rotating to landscape on mobile devices.
-- **2025-11-04 (Session 4):** Automated test infrastructure complete (Vitest + 77 test cases) but tests need function signature alignment before running (deferred to Epic 6).
-- **2025-11-04 (Session 5):** Established REPO_STRUCTURE.md as canonical file organization reference; SESSION_LOG.md is single source of truth for session history (no separate summary files).
-- **2025-11-04 (Session 5):** Offline mode must block ALL drill interactions via pointer-events-none, not just show badge - prevents data loss from unsynced practice attempts.
-- **2025-11-04 (Session 5):** Mobile portrait button layout uses responsive flex-col/flex-row with wrapping to prevent overflow on small screens.
-- **2025-11-04 (Session 5):** Landscape training mode requires full-width layout (w-full, responsive padding) and proper rotation handling to prevent layout squeeze bugs.
-- **2025-11-04 (Session 5):** Add Item form uses 300ms debounced dictionary lookup to balance responsiveness with API efficiency; manual override enables entry when dictionary lookup fails.
-- **2025-11-04 (Session 5):** Dashboard metrics computed client-side from practice_state table for real-time accuracy; sparkline aggregates last 7 days of practice_events for visual progress tracking.
-- **2025-11-05 (Session 6 - AI-8 QA):** Real Supabase Auth test account (`test@hanzidojo.local`) replaces hardcoded UUIDs; auto-login enabled for Epic 5 testing.
-- **2025-11-05 (Session 6 - AI-8 QA):** Dictionary lookup RPC fixed to search both simplified AND traditional columns; manual override checkbox removed from AddItemForm (always editable now).
-- **2025-11-05 (Session 6 - AI-8 QA):** Epic 5.5 scoped and implemented: Primary actions moved to sticky header bar; pre-training drill selection modal with proficiency metrics; recommendation logic prioritizes accuracy over recency; dashboard widget shows drill balance.
-- **2025-11-05 (Session 6 - Epic 5.5):** Proficiency-based drill recommendations use: (1) struggling items (consecutive_miss >= 2), (2) never-practiced drills, (3) accuracy gap >= 15%, (4) balanced if similar performance.
-- **2025-11-04 (Session 5):** Home network AP isolation blocks mobile testing; desktop mobile simulation provides effective alternative until router configured.
-- **2025-11-09 (Session 7):** Bulk character upload deferred to V1.1 - validation complexity (multi-pronunciation, manual Zhuyin, drill applicability) requires human review per character regardless of CSV import, making it not significantly faster than current one-at-a-time workflow for V1 usage patterns.
-- **2025-11-09 (Session 7):** Production deployment complete - Database Safety Protocol established for all future migrations (READ-ONLY analysis, backup strategy, syntax validation, incremental execution).
-- **2025-11-09 (Session 7 - Dictionary Expansion):** Dictionary expanded from 155 → 1,067 characters using HSK 1-4 word lists; critical learnings: (1) use ON CONFLICT DO UPDATE (not DO NOTHING) to allow re-running migrations with updated data, (2) deduplicate by simplified character at final stage to prevent SQL "cannot affect row a second time" errors, (3) convert ALL pinyin readings to zhuyin for multi-pronunciation characters (多音字) using heteronym mode, (4) use character-level pinyin extraction (not word-level) via `pinyin` npm library for accuracy.
-- **2025-11-09 (Session 7 - Dictionary Expansion):** Created comprehensive Dictionary Migration Guide (`docs/operational/DICTIONARY_MIGRATION_GUIDE.md`) documenting best practices, common pitfalls, validation queries, and lessons learned from production migration issues.
+## 🗄️ **DICTIONARY STATUS**
+
+### **Migration 010a (2025-11-10) - Phase 1 Complete**
+**Fixed:**
+- ✅ 248 characters with empty tone marks → "ˉ" (first tone)
+- ✅ 22 critical multi-pronunciation characters with proper `zhuyin_variants`
+- ✅ Added missing character 麼
+
+**Deferred to Epic 8 (139 characters):**
+- 📋 37 known multi-pronunciation characters (needs context research)
+- 📋 102 ambiguous 2-syllable characters (needs triage)
+
+**Coverage:**
+- Total entries: 1,000 characters
+- Properly structured: 862 characters (86%)
+- Known correct variants: 2 characters (了, 着)
+- Remaining work: Epic 8 in `docs/PROJECT_PLAN.md` (139 chars, 20 pts, phased approach)
 
 ---
 
-## 🎯 **CURRENT PRIORITY**
-- **Epic 1 (Requirements & Dictionary Foundations):** ✅ COMPLETE
-- **Epic 2 (Supabase Dictionary Services):** ✅ COMPLETE
-- **Epic 3 (Practice State & Familiarity Logic):** ✅ COMPLETE
-- **Epic 4 (Training Mode UX & Guardrails):** ✅ COMPLETE
-- **Epic 5 (Entry Management & Belt System):** ✅ COMPLETE
-- **Epic 5.5 (UX Refinement: Priority Actions & Drill Selection):** ✅ COMPLETE
-- **Epic 6 (QA, Testing & Release Readiness):** ✅ **PRODUCTION DEPLOYED** (41 of 41 core pts complete - 100%)
+## 📝 **KEY ARCHITECTURAL DECISIONS**
 
-**Status:** 🎉 **V1 Production Deployment Complete!** App live at https://hanzi-dojo.vercel.app
+**These decisions shape current implementation - historical context in SESSION_LOG.md**
 
-**Epic 6 Completed Tasks:**
-- ✅ **Task 6.1 (Bug Fixes) - 8 pts** - All RESOLVED & TESTED
-  - Manual Zhuyin input with numeric tone notation
-  - Exit Training shows summary mid-session
-  - Drill B duplicate character options
-  - EntryCatalog pronunciation display
-  - Continue Training character repeat
-  - Zhuyin text wrapping
-- ✅ **Task 6.2 (Authentication & Deployment) - 12 pts** - COMPLETE
-  - Implemented proper login/signup UI (AuthScreen component)
-  - Removed auto-login code from Dashboard
-  - Deployed to Vercel production
-  - Fixed Vercel SPA routing (vercel.json)
-  - Fixed environment variable configuration
-  - Fixed TypeScript build (excluded test files)
-  - Fixed RLS policy for kid profile creation
-  - Fixed kid profile schema mismatch
-  - Fixed race condition in profile creation
-- ✅ **Task 6.3 (Entry Catalog) - 6 pts**
-  - Sortable/filterable catalog, details modal
-  - Drill A icon: 🔤 → ㄅ (Bopomofo)
-- ✅ **Task 6.4 (Dashboard Metrics) - 6 pts**
-  - 4 streamlined tiles, session-based accuracy
-- ✅ **Task 6.2.4 (Deployment Prep) - 2 pts**
-  - Repository structure cleanup
-  - README.md created
-  - Database migration applied safely
+### Scoring & Progression
+- Familiarity scoring: +1.0 first try, +0.5 second try, 0 for wrong twice
+- Known status: computed dynamically per drill (not stored flag)
+- Demotion rule: 2+ consecutive misses removes "known" status until 2 new successes
 
-**Production Configuration:**
-- URL: https://hanzi-dojo.vercel.app
-- Supabase Auth: Email confirmation ENABLED
-- Multi-user ready with RLS isolation
-- Dictionary: 1,067 characters (HSK 1-4 coverage, includes multi-pronunciation support)
+### Dictionary System
+- Multi-pronunciation characters use `zhuyin_variants` with context words (e.g., 着/著: zháo/zhuó/zhe)
+- Dictionary lookup searches both simplified AND traditional columns
+- Missing entries logged to `dictionary_missing` for expansion tracking
+- Reference: `docs/operational/DICTIONARY_MIGRATION_GUIDE.md`
 
-**Remaining Optional:**
-- Task 6.1.1-6.1.4 (Automated test alignment - 15 pts) - Can defer to V1.1
+### Training Mode UX
+- Full-screen landscape-optimized for tablets
+- Simple "Exit Training" button (no passcode - parent supervision assumed)
+- Offline detection: dual check (navigator.onLine + Supabase test query)
+- Training pauses automatically when offline with dojo-themed modal
 
-**Next Steps (Post-V1):**
-1. **Epic 7 - Polish (7 pts - Optional UX improvements)**
-   - Task 7.1.1 (2 pts): Fix landscape scrolling issue (layout redesign)
-   - Task 7.1.2 (3 pts): Refine landscape layout for tablet/mobile
-   - Task 7.2.1 (1 pt): Fix sticky action bar button width inconsistency
-   - Task 7.2.2 (1 pt): Tighten session summary modal vertical spacing
-2. **Optional Cleanup:**
-   - Delete test account (`test@hanzidojo.local`) from Supabase Auth
-   - Dictionary expansion: 155 → 500 characters (via migration)
-   - Monitor `dictionary_missing` table for needed additions
+### Data Architecture
+- Per-drill practice state: `(kid_id, entry_id, drill)` with separate counters
+- Dictionary: public read-only reference data
+- User data: protected by RLS tied to `auth.uid()`
+- Practice events: immutable append-only log for analytics
+
+### UI/UX Patterns
+- Zhuyin displayed horizontally (ㄓㄠˊ) matching Taiwan textbook format
+- 300ms debounced dictionary lookup for responsiveness
+- Drill selection modal before training (proficiency-based recommendations)
+- Sticky action bar for primary functions (Add Item, Launch Training)
+
+**For detailed historical context and session-by-session discoveries, see:** `SESSION_LOG.md`
+
+---
+
+## 🎯 **CURRENT STATUS & PRIORITIES**
+
+### **Production Status**
+🎉 **V1 DEPLOYED** - https://hanzi-dojo.vercel.app (Nov 2025)
+- Supabase Auth: Email confirmation enabled, multi-user ready
+- Dictionary: 1,067 characters (HSK 1-4), 86% properly structured
+- All core features complete: Drills A/B, familiarity scoring, entry management, training mode
+
+### **Active Work (Session 8)**
+**Priority:** Fix user-reported dictionary bugs via Migration 010a
+
+**Migration 010a - Ready to Apply:**
+- File: `supabase/migrations/010_comprehensive_dictionary_fix.sql`
+- Fixes: 248 empty tone marks + 22 critical multi-pronunciation chars + adds 麼
+- User impact: Resolves 和, 因, 星, 它 errors
+- Next: Apply migration, test fixes, add variant selection UI indicators
+
+**Backlog (Post-Migration):**
+1. Entry catalog not refreshing after add character (Bug #2)
+2. Auth not persisting across sessions (Bug #4)
+3. Practice demo vertical layout too narrow (Bug #5)
+4. Dictionary UI button cutoff (Bug #6)
+
+### **Epic Status Overview**
+- Epic 1-6: ✅ COMPLETE (V1 production deployed)
+- Epic 7: ☐ PENDING (Mobile polish - 7 pts, optional)
+- Epic 8: ☐ PLANNED (Dictionary completion - 20 pts, 139 chars, phased over 2-3 weeks)
+
+**Detailed epic breakdown:** `docs/PROJECT_PLAN.md`  
+**Session history:** `SESSION_LOG.md`
 
 ---
 
 ## ⚠️ **KNOWN LIMITATIONS & CONSTRAINTS**
-- Single child supported in V1; schema allows future multi-child but UI not exposed yet.
-- Dictionary seed currently targets ~500 characters; expect manual overrides until backlog processed.
-- Offline training blocked; requires connectivity for Supabase RPCs (acceptable per user).
-- Audio pronunciation and story/sentence drills deferred to later roadmap.
-- **Landscape mode scrolling (Epic 7):** On mobile landscape, Training Mode requires vertical scrolling to see Next button after selecting options. Requires layout redesign to fit all elements in viewport. Deferred to Epic 7 polish phase.
 
-### **✅ Production Authentication (Epic 6.2.1 Complete)**
-**Deployment:** Production at https://hanzi-dojo.vercel.app
+### V1 Scope Boundaries
+- **Single child only:** Schema supports multi-child but UI not exposed yet (V2 feature)
+- **Offline training blocked:** Requires Supabase connection for practice state (acceptable per user)
+- **Dictionary coverage:** 1,067 chars (86% structured), 139 chars deferred to Epic 8
+- **No audio/stories:** Audio pronunciation and story drills deferred to V2+
 
-**Authentication Setup:**
-- Proper login/signup UI implemented (AuthScreen component)
-- Supabase Auth with email confirmation **ENABLED** (security best practice)
-- Session-based authentication with RLS policies
-- Auto-creates kid profile on first signup (name: "My Student", grade: 1, belt: white)
+### Open Issues (Tracked in Active Work)
+- **Mobile landscape:** Next button requires scrolling after option selection (Epic 7 polish)
+- **Entry catalog refresh:** New characters don't appear until hard refresh (Bug #2)
+- **Auth persistence:** Session not staying logged in across browser restarts (Bug #4)
 
-**Multi-User Support:**
-- Each user gets isolated data via Row Level Security
-- Users can only access their own kids, entries, and practice data
-- Dictionary is shared read-only reference data
-
-**Test Account (Optional):**
+### Test Account (Can be deleted)
 - Email: `test@hanzidojo.local`
 - Password: `testpassword123`
-- Can be deleted once production testing complete
+- Purpose: Used during Epic 5-6 development, production testing complete
 
 ---
 
 ## 🔄 **FUTURE ENHANCEMENTS**
-- V1.1: Bulk character upload (CSV with validation workflow), automatic Supabase backups, streak tracking, larger dictionary seed, animated belts.
-- V2: Story mode, sentence drills, multi-child and teacher cohorts, Sensei Zì interactive guide.
-- V3+: Adaptive spacing, analytics dashboards, voice pronunciation, PWA installability.
 
-**Bulk Upload Decision (Session 7):**
-- Deferred to V1.1 due to validation complexity
-- Even with CSV upload, each character requires human review (multi-pronunciation selection, manual Zhuyin for dictionary misses, drill applicability confirmation)
-- Current one-at-a-time workflow sufficient for V1 usage pattern (add characters as encountered in stories/homework)
-- Future implementation will include CSV template, batch dictionary lookup, preview/validation queue, and bulk insert
+**Detailed roadmap:** `docs/ROADMAP.md`
+
+### V1.1 (Refinement)
+- Bulk character upload with CSV validation workflow
+- Automatic Supabase backups to Storage
+- Streak tracking and daily practice reminders
+- Complete Epic 8 (139 remaining dictionary characters)
+- Animated belt progression
+
+### V2 (Expansion)
+- Story mode: "Scrolls of Hanzi" using known characters
+- Sentence practice drills
+- Multi-child profiles per parent
+- Teacher/classroom cohort features
+- Sensei Zì interactive guide mascot
+
+### V3+ (Intelligence)
+- Adaptive spaced repetition
+- Voice pronunciation checking
+- Parent analytics dashboards
+- PWA offline installability
 
 ---
 
-## 📚 **KEY REFERENCES**
-- `/docs/HANZI_DOJO_OVERVIEW.md`
-- `/docs/DESIGN_AND_UI.md`
-- `/docs/TECH_AND_LOGIC.md`
-- `/docs/DEVELOPMENT_AND_DEPLOYMENT.md`
-- `/docs/ROADMAP.md`
-- `SESSION_LOG.md`
+## 📚 **DOCUMENTATION MAP**
+
+### Start Here
+- **`CLAUDE.md`** (this file) - Current state, active priorities, quick reference
+- **`SESSION_LOG.md`** - Detailed session history and technical discoveries
+- **`REPO_STRUCTURE.md`** - File organization rules and structure enforcement
+
+### Product Specifications
+- **`docs/HANZI_DOJO_OVERVIEW.md`** - Product definition, objectives, core features
+- **`docs/REQUIREMENTS.md`** - Functional requirements, user stories, edge cases
+- **`docs/DESIGN_AND_UI.md`** - UI/UX specs, dojo theme, component guidelines
+- **`docs/TECH_AND_LOGIC.md`** - Database schema, scoring algorithms, drill logic
+- **`docs/ROADMAP.md`** - V1/V1.1/V2/V3+ feature planning
+
+### Implementation & Operations
+- **`docs/PROJECT_PLAN.md`** - Epic breakdown, task tracking, story points
+- **`docs/operational/QA_MANUAL_ONLY.md`** - Manual test scenarios
+- **`docs/operational/DICTIONARY_MIGRATION_GUIDE.md`** - Database safety protocol
+- **`docs/operational/DICTIONARY_REMAINING_WORK.md`** - Epic 8 tracking (139 chars)
+
+### Development Resources
+- **`docs/DEVELOPMENT_AND_DEPLOYMENT.md`** - Setup guide, testing, deployment
+- **`scripts/`** - Audit tools, migration generators, verification scripts
+- **`data/`** - Dictionary seeds, confusion maps, research outputs
 
 ---
 
@@ -327,12 +343,19 @@ Before coding:
 
 ---
 
-## 📋 **SESSION HISTORY**
-- **Session 1 (2025-11-03):** ✅ Epic 1 Complete — Documented requirements, assembled 150-character dictionary seed, created Supabase schema migrations, validated user's Week 1 curriculum characters. See `SESSION_LOG.md` for details.
-- **Session 2 (2025-11-03):** ✅ Epic 2 Complete — Set up Supabase + React frontend, imported 155 characters, built dictionary lookup RPCs with caching, implemented missing entry logging and analytics dashboard. See `SESSION_LOG.md` for details.
-- **Session 3 (2025-11-04):** ✅ Epic 3 Complete — Built complete practice system: state service with scoring logic, queue service with priority ordering, drill builders for Zhuyin and Traditional with confusion maps, interactive practice UI with attempt tracking, feedback toast with Sensei messages, dynamic known badges. See `SESSION_LOG.md` for details.
-- **Session 4 (2025-11-04):** ✅ Epic 4 Complete — Implemented full-screen training mode with React Router navigation, landscape-optimized layout, Exit Training button, offline detection service with Supabase connection checks, dojo-themed pause modal, OfflineGuard wrapper, offline-aware button components, and connection status badge. Successfully built and tested end-to-end. See `SESSION_LOG.md` for details.
-- **Session 5 (2025-11-04):** ✅ Epic 5 Complete — Built Add Item form (440 lines) with dictionary auto-fill, multi-pronunciation handling, and validation; implemented Dashboard Metrics (375 lines) with real-time calculations and 7-day sparkline; created 27 automated test cases; updated QA docs to 52 manual tests; fixed import errors (dictionaryClient.lookup, dictionaryLogger.logMissingEntry); implemented temporary hardcoded test kid ID workaround. Code complete, awaiting manual QA next session. See `SESSION_LOG.md` for details.
+## 📋 **QUICK SESSION SUMMARY**
+
+**Most Recent Sessions:**
+- **Session 7 (Nov 9, 2025):** V1 production deployed; dictionary expanded 155→1,067 chars
+- **Session 8 (Nov 10, 2025):** Dictionary audit (161 malformed chars found); Migration 010a prepared (fixes 270 chars)
+
+**Milestone Sessions:**
+- Session 1-2: Requirements + dictionary foundation + Supabase setup
+- Session 3: Complete practice system (scoring, queues, drills)
+- Session 4-5: Training mode + entry management + dashboard
+- Session 6: QA, auth, catalog, production deployment
+
+**Complete session-by-session details:** `SESSION_LOG.md`
 
 ---
 
