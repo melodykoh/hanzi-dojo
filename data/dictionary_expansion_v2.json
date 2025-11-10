@@ -12,9 +12,14 @@
           "ㄇ",
           "ㄛ",
           "ˊ"
+        ],
+        [
+          "ㄇ",
+          "ㄜ",
+          "˙"
         ]
       ],
-      "pinyin": "mó",
+      "pinyin": "mó, me",
       "hsk_level": 1,
       "frequency_rank": 1000,
       "meanings": [
@@ -65,9 +70,14 @@
           "ㄒ",
           "ㄧㄝ",
           ""
+        ],
+        [
+          "ㄙ",
+          "ㄨㄛ",
+          "ˋ"
         ]
       ],
-      "pinyin": "xiē",
+      "pinyin": "xiē, suò",
       "hsk_level": 1,
       "frequency_rank": 1003,
       "meanings": [
@@ -100,9 +110,14 @@
           "ㄕ",
           "",
           "ˊ"
+        ],
+        [
+          "ㄕ",
+          "ㄣ",
+          "ˊ"
         ]
       ],
-      "pinyin": "shí",
+      "pinyin": "shí, shén",
       "hsk_level": 1,
       "frequency_rank": 1005,
       "meanings": [
@@ -243,9 +258,14 @@
           "ㄐ",
           "ㄧ",
           ""
+        ],
+        [
+          "ㄐ",
+          "ㄧ",
+          "ˇ"
         ]
       ],
-      "pinyin": "jī",
+      "pinyin": "jī, jǐ",
       "hsk_level": 1,
       "frequency_rank": 1013,
       "meanings": [
@@ -332,9 +352,14 @@
           "ㄏ",
           "ㄠ",
           "ˋ"
+        ],
+        [
+          "ㄏ",
+          "ㄠ",
+          "ˊ"
         ]
       ],
-      "pinyin": "hào",
+      "pinyin": "hào, háo",
       "hsk_level": 1,
       "frequency_rank": 1018,
       "meanings": [
@@ -350,9 +375,14 @@
           "ㄊ",
           "ㄨㄥ",
           "ˊ"
+        ],
+        [
+          "ㄊ",
+          "ㄨㄥ",
+          "ˋ"
         ]
       ],
-      "pinyin": "tóng",
+      "pinyin": "tóng, tòng",
       "hsk_level": 1,
       "frequency_rank": 1019,
       "meanings": [
@@ -386,9 +416,19 @@
           "ㄇ",
           "ㄚ",
           "ˊ"
+        ],
+        [
+          "ㄇ",
+          "ㄚ",
+          "ˇ"
+        ],
+        [
+          "ㄇ",
+          "ㄚ",
+          "˙"
         ]
       ],
-      "pinyin": "má",
+      "pinyin": "má, mǎ, ma",
       "hsk_level": 1,
       "frequency_rank": 1021,
       "meanings": [
@@ -403,9 +443,14 @@
           "ㄋ",
           "ㄜ",
           "˙"
+        ],
+        [
+          "ㄋ",
+          "ㄧ",
+          "ˊ"
         ]
       ],
-      "pinyin": "ne",
+      "pinyin": "ne, ní",
       "hsk_level": 1,
       "frequency_rank": 1022,
       "meanings": [
@@ -420,9 +465,29 @@
           "ㄏ",
           "ㄜ",
           "ˊ"
+        ],
+        [
+          "ㄏ",
+          "ㄜ",
+          "ˋ"
+        ],
+        [
+          "ㄏ",
+          "ㄨㄛ",
+          "ˊ"
+        ],
+        [
+          "ㄏ",
+          "ㄨㄛ",
+          "ˋ"
+        ],
+        [
+          "ㄏ",
+          "ㄨ",
+          "ˊ"
         ]
       ],
-      "pinyin": "hé",
+      "pinyin": "hé, hè, huó, huò, hú",
       "hsk_level": 1,
       "frequency_rank": 1023,
       "meanings": [
@@ -438,9 +503,24 @@
           "ㄋ",
           "ㄚ",
           "ˇ"
+        ],
+        [
+          "ㄋ",
+          "ㄟ",
+          "ˇ"
+        ],
+        [
+          "ㄋ",
+          "ㄚ",
+          "˙"
+        ],
+        [
+          "ㄋ",
+          "ㄜ",
+          "ˊ"
         ]
       ],
-      "pinyin": "nǎ",
+      "pinyin": "nǎ, něi, na, né",
       "hsk_level": 1,
       "frequency_rank": 1024,
       "meanings": [
@@ -721,9 +801,14 @@
           "ㄉ",
           "ㄚ",
           "ˇ"
+        ],
+        [
+          "ㄉ",
+          "ㄚ",
+          "ˊ"
         ]
       ],
-      "pinyin": "dǎ",
+      "pinyin": "dǎ, dá",
       "hsk_level": 1,
       "frequency_rank": 1040,
       "meanings": [
@@ -790,9 +875,14 @@
           "ㄈ",
           "ㄨ",
           "ˊ"
+        ],
+        [
+          "ㄈ",
+          "ㄨ",
+          "ˋ"
         ]
       ],
-      "pinyin": "fú",
+      "pinyin": "fú, fù",
       "hsk_level": 1,
       "frequency_rank": 1044,
       "meanings": [
@@ -808,9 +898,14 @@
           "ㄑ",
           "ㄧ",
           ""
+        ],
+        [
+          "ㄐ",
+          "ㄧ",
+          ""
         ]
       ],
-      "pinyin": "qī",
+      "pinyin": "qī, jī",
       "hsk_level": 1,
       "frequency_rank": 1045,
       "meanings": [
@@ -880,9 +975,14 @@
           "ㄒ",
           "ㄧㄠ",
           "ˋ"
+        ],
+        [
+          "ㄐ",
+          "ㄧㄠ",
+          "ˋ"
         ]
       ],
-      "pinyin": "xiào",
+      "pinyin": "xiào, jiào",
       "hsk_level": 1,
       "frequency_rank": 1049,
       "meanings": [
@@ -933,9 +1033,14 @@
           "",
           "ㄧ",
           "ˇ"
+        ],
+        [
+          "",
+          "ㄧ",
+          ""
         ]
       ],
-      "pinyin": "yǐ",
+      "pinyin": "yǐ, yī",
       "hsk_level": 1,
       "frequency_rank": 1052,
       "meanings": [
@@ -985,9 +1090,14 @@
           "ㄇ",
           "ㄟ",
           "ˊ"
+        ],
+        [
+          "ㄇ",
+          "ㄛ",
+          "ˋ"
         ]
       ],
-      "pinyin": "méi",
+      "pinyin": "méi, mò",
       "hsk_level": 1,
       "frequency_rank": 1055,
       "meanings": [
@@ -1003,9 +1113,19 @@
           "ㄆ",
           "ㄧㄠ",
           ""
+        ],
+        [
+          "ㄆ",
+          "ㄧㄠ",
+          "ˇ"
+        ],
+        [
+          "ㄆ",
+          "ㄧㄠ",
+          "ˋ"
         ]
       ],
-      "pinyin": "piāo",
+      "pinyin": "piāo, piǎo, piào",
       "hsk_level": 1,
       "frequency_rank": 1056,
       "meanings": [
@@ -1146,9 +1266,14 @@
           "ㄒ",
           "ㄧ",
           "ˋ"
+        ],
+        [
+          "ㄐ",
+          "ㄧ",
+          "ˋ"
         ]
       ],
-      "pinyin": "xì",
+      "pinyin": "xì, jì",
       "hsk_level": 1,
       "frequency_rank": 1064,
       "meanings": [
@@ -1181,9 +1306,14 @@
           "ㄆ",
           "ㄧㄣ",
           "ˊ"
+        ],
+        [
+          "ㄆ",
+          "ㄧㄥ",
+          "ˊ"
         ]
       ],
-      "pinyin": "pín",
+      "pinyin": "pín, píng",
       "hsk_level": 1,
       "frequency_rank": 1066,
       "meanings": [
@@ -1215,9 +1345,14 @@
           "ㄐ",
           "ㄩㄝ",
           "ˊ"
+        ],
+        [
+          "ㄐ",
+          "ㄧㄠ",
+          "ˋ"
         ]
       ],
-      "pinyin": "jué",
+      "pinyin": "jué, jiào",
       "hsk_level": 1,
       "frequency_rank": 1068,
       "meanings": [
@@ -1269,9 +1404,14 @@
           "",
           "ㄩ",
           "ˇ"
+        ],
+        [
+          "",
+          "ㄩ",
+          "ˋ"
         ]
       ],
-      "pinyin": "yǔ",
+      "pinyin": "yǔ, yù",
       "hsk_level": 1,
       "frequency_rank": 1071,
       "meanings": [
@@ -1305,9 +1445,14 @@
           "ㄕ",
           "ㄨㄟ",
           "ˊ"
+        ],
+        [
+          "ㄕ",
+          "ㄟ",
+          "ˊ"
         ]
       ],
-      "pinyin": "shuí",
+      "pinyin": "shuí, shéi",
       "hsk_level": 1,
       "frequency_rank": 1073,
       "meanings": [
@@ -1358,9 +1503,14 @@
           "ㄉ",
           "ㄨ",
           ""
+        ],
+        [
+          "ㄉ",
+          "ㄡ",
+          ""
         ]
       ],
-      "pinyin": "dū",
+      "pinyin": "dū, dōu",
       "hsk_level": 1,
       "frequency_rank": 1076,
       "meanings": [
@@ -1515,9 +1665,14 @@
           "",
           "ㄨㄟ",
           "ˊ"
+        ],
+        [
+          "",
+          "ㄨㄟ",
+          "ˋ"
         ]
       ],
-      "pinyin": "wéi",
+      "pinyin": "wéi, wèi",
       "hsk_level": 2,
       "frequency_rank": 1085,
       "meanings": [
@@ -1533,9 +1688,24 @@
           "ㄌ",
           "ㄜ",
           "ˋ"
+        ],
+        [
+          "",
+          "ㄩㄝ",
+          "ˋ"
+        ],
+        [
+          "",
+          "ㄧㄠ",
+          "ˋ"
+        ],
+        [
+          "ㄌ",
+          "ㄠ",
+          "ˋ"
         ]
       ],
-      "pinyin": "lè",
+      "pinyin": "lè, yuè, yào, lào",
       "hsk_level": 2,
       "frequency_rank": 1086,
       "meanings": [
@@ -1604,9 +1774,14 @@
           "ㄘ",
           "ㄨㄥ",
           "ˊ"
+        ],
+        [
+          "ㄗ",
+          "ㄨㄥ",
+          "ˋ"
         ]
       ],
-      "pinyin": "cóng",
+      "pinyin": "cóng, zòng",
       "hsk_level": 2,
       "frequency_rank": 1090,
       "meanings": [
@@ -1658,9 +1833,14 @@
           "ㄒ",
           "ㄧㄡ",
           ""
+        ],
+        [
+          "ㄒ",
+          "ㄩ",
+          "ˇ"
         ]
       ],
-      "pinyin": "xiū",
+      "pinyin": "xiū, xǔ",
       "hsk_level": 2,
       "frequency_rank": 1093,
       "meanings": [
@@ -1693,9 +1873,14 @@
           "ㄊ",
           "ㄧ",
           "ˇ"
+        ],
+        [
+          "ㄊ",
+          "ㄧ",
+          ""
         ]
       ],
-      "pinyin": "tǐ",
+      "pinyin": "tǐ, tī",
       "hsk_level": 2,
       "frequency_rank": 1095,
       "meanings": [
@@ -1711,9 +1896,14 @@
           "ㄅ",
           "ㄧㄢ",
           "ˋ"
+        ],
+        [
+          "ㄆ",
+          "ㄧㄢ",
+          "ˊ"
         ]
       ],
-      "pinyin": "biàn",
+      "pinyin": "biàn, pián",
       "hsk_level": 2,
       "frequency_rank": 1096,
       "meanings": [
@@ -1747,9 +1937,14 @@
           "ㄍ",
           "ㄨㄥ",
           "ˋ"
+        ],
+        [
+          "ㄍ",
+          "ㄨㄥ",
+          ""
         ]
       ],
-      "pinyin": "gòng",
+      "pinyin": "gòng, gōng",
       "hsk_level": 2,
       "frequency_rank": 1098,
       "meanings": [
@@ -1801,9 +1996,14 @@
           "ㄅ",
           "ㄧㄝ",
           "ˊ"
+        ],
+        [
+          "ㄅ",
+          "ㄧㄝ",
+          "ˋ"
         ]
       ],
-      "pinyin": "bié",
+      "pinyin": "bié, biè",
       "hsk_level": 2,
       "frequency_rank": 1101,
       "meanings": [
@@ -1873,9 +2073,14 @@
           "ㄓ",
           "ㄨ",
           "ˋ"
+        ],
+        [
+          "ㄔ",
+          "ㄨ",
+          "ˊ"
         ]
       ],
-      "pinyin": "zhù",
+      "pinyin": "zhù, chú",
       "hsk_level": 2,
       "frequency_rank": 1105,
       "meanings": [
@@ -1925,9 +2130,14 @@
           "ㄎ",
           "ㄜ",
           "ˇ"
+        ],
+        [
+          "ㄎ",
+          "ㄜ",
+          "ˋ"
         ]
       ],
-      "pinyin": "kě",
+      "pinyin": "kě, kè",
       "hsk_level": 2,
       "frequency_rank": 1108,
       "meanings": [
@@ -1961,9 +2171,14 @@
           "ㄅ",
           "ㄚ",
           ""
+        ],
+        [
+          "ㄅ",
+          "ㄚ",
+          "˙"
         ]
       ],
-      "pinyin": "bā",
+      "pinyin": "bā, ba",
       "hsk_level": 2,
       "frequency_rank": 1110,
       "meanings": [
@@ -1996,9 +2211,19 @@
           "",
           "ㄩㄢ",
           "ˊ"
+        ],
+        [
+          "",
+          "ㄩㄣ",
+          "ˊ"
+        ],
+        [
+          "",
+          "ㄩㄣ",
+          "ˋ"
         ]
       ],
-      "pinyin": "yuán",
+      "pinyin": "yuán, yún, yùn",
       "hsk_level": 2,
       "frequency_rank": 1112,
       "meanings": [
@@ -2014,9 +2239,14 @@
           "ㄎ",
           "ㄚ",
           ""
+        ],
+        [
+          "ㄍ",
+          "ㄚ",
+          ""
         ]
       ],
-      "pinyin": "kā",
+      "pinyin": "kā, gā",
       "hsk_level": 2,
       "frequency_rank": 1113,
       "meanings": [
@@ -2083,9 +2313,14 @@
           "ㄔ",
           "ㄤ",
           "ˊ"
+        ],
+        [
+          "ㄔ",
+          "ㄤ",
+          "ˇ"
         ]
       ],
-      "pinyin": "cháng",
+      "pinyin": "cháng, chǎng",
       "hsk_level": 2,
       "frequency_rank": 1117,
       "meanings": [
@@ -2136,9 +2371,14 @@
           "ㄈ",
           "ㄨ",
           ""
+        ],
+        [
+          "ㄈ",
+          "ㄨ",
+          "ˊ"
         ]
       ],
-      "pinyin": "fū",
+      "pinyin": "fū, fú",
       "hsk_level": 2,
       "frequency_rank": 1120,
       "meanings": [
@@ -2172,9 +2412,14 @@
           "ㄑ",
           "ㄧ",
           ""
+        ],
+        [
+          "ㄑ",
+          "ㄧ",
+          "ˋ"
         ]
       ],
-      "pinyin": "qī",
+      "pinyin": "qī, qì",
       "hsk_level": 2,
       "frequency_rank": 1122,
       "meanings": [
@@ -2467,9 +2712,14 @@
           "ㄙ",
           "",
           ""
+        ],
+        [
+          "ㄙ",
+          "ㄞ",
+          ""
         ]
       ],
-      "pinyin": "sī",
+      "pinyin": "sī, sāi",
       "hsk_level": 2,
       "frequency_rank": 1139,
       "meanings": [
@@ -2625,9 +2875,14 @@
           "ㄐ",
           "ㄧㄠ",
           "ˋ"
+        ],
+        [
+          "ㄐ",
+          "ㄧㄠ",
+          ""
         ]
       ],
-      "pinyin": "jiào",
+      "pinyin": "jiào, jiāo",
       "hsk_level": 2,
       "frequency_rank": 1148,
       "meanings": [
@@ -2643,9 +2898,14 @@
           "ㄆ",
           "ㄤ",
           "ˊ"
+        ],
+        [
+          "ㄅ",
+          "ㄤ",
+          "ˋ"
         ]
       ],
-      "pinyin": "páng",
+      "pinyin": "páng, bàng",
       "hsk_level": 2,
       "frequency_rank": 1149,
       "meanings": [
@@ -2713,9 +2973,14 @@
           "ㄊ",
           "ㄧㄠ",
           "ˊ"
+        ],
+        [
+          "ㄊ",
+          "ㄧㄠ",
+          ""
         ]
       ],
-      "pinyin": "tiáo",
+      "pinyin": "tiáo, tiāo",
       "hsk_level": 2,
       "frequency_rank": 1153,
       "meanings": [
@@ -2766,9 +3031,14 @@
           "ㄓ",
           "ㄥ",
           "ˋ"
+        ],
+        [
+          "ㄓ",
+          "ㄥ",
+          ""
         ]
       ],
-      "pinyin": "zhèng",
+      "pinyin": "zhèng, zhēng",
       "hsk_level": 2,
       "frequency_rank": 1156,
       "meanings": [
@@ -2871,9 +3141,14 @@
           "ㄒ",
           "ㄧ",
           "ˇ"
+        ],
+        [
+          "ㄒ",
+          "ㄧㄢ",
+          "ˇ"
         ]
       ],
-      "pinyin": "xǐ",
+      "pinyin": "xǐ, xiǎn",
       "hsk_level": 2,
       "frequency_rank": 1162,
       "meanings": [
@@ -3101,9 +3376,14 @@
           "ㄆ",
           "ㄧㄠ",
           "ˋ"
+        ],
+        [
+          "ㄆ",
+          "ㄧㄠ",
+          ""
         ]
       ],
-      "pinyin": "piào",
+      "pinyin": "piào, piāo",
       "hsk_level": 2,
       "frequency_rank": 1175,
       "meanings": [
@@ -3257,9 +3537,19 @@
           "ㄌ",
           "ㄟ",
           "ˊ"
+        ],
+        [
+          "ㄌ",
+          "ㄟ",
+          "ˇ"
+        ],
+        [
+          "ㄌ",
+          "ㄟ",
+          "ˋ"
         ]
       ],
-      "pinyin": "léi",
+      "pinyin": "léi, lěi, lèi",
       "hsk_level": 2,
       "frequency_rank": 1184,
       "meanings": [
@@ -3310,9 +3600,14 @@
           "ㄍ",
           "ㄟ",
           "ˇ"
+        ],
+        [
+          "ㄐ",
+          "ㄧ",
+          "ˇ"
         ]
       ],
-      "pinyin": "gěi",
+      "pinyin": "gěi, jǐ",
       "hsk_level": 2,
       "frequency_rank": 1187,
       "meanings": [
@@ -3553,9 +3848,14 @@
           "ㄊ",
           "ㄧㄠ",
           "ˋ"
+        ],
+        [
+          "ㄊ",
+          "ㄠ",
+          "ˊ"
         ]
       ],
-      "pinyin": "tiào",
+      "pinyin": "tiào, táo",
       "hsk_level": 2,
       "frequency_rank": 1201,
       "meanings": [
@@ -3658,9 +3958,14 @@
           "ㄏ",
           "ㄨㄢ",
           "ˊ"
+        ],
+        [
+          "ㄏ",
+          "ㄞ",
+          "ˊ"
         ]
       ],
-      "pinyin": "huán",
+      "pinyin": "huán, hái",
       "hsk_level": 2,
       "frequency_rank": 1207,
       "meanings": [
@@ -3764,9 +4069,14 @@
           "ㄐ",
           "ㄧㄢ",
           ""
+        ],
+        [
+          "ㄐ",
+          "ㄧㄢ",
+          "ˋ"
         ]
       ],
-      "pinyin": "jiān",
+      "pinyin": "jiān, jiàn",
       "hsk_level": 2,
       "frequency_rank": 1213,
       "meanings": [
@@ -3922,9 +4232,14 @@
           "ㄑ",
           "ㄧㄝ",
           "ˇ"
+        ],
+        [
+          "ㄐ",
+          "ㄩ",
+          ""
         ]
       ],
-      "pinyin": "qiě",
+      "pinyin": "qiě, jū",
       "hsk_level": 3,
       "frequency_rank": 1222,
       "meanings": [
@@ -4028,9 +4343,14 @@
           "",
           "ㄩ",
           "ˊ"
+        ],
+        [
+          "",
+          "ㄨ",
+          ""
         ]
       ],
-      "pinyin": "yú",
+      "pinyin": "yú, wū",
       "hsk_level": 3,
       "frequency_rank": 1228,
       "meanings": [
@@ -4081,9 +4401,14 @@
           "ㄒ",
           "ㄧㄣ",
           "ˋ"
+        ],
+        [
+          "ㄕ",
+          "ㄣ",
+          ""
         ]
       ],
-      "pinyin": "xìn",
+      "pinyin": "xìn, shēn",
       "hsk_level": 3,
       "frequency_rank": 1231,
       "meanings": [
@@ -4116,9 +4441,14 @@
           "ㄐ",
           "ㄧㄚ",
           "ˇ"
+        ],
+        [
+          "ㄐ",
+          "ㄧㄚ",
+          "ˋ"
         ]
       ],
-      "pinyin": "jiǎ",
+      "pinyin": "jiǎ, jià",
       "hsk_level": 3,
       "frequency_rank": 1233,
       "meanings": [
@@ -4186,9 +4516,14 @@
           "ㄑ",
           "ㄧ",
           "ˊ"
+        ],
+        [
+          "ㄐ",
+          "ㄧ",
+          ""
         ]
       ],
-      "pinyin": "qí",
+      "pinyin": "qí, jī",
       "hsk_level": 3,
       "frequency_rank": 1237,
       "meanings": [
@@ -4221,9 +4556,14 @@
           "ㄇ",
           "ㄠ",
           "ˋ"
+        ],
+        [
+          "ㄇ",
+          "ㄛ",
+          "ˋ"
         ]
       ],
-      "pinyin": "mào",
+      "pinyin": "mào, mò",
       "hsk_level": 3,
       "frequency_rank": 1239,
       "meanings": [
@@ -4290,9 +4630,14 @@
           "ㄐ",
           "ㄧㄥ",
           "ˋ"
+        ],
+        [
+          "ㄔ",
+          "ㄥ",
+          ""
         ]
       ],
-      "pinyin": "jìng",
+      "pinyin": "jìng, chēng",
       "hsk_level": 3,
       "frequency_rank": 1243,
       "meanings": [
@@ -4342,9 +4687,14 @@
           "ㄕ",
           "ㄨㄚ",
           ""
+        ],
+        [
+          "ㄕ",
+          "ㄨㄚ",
+          "ˋ"
         ]
       ],
-      "pinyin": "shuā",
+      "pinyin": "shuā, shuà",
       "hsk_level": 3,
       "frequency_rank": 1246,
       "meanings": [
@@ -4465,9 +4815,14 @@
           "ㄏ",
           "ㄨㄚ",
           "ˋ"
+        ],
+        [
+          "ㄏ",
+          "ㄨㄚ",
+          ""
         ]
       ],
-      "pinyin": "huà",
+      "pinyin": "huà, huā",
       "hsk_level": 3,
       "frequency_rank": 1253,
       "meanings": [
@@ -4500,9 +4855,19 @@
           "ㄉ",
           "ㄢ",
           ""
+        ],
+        [
+          "ㄕ",
+          "ㄢ",
+          "ˋ"
+        ],
+        [
+          "ㄔ",
+          "ㄢ",
+          "ˊ"
         ]
       ],
-      "pinyin": "dān",
+      "pinyin": "dān, shàn, chán",
       "hsk_level": 3,
       "frequency_rank": 1255,
       "meanings": [
@@ -4518,9 +4883,14 @@
           "ㄎ",
           "ㄚ",
           "ˇ"
+        ],
+        [
+          "ㄑ",
+          "ㄧㄚ",
+          "ˇ"
         ]
       ],
-      "pinyin": "kǎ",
+      "pinyin": "kǎ, qiǎ",
       "hsk_level": 3,
       "frequency_rank": 1256,
       "meanings": [
@@ -4552,9 +4922,24 @@
           "ㄘ",
           "ㄢ",
           ""
+        ],
+        [
+          "ㄕ",
+          "ㄣ",
+          ""
+        ],
+        [
+          "ㄘ",
+          "ㄣ",
+          ""
+        ],
+        [
+          "ㄙ",
+          "ㄢ",
+          ""
         ]
       ],
-      "pinyin": "cān",
+      "pinyin": "cān, shēn, cēn, sān",
       "hsk_level": 3,
       "frequency_rank": 1258,
       "meanings": [
@@ -4657,9 +5042,14 @@
           "ㄐ",
           "ㄩ",
           "ˋ"
+        ],
+        [
+          "ㄍ",
+          "ㄡ",
+          ""
         ]
       ],
-      "pinyin": "jù",
+      "pinyin": "jù, gōu",
       "hsk_level": 3,
       "frequency_rank": 1264,
       "meanings": [
@@ -4780,9 +5170,29 @@
           "",
           "ㄚ",
           ""
+        ],
+        [
+          "",
+          "ㄚ",
+          "ˊ"
+        ],
+        [
+          "",
+          "ㄚ",
+          "ˇ"
+        ],
+        [
+          "",
+          "ㄚ",
+          "ˋ"
+        ],
+        [
+          "",
+          "ㄚ",
+          "˙"
         ]
       ],
-      "pinyin": "ā",
+      "pinyin": "ā, á, ǎ, à, a",
       "hsk_level": 3,
       "frequency_rank": 1271,
       "meanings": [
@@ -4866,9 +5276,14 @@
           "ㄉ",
           "ㄧ",
           "ˋ"
+        ],
+        [
+          "ㄉ",
+          "ㄜ",
+          "˙"
         ]
       ],
-      "pinyin": "dì",
+      "pinyin": "dì, de",
       "hsk_level": 3,
       "frequency_rank": 1276,
       "meanings": [
@@ -4987,9 +5402,14 @@
           "ㄑ",
           "ㄧ",
           "ˊ"
+        ],
+        [
+          "ㄐ",
+          "ㄧ",
+          ""
         ]
       ],
-      "pinyin": "qí",
+      "pinyin": "qí, jī",
       "hsk_level": 3,
       "frequency_rank": 1283,
       "meanings": [
@@ -5197,9 +5617,24 @@
           "ㄔ",
           "ㄚ",
           "ˋ"
+        ],
+        [
+          "ㄔ",
+          "ㄚ",
+          ""
+        ],
+        [
+          "ㄔ",
+          "ㄞ",
+          ""
+        ],
+        [
+          "ㄘ",
+          "",
+          ""
         ]
       ],
-      "pinyin": "chà",
+      "pinyin": "chà, chā, chāi, cī",
       "hsk_level": 3,
       "frequency_rank": 1295,
       "meanings": [
@@ -5284,9 +5719,14 @@
           "ㄍ",
           "ㄢ",
           ""
+        ],
+        [
+          "ㄍ",
+          "ㄢ",
+          "ˋ"
         ]
       ],
-      "pinyin": "gān",
+      "pinyin": "gān, gàn",
       "hsk_level": 3,
       "frequency_rank": 1300,
       "meanings": [
@@ -5319,9 +5759,14 @@
           "",
           "ㄧㄥ",
           ""
+        ],
+        [
+          "",
+          "ㄧㄥ",
+          "ˋ"
         ]
       ],
-      "pinyin": "yīng",
+      "pinyin": "yīng, yìng",
       "hsk_level": 3,
       "frequency_rank": 1302,
       "meanings": [
@@ -5372,9 +5817,19 @@
           "ㄉ",
           "ㄤ",
           ""
+        ],
+        [
+          "ㄉ",
+          "ㄤ",
+          "ˋ"
+        ],
+        [
+          "ㄉ",
+          "ㄤ",
+          "ˇ"
         ]
       ],
-      "pinyin": "dāng",
+      "pinyin": "dāng, dàng, dǎng",
       "hsk_level": 3,
       "frequency_rank": 1305,
       "meanings": [
@@ -5546,9 +6001,14 @@
           "ㄒ",
           "ㄧ",
           "ˋ"
+        ],
+        [
+          "ㄏ",
+          "ㄨ",
+          ""
         ]
       ],
-      "pinyin": "xì",
+      "pinyin": "xì, hū",
       "hsk_level": 3,
       "frequency_rank": 1315,
       "meanings": [
@@ -5616,9 +6076,14 @@
           "ㄙ",
           "ㄠ",
           "ˇ"
+        ],
+        [
+          "ㄙ",
+          "ㄠ",
+          "ˋ"
         ]
       ],
-      "pinyin": "sǎo",
+      "pinyin": "sǎo, sào",
       "hsk_level": 3,
       "frequency_rank": 1319,
       "meanings": [
@@ -5633,9 +6098,14 @@
           "ㄅ",
           "ㄚ",
           "ˇ"
+        ],
+        [
+          "ㄅ",
+          "ㄚ",
+          "ˋ"
         ]
       ],
-      "pinyin": "bǎ",
+      "pinyin": "bǎ, bà",
       "hsk_level": 3,
       "frequency_rank": 1320,
       "meanings": [
@@ -5668,9 +6138,14 @@
           "ㄉ",
           "ㄢ",
           ""
+        ],
+        [
+          "ㄉ",
+          "ㄢ",
+          "ˋ"
         ]
       ],
-      "pinyin": "dān",
+      "pinyin": "dān, dàn",
       "hsk_level": 3,
       "frequency_rank": 1322,
       "meanings": [
@@ -5685,9 +6160,14 @@
           "ㄗ",
           "ㄜ",
           "ˊ"
+        ],
+        [
+          "ㄓ",
+          "ㄞ",
+          "ˊ"
         ]
       ],
-      "pinyin": "zé",
+      "pinyin": "zé, zhái",
       "hsk_level": 3,
       "frequency_rank": 1323,
       "meanings": [
@@ -5736,9 +6216,14 @@
           "ㄐ",
           "ㄩ",
           "ˋ"
+        ],
+        [
+          "ㄐ",
+          "ㄩ",
+          ""
         ]
       ],
-      "pinyin": "jù",
+      "pinyin": "jù, jū",
       "hsk_level": 3,
       "frequency_rank": 1326,
       "meanings": [
@@ -5771,9 +6256,19 @@
           "ㄊ",
           "ㄧ",
           "ˊ"
+        ],
+        [
+          "ㄉ",
+          "ㄧ",
+          ""
+        ],
+        [
+          "ㄉ",
+          "ㄧ",
+          "ˇ"
         ]
       ],
-      "pinyin": "tí",
+      "pinyin": "tí, dī, dǐ",
       "hsk_level": 3,
       "frequency_rank": 1328,
       "meanings": [
@@ -5842,9 +6337,19 @@
           "ㄕ",
           "ㄨ",
           "ˋ"
+        ],
+        [
+          "ㄕ",
+          "ㄨ",
+          "ˇ"
+        ],
+        [
+          "ㄕ",
+          "ㄨㄛ",
+          "ˋ"
         ]
       ],
-      "pinyin": "shù",
+      "pinyin": "shù, shǔ, shuò",
       "hsk_level": 3,
       "frequency_rank": 1332,
       "meanings": [
@@ -5964,9 +6469,14 @@
           "ㄍ",
           "ㄥ",
           ""
+        ],
+        [
+          "ㄍ",
+          "ㄥ",
+          "ˋ"
         ]
       ],
-      "pinyin": "gēng",
+      "pinyin": "gēng, gèng",
       "hsk_level": 3,
       "frequency_rank": 1339,
       "meanings": [
@@ -6084,9 +6594,14 @@
           "ㄔ",
           "ㄚ",
           "ˊ"
+        ],
+        [
+          "ㄓ",
+          "ㄚ",
+          ""
         ]
       ],
-      "pinyin": "chá",
+      "pinyin": "chá, zhā",
       "hsk_level": 3,
       "frequency_rank": 1346,
       "meanings": [
@@ -6445,9 +6960,14 @@
           "ㄆ",
           "ㄧㄢ",
           "ˋ"
+        ],
+        [
+          "ㄆ",
+          "ㄧㄢ",
+          ""
         ]
       ],
-      "pinyin": "piàn",
+      "pinyin": "piàn, piān",
       "hsk_level": 3,
       "frequency_rank": 1367,
       "meanings": [
@@ -6742,9 +7262,14 @@
           "ㄒ",
           "ㄧㄤ",
           ""
+        ],
+        [
+          "ㄒ",
+          "ㄧㄤ",
+          "ˋ"
         ]
       ],
-      "pinyin": "xiāng",
+      "pinyin": "xiāng, xiàng",
       "hsk_level": 3,
       "frequency_rank": 1384,
       "meanings": [
@@ -6829,9 +7354,14 @@
           "ㄓ",
           "ㄨㄥ",
           "ˇ"
+        ],
+        [
+          "ㄓ",
+          "ㄨㄥ",
+          "ˋ"
         ]
       ],
-      "pinyin": "zhǒng",
+      "pinyin": "zhǒng, zhòng",
       "hsk_level": 3,
       "frequency_rank": 1389,
       "meanings": [
@@ -6846,9 +7376,19 @@
           "ㄎ",
           "ㄨㄥ",
           ""
+        ],
+        [
+          "ㄎ",
+          "ㄨㄥ",
+          "ˋ"
+        ],
+        [
+          "ㄎ",
+          "ㄨㄥ",
+          "ˇ"
         ]
       ],
-      "pinyin": "kōng",
+      "pinyin": "kōng, kòng, kǒng",
       "hsk_level": 3,
       "frequency_rank": 1390,
       "meanings": [
@@ -7018,9 +7558,14 @@
           "ㄐ",
           "ㄧㄝ",
           "ˊ"
+        ],
+        [
+          "ㄐ",
+          "ㄧㄝ",
+          ""
         ]
       ],
-      "pinyin": "jié",
+      "pinyin": "jié, jiē",
       "hsk_level": 3,
       "frequency_rank": 1400,
       "meanings": [
@@ -7160,9 +7705,19 @@
           "ㄆ",
           "ㄤ",
           "ˋ"
+        ],
+        [
+          "ㄆ",
+          "ㄢ",
+          "ˊ"
+        ],
+        [
+          "ㄆ",
+          "ㄢ",
+          "ˋ"
         ]
       ],
-      "pinyin": "pàng",
+      "pinyin": "pàng, pán, pàn",
       "hsk_level": 3,
       "frequency_rank": 1408,
       "meanings": [
@@ -7332,9 +7887,14 @@
           "ㄏ",
           "ㄤ",
           "ˊ"
+        ],
+        [
+          "ㄒ",
+          "ㄧㄥ",
+          "ˊ"
         ]
       ],
-      "pinyin": "háng",
+      "pinyin": "háng, xíng",
       "hsk_level": 3,
       "frequency_rank": 1418,
       "meanings": [
@@ -7401,9 +7961,14 @@
           "ㄅ",
           "ㄟ",
           "ˋ"
+        ],
+        [
+          "ㄆ",
+          "ㄧ",
+          ""
         ]
       ],
-      "pinyin": "bèi",
+      "pinyin": "bèi, pī",
       "hsk_level": 3,
       "frequency_rank": 1422,
       "meanings": [
@@ -7452,9 +8017,14 @@
           "ㄐ",
           "ㄧㄠ",
           "ˇ"
+        ],
+        [
+          "ㄐ",
+          "ㄩㄝ",
+          "ˊ"
         ]
       ],
-      "pinyin": "jiǎo",
+      "pinyin": "jiǎo, jué",
       "hsk_level": 3,
       "frequency_rank": 1425,
       "meanings": [
@@ -7469,9 +8039,19 @@
           "ㄐ",
           "ㄧㄝ",
           "ˇ"
+        ],
+        [
+          "ㄐ",
+          "ㄧㄝ",
+          "ˋ"
+        ],
+        [
+          "ㄒ",
+          "ㄧㄝ",
+          "ˋ"
         ]
       ],
-      "pinyin": "jiě",
+      "pinyin": "jiě, jiè, xiè",
       "hsk_level": 3,
       "frequency_rank": 1426,
       "meanings": [
@@ -7575,9 +8155,14 @@
           "ㄉ",
           "ㄧㄠ",
           "ˋ"
+        ],
+        [
+          "ㄊ",
+          "ㄧㄠ",
+          "ˊ"
         ]
       ],
-      "pinyin": "diào",
+      "pinyin": "diào, tiáo",
       "hsk_level": 3,
       "frequency_rank": 1432,
       "meanings": [
@@ -7645,9 +8230,14 @@
           "ㄑ",
           "ㄩ",
           "ˋ"
+        ],
+        [
+          "ㄘ",
+          "ㄨ",
+          "ˋ"
         ]
       ],
-      "pinyin": "qù",
+      "pinyin": "qù, cù",
       "hsk_level": 3,
       "frequency_rank": 1436,
       "meanings": [
@@ -7853,9 +8443,14 @@
           "ㄓ",
           "ㄨㄥ",
           "ˋ"
+        ],
+        [
+          "ㄔ",
+          "ㄨㄥ",
+          "ˊ"
         ]
       ],
-      "pinyin": "zhòng",
+      "pinyin": "zhòng, chóng",
       "hsk_level": 3,
       "frequency_rank": 1448,
       "meanings": [
@@ -7939,9 +8534,14 @@
           "",
           "ㄚ",
           ""
+        ],
+        [
+          "",
+          "ㄜ",
+          ""
         ]
       ],
-      "pinyin": "ā",
+      "pinyin": "ā, ē",
       "hsk_level": 3,
       "frequency_rank": 1453,
       "meanings": [
@@ -7990,9 +8590,19 @@
           "ㄋ",
           "ㄢ",
           "ˊ"
+        ],
+        [
+          "ㄋ",
+          "ㄢ",
+          "ˋ"
+        ],
+        [
+          "ㄋ",
+          "ㄨㄛ",
+          "ˊ"
         ]
       ],
-      "pinyin": "nán",
+      "pinyin": "nán, nàn, nuó",
       "hsk_level": 3,
       "frequency_rank": 1456,
       "meanings": [
@@ -8113,9 +8723,14 @@
           "",
           "ㄧㄣ",
           "ˇ"
+        ],
+        [
+          "",
+          "ㄧㄣ",
+          "ˋ"
         ]
       ],
-      "pinyin": "yǐn",
+      "pinyin": "yǐn, yìn",
       "hsk_level": 3,
       "frequency_rank": 1463,
       "meanings": [
@@ -8217,9 +8832,14 @@
           "ㄒ",
           "ㄧㄢ",
           ""
+        ],
+        [
+          "ㄒ",
+          "ㄧㄢ",
+          "ˇ"
         ]
       ],
-      "pinyin": "xiān",
+      "pinyin": "xiān, xiǎn",
       "hsk_level": 3,
       "frequency_rank": 1469,
       "meanings": [
@@ -8321,9 +8941,14 @@
           "ㄌ",
           "ㄧ",
           "ˊ"
+        ],
+        [
+          "ㄌ",
+          "ㄧ",
+          "ˋ"
         ]
       ],
-      "pinyin": "lí",
+      "pinyin": "lí, lì",
       "hsk_level": 4,
       "frequency_rank": 1475,
       "meanings": [
@@ -8355,9 +8980,14 @@
           "",
           "ㄨㄟ",
           "ˊ"
+        ],
+        [
+          "",
+          "ㄨㄟ",
+          "ˋ"
         ]
       ],
-      "pinyin": "wéi",
+      "pinyin": "wéi, wèi",
       "hsk_level": 4,
       "frequency_rank": 1477,
       "meanings": [
@@ -8443,9 +9073,14 @@
           "ㄔ",
           "ㄥ",
           "ˊ"
+        ],
+        [
+          "ㄕ",
+          "ㄥ",
+          "ˋ"
         ]
       ],
-      "pinyin": "chéng",
+      "pinyin": "chéng, shèng",
       "hsk_level": 4,
       "frequency_rank": 1482,
       "meanings": [
@@ -8530,9 +9165,14 @@
           "",
           "ㄧㄚ",
           ""
+        ],
+        [
+          "",
+          "ㄧㄚ",
+          "ˋ"
         ]
       ],
-      "pinyin": "yā",
+      "pinyin": "yā, yà",
       "hsk_level": 4,
       "frequency_rank": 1487,
       "meanings": [
@@ -8565,9 +9205,14 @@
           "ㄑ",
           "ㄧㄣ",
           ""
+        ],
+        [
+          "ㄑ",
+          "ㄧㄥ",
+          "ˋ"
         ]
       ],
-      "pinyin": "qīn",
+      "pinyin": "qīn, qìng",
       "hsk_level": 4,
       "frequency_rank": 1489,
       "meanings": [
@@ -8583,9 +9228,14 @@
           "ㄐ",
           "ㄧㄣ",
           "ˇ"
+        ],
+        [
+          "ㄐ",
+          "ㄧㄣ",
+          "ˋ"
         ]
       ],
-      "pinyin": "jǐn",
+      "pinyin": "jǐn, jìn",
       "hsk_level": 4,
       "frequency_rank": 1490,
       "meanings": [
@@ -8617,9 +9267,19 @@
           "ㄗ",
           "",
           ""
+        ],
+        [
+          "ㄗ",
+          "",
+          "ˇ"
+        ],
+        [
+          "ㄗ",
+          "ㄞ",
+          "ˇ"
         ]
       ],
-      "pinyin": "zī",
+      "pinyin": "zī, zǐ, zǎi",
       "hsk_level": 4,
       "frequency_rank": 1492,
       "meanings": [
@@ -8651,9 +9311,14 @@
           "ㄐ",
           "ㄧㄚ",
           "ˋ"
+        ],
+        [
+          "ㄐ",
+          "ㄧㄝ",
+          "˙"
         ]
       ],
-      "pinyin": "jià",
+      "pinyin": "jià, jie",
       "hsk_level": 4,
       "frequency_rank": 1494,
       "meanings": [
@@ -8668,9 +9333,14 @@
           "ㄖ",
           "ㄣ",
           "ˋ"
+        ],
+        [
+          "ㄖ",
+          "ㄣ",
+          "ˊ"
         ]
       ],
-      "pinyin": "rèn",
+      "pinyin": "rèn, rén",
       "hsk_level": 4,
       "frequency_rank": 1495,
       "meanings": [
@@ -8686,9 +9356,14 @@
           "ㄈ",
           "ㄣ",
           "ˋ"
+        ],
+        [
+          "ㄅ",
+          "ㄧㄣ",
+          ""
         ]
       ],
-      "pinyin": "fèn",
+      "pinyin": "fèn, bīn",
       "hsk_level": 4,
       "frequency_rank": 1496,
       "meanings": [
@@ -8755,9 +9430,14 @@
           "ㄔ",
           "ㄨㄢ",
           "ˊ"
+        ],
+        [
+          "ㄓ",
+          "ㄨㄢ",
+          "ˋ"
         ]
       ],
-      "pinyin": "chuán",
+      "pinyin": "chuán, zhuàn",
       "hsk_level": 4,
       "frequency_rank": 1500,
       "meanings": [
@@ -8789,9 +9469,14 @@
           "ㄍ",
           "ㄨ",
           ""
+        ],
+        [
+          "ㄍ",
+          "ㄨ",
+          "ˋ"
         ]
       ],
-      "pinyin": "gū",
+      "pinyin": "gū, gù",
       "hsk_level": 4,
       "frequency_rank": 1502,
       "meanings": [
@@ -8806,9 +9491,19 @@
           "ㄏ",
           "ㄜ",
           "ˊ"
+        ],
+        [
+          "ㄏ",
+          "ㄜ",
+          ""
+        ],
+        [
+          "ㄏ",
+          "ㄜ",
+          "ˋ"
         ]
       ],
-      "pinyin": "hé",
+      "pinyin": "hé, hē, hè",
       "hsk_level": 4,
       "frequency_rank": 1503,
       "meanings": [
@@ -8858,9 +9553,14 @@
           "ㄍ",
           "ㄨㄥ",
           ""
+        ],
+        [
+          "ㄍ",
+          "ㄨㄥ",
+          "ˋ"
         ]
       ],
-      "pinyin": "gōng",
+      "pinyin": "gōng, gòng",
       "hsk_level": 4,
       "frequency_rank": 1506,
       "meanings": [
@@ -8893,9 +9593,14 @@
           "ㄌ",
           "ㄧㄤ",
           "ˇ"
+        ],
+        [
+          "ㄌ",
+          "ㄧㄚ",
+          "ˇ"
         ]
       ],
-      "pinyin": "liǎng",
+      "pinyin": "liǎng, liǎ",
       "hsk_level": 4,
       "frequency_rank": 1508,
       "meanings": [
@@ -8944,9 +9649,14 @@
           "ㄉ",
           "ㄠ",
           "ˇ"
+        ],
+        [
+          "ㄉ",
+          "ㄠ",
+          "ˋ"
         ]
       ],
-      "pinyin": "dǎo",
+      "pinyin": "dǎo, dào",
       "hsk_level": 4,
       "frequency_rank": 1511,
       "meanings": [
@@ -9184,9 +9894,14 @@
           "ㄌ",
           "ㄧㄤ",
           "ˊ"
+        ],
+        [
+          "ㄌ",
+          "ㄧㄤ",
+          "ˋ"
         ]
       ],
-      "pinyin": "liáng",
+      "pinyin": "liáng, liàng",
       "hsk_level": 4,
       "frequency_rank": 1525,
       "meanings": [
@@ -9236,9 +9951,14 @@
           "ㄑ",
           "ㄧㄝ",
           ""
+        ],
+        [
+          "ㄑ",
+          "ㄧㄝ",
+          "ˋ"
         ]
       ],
-      "pinyin": "qiē",
+      "pinyin": "qiē, qiè",
       "hsk_level": 4,
       "frequency_rank": 1528,
       "meanings": [
@@ -9253,9 +9973,14 @@
           "ㄏ",
           "ㄨㄚ",
           "ˊ"
+        ],
+        [
+          "ㄏ",
+          "ㄨㄚ",
+          "ˋ"
         ]
       ],
-      "pinyin": "huá",
+      "pinyin": "huá, huà",
       "hsk_level": 4,
       "frequency_rank": 1529,
       "meanings": [
@@ -9442,9 +10167,14 @@
           "ㄔ",
           "",
           "ˊ"
+        ],
+        [
+          "ㄕ",
+          "",
+          "˙"
         ]
       ],
-      "pinyin": "chí",
+      "pinyin": "chí, shi",
       "hsk_level": 4,
       "frequency_rank": 1540,
       "meanings": [
@@ -9459,9 +10189,14 @@
           "ㄑ",
           "ㄩ",
           ""
+        ],
+        [
+          "",
+          "ㄡ",
+          ""
         ]
       ],
-      "pinyin": "qū",
+      "pinyin": "qū, ōu",
       "hsk_level": 4,
       "frequency_rank": 1541,
       "meanings": [
@@ -9494,9 +10229,14 @@
           "ㄓ",
           "ㄢ",
           ""
+        ],
+        [
+          "ㄓ",
+          "ㄢ",
+          "ˋ"
         ]
       ],
-      "pinyin": "zhān",
+      "pinyin": "zhān, zhàn",
       "hsk_level": 4,
       "frequency_rank": 1543,
       "meanings": [
@@ -9649,9 +10389,14 @@
           "",
           "ㄧㄚ",
           ""
+        ],
+        [
+          "",
+          "ㄧㄚ",
+          "ˋ"
         ]
       ],
-      "pinyin": "yā",
+      "pinyin": "yā, yà",
       "hsk_level": 4,
       "frequency_rank": 1552,
       "meanings": [
@@ -9840,9 +10585,14 @@
           "ㄓ",
           "",
           ""
+        ],
+        [
+          "ㄓ",
+          "",
+          "ˇ"
         ]
       ],
-      "pinyin": "zhī",
+      "pinyin": "zhī, zhǐ",
       "hsk_level": 4,
       "frequency_rank": 1563,
       "meanings": [
@@ -9858,9 +10608,14 @@
           "ㄊ",
           "ㄞ",
           "ˊ"
+        ],
+        [
+          "ㄊ",
+          "ㄞ",
+          ""
         ]
       ],
-      "pinyin": "tái",
+      "pinyin": "tái, tāi",
       "hsk_level": 4,
       "frequency_rank": 1564,
       "meanings": [
@@ -9892,9 +10647,14 @@
           "ㄍ",
           "ㄜ",
           "ˋ"
+        ],
+        [
+          "ㄍ",
+          "ㄜ",
+          "ˇ"
         ]
       ],
-      "pinyin": "gè",
+      "pinyin": "gè, gě",
       "hsk_level": 4,
       "frequency_rank": 1566,
       "meanings": [
@@ -9909,9 +10669,14 @@
           "ㄏ",
           "ㄜ",
           "ˊ"
+        ],
+        [
+          "ㄍ",
+          "ㄜ",
+          "ˇ"
         ]
       ],
-      "pinyin": "hé",
+      "pinyin": "hé, gě",
       "hsk_level": 4,
       "frequency_rank": 1567,
       "meanings": [
@@ -9927,9 +10692,14 @@
           "ㄈ",
           "ㄡ",
           "ˇ"
+        ],
+        [
+          "ㄆ",
+          "ㄧ",
+          "ˇ"
         ]
       ],
-      "pinyin": "fǒu",
+      "pinyin": "fǒu, pǐ",
       "hsk_level": 4,
       "frequency_rank": 1568,
       "meanings": [
@@ -9962,9 +10732,14 @@
           "",
           "ㄧㄚ",
           ""
+        ],
+        [
+          "",
+          "ㄧㄚ",
+          "˙"
         ]
       ],
-      "pinyin": "yā",
+      "pinyin": "yā, ya",
       "hsk_level": 4,
       "frequency_rank": 1570,
       "meanings": [
@@ -10030,9 +10805,19 @@
           "ㄗ",
           "ㄢ",
           "ˊ"
+        ],
+        [
+          "ㄗ",
+          "ㄚ",
+          "ˊ"
+        ],
+        [
+          "ㄗ",
+          "ㄚ",
+          "ˇ"
         ]
       ],
-      "pinyin": "zán",
+      "pinyin": "zán, zá, zǎ",
       "hsk_level": 4,
       "frequency_rank": 1574,
       "meanings": [
@@ -10047,9 +10832,14 @@
           "ㄎ",
           "ㄜ",
           "ˊ"
+        ],
+        [
+          "ㄏ",
+          "ㄞ",
+          ""
         ]
       ],
-      "pinyin": "ké",
+      "pinyin": "ké, hāi",
       "hsk_level": 4,
       "frequency_rank": 1575,
       "meanings": [
@@ -10269,9 +11059,14 @@
           "ㄊ",
           "ㄧㄢ",
           "ˊ"
+        ],
+        [
+          "ㄓ",
+          "ㄣ",
+          "ˋ"
         ]
       ],
-      "pinyin": "tián",
+      "pinyin": "tián, zhèn",
       "hsk_level": 4,
       "frequency_rank": 1588,
       "meanings": [
@@ -10443,9 +11238,14 @@
           "ㄙ",
           "ㄨㄣ",
           ""
+        ],
+        [
+          "ㄒ",
+          "ㄩㄣ",
+          "ˋ"
         ]
       ],
-      "pinyin": "sūn",
+      "pinyin": "sūn, xùn",
       "hsk_level": 4,
       "frequency_rank": 1598,
       "meanings": [
@@ -10580,9 +11380,14 @@
           "ㄐ",
           "ㄧㄤ",
           ""
+        ],
+        [
+          "ㄐ",
+          "ㄧㄤ",
+          "ˋ"
         ]
       ],
-      "pinyin": "jiāng",
+      "pinyin": "jiāng, jiàng",
       "hsk_level": 4,
       "frequency_rank": 1606,
       "meanings": [
@@ -10871,9 +11676,14 @@
           "ㄉ",
           "ㄧ",
           "ˇ"
+        ],
+        [
+          "ㄉ",
+          "ㄜ",
+          "˙"
         ]
       ],
-      "pinyin": "dǐ",
+      "pinyin": "dǐ, de",
       "hsk_level": 4,
       "frequency_rank": 1623,
       "meanings": [
@@ -10889,9 +11699,14 @@
           "ㄉ",
           "ㄨ",
           "ˋ"
+        ],
+        [
+          "ㄉ",
+          "ㄨㄛ",
+          "ˊ"
         ]
       ],
-      "pinyin": "dù",
+      "pinyin": "dù, duó",
       "hsk_level": 4,
       "frequency_rank": 1624,
       "meanings": [
@@ -10959,9 +11774,14 @@
           "ㄋ",
           "ㄨㄥ",
           "ˋ"
+        ],
+        [
+          "ㄌ",
+          "ㄨㄥ",
+          "ˋ"
         ]
       ],
-      "pinyin": "nòng",
+      "pinyin": "nòng, lòng",
       "hsk_level": 4,
       "frequency_rank": 1628,
       "meanings": [
@@ -11011,9 +11831,14 @@
           "ㄉ",
           "ㄢ",
           "ˋ"
+        ],
+        [
+          "ㄊ",
+          "ㄢ",
+          "ˊ"
         ]
       ],
-      "pinyin": "dàn",
+      "pinyin": "dàn, tán",
       "hsk_level": 4,
       "frequency_rank": 1631,
       "meanings": [
@@ -11285,9 +12110,14 @@
           "",
           "ㄩ",
           "ˊ"
+        ],
+        [
+          "ㄊ",
+          "ㄡ",
+          ""
         ]
       ],
-      "pinyin": "yú",
+      "pinyin": "yú, tōu",
       "hsk_level": 4,
       "frequency_rank": 1647,
       "meanings": [
@@ -11489,9 +12319,19 @@
           "ㄓ",
           "ㄜ",
           ""
+        ],
+        [
+          "ㄓ",
+          "ㄜ",
+          "ˊ"
+        ],
+        [
+          "ㄕ",
+          "ㄜ",
+          "ˊ"
         ]
       ],
-      "pinyin": "zhē",
+      "pinyin": "zhē, zhé, shé",
       "hsk_level": 4,
       "frequency_rank": 1659,
       "meanings": [
@@ -11558,9 +12398,14 @@
           "ㄌ",
           "ㄚ",
           ""
+        ],
+        [
+          "ㄌ",
+          "ㄚ",
+          "ˊ"
         ]
       ],
-      "pinyin": "lā",
+      "pinyin": "lā, lá",
       "hsk_level": 4,
       "frequency_rank": 1663,
       "meanings": [
@@ -11627,9 +12472,14 @@
           "ㄕ",
           "",
           "ˊ"
+        ],
+        [
+          "ㄕ",
+          "ㄜ",
+          "ˋ"
         ]
       ],
-      "pinyin": "shí",
+      "pinyin": "shí, shè",
       "hsk_level": 4,
       "frequency_rank": 1667,
       "meanings": [
@@ -11765,9 +12615,14 @@
           "ㄆ",
           "ㄞ",
           "ˊ"
+        ],
+        [
+          "ㄆ",
+          "ㄞ",
+          "ˇ"
         ]
       ],
-      "pinyin": "pái",
+      "pinyin": "pái, pǎi",
       "hsk_level": 4,
       "frequency_rank": 1675,
       "meanings": [
@@ -11922,9 +12777,14 @@
           "ㄙ",
           "ㄢ",
           "ˋ"
+        ],
+        [
+          "ㄙ",
+          "ㄢ",
+          "ˇ"
         ]
       ],
-      "pinyin": "sàn",
+      "pinyin": "sàn, sǎn",
       "hsk_level": 4,
       "frequency_rank": 1684,
       "meanings": [
@@ -12060,9 +12920,14 @@
           "ㄐ",
           "ㄧㄥ",
           "ˇ"
+        ],
+        [
+          "",
+          "ㄧㄥ",
+          "ˇ"
         ]
       ],
-      "pinyin": "jǐng",
+      "pinyin": "jǐng, yǐng",
       "hsk_level": 4,
       "frequency_rank": 1692,
       "meanings": [
@@ -12644,9 +13509,14 @@
           "ㄏ",
           "ㄢ",
           "ˋ"
+        ],
+        [
+          "ㄏ",
+          "ㄢ",
+          "ˊ"
         ]
       ],
-      "pinyin": "hàn",
+      "pinyin": "hàn, hán",
       "hsk_level": 4,
       "frequency_rank": 1726,
       "meanings": [
@@ -12695,9 +13565,14 @@
           "ㄊ",
           "ㄤ",
           ""
+        ],
+        [
+          "ㄕ",
+          "ㄤ",
+          ""
         ]
       ],
-      "pinyin": "tāng",
+      "pinyin": "tāng, shāng",
       "hsk_level": 4,
       "frequency_rank": 1729,
       "meanings": [
@@ -12712,9 +13587,14 @@
           "ㄕ",
           "ㄚ",
           ""
+        ],
+        [
+          "ㄕ",
+          "ㄚ",
+          "ˋ"
         ]
       ],
-      "pinyin": "shā",
+      "pinyin": "shā, shà",
       "hsk_level": 4,
       "frequency_rank": 1730,
       "meanings": [
@@ -12850,9 +13730,14 @@
           "ㄐ",
           "ㄧ",
           "ˋ"
+        ],
+        [
+          "ㄐ",
+          "ㄧ",
+          "ˇ"
         ]
       ],
-      "pinyin": "jì",
+      "pinyin": "jì, jǐ",
       "hsk_level": 4,
       "frequency_rank": 1738,
       "meanings": [
@@ -13091,9 +13976,14 @@
           "ㄈ",
           "ㄨ",
           "ˋ"
+        ],
+        [
+          "ㄈ",
+          "ㄨ",
+          "ˇ"
         ]
       ],
-      "pinyin": "fù",
+      "pinyin": "fù, fǔ",
       "hsk_level": 4,
       "frequency_rank": 1752,
       "meanings": [
@@ -13159,9 +14049,14 @@
           "ㄕ",
           "ㄣ",
           "ˋ"
+        ],
+        [
+          "ㄕ",
+          "ㄣ",
+          "ˊ"
         ]
       ],
-      "pinyin": "shèn",
+      "pinyin": "shèn, shén",
       "hsk_level": 4,
       "frequency_rank": 1756,
       "meanings": [
@@ -13211,9 +14106,14 @@
           "",
           "ㄧ",
           "ˊ"
+        ],
+        [
+          "ㄋ",
+          "ㄧ",
+          "ˇ"
         ]
       ],
-      "pinyin": "yí",
+      "pinyin": "yí, nǐ",
       "hsk_level": 4,
       "frequency_rank": 1759,
       "meanings": [
@@ -13279,9 +14179,14 @@
           "ㄕ",
           "ㄥ",
           "ˇ"
+        ],
+        [
+          "ㄒ",
+          "ㄧㄥ",
+          "ˇ"
         ]
       ],
-      "pinyin": "shěng",
+      "pinyin": "shěng, xǐng",
       "hsk_level": 4,
       "frequency_rank": 1763,
       "meanings": [
@@ -13331,9 +14236,14 @@
           "",
           "ㄧㄢ",
           "ˊ"
+        ],
+        [
+          "",
+          "ㄧㄢ",
+          "ˋ"
         ]
       ],
-      "pinyin": "yán",
+      "pinyin": "yán, yàn",
       "hsk_level": 4,
       "frequency_rank": 1766,
       "meanings": [
@@ -13382,9 +14292,14 @@
           "ㄕ",
           "ㄨㄛ",
           "ˋ"
+        ],
+        [
+          "ㄕ",
+          "",
+          "ˊ"
         ]
       ],
-      "pinyin": "shuò",
+      "pinyin": "shuò, shí",
       "hsk_level": 4,
       "frequency_rank": 1769,
       "meanings": [
@@ -13468,9 +14383,14 @@
           "ㄐ",
           "ㄧㄣ",
           ""
+        ],
+        [
+          "ㄐ",
+          "ㄧㄣ",
+          "ˋ"
         ]
       ],
-      "pinyin": "jīn",
+      "pinyin": "jīn, jìn",
       "hsk_level": 4,
       "frequency_rank": 1774,
       "meanings": [
@@ -13588,9 +14508,14 @@
           "ㄕ",
           "ㄠ",
           ""
+        ],
+        [
+          "ㄕ",
+          "ㄠ",
+          "ˋ"
         ]
       ],
-      "pinyin": "shāo",
+      "pinyin": "shāo, shào",
       "hsk_level": 4,
       "frequency_rank": 1781,
       "meanings": [
@@ -13845,9 +14770,14 @@
           "",
           "ㄩㄝ",
           ""
+        ],
+        [
+          "",
+          "ㄧㄠ",
+          ""
         ]
       ],
-      "pinyin": "yuē",
+      "pinyin": "yuē, yāo",
       "hsk_level": 4,
       "frequency_rank": 1796,
       "meanings": [
@@ -14173,9 +15103,14 @@
           "ㄉ",
           "ㄨ",
           "ˋ"
+        ],
+        [
+          "ㄉ",
+          "ㄨ",
+          "ˇ"
         ]
       ],
-      "pinyin": "dù",
+      "pinyin": "dù, dǔ",
       "hsk_level": 4,
       "frequency_rank": 1815,
       "meanings": [
@@ -14241,9 +15176,14 @@
           "ㄍ",
           "ㄜ",
           ""
+        ],
+        [
+          "ㄍ",
+          "ㄜ",
+          "ˊ"
         ]
       ],
-      "pinyin": "gē",
+      "pinyin": "gē, gé",
       "hsk_level": 4,
       "frequency_rank": 1819,
       "meanings": [
@@ -14326,9 +15266,14 @@
           "ㄍ",
           "ㄠ",
           ""
+        ],
+        [
+          "ㄍ",
+          "ㄠ",
+          "ˋ"
         ]
       ],
-      "pinyin": "gāo",
+      "pinyin": "gāo, gào",
       "hsk_level": 4,
       "frequency_rank": 1824,
       "meanings": [
@@ -14447,9 +15392,19 @@
           "ㄌ",
           "ㄨㄛ",
           "ˋ"
+        ],
+        [
+          "ㄌ",
+          "ㄚ",
+          "ˋ"
+        ],
+        [
+          "ㄌ",
+          "ㄠ",
+          "ˋ"
         ]
       ],
-      "pinyin": "luò",
+      "pinyin": "luò, là, lào",
       "hsk_level": 4,
       "frequency_rank": 1831,
       "meanings": [
@@ -14550,9 +15505,14 @@
           "ㄍ",
           "ㄨㄢ",
           ""
+        ],
+        [
+          "ㄍ",
+          "ㄨㄢ",
+          "ˋ"
         ]
       ],
-      "pinyin": "guān",
+      "pinyin": "guān, guàn",
       "hsk_level": 4,
       "frequency_rank": 1837,
       "meanings": [
@@ -14656,9 +15616,14 @@
           "ㄌ",
           "ㄨㄣ",
           "ˋ"
+        ],
+        [
+          "ㄌ",
+          "ㄨㄣ",
+          "ˊ"
         ]
       ],
-      "pinyin": "lùn",
+      "pinyin": "lùn, lún",
       "hsk_level": 4,
       "frequency_rank": 1843,
       "meanings": [
@@ -14897,9 +15862,14 @@
           "ㄗ",
           "ㄜ",
           "ˊ"
+        ],
+        [
+          "ㄓ",
+          "ㄞ",
+          "ˋ"
         ]
       ],
-      "pinyin": "zé",
+      "pinyin": "zé, zhài",
       "hsk_level": 4,
       "frequency_rank": 1857,
       "meanings": [
@@ -15035,9 +16005,14 @@
           "ㄓ",
           "ㄨㄢ",
           "ˋ"
+        ],
+        [
+          "ㄗ",
+          "ㄨㄢ",
+          "ˋ"
         ]
       ],
-      "pinyin": "zhuàn",
+      "pinyin": "zhuàn, zuàn",
       "hsk_level": 4,
       "frequency_rank": 1865,
       "meanings": [
@@ -15086,9 +16061,14 @@
           "ㄊ",
           "ㄤ",
           "ˋ"
+        ],
+        [
+          "ㄊ",
+          "ㄤ",
+          ""
         ]
       ],
-      "pinyin": "tàng",
+      "pinyin": "tàng, tāng",
       "hsk_level": 4,
       "frequency_rank": 1868,
       "meanings": [
@@ -15449,9 +16429,14 @@
           "ㄌ",
           "ㄧㄤ",
           "ˊ"
+        ],
+        [
+          "ㄌ",
+          "ㄧㄤ",
+          "ˋ"
         ]
       ],
-      "pinyin": "liáng",
+      "pinyin": "liáng, liàng",
       "hsk_level": 4,
       "frequency_rank": 1889,
       "meanings": [
@@ -15484,9 +16469,14 @@
           "ㄍ",
           "ㄤ",
           ""
+        ],
+        [
+          "ㄍ",
+          "ㄤ",
+          "ˋ"
         ]
       ],
-      "pinyin": "gāng",
+      "pinyin": "gāng, gàng",
       "hsk_level": 4,
       "frequency_rank": 1891,
       "meanings": [
@@ -15587,9 +16577,14 @@
           "ㄉ",
           "ㄨㄟ",
           "ˋ"
+        ],
+        [
+          "ㄓ",
+          "ㄨㄟ",
+          "ˋ"
         ]
       ],
-      "pinyin": "duì",
+      "pinyin": "duì, zhuì",
       "hsk_level": 4,
       "frequency_rank": 1897,
       "meanings": [
@@ -15622,9 +16617,14 @@
           "ㄐ",
           "ㄧㄤ",
           "ˋ"
+        ],
+        [
+          "ㄒ",
+          "ㄧㄤ",
+          "ˊ"
         ]
       ],
-      "pinyin": "jiàng",
+      "pinyin": "jiàng, xiáng",
       "hsk_level": 4,
       "frequency_rank": 1899,
       "meanings": [

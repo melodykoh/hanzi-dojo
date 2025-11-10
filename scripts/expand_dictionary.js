@@ -160,28 +160,32 @@ function parseZhuyin(zhuyinStr) {
 
 const entries = newChars.map((char, index) => {
   try {
-    // Use the first/primary pinyin reading
-    const primaryPinyin = char.pinyin[0] || '';
+    // Convert ALL pinyin readings to zhuyin (for multi-pronunciation characters)
+    const zhuyinReadings = [];
 
-    // Convert to zhuyin
-    let zhuyinStr = '';
-    try {
-      zhuyinStr = pinyinToZhuyin(primaryPinyin);
-    } catch (e) {
-      console.warn(`Failed to convert pinyin "${primaryPinyin}" for ${char.simp}: ${e.message}`);
-      return null;
+    for (const pinyinReading of char.pinyin) {
+      try {
+        const zhuyinStr = pinyinToZhuyin(pinyinReading);
+        const zhuyinParts = parseZhuyin(zhuyinStr);
+        zhuyinReadings.push(zhuyinParts);
+      } catch (e) {
+        console.warn(`Failed to convert pinyin "${pinyinReading}" for ${char.simp}: ${e.message}`);
+      }
     }
 
-    // Parse zhuyin into components
-    const zhuyinParts = parseZhuyin(zhuyinStr);
+    // Skip if no valid zhuyin conversions
+    if (zhuyinReadings.length === 0) {
+      console.warn(`No valid zhuyin for ${char.simp}, skipping`);
+      return null;
+    }
 
     return {
       simp: char.simp,
       trad: char.trad,
-      zhuyin: [zhuyinParts],
-      pinyin: primaryPinyin,
+      zhuyin: zhuyinReadings,  // Array of all pronunciation readings
+      pinyin: char.pinyin.join(', '),  // All pinyin readings for reference
       hsk_level: char.hsk_level,
-      frequency_rank: 1000 + index, // Assign sequential ranks
+      frequency_rank: 1000 + index,
       meanings: char.meanings.slice(0, 2)
     };
   } catch (e) {
@@ -206,8 +210,10 @@ console.log(`\n✅ Saved ${entries.length} new characters to data/dictionary_exp
 console.log(`Total dictionary size will be: ${existingDict.entries.length + entries.length} characters`);
 
 // Print a sample to verify
-console.log(`\nSample entries:`);
-const samples = ['什', '么', '习', '人', '的'].map(c => entries.find(e => e.simp === c)).filter(Boolean);
+console.log(`\nSample entries (with all pronunciations):`);
+const samples = ['什', '么', '习', '人', '的', '了', '为'].map(c => entries.find(e => e.simp === c)).filter(Boolean);
 samples.forEach(s => {
-  console.log(`  ${s.simp} (${s.trad}): ${s.pinyin} → ${s.zhuyin[0].join('')}`);
+  const zhuyinStrs = s.zhuyin.map(z => z.join('')).join(', ');
+  const multiMark = s.zhuyin.length > 1 ? ' (multi)' : '';
+  console.log(`  ${s.simp} (${s.trad}): ${s.pinyin} → ${zhuyinStrs}${multiMark}`);
 });
