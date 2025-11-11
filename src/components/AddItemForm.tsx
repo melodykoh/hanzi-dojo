@@ -18,6 +18,9 @@ interface FormData {
   traditional: string
   zhuyin: ZhuyinSyllable[]
   selectedVariantIndex: number | null
+  pinyin?: string
+  meanings?: string[]
+  contextWords?: string[]
   type: 'char' | 'word'
 }
 
@@ -28,13 +31,18 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
     traditional: '',
     zhuyin: [],
     selectedVariantIndex: null,
+    pinyin: undefined,
+    meanings: undefined,
+    contextWords: undefined,
     type: 'char'
   })
   const [zhuyinVariants, setZhuyinVariants] = useState<ZhuyinVariant[]>([])
+  const [primaryPronunciation, setPrimaryPronunciation] = useState<ZhuyinVariant | null>(null)
   const [lookupStatus, setLookupStatus] = useState<'idle' | 'loading' | 'found' | 'missing'>('idle')
   const [errors, setErrors] = useState<string[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [manualZhuyinInput, setManualZhuyinInput] = useState('')
+  const [hasConfirmedPronunciation, setHasConfirmedPronunciation] = useState(false)
 
   // Auto-lookup when input changes
   useEffect(() => {
@@ -45,10 +53,15 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
         traditional: '',
         zhuyin: [],
         selectedVariantIndex: null,
+        pinyin: undefined,
+        meanings: undefined,
+        contextWords: undefined,
         type: 'char'
       })
       setZhuyinVariants([])
+      setPrimaryPronunciation(null)
       setManualZhuyinInput('')
+      setHasConfirmedPronunciation(false)
       return
     }
 
@@ -69,22 +82,47 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
 
       if (result.found && result.entry) {
         // Auto-fill from dictionary
+        const isSingleCharacter = result.entry.simp.length === 1
+        const hasDictionaryVariants = !!(result.entry.zhuyin_variants && result.entry.zhuyin_variants.length > 0)
+        const hasMultipleBaseZhuyin = result.entry.zhuyin.length > 1
+
+        // Fallback: some legacy entries still store multiple pronunciations directly in zhuyin
+        let fallbackVariants: ZhuyinVariant[] = []
+        let primaryVariant: ZhuyinVariant = {
+          zhuyin: result.entry.zhuyin,
+          pinyin: result.entry.pinyin ?? undefined,
+          meanings: result.entry.meanings ?? undefined,
+          context_words: undefined
+        }
+
+        if (!hasDictionaryVariants && isSingleCharacter && hasMultipleBaseZhuyin) {
+          const [firstPronunciation, ...otherPronunciations] = result.entry.zhuyin
+          primaryVariant = {
+            zhuyin: [firstPronunciation]
+          }
+          fallbackVariants = otherPronunciations.map(syllable => ({
+            zhuyin: [syllable]
+          }))
+        }
+
+        const variantsToUse = hasDictionaryVariants ? result.entry.zhuyin_variants! : fallbackVariants
+
         setFormData({
           simplified: result.entry.simp,
           traditional: result.entry.trad,
-          zhuyin: result.entry.zhuyin,
+          zhuyin: primaryVariant.zhuyin,
           selectedVariantIndex: null,
+          pinyin: primaryVariant.pinyin ?? undefined,
+          meanings: primaryVariant.meanings ?? undefined,
+          contextWords: primaryVariant.context_words ?? undefined,
           type: result.entry.simp.length === 1 ? 'char' : 'word'
         })
 
-        // Store variants if available
-        if (result.entry.zhuyin_variants && result.entry.zhuyin_variants.length > 0) {
-          setZhuyinVariants(result.entry.zhuyin_variants)
-        } else {
-          setZhuyinVariants([])
-        }
+        setPrimaryPronunciation(primaryVariant)
+        setZhuyinVariants(variantsToUse)
 
         setLookupStatus('found')
+        setHasConfirmedPronunciation(variantsToUse.length > 0 ? false : true)
       } else {
         // Not found in dictionary - log and allow manual entry
         await dictionaryLogger.logMissingEntry({ simp: character })
@@ -94,10 +132,15 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
           traditional: character, // Default to same
           zhuyin: [],
           selectedVariantIndex: null,
+          pinyin: undefined,
+          meanings: undefined,
+          contextWords: undefined,
           type: character.length === 1 ? 'char' : 'word'
         })
         setZhuyinVariants([])
         setLookupStatus('missing')
+        setPrimaryPronunciation(null)
+        setHasConfirmedPronunciation(false)
       }
     } catch (error) {
       console.error('Dictionary lookup failed:', error)
@@ -185,9 +228,11 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
 
     if (parseErrors.length === 0 && syllables.length > 0) {
       setFormData(prev => ({ ...prev, zhuyin: syllables }))
+      setHasConfirmedPronunciation(true)
     } else {
       // Clear zhuyin if parsing failed
       setFormData(prev => ({ ...prev, zhuyin: [] }))
+      setHasConfirmedPronunciation(false)
     }
   }
 
@@ -196,8 +241,28 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
     setFormData(prev => ({
       ...prev,
       zhuyin: variant.zhuyin,
-      selectedVariantIndex: index
+      selectedVariantIndex: index,
+      pinyin: variant.pinyin ?? prev.pinyin,
+      meanings: variant.meanings ?? prev.meanings,
+      contextWords: variant.context_words ?? prev.contextWords
     }))
+    setHasConfirmedPronunciation(true)
+  }
+
+  const handlePrimaryPronunciationSelect = () => {
+    if (primaryPronunciation) {
+      setFormData(prev => ({
+        ...prev,
+        selectedVariantIndex: null,
+        zhuyin: primaryPronunciation.zhuyin,
+        pinyin: primaryPronunciation.pinyin ?? prev.pinyin,
+        meanings: primaryPronunciation.meanings ?? prev.meanings,
+        contextWords: primaryPronunciation.context_words ?? prev.contextWords
+      }))
+    } else {
+      setFormData(prev => ({ ...prev, selectedVariantIndex: null }))
+    }
+    setHasConfirmedPronunciation(true)
   }
 
   const detectApplicableDrills = (): PracticeDrill[] => {
@@ -317,17 +382,54 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
 
       console.log('[AddItemForm] Entry created:', entryData)
 
+      const selectedVariant = formData.selectedVariantIndex !== null
+        ? zhuyinVariants[formData.selectedVariantIndex]
+        : null
+
+      const readingPayload: Record<string, unknown> = {
+        entry_id: entryData.id,
+        zhuyin: formData.zhuyin
+      }
+
+      const pinyinToUse = selectedVariant?.pinyin ?? formData.pinyin
+      if (pinyinToUse) {
+        readingPayload.pinyin = pinyinToUse
+      }
+
+      const contextToUse = selectedVariant?.context_words ?? formData.contextWords
+      if (contextToUse && contextToUse.length > 0) {
+        readingPayload.context_words = contextToUse
+      }
+
+      const meaningsToUse = selectedVariant?.meanings ?? formData.meanings
+      if (meaningsToUse && meaningsToUse.length > 0) {
+        readingPayload.sense = meaningsToUse.join(', ')
+      }
+
       // Insert reading
-      const { error: readingError } = await supabase
+      const { data: readingData, error: readingError } = await supabase
         .from('readings')
-        .insert({
-          entry_id: entryData.id,
-          zhuyin: formData.zhuyin
-        })
+        .insert(readingPayload)
+        .select('id')
+        .single()
 
       if (readingError) {
         console.error('[AddItemForm] Reading insert error:', readingError)
         throw readingError
+      }
+
+      const shouldLockReading = zhuyinVariants.length === 0 || hasConfirmedPronunciation
+
+      if (shouldLockReading && readingData?.id) {
+        const { error: lockError } = await supabase
+          .from('entries')
+          .update({ locked_reading_id: readingData.id })
+          .eq('id', entryData.id)
+
+        if (lockError) {
+          console.error('[AddItemForm] Failed to lock pronunciation:', lockError)
+          throw lockError
+        }
       }
 
       // Success!
@@ -340,11 +442,16 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
         traditional: '',
         zhuyin: [],
         selectedVariantIndex: null,
+        pinyin: undefined,
+        meanings: undefined,
+        contextWords: undefined,
         type: 'char'
       })
       setZhuyinVariants([])
+      setPrimaryPronunciation(null)
       setManualZhuyinInput('')
       setLookupStatus('idle')
+      setHasConfirmedPronunciation(false)
     } catch (error) {
       console.error('[AddItemForm] Failed to add entry:', error)
       // Show more detailed error message
@@ -476,14 +583,14 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
                   {/* Default reading */}
                   <button
                     type="button"
-                    onClick={() => setFormData(prev => ({ ...prev, selectedVariantIndex: null }))}
+                    onClick={handlePrimaryPronunciationSelect}
                     className={`w-full text-left px-4 py-2 rounded border-2 transition-colors ${
                       formData.selectedVariantIndex === null
                         ? 'border-blue-600 bg-blue-100'
                         : 'border-gray-300 bg-white hover:bg-gray-50'
                     }`}
                   >
-                    <div className="text-lg font-semibold">{formatZhuyin(formData.zhuyin)}</div>
+                    <div className="text-lg font-semibold">{formatZhuyin(primaryPronunciation?.zhuyin ?? formData.zhuyin)}</div>
                     <div className="text-sm text-gray-600">Default pronunciation</div>
                   </button>
 
