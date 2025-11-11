@@ -86,17 +86,11 @@ describe('AddItemForm - multi-pronunciation workflow', () => {
           id: 'dict-1',
           simp: '可',
           trad: '可',
-          zhuyin: [['ㄎ', 'ㄜ', 'ˇ']],
-          pinyin: 'kě',
-          meanings: ['can; able'],
-          zhuyin_variants: [
-            {
-              zhuyin: [['ㄎ', 'ㄜ', 'ˋ']],
-              pinyin: 'kè',
-              meanings: ['customer'],
-              context_words: ['顧客']
-            }
-          ]
+          zhuyin: [
+            ['ㄎ', 'ㄜ', 'ˇ'],
+            ['ㄎ', 'ㄜ', 'ˋ']
+          ],
+          zhuyin_variants: []
         }
       })
 
@@ -110,6 +104,9 @@ describe('AddItemForm - multi-pronunciation workflow', () => {
 
     const addButton = screen.getByRole('button', { name: '➕ Add to Practice List' })
     await waitFor(() => expect(addButton).not.toBeDisabled())
+
+    // Fallback variant should be presented
+    expect(screen.getByText('ㄎㄜˋ')).toBeInTheDocument()
 
     fireEvent.click(addButton)
 

@@ -82,33 +82,47 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
 
       if (result.found && result.entry) {
         // Auto-fill from dictionary
-        setFormData({
-          simplified: result.entry.simp,
-          traditional: result.entry.trad,
-          zhuyin: result.entry.zhuyin,
-          selectedVariantIndex: null,
-          pinyin: result.entry.pinyin ?? undefined,
-          meanings: result.entry.meanings ?? undefined,
-          contextWords: undefined,
-          type: result.entry.simp.length === 1 ? 'char' : 'word'
-        })
+        const isSingleCharacter = result.entry.simp.length === 1
+        const hasDictionaryVariants = !!(result.entry.zhuyin_variants && result.entry.zhuyin_variants.length > 0)
+        const hasMultipleBaseZhuyin = result.entry.zhuyin.length > 1
 
-        setPrimaryPronunciation({
+        // Fallback: some legacy entries still store multiple pronunciations directly in zhuyin
+        let fallbackVariants: ZhuyinVariant[] = []
+        let primaryVariant: ZhuyinVariant = {
           zhuyin: result.entry.zhuyin,
           pinyin: result.entry.pinyin ?? undefined,
           meanings: result.entry.meanings ?? undefined,
           context_words: undefined
-        })
-
-        // Store variants if available
-        if (result.entry.zhuyin_variants && result.entry.zhuyin_variants.length > 0) {
-          setZhuyinVariants(result.entry.zhuyin_variants)
-        } else {
-          setZhuyinVariants([])
         }
 
+        if (!hasDictionaryVariants && isSingleCharacter && hasMultipleBaseZhuyin) {
+          const [firstPronunciation, ...otherPronunciations] = result.entry.zhuyin
+          primaryVariant = {
+            zhuyin: [firstPronunciation]
+          }
+          fallbackVariants = otherPronunciations.map(syllable => ({
+            zhuyin: [syllable]
+          }))
+        }
+
+        const variantsToUse = hasDictionaryVariants ? result.entry.zhuyin_variants! : fallbackVariants
+
+        setFormData({
+          simplified: result.entry.simp,
+          traditional: result.entry.trad,
+          zhuyin: primaryVariant.zhuyin,
+          selectedVariantIndex: null,
+          pinyin: primaryVariant.pinyin ?? undefined,
+          meanings: primaryVariant.meanings ?? undefined,
+          contextWords: primaryVariant.context_words ?? undefined,
+          type: result.entry.simp.length === 1 ? 'char' : 'word'
+        })
+
+        setPrimaryPronunciation(primaryVariant)
+        setZhuyinVariants(variantsToUse)
+
         setLookupStatus('found')
-        setHasConfirmedPronunciation(result.entry.zhuyin_variants && result.entry.zhuyin_variants.length > 0 ? false : true)
+        setHasConfirmedPronunciation(variantsToUse.length > 0 ? false : true)
       } else {
         // Not found in dictionary - log and allow manual entry
         await dictionaryLogger.logMissingEntry({ simp: character })
