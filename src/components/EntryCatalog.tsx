@@ -1,7 +1,8 @@
 // Entry Catalog - Browse and manage added characters
 // Epic 6: Task 6.3 - RELEASE BLOCKER
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { ChevronUpIcon } from '@heroicons/react/24/solid'
 import { supabase } from '../lib/supabase'
 import type { Entry, PracticeState, ZhuyinSyllable, DictionaryEntry } from '../types'
 
@@ -42,6 +43,8 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null)
   const [selectedVariantIndex, setSelectedVariantIndex] = useState<number | null>(null)
   const [isSavingVariant, setIsSavingVariant] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
+  const headerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     loadEntries()
@@ -50,6 +53,32 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
   useEffect(() => {
     applyFiltersAndSort()
   }, [items, sortBy, filterBy])
+
+  useEffect(() => {
+    if (!headerRef.current) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
+        setShowBackToTop(!entry.isIntersecting)
+      },
+      {
+        root: null,
+        threshold: 0,
+        rootMargin: '-80px 0px 0px 0px'
+      }
+    )
+
+    observer.observe(headerRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [headerRef])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   async function loadEntries() {
     setIsLoading(true)
@@ -353,7 +382,7 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
       {/* Header with count */}
-      <div className="mb-6">
+      <div ref={headerRef} className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">My Characters</h2>
         <p className="text-gray-600">{items.length} character{items.length !== 1 ? 's' : ''} added</p>
       </div>
@@ -668,6 +697,18 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
             </div>
           </div>
         </div>
+      )}
+
+      {showBackToTop && (
+        <button
+          type="button"
+          onClick={scrollToTop}
+          aria-label="Back to top"
+          className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+        >
+          <ChevronUpIcon className="h-5 w-5" />
+          <span className="hidden sm:inline text-sm font-semibold">Back to top</span>
+        </button>
       )}
     </div>
   )
