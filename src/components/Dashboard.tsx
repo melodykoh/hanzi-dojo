@@ -118,18 +118,18 @@ export function Dashboard() {
           </div>
 
           {/* Sticky Action Bar */}
-          <div className="flex gap-3 flex-wrap">
+          <div className="grid w-full max-w-xl gap-3 grid-cols-2">
             <OfflineAwareButton
               onClick={() => setShowAddItemForm(true)}
               disabled={!kidId}
-              className="flex-1 min-w-[200px] px-6 py-3 bg-white text-red-700 font-bold rounded-lg hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-6 py-3 bg-white text-red-700 font-bold rounded-lg hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               ➕ Add Item
             </OfflineAwareButton>
             <button
               onClick={handleLaunchTraining}
               disabled={!kidId}
-              className="flex-1 min-w-[200px] px-6 py-3 bg-yellow-400 text-red-900 font-bold rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-6 py-3 bg-yellow-400 text-red-900 font-bold rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               🥋 Launch Training
             </button>
