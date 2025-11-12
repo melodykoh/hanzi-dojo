@@ -44,6 +44,19 @@ describe('drillBuilders', () => {
       expect(isDifferent).toBe(true)
     })
 
+    it('should omit first-tone marker in display text', () => {
+      const firstToneReading = {
+        ...mockReading,
+        zhuyin: [['ㄇ', 'ㄚ', 'ˉ']]
+      }
+
+      const options = buildZhuyinOptions(mockEntry, firstToneReading)
+      const correct = options.find(opt => opt.isCorrect)
+
+      expect(correct?.display).toContain('ㄇㄚ')
+      expect(correct?.display).not.toContain('ˉ')
+    })
+
     it('should handle multi-syllable zhuyin', () => {
       const multiReading = { ...mockReadingMulti }
       const options = buildZhuyinOptions(mockEntry, multiReading)
