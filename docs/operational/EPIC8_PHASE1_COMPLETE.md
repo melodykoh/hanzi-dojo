@@ -2,17 +2,18 @@
 
 **Date:** 2025-11-12 (Session 10)
 **Status:** ✅ COMPLETE - Ready for Production Deployment
-**Scope:** 36 of 37 Category 1 multi-pronunciation characters
+**Scope:** 35 of 36 Category 1 multi-pronunciation characters
 
 ---
 
 ## 📊 Summary
 
-Successfully researched, documented, and generated migration for **36 confirmed multi-pronunciation characters** from Epic 8 Category 1.
+Successfully researched, documented, and generated migration for **35 confirmed multi-pronunciation characters** from Epic 8 Category 1.
 
 **Note:** Character '干' excluded from Migration 011 due to database quality issue (see below).
+**Correction:** Original documentation claimed 37 Category 1 characters, but actual list had 36.
 
-### Characters Covered (36 total)
+### Characters Covered (35 deployed)
 行, 重, 还, 为, 给, 都, 没, 教, 正, 更, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将, 应, 弹, 扫, 把, 担, 相, 省, 种, 系, 结, 觉, 角, 调, 量, 什
 
 ### Character Excluded (1 total)
@@ -26,7 +27,7 @@ Successfully researched, documented, and generated migration for **36 confirmed 
 **File:** `data/multi_pronunciation_category1_complete.json` (1,749 lines)
 
 **Contents:**
-- Research for all 37 characters (36 deployed + 1 deferred)
+- Research for 36 characters total (35 deployed + 1 deferred)
 - Default pronunciation + variants with zhuyin arrays
 - 2-4 context words per pronunciation
 - English meanings for each variant
@@ -39,11 +40,11 @@ Successfully researched, documented, and generated migration for **36 confirmed 
 - Common usage examples included
 
 ### 2. Migration SQL
-**File:** `supabase/migrations/011_dictionary_quality_category1_complete.sql` (527 lines)
+**File:** `supabase/migrations/011_dictionary_quality_category1_complete.sql` (521 lines)
 
 **Features:**
-- Safety check: Validates all 36 characters exist before updating
-- UPDATE statements for 36 characters (干 excluded)
+- Safety check: Validates all 35 characters exist before updating
+- UPDATE statements for 35 characters (干 excluded)
 - Preserves main zhuyin, adds variants to `zhuyin_variants` array
 - Verification queries to confirm updates
 - Rollback script included in comments
@@ -108,13 +109,13 @@ WHERE simp IN ('行', '重', '还', ... )
 ORDER BY simp;
 ```
 
-Expected: All 36 characters should have `variant_count > 0`
+Expected: All 35 characters should have `variant_count > 0`
 
 ### 4. **Apply to Production**
 Via Supabase Dashboard → SQL Editor:
 1. Copy contents of Migration 011
 2. Run in production (takes ~5 seconds)
-3. Verify with SELECT queries (should return 36 characters with variants)
+3. Verify with SELECT queries (should return 35 characters with variants)
 4. Test in AddItemForm - should see variant selection UI
 
 ---
@@ -123,8 +124,8 @@ Via Supabase Dashboard → SQL Editor:
 
 ### Dictionary Quality Improvement
 - **Before:** 885/1,067 characters properly structured (83%)
-- **After Migration 011:** 921/1,067 characters (86.3%)
-- **Improvement:** +36 characters (+3.4%)
+- **After Migration 011:** 920/1,067 characters (86.2%)
+- **Improvement:** +35 characters (+3.3%)
 
 ### User Experience
 - **Multi-pronunciation characters** now show variant selection in AddItemForm
@@ -192,9 +193,14 @@ During Migration 011 deployment, discovered database is missing entries for '幹
 - Impact: 2 HSK characters unavailable for practice
 
 **Resolution:**
-- Character '干' excluded from Migration 011 (36 deployed, 1 deferred)
+- Character '干' excluded from Migration 011 (35 deployed, 1 deferred)
 - Comprehensive Phase 2 plan documented: `docs/operational/EPIC8_PHASE2_GAN_ISSUE.md`
 - Estimated fix: Migration 012 (1 hour) - DELETE malformed entry, INSERT proper entries
+
+**Count Correction:**
+- Original documentation claimed 37 Category 1 characters
+- Actual Category 1 list had 36 characters (not 37)
+- With '干' excluded: 35 characters deployed in Migration 011
 
 ---
 
@@ -202,7 +208,7 @@ During Migration 011 deployment, discovered database is missing entries for '幹
 
 **Repository cleanup + Epic 8 Category 1 research = DONE!**
 
-Migration 011 ready to deploy: 36 characters with proper pronunciation variants.
+Migration 011 ready to deploy: 35 characters with proper pronunciation variants.
 
 ---
 

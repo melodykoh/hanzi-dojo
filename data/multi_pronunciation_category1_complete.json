@@ -1,8 +1,9 @@
 {
   "phase": "Category 1 Complete - All Known Multi-Pronunciation Characters",
   "date": "2025-11-12",
-  "character_count": 36,
-  "description": "Complete Category 1 research covering 36 confirmed multi-pronunciation characters from Epic 8. Character '干' excluded due to database missing separate entries for '幹' (to do) and '乾' (dry).",
+  "character_count": 35,
+  "total_researched": 36,
+  "description": "Category 1 research covering 35 deployed multi-pronunciation characters from Epic 8. Character '干' excluded due to database issue. Note: Original documentation claimed 37 characters, but actual Category 1 list had 36.",
   "excluded_characters": {
     "干": {
       "reason": "Database has single malformed entry (simp='干', trad='干') instead of separate entries for '幹' (to do) and '乾' (dry)",

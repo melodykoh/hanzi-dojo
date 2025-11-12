@@ -49,9 +49,9 @@ async function backupDictionary() {
     metadata: {
       created_at: new Date().toISOString(),
       entry_count: entries.length,
-      purpose: 'Pre-Migration 010a backup',
-      migration: '010_comprehensive_dictionary_fix.sql',
-      note: 'Backup before fixing 248 tone marks + 22 multi-pronunciation chars'
+      purpose: 'Pre-Migration 011 backup',
+      migration: '011_dictionary_quality_category1_complete.sql',
+      note: 'Backup before adding zhuyin_variants for 37 Category 1 multi-pronunciation characters'
     },
     entries: entries
   }
@@ -65,7 +65,7 @@ async function backupDictionary() {
   
   // Write backup file with timestamp
   const timestamp = new Date().toISOString().split('T')[0] // YYYY-MM-DD
-  const filename = `dictionary_backup_pre_010a_${timestamp}.json`
+  const filename = `dictionary_backup_pre_011_${timestamp}.json`
   const filepath = path.join(backupDir, filename)
   
   fs.writeFileSync(filepath, JSON.stringify(backup, null, 2), 'utf8')
