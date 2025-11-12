@@ -1,11 +1,14 @@
 -- Migration 011: Dictionary Quality - Category 1 Complete
 -- Date: 2025-11-12
--- Description: Complete Category 1 research covering all 37 confirmed multi-pronunciation characters from Epic 8
+-- Description: Complete Category 1 research covering 36 confirmed multi-pronunciation characters from Epic 8
 --
--- Updates 37 high-frequency multi-pronunciation characters
+-- Updates 36 high-frequency multi-pronunciation characters
 -- with proper zhuyin_variants structure and context words.
 --
--- Characters: 行, 重, 还, 为, 给, 都, 没, 教, 正, 更, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将, 干, 应, 弹, 扫, 把, 担, 相, 省, 种, 系, 结, 觉, 角, 调, 量, 什
+-- Characters: 行, 重, 还, 为, 给, 都, 没, 教, 正, 更, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将, 应, 弹, 扫, 把, 担, 相, 省, 种, 系, 结, 觉, 角, 调, 量, 什
+--
+-- Note: Character '干' excluded - database missing entries for '幹' (to do) and '乾' (dry)
+-- See docs/operational/EPIC8_PHASE2_GAN_ISSUE.md for resolution plan
 --
 -- Source: Epic 8 Category 1 Complete Research
 -- Reference: data/multi_pronunciation_category1_complete.json
@@ -26,13 +29,13 @@ DECLARE
 BEGIN
   SELECT COUNT(*) INTO char_count
   FROM dictionary_entries
-  WHERE simp IN ('行', '重', '还', '为', '给', '都', '没', '教', '正', '更', '传', '供', '便', '假', '几', '切', '划', '地', '场', '将', '干', '应', '弹', '扫', '把', '担', '相', '省', '种', '系', '结', '觉', '角', '调', '量', '什');
+  WHERE simp IN ('行', '重', '还', '为', '给', '都', '没', '教', '正', '更', '传', '供', '便', '假', '几', '切', '划', '地', '场', '将', '应', '弹', '扫', '把', '担', '相', '省', '种', '系', '结', '觉', '角', '调', '量', '什');
 
-  IF char_count != 37 THEN
-    RAISE EXCEPTION 'Expected 37 characters, found %', char_count;
+  IF char_count != 36 THEN
+    RAISE EXCEPTION 'Expected 36 characters, found %', char_count;
   END IF;
 
-  RAISE NOTICE 'Safety check passed: All 37 characters exist';
+  RAISE NOTICE 'Safety check passed: All 36 characters exist';
 END $$;
 
 -- Update each character with proper zhuyin_variants
@@ -217,15 +220,6 @@ WHERE simp = '将'
   AND trad = '將';
 
 
--- Character: 干 (gān for dry, gàn for doing/working)
-UPDATE dictionary_entries
-SET
-  zhuyin = '[["ㄍ","ㄢ","ˉ"]]'::jsonb,
-  zhuyin_variants = '[{"pinyin":"gàn","zhuyin":[["ㄍ","ㄢ","ˋ"]],"context_words":["干活","能干","干嘛"],"meanings":["to do","to work","capable"]}]'::jsonb
-WHERE simp = '干'
-  AND trad = '幹/乾';
-
-
 -- Character: 应 (yīng for obligation, yìng for response)
 UPDATE dictionary_entries
 SET
@@ -362,7 +356,7 @@ WHERE simp = '什'
 
 
 
--- Verification: Check all 10 characters have proper zhuyin_variants
+-- Verification: Check all 36 characters have proper zhuyin_variants
 SELECT
   simp,
   trad,
@@ -370,13 +364,13 @@ SELECT
   zhuyin_variants,
   jsonb_array_length(zhuyin_variants) as variant_count
 FROM dictionary_entries
-WHERE simp IN ('行', '重', '还', '为', '给', '都', '没', '教', '正', '更', '传', '供', '便', '假', '几', '切', '划', '地', '场', '将', '干', '应', '弹', '扫', '把', '担', '相', '省', '种', '系', '结', '觉', '角', '调', '量', '什')
+WHERE simp IN ('行', '重', '还', '为', '给', '都', '没', '教', '正', '更', '传', '供', '便', '假', '几', '切', '划', '地', '场', '将', '应', '弹', '扫', '把', '担', '相', '省', '种', '系', '结', '觉', '角', '调', '量', '什')
 ORDER BY simp;
 
 -- Count characters with variants
 SELECT COUNT(*) as characters_with_variants
 FROM dictionary_entries
-WHERE simp IN ('行', '重', '还', '为', '给', '都', '没', '教', '正', '更', '传', '供', '便', '假', '几', '切', '划', '地', '场', '将', '干', '应', '弹', '扫', '把', '担', '相', '省', '种', '系', '结', '觉', '角', '调', '量', '什')
+WHERE simp IN ('行', '重', '还', '为', '给', '都', '没', '教', '正', '更', '传', '供', '便', '假', '几', '切', '划', '地', '场', '将', '应', '弹', '扫', '把', '担', '相', '省', '种', '系', '结', '觉', '角', '调', '量', '什')
   AND jsonb_array_length(zhuyin_variants) > 0;
 
 
@@ -468,10 +462,6 @@ WHERE simp = '场' AND trad = '場';
 UPDATE dictionary_entries
 SET zhuyin_variants = '[]'::jsonb
 WHERE simp = '将' AND trad = '將';
-
-UPDATE dictionary_entries
-SET zhuyin_variants = '[]'::jsonb
-WHERE simp = '干' AND trad = '幹/乾';
 
 UPDATE dictionary_entries
 SET zhuyin_variants = '[]'::jsonb

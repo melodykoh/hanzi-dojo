@@ -1,17 +1,22 @@
 # Epic 8 - Phase 1 Complete: Category 1 Research
 
 **Date:** 2025-11-12 (Session 10)
-**Status:** ✅ COMPLETE - Ready for Migration Testing
-**Scope:** All 37 Category 1 multi-pronunciation characters
+**Status:** ✅ COMPLETE - Ready for Production Deployment
+**Scope:** 36 of 37 Category 1 multi-pronunciation characters
 
 ---
 
 ## 📊 Summary
 
-Successfully researched, documented, and generated migration for **37 confirmed multi-pronunciation characters** from Epic 8 Category 1.
+Successfully researched, documented, and generated migration for **36 confirmed multi-pronunciation characters** from Epic 8 Category 1.
 
-### Characters Covered (37 total)
-行, 重, 还, 为, 给, 都, 没, 教, 正, 更, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将, 干, 应, 弹, 扫, 把, 担, 相, 省, 种, 系, 结, 觉, 角, 调, 量, 什
+**Note:** Character '干' excluded from Migration 011 due to database quality issue (see below).
+
+### Characters Covered (36 total)
+行, 重, 还, 为, 给, 都, 没, 教, 正, 更, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将, 应, 弹, 扫, 把, 担, 相, 省, 种, 系, 结, 觉, 角, 调, 量, 什
+
+### Character Excluded (1 total)
+**干** - Database missing separate entries for '幹' (to do) and '乾' (dry). See `docs/operational/EPIC8_PHASE2_GAN_ISSUE.md` for resolution plan.
 
 ---
 
@@ -21,7 +26,7 @@ Successfully researched, documented, and generated migration for **37 confirmed 
 **File:** `data/multi_pronunciation_category1_complete.json` (1,749 lines)
 
 **Contents:**
-- All 37 characters with complete pronunciation variants
+- Research for all 37 characters (36 deployed + 1 deferred)
 - Default pronunciation + variants with zhuyin arrays
 - 2-4 context words per pronunciation
 - English meanings for each variant
@@ -34,14 +39,18 @@ Successfully researched, documented, and generated migration for **37 confirmed 
 - Common usage examples included
 
 ### 2. Migration SQL
-**File:** `supabase/migrations/011_dictionary_quality_category1_complete.sql` (535 lines)
+**File:** `supabase/migrations/011_dictionary_quality_category1_complete.sql` (527 lines)
 
 **Features:**
-- Safety check: Validates all 37 characters exist before updating
-- UPDATE statements for each character
+- Safety check: Validates all 36 characters exist before updating
+- UPDATE statements for 36 characters (干 excluded)
 - Preserves main zhuyin, adds variants to `zhuyin_variants` array
 - Verification queries to confirm updates
 - Rollback script included in comments
+
+**Exclusion:**
+- Character '干' excluded - requires separate data cleanup migration
+- See `docs/operational/EPIC8_PHASE2_GAN_ISSUE.md` for details
 
 ### 3. Supporting Scripts
 - `scripts/compile-category1-complete.cjs` - Generates complete JSON from research
@@ -99,13 +108,13 @@ WHERE simp IN ('行', '重', '还', ... )
 ORDER BY simp;
 ```
 
-Expected: All 37 characters should have `variant_count > 0`
+Expected: All 36 characters should have `variant_count > 0`
 
 ### 4. **Apply to Production**
 Via Supabase Dashboard → SQL Editor:
 1. Copy contents of Migration 011
 2. Run in production (takes ~5 seconds)
-3. Verify with SELECT queries
+3. Verify with SELECT queries (should return 36 characters with variants)
 4. Test in AddItemForm - should see variant selection UI
 
 ---
@@ -114,8 +123,8 @@ Via Supabase Dashboard → SQL Editor:
 
 ### Dictionary Quality Improvement
 - **Before:** 885/1,067 characters properly structured (83%)
-- **After Migration 011:** 922/1,067 characters (86.4%)
-- **Improvement:** +37 characters (+3.4%)
+- **After Migration 011:** 921/1,067 characters (86.3%)
+- **Improvement:** +36 characters (+3.4%)
 
 ### User Experience
 - **Multi-pronunciation characters** now show variant selection in AddItemForm
@@ -123,10 +132,13 @@ Via Supabase Dashboard → SQL Editor:
 - Example: 行 → Choose between "步行/旅行" (xíng) or "银行/行业" (háng)
 
 ### Remaining Work (Epic 8 Phase 2)
+- **1 character** ('干') requires data cleanup - add separate entries for '幹' and '乾'
+  - See: `docs/operational/EPIC8_PHASE2_GAN_ISSUE.md`
+  - Estimated: 1 hour (Migration 012)
 - **102 characters** in Category 2 (ambiguous cases) require triage
-- Need to determine: true multi-pronunciation vs data errors
-- Estimated: 8 hours research + 3 hours implementation
-- Timeline: Epic 8 Phase 2 (separate session)
+  - Need to determine: true multi-pronunciation vs data errors
+  - Estimated: 8 hours research + 3 hours implementation
+  - Timeline: Epic 8 Phase 2 (separate session)
 
 ---
 
@@ -156,10 +168,11 @@ Via Supabase Dashboard → SQL Editor:
 ## 📁 Files Modified/Created
 
 ### Created
-- `data/multi_pronunciation_category1_complete.json` (1,749 lines)
-- `supabase/migrations/011_dictionary_quality_category1_complete.sql` (535 lines)
-- `scripts/compile-category1-complete.cjs`
-- `scripts/generate-migration-011.cjs`
+- `data/multi_pronunciation_category1_complete.json` (1,749 lines) - Research for 37 chars, metadata notes '干' exclusion
+- `supabase/migrations/011_dictionary_quality_category1_complete.sql` (527 lines) - Migration for 36 chars
+- `docs/operational/EPIC8_PHASE2_GAN_ISSUE.md` - Comprehensive documentation for '干/幹/乾' data cleanup
+- `scripts/compile-category1-complete.cjs` - JSON compilation script
+- `scripts/generate-migration-011.cjs` - SQL generation script
 - `docs/operational/EPIC8_PHASE1_COMPLETE.md` (this file)
 
 ### Modified
@@ -169,11 +182,27 @@ Via Supabase Dashboard → SQL Editor:
 
 ---
 
+## 🔍 Discovery: '干/幹/乾' Data Quality Issue
+
+During Migration 011 deployment, discovered database is missing entries for '幹' (to do) and '乾' (dry):
+
+**Problem:**
+- Database has 1 malformed entry: `{simp: '干', trad: '干', zhuyin: [gān, gàn]}`
+- Missing: Separate entries for '幹' (gàn) and '乾' (gān)
+- Impact: 2 HSK characters unavailable for practice
+
+**Resolution:**
+- Character '干' excluded from Migration 011 (36 deployed, 1 deferred)
+- Comprehensive Phase 2 plan documented: `docs/operational/EPIC8_PHASE2_GAN_ISSUE.md`
+- Estimated fix: Migration 012 (1 hour) - DELETE malformed entry, INSERT proper entries
+
+---
+
 ## ✨ Session 10 Complete
 
 **Repository cleanup + Epic 8 Category 1 research = DONE!**
 
-Ready to test Migration 011 and deploy to production when ready.
+Migration 011 ready to deploy: 36 characters with proper pronunciation variants.
 
 ---
 
