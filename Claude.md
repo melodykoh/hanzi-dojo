@@ -204,6 +204,10 @@ For significant changes (>50 lines or >3 files):
 
 ### Dictionary System
 - Multi-pronunciation characters use `zhuyin_variants` with context words (e.g., 着/著: zháo/zhuó/zhe)
+- **Pattern A structure:** Default pronunciation included as FIRST element in `zhuyin_variants` array
+  - Provides context words for ALL pronunciations (default + alternates)
+  - Example: 什 has variants `[{shén, context:["什么"]}, {shí, context:["什锦"]}]`
+  - Decision (Session 11): Unify all multi-pronunciation chars to Pattern A for consistency
 - Dictionary lookup searches both simplified AND traditional columns
 - Missing entries logged to `dictionary_missing` for expansion tracking
 - Reference: `docs/operational/DICTIONARY_MIGRATION_GUIDE.md`

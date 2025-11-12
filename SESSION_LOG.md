@@ -2660,3 +2660,292 @@ Confirmed all 3 bugs are implemented in codebase:
 ---
 
 **Session 10 Summary:** Repository cleanup complete. All scattered files organized, documentation updated, bugs marked complete. Ready to begin Epic 8 Phase 1 dictionary quality research.
+
+## Session 11: Dictionary Quality - Default Pronunciation Context & Pattern Unification
+
+**Date:** 2025-11-12  
+**Status:** 🔄 In Progress  
+**Epic:** Epic 8 Phase 1 — Dictionary Quality (Category 1 Multi-Pronunciation Characters)
+
+### 🎯 Session Objectives
+1. Fix EntryCatalog pronunciation review modal (only showing variants, missing default)
+2. Add context words for default pronunciations (35 Category 1 characters)
+3. Deploy Migration 011 fixes to production
+4. Test multi-pronunciation variant selection in production
+
+### 🔍 Key Discovery: Two Dictionary Patterns in Production
+
+During deployment of Migration 011, discovered database contains TWO different patterns for storing multi-pronunciation data:
+
+#### Pattern A (Migration 010a - 22 characters including 么)
+```json
+{
+  "simp": "么",
+  "zhuyin": [["ㄇ","ㄜ","˙"]],  // Default pronunciation
+  "zhuyin_variants": [
+    {
+      "pinyin": "me",
+      "zhuyin": [["ㄇ","ㄜ","˙"]],        // ← Duplicates default
+      "context_words": ["什么", "怎么"],  // ← HAS context for default!
+      "meanings": ["what", "particle"]
+    },
+    {"pinyin": "mó", "zhuyin": [["ㄇ","ㄛ","ˊ"]], ...},  // Other pronunciations
+    {"pinyin": "má", "zhuyin": [["ㄇ","ㄚ","ˊ"]], ...}
+  ]
+}
+```
+**UI Behavior:** Shows 4 options (default + 3 variants), ALL with context words ✅
+
+#### Pattern B (Migration 011 - 35 Category 1 characters including 什)
+```json
+{
+  "simp": "什",
+  "zhuyin": [["ㄕ","ㄣ","ˊ"]],  // Default: shén - NO context
+  "zhuyin_variants": [
+    {
+      "pinyin": "shí",  // Only the alternate pronunciation
+      "zhuyin": [["ㄕ","ˊ",null]],
+      "context_words": ["什锦"],
+      "meanings": ["ten", "assorted"]
+    }
+  ]
+}
+```
+**UI Behavior:** Shows 2 options, default has NO context ❌
+
+**Root Cause:** Migration 011 only stored variants (alternates), not default with context.
+
+**User Impact:** When reviewing pronunciation for 什 in "My Characters", modal showed:
+- Option 1: ㄕㄣˊ - "(default pronunciation)" ← NO context words
+- Option 2: ㄕˊ - "什锦" ← HAS context
+
+### 🏗️ Architectural Decision: Adopt Pattern A (Prepend Default to Variants)
+
+**Decision:** Unify all multi-pronunciation characters to Pattern A structure.
+
+**Rationale:**
+1. ✅ **No schema changes needed** - Uses existing `zhuyin_variants` JSONB array
+2. ✅ **Already proven in production** - Pattern A works correctly for 么 and 21 other chars
+3. ✅ **Consistent data structure** - All multi-pronunciation chars follow same pattern
+4. ✅ **Simpler code** - No special "default" vs "variant" logic needed
+5. ✅ **Future-proof** - All new dictionary entries follow one pattern
+
+**Rejected Alternatives:**
+- ❌ **Option: Add `default_pronunciation_meta` field** - Unnecessary schema complexity
+- ❌ **Option: Store context in separate table** - Over-engineering
+- ❌ **Option: Leave defaults without context** - Poor UX, inconsistent with Pattern A
+
+### 📊 Schema Considerations & Word-First Learning
+
+**Key User Insight:** Child learns multi-pronunciation characters through WORDS, not isolated characters.
+
+**Real Usage Pattern:**
+- Child learns 行 (xíng) as standalone character - ONE pronunciation
+- Later learns **银行** (yínháng) as complete WORD - háng used in context
+- Later learns **步行** (bùxíng) as complete WORD - xíng reinforced in context
+
+**Implication:** Multi-pronunciation tracking at CHARACTER level is low priority.
+
+**Schema Already Supports Words:**
+- ✅ `entries.type` enum includes `'word'`
+- ✅ `AddItemForm` auto-detects words (length > 1)
+- ✅ Both drills work for words and characters
+- ✅ `practice_state` tracks words identically to characters
+- ❌ **Gap:** Dictionary not seeded with words yet (V2 priority)
+
+**Deferred Work (V2+):**
+- Seed HSK 1-3 common words in dictionary (200-500 words)
+- Multi-pronunciation character tracking (separate practice_state per pronunciation)
+- Word-level drills (test full words, not just characters)
+- Character-in-context drills ("What's the pronunciation of 行 in 银行?")
+
+**Decision:** Focus on Pattern A unification now, defer word features to V2.
+
+### 🛠️ Implementation Strategy
+
+#### Phase 1: Update Migration Generation Script
+**File:** `scripts/generate-migration-011.cjs`
+
+**Change:**
+```javascript
+// OLD (Pattern B - excludes default):
+variants.forEach(variant => {
+  zhuyinVariants.push(variant)
+})
+
+// NEW (Pattern A - prepend default):
+zhuyinVariants.push({
+  pinyin: default_pronunciation.pinyin,
+  zhuyin: default_pronunciation.zhuyin,
+  context_words: default_pronunciation.context_words,
+  meanings: default_pronunciation.meanings
+})
+variants.forEach(variant => {
+  zhuyinVariants.push(variant)
+})
+```
+
+**SQL Output Change:**
+```sql
+-- OLD (Pattern B):
+UPDATE dictionary_entries
+SET 
+  zhuyin = '[["ㄕ","ㄣ","ˊ"]]'::jsonb,
+  zhuyin_variants = '[{"pinyin":"shí",...}]'::jsonb  -- Only alternate
+WHERE simp = '什';
+
+-- NEW (Pattern A):
+UPDATE dictionary_entries
+SET
+  zhuyin_variants = '[
+    {"pinyin":"shén","zhuyin":[["ㄕ","ㄣ","ˊ"]],"context_words":["什么","为什么"],...},  -- Default FIRST
+    {"pinyin":"shí","zhuyin":[["ㄕ","ˊ",null]],"context_words":["什锦"],...}
+  ]'::jsonb
+WHERE simp = '什';
+```
+
+**Note:** `zhuyin` field left unchanged (backward compatibility), but variants array now includes default.
+
+#### Phase 2: Simplify EntryCatalog Modal Logic
+**File:** `src/components/EntryCatalog.tsx`
+
+**Change:**
+```jsx
+// OLD (manual prepending):
+const pronunciationOptions = []
+pronunciationOptions.push({
+  zhuyin: default,
+  meanings: ['(default pronunciation)'],  // ← No context!
+  ...
+})
+pronunciationOptions.push(...variants)
+
+// NEW (use variants array directly):
+const pronunciationOptions = selectedEntry.dictionaryEntry.zhuyin_variants || []
+// First variant IS the default with full context!
+```
+
+**handleSavePronunciation Change:**
+```javascript
+// OLD (index adjustment):
+if (selectedVariantIndex === 0) {
+  // Use default from zhuyin field
+} else {
+  // Use variant from array[index-1]
+}
+
+// NEW (direct array access):
+const pronunciationData = zhuyin_variants[selectedVariantIndex]
+// No special case needed!
+```
+
+#### Phase 3: Migration Deployment
+1. Regenerate Migration 011b with Pattern A structure
+2. Run in Supabase Dashboard SQL Editor
+3. Verify 什, 行, 重 have default + variants with context
+4. Deploy EntryCatalog code changes
+5. Test pronunciation review in production
+
+### 🐛 Bug Fixes This Session
+
+#### Bug 1: EntryCatalog Only Shows Variants (Missing Default)
+**Issue:** Pronunciation review modal only mapped over `zhuyin_variants`, ignored `zhuyin` field  
+**Impact:** User couldn't select default pronunciation for characters like 什  
+**Fix:** Updated modal to use Pattern A (variants array includes default)  
+**Status:** ✅ Code fix complete, pending deployment
+
+#### Bug 2: Migration 011 Rollback Statements Not Commented
+**Issue:** Lines 387-525 had executable UPDATE statements setting `zhuyin_variants = '[]'`  
+**Impact:** Migration 011 added variants successfully, then CLEARED them all  
+**Result:** All 35 characters showed `variant_count = 0` after migration  
+**Fix:** Commented out rollback section, created Migration 011a to re-apply variants  
+**Status:** ✅ Fixed, Migration 011a deployed successfully
+
+#### Bug 3: Migration 011 Character Count Mismatch
+**Issue:** SQL expected 37 characters (documentation error), actual Category 1 had 36  
+**Impact:** Safety check failed: "Expected 37, found 36"  
+**Resolution:** Corrected to 36 total, minus '干' = 35 deployed  
+**Status:** ✅ Fixed, safety check now expects 35
+
+#### Bug 4: Character '干' Traditional Form Mismatch
+**Issue:** Database has `{simp: '干', trad: '干'}`, migration expected `trad: '幹/乾'`  
+**Root Cause:** Database missing separate entries for '幹' (to do) and '乾' (dry)  
+**Impact:** Migration skipped '干', only 35 characters updated  
+**Documentation:** Created `docs/operational/EPIC8_PHASE2_GAN_ISSUE.md`  
+**Resolution:** Deferred to Epic 8 Phase 2 (add proper entries via Migration 012)  
+**Status:** ✅ Documented, work deferred
+
+### 📁 Files Created/Modified
+
+#### Created
+- `docs/operational/EPIC8_PHASE2_GAN_ISSUE.md` - Comprehensive '干/幹/乾' resolution plan
+- `supabase/migrations/011a_fix_variants.sql` - Re-apply variants after rollback bug
+- `data/backups/dictionary_backup_pre_011_2025-11-12.json` - Pre-migration backup (452.2 KB)
+
+#### Modified
+- `scripts/generate-migration-011.cjs` - Updated to Pattern A (prepend default)
+- `src/components/EntryCatalog.tsx` - Simplified modal to use variants directly
+- `supabase/migrations/011_dictionary_quality_category1_complete.sql` - Commented rollback
+- `data/multi_pronunciation_category1_complete.json` - Updated metadata (37→36→35)
+- `docs/operational/EPIC8_PHASE1_COMPLETE.md` - Corrected character counts, added discovery
+
+### 🎓 Lessons Learned
+
+**Data Pattern Discovery:**
+- Always check existing data patterns before designing new structures
+- Migration 010a set precedent (Pattern A) that we initially missed
+- User testing reveals data inconsistencies faster than code review
+
+**Migration Safety:**
+- Comment blocks are NOT safe for rollback scripts - they execute!
+- Always use `-- ` prefix for documentation-only SQL
+- Safety checks should count exact expected entities
+- Backup before every migration (saved us during rollback bug)
+
+**Requirements Gathering:**
+- Abstract schema design (multi-pronunciation tracking) != actual usage
+- Real usage: Child learns words (银行), not isolated multi-pronunciation chars
+- Word-first learning pattern defers need for complex character-level tracking
+- YAGNI principle: Build what's needed now, not what might be needed later
+
+**UI/Data Consistency:**
+- Frontend bug (EntryCatalog) revealed backend inconsistency (two patterns)
+- User screenshot (么 showing 4 options) provided crucial data pattern evidence
+- Production data trumps documentation ("37 chars" vs actual 36)
+
+### 📊 Current Status
+
+**Completed:**
+- ✅ Migration 011a deployed (re-applied variants after rollback bug)
+- ✅ All 35 Category 1 characters have `zhuyin_variants` populated
+- ✅ Safety check expects correct count (35 not 37)
+- ✅ EntryCatalog code updated to show default + variants
+- ✅ generate-migration-011.cjs updated to Pattern A
+- ✅ Comprehensive documentation of '干/幹/乾' issue
+
+**In Progress:**
+- 🔄 Regenerating Migration 011b with Pattern A structure
+- 🔄 Deploying EntryCatalog code changes
+- 🔄 Testing pronunciation selection in production
+
+**Pending:**
+- ⏳ Verify 什, 行, 重 show context for all pronunciations
+- ⏳ Test variant selection saves correctly
+- ⏳ Update SESSION_LOG.md and Claude.md with final status
+
+### 🚀 Next Steps
+
+1. **Complete Migration 011b** - Regenerate SQL with Pattern A, deploy to production
+2. **Deploy EntryCatalog Fix** - Simplified modal logic, test in production
+3. **Verify Production** - Test 什, 行, 重 pronunciation selection
+4. **Close Session** - Update documentation, commit all changes
+
+**Deferred to V2:**
+- Word dictionary seeding (HSK 1-3 common words)
+- Multi-pronunciation character-level tracking (reading_id in practice_state)
+- Word-level drills (context-aware character testing)
+
+---
+
+**Session 11 Summary (In Progress):** Discovered and unified two dictionary patterns (Pattern A vs B). Migrating 35 Category 1 characters to Pattern A (prepend default to variants array). Fixed EntryCatalog modal bug. Documented word-first learning approach defers need for complex multi-pronunciation tracking.
+

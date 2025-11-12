@@ -266,13 +266,15 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
 
   async function handleSavePronunciation() {
     if (!selectedEntry || selectedVariantIndex === null) return
-    
+
     setIsSavingVariant(true)
     try {
-      const variant = selectedEntry.dictionaryEntry?.zhuyin_variants?.[selectedVariantIndex]
-      if (!variant) throw new Error('Variant not found')
+      // Pattern A: Default is first element in zhuyin_variants array
+      const pronunciationData = selectedEntry.dictionaryEntry?.zhuyin_variants?.[selectedVariantIndex]
 
-      // Create or update reading with the selected variant
+      if (!pronunciationData || !pronunciationData.zhuyin) throw new Error('Pronunciation data not found')
+
+      // Create or update reading with the selected pronunciation
       const { data: existingReading } = await supabase
         .from('readings')
         .select('id')
@@ -286,10 +288,10 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
         const { data: updatedReading, error: updateError } = await supabase
           .from('readings')
           .update({
-            zhuyin: variant.zhuyin,
-            pinyin: variant.pinyin,
-            sense: variant.meanings?.join(', '),
-            context_words: variant.context_words
+            zhuyin: pronunciationData.zhuyin,
+            pinyin: pronunciationData.pinyin,
+            sense: pronunciationData.meanings?.join(', '),
+            context_words: pronunciationData.context_words
           })
           .eq('id', existingReading.id)
           .select('id')
@@ -303,10 +305,10 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
           .from('readings')
           .insert({
             entry_id: selectedEntry.entry.id,
-            zhuyin: variant.zhuyin,
-            pinyin: variant.pinyin,
-            sense: variant.meanings?.join(', '),
-            context_words: variant.context_words
+            zhuyin: pronunciationData.zhuyin,
+            pinyin: pronunciationData.pinyin,
+            sense: pronunciationData.meanings?.join(', '),
+            context_words: pronunciationData.context_words
           })
           .select('id')
           .single()
@@ -525,9 +527,9 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
                 <p className="text-sm text-gray-700 mb-4">
                   This character has multiple pronunciations. Select the one you're learning:
                 </p>
-                
+
                 <div className="space-y-2">
-                  {selectedEntry.dictionaryEntry.zhuyin_variants.map((variant, index) => (
+                  {selectedEntry.dictionaryEntry.zhuyin_variants.map((option, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedVariantIndex(index)}
@@ -540,19 +542,19 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="text-lg font-bold text-gray-900 mb-1">
-                            {formatZhuyin(variant.zhuyin)}
-                            {variant.pinyin && (
-                              <span className="ml-2 text-base text-gray-600">({variant.pinyin})</span>
+                            {formatZhuyin(option.zhuyin)}
+                            {option.pinyin && (
+                              <span className="ml-2 text-base text-gray-600">({option.pinyin})</span>
                             )}
                           </div>
-                          {variant.meanings && variant.meanings.length > 0 && (
+                          {option.meanings && option.meanings.length > 0 && (
                             <div className="text-sm text-gray-600 mb-1">
-                              {variant.meanings.join(', ')}
+                              {option.meanings.join(', ')}
                             </div>
                           )}
-                          {variant.context_words && variant.context_words.length > 0 && (
+                          {option.context_words && option.context_words.length > 0 && (
                             <div className="text-sm text-gray-500">
-                              Examples: {variant.context_words.join(', ')}
+                              Examples: {option.context_words.join(', ')}
                             </div>
                           )}
                         </div>

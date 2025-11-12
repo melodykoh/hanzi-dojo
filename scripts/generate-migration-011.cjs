@@ -14,6 +14,14 @@ const path = require('path');
 const researchPath = path.join(__dirname, '../data/multi_pronunciation_category1_complete.json');
 const research = JSON.parse(fs.readFileSync(researchPath, 'utf8'));
 
+// Filter out excluded characters
+const excludedChars = new Set(Object.keys(research.excluded_characters || {}));
+const deployableCharacters = research.characters.filter(c => !excludedChars.has(c.simp));
+
+console.log(`📊 Total researched: ${research.characters.length}`);
+console.log(`❌ Excluded: ${excludedChars.size} (${Array.from(excludedChars).join(', ')})`);
+console.log(`✅ Deploying: ${deployableCharacters.length}`);
+
 // Helper function to format zhuyin array for SQL
 function formatZhuyinForSQL(zhuyinArray) {
   return JSON.stringify(zhuyinArray);
@@ -28,10 +36,18 @@ function formatContextWords(words) {
 function generateCharacterUpdate(char) {
   const { simp, trad, default_pronunciation, variants, notes } = char;
 
-  // Build zhuyin_variants array
+  // Build zhuyin_variants array - Pattern A (prepend default)
   const zhuyinVariants = [];
 
-  // Add all variant pronunciations (not the default)
+  // FIRST: Add default pronunciation with full context
+  zhuyinVariants.push({
+    pinyin: default_pronunciation.pinyin,
+    zhuyin: default_pronunciation.zhuyin,
+    context_words: default_pronunciation.context_words,
+    meanings: default_pronunciation.meanings
+  });
+
+  // THEN: Add all other variant pronunciations
   variants.forEach(variant => {
     zhuyinVariants.push({
       pinyin: variant.pinyin,
@@ -42,13 +58,11 @@ function generateCharacterUpdate(char) {
   });
 
   const variantsJSON = JSON.stringify(zhuyinVariants).replace(/'/g, "''");
-  const defaultZhuyinJSON = formatZhuyinForSQL(default_pronunciation.zhuyin).replace(/'/g, "''");
 
   return `
 -- Character: ${simp} (${notes})
 UPDATE dictionary_entries
 SET
-  zhuyin = '${defaultZhuyinJSON}'::jsonb,
   zhuyin_variants = '${variantsJSON}'::jsonb
 WHERE simp = '${simp}'
   AND trad = '${trad}';
@@ -57,7 +71,7 @@ WHERE simp = '${simp}'
 
 // Generate verification queries
 function generateVerificationQueries() {
-  const characters = research.characters.map(c => c.simp);
+  const characters = deployableCharacters.map(c => c.simp);
   return `
 -- Verification: Check all 10 characters have proper zhuyin_variants
 SELECT
@@ -83,7 +97,7 @@ function generateRollback() {
   return `
 -- ROLLBACK: Remove variants added by this migration
 -- (Preserves main zhuyin, only clears variants)
-${research.characters.map(char => `
+${deployableCharacters.map(char => `
 UPDATE dictionary_entries
 SET zhuyin_variants = '[]'::jsonb
 WHERE simp = '${char.simp}' AND trad = '${char.trad}';`).join('\n')}
@@ -95,10 +109,10 @@ const migrationHeader = `-- Migration 011: Dictionary Quality - Category 1 Compl
 -- Date: ${research.date}
 -- Description: ${research.description}
 --
--- Updates ${research.character_count} high-frequency multi-pronunciation characters
+-- Updates ${deployableCharacters.length} high-frequency multi-pronunciation characters
 -- with proper zhuyin_variants structure and context words.
 --
--- Characters: ${research.characters.map(c => c.simp).join(', ')}
+-- Characters: ${deployableCharacters.map(c => c.simp).join(', ')}
 --
 -- Source: Epic 8 Category 1 Complete Research
 -- Reference: data/multi_pronunciation_category1_complete.json
@@ -119,17 +133,17 @@ DECLARE
 BEGIN
   SELECT COUNT(*) INTO char_count
   FROM dictionary_entries
-  WHERE simp IN (${research.characters.map(c => `'${c.simp}'`).join(', ')});
+  WHERE simp IN (${deployableCharacters.map(c => `'${c.simp}'`).join(', ')});
 
-  IF char_count != ${research.character_count} THEN
-    RAISE EXCEPTION 'Expected ${research.character_count} characters, found %', char_count;
+  IF char_count != ${deployableCharacters.length} THEN
+    RAISE EXCEPTION 'Expected ${deployableCharacters.length} characters, found %', char_count;
   END IF;
 
-  RAISE NOTICE 'Safety check passed: All ${research.character_count} characters exist';
+  RAISE NOTICE 'Safety check passed: All ${deployableCharacters.length} characters exist';
 END $$;
 
 -- Update each character with proper zhuyin_variants
-${research.characters.map(generateCharacterUpdate).join('\n')}
+${deployableCharacters.map(generateCharacterUpdate).join('\n')}
 
 ${generateVerificationQueries()}
 
@@ -138,7 +152,9 @@ COMMIT;
 -- END OF MIGRATION
 --
 -- ROLLBACK SCRIPT (if needed):
--- ${generateRollback()}
+/*
+${generateRollback()}
+*/
 `;
 
 // Write migration file
@@ -147,8 +163,8 @@ fs.writeFileSync(migrationPath, migrationHeader, 'utf8');
 
 console.log('✅ Migration 011 generated successfully!');
 console.log(`📄 File: ${migrationPath}`);
-console.log(`📊 Characters updated: ${research.character_count}`);
-console.log(`🔍 Characters: ${research.characters.map(c => c.simp).join(', ')}`);
+console.log(`📊 Characters updated: ${deployableCharacters.length}`);
+console.log(`🔍 Characters: ${deployableCharacters.map(c => c.simp).join(', ')}`);
 console.log('');
 console.log('Next steps:');
 console.log('1. Review the generated migration file');
