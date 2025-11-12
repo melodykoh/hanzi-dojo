@@ -1,6 +1,7 @@
 // Drill Builders - Generate 4-option drill questions with curated distractors
 
 import type { ZhuyinSyllable, DictionaryEntry } from '../types'
+import { formatZhuyinDisplay } from './zhuyin'
 
 // =============================================================================
 // CONFUSION MAPS (From confusion_maps_v1.json)
@@ -110,15 +111,7 @@ function shuffle<T>(array: T[]): T[] {
   return result
 }
 
-/**
- * Format Zhuyin syllables for display (horizontal)
- * Example: [["ㄇ","ㄚ","ˉ"],["ㄇ","ㄚ","˙"]] → "ㄇㄚˉ ㄇㄚ˙"
- */
-export function formatZhuyin(syllables: ZhuyinSyllable[]): string {
-  return syllables
-    .map(([initial, final, tone]) => `${initial}${final}${tone}`)
-    .join(' ')
-}
+export { formatZhuyinDisplay as formatZhuyin } from './zhuyin'
 
 // =============================================================================
 // DRILL A: ZHUYIN RECOGNITION
@@ -241,7 +234,7 @@ export function buildDrillAOptions(
   const shuffled = shuffle(options.slice(0, 4))
   return shuffled.map(zhuyin => ({
     zhuyin,
-    display: formatZhuyin(zhuyin),
+    display: formatZhuyinDisplay(zhuyin),
     isCorrect: areSyllablesEqual(zhuyin, correctZhuyin)
   }))
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { dictionaryClient, determineApplicableDrills, hasMultipleReadings } from '../lib/dictionaryClient'
 import { dictionaryLogger } from '../lib/dictionaryLogger'
+import { formatZhuyinDisplay } from '../lib/zhuyin'
 import { DictionaryLookupResult } from '../types'
 
 export function DictionaryDemo() {
@@ -90,11 +91,7 @@ export function DictionaryDemo() {
                   <div>
                     <span className="font-semibold">Zhuyin:</span>{' '}
                     <span className="text-xl font-serif">
-                      {result.entry.zhuyin?.map((syllable, i) => (
-                        <span key={i} className="mx-1">
-                          {syllable[0]}{syllable[1]}{syllable[2]}
-                        </span>
-                      ))}
+                      {formatZhuyinDisplay(result.entry.zhuyin ?? [])}
                     </span>
                   </div>
                   <div>
@@ -115,8 +112,10 @@ export function DictionaryDemo() {
                         <div className="mt-1 space-y-1">
                           {result.entry.zhuyin_variants?.map((variant, i) => (
                             <div key={i} className="pl-2">
-                              • {variant.pinyin}: {variant.meanings?.join(', ')}
-                              {variant.context_words && ` (${variant.context_words.join(', ')})`}
+                              • {formatZhuyinDisplay(variant.zhuyin)}
+                              {variant.pinyin ? ` (${variant.pinyin})` : ''}
+                              {variant.meanings ? ` — ${variant.meanings.join(', ')}` : ''}
+                              {variant.context_words ? ` [${variant.context_words.join(', ')}]` : ''}
                             </div>
                           ))}
                         </div>

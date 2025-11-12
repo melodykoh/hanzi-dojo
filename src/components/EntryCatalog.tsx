@@ -4,6 +4,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { ChevronUpIcon } from '@heroicons/react/24/solid'
 import { supabase } from '../lib/supabase'
+import { formatZhuyinDisplay } from '../lib/zhuyin'
 import type { Entry, PracticeState, ZhuyinSyllable, DictionaryEntry } from '../types'
 
 interface EntryCatalogProps {
@@ -27,10 +28,7 @@ interface EntryCatalogItem {
   dictionaryEntry: DictionaryEntry | null
 }
 
-// Helper function to format Zhuyin for display
-function formatZhuyin(syllables: ZhuyinSyllable[]): string {
-  return syllables.map(([initial, final, tone]) => `${initial}${final}${tone}`).join(' ')
-}
+const formatZhuyin = formatZhuyinDisplay
 
 export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryCatalogProps) {
   const [items, setItems] = useState<EntryCatalogItem[]>([])

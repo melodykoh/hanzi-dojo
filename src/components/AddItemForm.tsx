@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { dictionaryClient } from '../lib/dictionaryClient'
 import { dictionaryLogger } from '../lib/dictionaryLogger'
 import { supabase } from '../lib/supabase'
+import { formatZhuyinDisplay } from '../lib/zhuyin'
 import type { ZhuyinSyllable, PracticeDrill, ZhuyinVariant } from '../types'
 
 interface AddItemFormProps {
@@ -149,9 +150,7 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
     }
   }
 
-  const formatZhuyin = (zhuyin: ZhuyinSyllable[]): string => {
-    return zhuyin.map(syllable => syllable.join('')).join(' ')
-  }
+  const formatZhuyin = (zhuyin: ZhuyinSyllable[]): string => formatZhuyinDisplay(zhuyin)
 
   // Parse manual Zhuyin input with numeric tones (e.g., "ㄊㄡ2" or "ㄊㄡˊ")
   const parseManualZhuyin = (input: string): { syllables: ZhuyinSyllable[], errors: string[] } => {
