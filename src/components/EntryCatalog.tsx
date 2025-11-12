@@ -55,26 +55,21 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
   }, [items, sortBy, filterBy])
 
   useEffect(() => {
-    if (!headerRef.current) return
+    const handleScroll = () => {
+      const threshold = headerRef.current
+        ? headerRef.current.offsetTop + headerRef.current.offsetHeight
+        : 200
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries
-        setShowBackToTop(!entry.isIntersecting)
-      },
-      {
-        root: null,
-        threshold: 0,
-        rootMargin: '-80px 0px 0px 0px'
-      }
-    )
+      setShowBackToTop(window.scrollY > threshold)
+    }
 
-    observer.observe(headerRef.current)
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
-      observer.disconnect()
+      window.removeEventListener('scroll', handleScroll)
     }
-  }, [headerRef])
+  }, [])
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -704,7 +699,7 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
           type="button"
           onClick={scrollToTop}
           aria-label="Back to top"
-          className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+          className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         >
           <ChevronUpIcon className="h-5 w-5" />
           <span className="hidden sm:inline text-sm font-semibold">Back to top</span>
