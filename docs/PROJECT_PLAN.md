@@ -173,25 +173,26 @@ Status legend: ☐ Pending · ⧖ In Progress · ☑ Completed
 - Subtask 6.1.2 (4 pts) — Introduce Supabase client mocks to eliminate network calls during tests
 - Subtask 6.1.3 (4 pts) — Add integration tests for Add Item → practice flow and TrainingMode queue progression
 - Subtask 6.1.4 (2 pts) — Ensure lint, typecheck, and `npm run test:run` pass in CI without external services
-- **Subtask 6.1.5 (3 pts) — 🐛 BUG: Add manual Zhuyin input for missing dictionary entries**
-  - AddItemForm currently shows read-only Zhuyin field when dictionary lookup fails
-  - **Replace with text input accepting both tone marks AND numeric format**
-  - Accept: `ㄊㄡˊ` (if pasted) OR `ㄊㄡ2` (numeric: 1=ˉ, 2=ˊ, 3=ˇ, 4=ˋ, 5=˙)
-  - **UI guidance:** Show placeholder "ㄊㄡ2" with helper text "Use numbers for tones: 1-5"
-  - Display live preview of converted Zhuyin below input field
-  - Parse input into ZhuyinSyllable array format: `[["ㄊ","ㄡ","ˊ"]]`
-  - Validate complete syllables before submission (consonant/vowel + tone)
-  - Still log to dictionary_missing even when manual entry succeeds
-  - Per REQUIREMENTS.md: "Manual entries fully functional in drills (no degraded experience)"
-- **Subtask 6.1.6 (2 pts) — 🐛 BUG: Exit Training shows no summary when clicked mid-session**
-  - Currently `exitTraining()` navigates directly to dashboard without summary
-  - Should show session stats modal (points, accuracy, progress) with "Exit" and "Continue" options
-  - Summary modal already exists for natural session end - reuse for manual exit
-- **Subtask 6.1.7 (3 pts) — 🐛 BUG: Drill B generates duplicate character options (e.g., "頭頭")**
-  - Fallback padding logic duplicates last character when confusion maps insufficient
-  - Line 353 in drillBuilders.ts: `correctTraditional + correctTraditional[correctTraditional.length - 1]`
-  - Need better fallback: use dictionary entries for random valid characters, or simpler visual variants
-  - Expand CONFUSE_TRAD_VISUAL confusion maps to cover common characters (頭, 門, etc.)
+- **Subtask 6.1.5 (3 pts) — ✅ FIXED: Add manual Zhuyin input for missing dictionary entries**
+  - ✅ AddItemForm.tsx now has editable Zhuyin input when dictionary lookup fails
+  - ✅ Accepts both tone marks (`ㄊㄡˊ`) AND numeric format (`ㄊㄡ2`)
+  - ✅ `parseManualZhuyin()` function converts numeric tones (1-5) to symbols (ˉˊˇˋ˙)
+  - ✅ Live preview shows converted Zhuyin in green box as user types
+  - ✅ Validates complete syllables before submission
+  - ✅ Still logs to dictionary_missing for expansion tracking
+  - **Location:** `src/components/AddItemForm.tsx` (lines 45, 156-236, 535-566)
+- **Subtask 6.1.6 (2 pts) — ✅ FIXED: Exit Training shows summary when clicked mid-session**
+  - ✅ `exitTraining()` now checks if user has practiced (`sessionTotal > 0`)
+  - ✅ Shows session stats modal with points, accuracy, correct count
+  - ✅ Modal offers "Continue Training" or "Exit to Dashboard" options
+  - ✅ Only direct exit if no practice completed yet
+  - **Location:** `src/components/TrainingMode.tsx` (lines 30, 108-116, 244-289)
+- **Subtask 6.1.7 (3 pts) — ✅ FIXED: Drill B duplicate character options prevented**
+  - ✅ Uses `Set<string>` deduplication to prevent exact duplicates
+  - ✅ 4-strategy fallback system: visual confusion → multi-char tweaks → random fabrication → char swapping
+  - ✅ Final fallback adds suffixes (e.g., `頭字` instead of `頭頭`)
+  - ✅ Common Traditional characters list provides 30+ substitutes
+  - **Location:** `src/lib/drillBuilders.ts` (lines 267, 360-400)
 
 ### Task 6.2 — Release Preparation & Authentication ☐
 - Subtask 6.2.1 (3 pts) — Implement proper login/signup UI (replace auto-login in Dashboard.tsx)

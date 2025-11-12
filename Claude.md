@@ -222,6 +222,7 @@ For significant changes (>50 lines or >3 files):
 
 ### UI/UX Patterns
 - Zhuyin displayed horizontally (ㄓㄠˊ) matching Taiwan textbook format
+- Suppress first-tone marker (ˉ) in Zhuyin display to align with common textbook conventions
 - 300ms debounced dictionary lookup for responsiveness
 - Drill selection modal before training (proficiency-based recommendations)
 - Sticky action bar for primary functions (Add Item, Launch Training)
@@ -264,20 +265,19 @@ For significant changes (>50 lines or >3 files):
 - Dictionary: 1,067 characters (HSK 1-4), 86% properly structured
 - All core features complete: Drills A/B, familiarity scoring, entry management, training mode
 
-### **Session 8 Complete (Nov 10, 2025)** ✅
-**Status:** All planned work deployed to production
+### **Session 9 Complete (Nov 12, 2025)** ✅
+**Status:** Mobile polish + repository cleanup complete
 
 **Completed & Deployed:**
-1. ✅ **Migration 010a** - Applied and verified (248 tone marks + 22 multi-pronunciation + 麼)
-2. ✅ **Multi-pronunciation review UI** - Variant selection with yellow badges (PR #1)
-3. ✅ **Bug #2** - Entry Catalog refresh after add character (PR #2)
-4. ✅ **Bug #4** - Auth persistence with explicit localStorage config (PR #3)
-5. ✅ **Bug #7** - Practice Demo mockMode always true (PR #4)
-6. ✅ **Bug #5 & #6** - Layout fixes + developer tools cleanup (PR #5)
-7. ✅ **Production data cleanup** - 86 → 9 legitimate missing entries
-8. ✅ **Dictionary logger validation** - Rejects Zhuyin/test inputs going forward
+1. ✅ **PR #8** - Mobile header uniformity (fixed dashboard action button wrapping/height)
+2. ✅ **PR #9** - Hide first-tone marker (ˉ) in Zhuyin display (preserves data integrity, matches textbook format)
+3. ✅ **Shared Zhuyin helper** - Created `src/lib/zhuyin.ts` for consistent formatting
+4. ✅ **Repository cleanup** - Organized scattered files per REPO_STRUCTURE.md
+5. ✅ **PROJECT_PLAN.md updated** - Marked bugs 6.1.5, 6.1.6, 6.1.7 as complete
 
-**Next Priority:** Epic 8 - Dictionary Quality Completion (139 chars, 20 pts, phased approach)
+**Session 8 Complete (Nov 10, 2025):** Migration 010a (248 tone marks + 22 multi-pronunciation + 麼), Multi-pronunciation review UI (PR #1), Bug fixes #2-#7 (5 PRs), Production data cleanup (86 → 9 entries), Dictionary logger validation
+
+**Next Priority:** Epic 8 Phase 1 - Dictionary Quality (10 high-frequency characters, ~3 hrs)
 
 ### **Epic Status Overview**
 - Epic 1-6: ✅ COMPLETE (V1 production deployed)
@@ -300,12 +300,23 @@ For significant changes (>50 lines or >3 files):
 ### Open Issues
 - **Mobile landscape:** Next button requires scrolling after option selection (Epic 7, optional polish)
 
-### Recently Fixed (Session 8 - Nov 10, 2025)
+### Recently Fixed
+
+**Session 9 (Nov 12, 2025):**
+- ✅ Mobile header button wrapping on narrow screens (PR #8)
+- ✅ First-tone marker (ˉ) display in Zhuyin (PR #9)
+
+**Session 8 (Nov 10, 2025):**
 - ✅ **Bug #2** - Entry Catalog refresh after add character (PR #2)
 - ✅ **Bug #4** - Auth persistence across browser restarts (PR #3)
 - ✅ **Bug #5** - Practice Demo Zhuyin layout in portrait mode (PR #5)
 - ✅ **Bug #6** - Dictionary UI button cutoff on mobile (PR #5)
 - ✅ **Bug #7** - Practice Demo writing to production database (PR #4)
+
+**Epic 6 (Pre-Session 8):**
+- ✅ **Bug 6.1.5** - Manual Zhuyin input for missing dictionary entries (AddItemForm.tsx)
+- ✅ **Bug 6.1.6** - Exit Training summary modal when clicked mid-session (TrainingMode.tsx)
+- ✅ **Bug 6.1.7** - Drill B duplicate character options prevented (drillBuilders.ts)
 
 ### Test Account (Can be deleted)
 - Email: `test@hanzidojo.local`

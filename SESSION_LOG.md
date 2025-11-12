@@ -2474,3 +2474,189 @@ DELETE FROM dictionary_missing WHERE simp IN (
 
 **Session 8 Summary:** Comprehensive dictionary quality sprint with 6 bug fixes, database cleanup, and developer tools organization. All work deployed to production and verified. Epic 8 (139 characters) ready to begin.
 
+---
+
+## Session 9: Mobile Header Polish & Zhuyin Readability
+**Date:** 2025-11-12  
+**Status:** ✅ Complete  
+**Epic Alignment:** Epic 7 (Mobile polish) & Drill UX refinements
+
+### 🎯 Objectives & Outcomes
+1. ✅ Align dashboard action buttons on mobile and prevent wrapping in the sticky header.
+2. ✅ Remove the visual first-tone marker (ˉ) from Zhuyin displays while preserving data integrity.
+3. ✅ Package updates for user review via Vercel preview (PR #9 merged).
+
+### 📋 Work Completed
+
+#### PR #8 (merged): Mobile Header Uniformity
+- Branch: `fix/mobile-header` (merged via PR #8).
+- Ensured Add Item and Train buttons share fixed height, centered emoji + label, and shortened copy to keep single line.
+- Addressed user mobile feedback where "Launch Training" wrapped and appeared taller.
+
+#### PR #9 (merged): Hide First-Tone Marker in Zhuyin Display
+- Branch: `fix/zhuyin-first-tone-display` (https://github.com/melodykoh/hanzi-dojo/pull/9).
+- Introduced shared helper `src/lib/zhuyin.ts` that strips the first-tone mark only when rendering.
+- Updated Drill A option builder, Entry Catalog details, Add Item form, and Dictionary Demo (used by Practice Demo) to use the helper.
+- Added regression test in `drillBuilders.test.ts` confirming first-tone markers no longer surface in displayed options.
+
+### 🔬 Testing
+- `npm run test:run` *(fails)* — legacy Vitest suites continue to fail from unmocked Supabase fetches and practice queue/service expectations; no new regressions observed from today’s changes.
+
+### 🧭 Decisions & Follow-Ups
+- Tone data remains stored with explicit first-tone marks; formatting change is purely presentational to match learner expectations from textbooks without first-tone indicators.
+- ✅ User QA on Vercel preview confirmed behavior; PR #9 merged to production.
+- Future improvement: stabilize Vitest environment with Supabase mocks so CI can validate these flows.
+
+### 📌 Next Session Considerations
+- Confirm other Zhuyin renderers (e.g., training summaries or analytics when re-enabled) reuse the helper.
+- Monitor Drill A sessions on-device to ensure the first-tone change resolves learner confusion.
+
+
+---
+
+## Session 10: Repository Cleanup & Epic 8 Preparation
+**Date:** 2025-11-12  
+**Status:** ✅ Complete (Cleanup) → 🚀 Ready for Epic 8 Phase 1  
+**Epic Alignment:** Repository Housekeeping + Epic 8 Phase 1 Planning
+
+### 🎯 Objectives & Outcomes
+1. ✅ Organized scattered files per REPO_STRUCTURE.md guidelines
+2. ✅ Updated documentation to reflect Sessions 8-9 completion
+3. ✅ Marked Epic 6 bugs (6.1.5, 6.1.6, 6.1.7) as complete in PROJECT_PLAN.md
+4. ✅ Prepared repository for Epic 8 Phase 1 (dictionary quality research)
+
+### 📋 Work Completed
+
+#### Git Branch Cleanup
+- Switched from `fix/zhuyin-first-tone-display` to `main`
+- Pulled latest changes from origin (8 commits ahead)
+- Deleted merged local branches:
+  - `fix/zhuyin-first-tone-display` (PR #9)
+  - `fix/mobile-header` (PR #8)
+  - `fix/back-to-top-session` (PR #7)
+
+#### File Organization
+**Moved to proper locations per REPO_STRUCTURE.md:**
+- `MIGRATION_010a_SAFETY_CHECKLIST.md` → `docs/operational/`
+- Research artifacts archived to `data/backups/`:
+  - `dictionary-audit-results.json`
+  - `multi-pronunciation-verification.json`
+  - `triage-results.json`
+  - `research-multi-pronunciation.js`
+  - `reset-practice-data-simple.sql`
+  - `reset-practice-data.sql`
+  - `reset-practice-data.js`
+  - `cleanup-missing-entries-enhanced.sql`
+- Added `screenshots/` to `.gitignore` (testing artifacts, not tracked)
+
+#### Documentation Updates
+**PROJECT_PLAN.md:**
+- Marked Subtask 6.1.5 (Manual Zhuyin input) as ✅ FIXED
+- Marked Subtask 6.1.6 (Exit Training summary) as ✅ FIXED
+- Marked Subtask 6.1.7 (Drill B duplicates) as ✅ FIXED
+- Added implementation locations and verification details for each fix
+
+**Claude.md:**
+- Added Session 9 completion summary (PR #8, PR #9)
+- Updated "Recently Fixed" section with Session 9 + Epic 6 bug fixes
+- Updated "Next Priority" to Epic 8 Phase 1
+- Consolidated Session 8 summary to single line
+
+**SESSION_LOG.md:**
+- Added this Session 10 entry
+
+### 🔍 Bug Fix Verification
+Confirmed all 3 bugs are implemented in codebase:
+
+| Bug | Status | Location | Key Implementation |
+|-----|--------|----------|-------------------|
+| **6.1.5 - Manual Zhuyin Input** | ✅ VERIFIED | `AddItemForm.tsx:45,156-236,535-566` | `parseManualZhuyin()` accepts numeric tones (1-5) + live preview |
+| **6.1.6 - Exit Summary Modal** | ✅ VERIFIED | `TrainingMode.tsx:30,108-116,244-289` | Shows modal if `sessionTotal > 0`, offers Continue/Exit |
+| **6.1.7 - Drill B Duplicates** | ✅ VERIFIED | `drillBuilders.ts:267,360-400` | Set deduplication + 4-strategy fallback system |
+
+### 📊 Repository Health
+**Before Cleanup:**
+- 3 stale local branches
+- 8 untracked research files in `/scripts/`
+- Migration checklist in root directory
+- Documentation outdated (Session 9 not reflected)
+
+**After Cleanup:**
+- Main branch up-to-date (328c6ad)
+- All research artifacts archived to `data/backups/`
+- Operational docs properly organized in `docs/operational/`
+- Documentation current through Session 9
+- Ready for Epic 8 Phase 1
+
+### 🎯 Next: Epic 8 Phase 1 - Dictionary Quality (High-Value Characters)
+
+**Scope:** Research top 10 most common Category 1 multi-pronunciation characters
+
+**Target Characters:**
+1. 行 (xíng / háng) - to walk / row, profession
+2. 重 (zhòng / chóng) - heavy / to repeat
+3. 还 (hái / huán) - still / to return
+4. 为 (wèi / wéi) - for, because / to act as
+5. 给 (gěi / jǐ) - to give / to supply
+6. 都 (dōu / dū) - all / capital city
+7. 没 (méi / mò) - not have / sink
+8. 教 (jiāo / jiào) - to teach / teaching
+9. 正 (zhèng / zhēng) - correct / first month
+10. 更 (gēng / gèng) - to change / even more
+
+**Research Checklist Per Character:**
+- [ ] Document all pronunciation variants (pinyin + zhuyin)
+- [ ] Find 2-3 context words per variant
+- [ ] Identify most common usage (becomes default)
+- [ ] Note Taiwan-specific pronunciations
+- [ ] Source: MDBG, Taiwan MOE Dictionary, Pleco
+
+**Output:** `data/multi_pronunciation_phase1.json`  
+**Timeline:** ~2 hours (10 chars × 10-12 min each)  
+**Migration:** `supabase/migrations/011a_dictionary_quality_phase1.sql`
+
+**Story Points:** 8 pts (Phase 1 of Epic 8's 20 pts)
+
+### 📁 Files Modified
+- `docs/operational/MIGRATION_010a_SAFETY_CHECKLIST.md` (moved from root)
+- `docs/PROJECT_PLAN.md` (+25 lines) - Bug fixes marked complete
+- `Claude.md` (+15 lines) - Session 9 update
+- `SESSION_LOG.md` (this entry)
+- `.gitignore` (+1 line) - Screenshots excluded
+
+### 📁 Files Archived
+- `data/backups/dictionary-audit-results.json`
+- `data/backups/multi-pronunciation-verification.json`
+- `data/backups/triage-results.json`
+- `data/backups/research-multi-pronunciation.js`
+- `data/backups/reset-practice-data-simple.sql`
+- `data/backups/reset-practice-data.sql`
+- `data/backups/reset-practice-data.js`
+- `data/backups/cleanup-missing-entries-enhanced.sql`
+
+### 🎓 Lessons Learned
+**Repository Organization:**
+- Regular cleanup prevents scattered file accumulation
+- Following REPO_STRUCTURE.md maintains long-term clarity
+- Archiving research artifacts preserves history without cluttering workspace
+
+**Documentation Discipline:**
+- Marking bugs complete requires verification + location references
+- Consolidating session summaries prevents Claude.md from growing too long
+- SESSION_LOG.md is append-only single source of truth
+
+**Git Hygiene:**
+- Delete merged branches after each session
+- Keep main branch up-to-date before starting new work
+- Untracked files need regular review and archiving
+
+### 🚀 Ready to Proceed
+- ✅ Repository organized per structure guidelines
+- ✅ Documentation current through Session 9
+- ✅ Git branches clean and up-to-date
+- ✅ Epic 8 Phase 1 scope defined
+- 🎯 **Next:** Begin dictionary research for 10 high-frequency characters
+
+---
+
+**Session 10 Summary:** Repository cleanup complete. All scattered files organized, documentation updated, bugs marked complete. Ready to begin Epic 8 Phase 1 dictionary quality research.

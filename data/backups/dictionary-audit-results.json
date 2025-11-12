@@ -1,0 +1,2100 @@
+{
+  "emptyToneFixes": [
+    {
+      "char": "专",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄨㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "且",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄐ",
+      "final": "ㄩ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "丢",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄉ",
+      "final": "ㄧㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "丰",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄈ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "之",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "乎",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄏ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "乒",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄆ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "乓",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄆ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "争",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "于",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "亚",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "些",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄝ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "交",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "京",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "亲",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "仔",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄗ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "份",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄅ",
+      "final": "ㄧㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "休",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "优",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "伤",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "估",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "体",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄊ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "何",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄏ",
+      "final": "ㄜ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "供",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "信",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄕ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "修",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "先",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "公",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "共",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄍ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "兴",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "其",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄐ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "冬",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄉ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "冰",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "净",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄔ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "几",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "刀",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄉ",
+      "final": "ㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "切",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧㄝ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "刚",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "刮",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄨㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "刷",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄨㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "功",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "加",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "包",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "化",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄏ",
+      "final": "ㄨㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "区",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄩ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "区",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "",
+      "final": "ㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "医",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "千",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "单",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄉ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "占",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "危",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄨㄟ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "厅",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄊ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "压",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "参",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄘ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "参",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄕ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "参",
+      "context": "main",
+      "syllableIndex": 2,
+      "initial": "ㄘ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "参",
+      "context": "main",
+      "syllableIndex": 3,
+      "initial": "ㄙ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "双",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄨㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "发",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄈ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "叔",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "句",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄍ",
+      "final": "ㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "只",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "台",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄊ",
+      "final": "ㄞ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "司",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄙ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "吧",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "吸",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "呀",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "周",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "呼",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄏ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "咖",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄎ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "咖",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄍ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "咳",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄏ",
+      "final": "ㄞ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "哭",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄎ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "商",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "啊",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "啡",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄈ",
+      "final": "ㄟ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "因",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "圾",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "坚",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "垃",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄌ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "基",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "增",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄗ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "声",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "夫",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄈ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "失",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "奇",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄐ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "妻",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "婚",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄏ",
+      "final": "ㄨㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "孙",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄙ",
+      "final": "ㄨㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "它",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄊ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "安",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "宾",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄧㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "封",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄈ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "将",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "尊",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄗ",
+      "final": "ㄨㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "居",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄩ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "工",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "差",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄔ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "差",
+      "context": "main",
+      "syllableIndex": 2,
+      "initial": "ㄔ",
+      "final": "ㄞ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "差",
+      "context": "main",
+      "syllableIndex": 3,
+      "initial": "ㄘ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "巾",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "师",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "希",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "帮",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "干",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "幽",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "应",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "康",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄎ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "张",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "当",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄉ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "微",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄨㄟ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "思",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄙ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "思",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄙ",
+      "final": "ㄞ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "息",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "悉",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "惊",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "惜",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "愉",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄊ",
+      "final": "ㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "戏",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄏ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "戚",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "扔",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄖ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "批",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄆ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "折",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄜ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "抽",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄔ",
+      "final": "ㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "担",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄉ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "拉",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄌ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "招",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "据",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄐ",
+      "final": "ㄩ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "接",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄝ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "推",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄊ",
+      "final": "ㄨㄟ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "提",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄉ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "搬",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "播",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄛ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "擦",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄘ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "支",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "收",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "教",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄐ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "敲",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "斤",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "方",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄈ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "星",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "春",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄔ",
+      "final": "ㄨㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "更",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "期",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "期",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄐ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "机",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "条",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄊ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "杯",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄟ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "松",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄙ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "查",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄓ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "标",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "根",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "桌",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄨㄛ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "梯",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄊ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "森",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄙ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "棵",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄎ",
+      "final": "ㄜ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "椅",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "欢",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄏ",
+      "final": "ㄨㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "歌",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄜ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "正",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄓ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "汁",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "江",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "污",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "汤",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄊ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "汤",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄕ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "沙",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "泼",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄆ",
+      "final": "ㄛ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "洲",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "消",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "深",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "清",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "温",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄨㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "漂",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄆ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "激",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "烟",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "烧",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "片",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄆ",
+      "final": "ㄧㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "猜",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄘ",
+      "final": "ㄞ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "班",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "瓜",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄨㄚ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "申",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "登",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄉ",
+      "final": "ㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "相",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "真",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "睛",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "票",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄆ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "禁",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "秋",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "科",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄎ",
+      "final": "ㄜ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "租",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄗ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "积",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "稍",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "究",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "空",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄎ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "穿",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄔ",
+      "final": "ㄨㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "突",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄊ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "窗",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄔ",
+      "final": "ㄨㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "签",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "箱",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "篇",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄆ",
+      "final": "ㄧㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "粗",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄘ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "精",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "糕",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "约",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄩㄝ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "约",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "终",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "经",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "结",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄐ",
+      "final": "ㄧㄝ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "缺",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄩㄝ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "羞",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "翻",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄈ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "聪",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄘ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "肤",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄈ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "胳",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄜ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "脏",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄗ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "脱",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄊ",
+      "final": "ㄨㄛ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "膏",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "舒",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "般",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "蕉",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "虽",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄙ",
+      "final": "ㄨㄟ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "街",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄝ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "衣",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "衫",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "被",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄆ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "观",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄨㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "规",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄨㄟ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "许",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄩ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "该",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄞ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "资",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄗ",
+      "final": "",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "超",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄔ",
+      "final": "ㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "趟",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄊ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "跟",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "踢",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄊ",
+      "final": "ㄧ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "轻",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "输",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄕ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "辛",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄒ",
+      "final": "ㄧㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "边",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄅ",
+      "final": "ㄧㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "通",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄊ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "邀",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "郊",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄐ",
+      "final": "ㄧㄠ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "都",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄉ",
+      "final": "ㄨ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "都",
+      "context": "main",
+      "syllableIndex": 1,
+      "initial": "ㄉ",
+      "final": "ㄡ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "酸",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄙ",
+      "final": "ㄨㄢ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "针",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄣ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "钟",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄓ",
+      "final": "ㄨㄥ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "钢",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄍ",
+      "final": "ㄤ",
+      "fixedTone": "ˉ"
+    },
+    {
+      "char": "铅",
+      "context": "main",
+      "syllableIndex": 0,
+      "initial": "ㄑ",
+      "final": "ㄧㄢ",
+      "fixedTone": "ˉ"
+    }
+  ],
+  "multiPronunciationFixes": [
+    {
+      "char": "乐",
+      "syllables": 4,
+      "needsManualReview": true
+    },
+    {
+      "char": "仔",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "何",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "单",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "参",
+      "syllables": 4,
+      "needsManualReview": true
+    },
+    {
+      "char": "吗",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "员",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "和",
+      "syllables": 5,
+      "needsManualReview": true
+    },
+    {
+      "char": "咱",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "哪",
+      "syllables": 4,
+      "needsManualReview": true
+    },
+    {
+      "char": "啊",
+      "syllables": 5,
+      "needsManualReview": true
+    },
+    {
+      "char": "差",
+      "syllables": 4,
+      "needsManualReview": true
+    },
+    {
+      "char": "当",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "折",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "提",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "数",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "漂",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "空",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "累",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "胖",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "落",
+      "syllables": 3,
+      "needsManualReview": true
+    },
+    {
+      "char": "解",
+      "syllables": 3,
+      "needsManualReview": true
+    }
+  ]
+}
