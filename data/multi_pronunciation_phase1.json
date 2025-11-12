@@ -1,0 +1,230 @@
+{
+  "phase": "Phase 1 - High-Frequency Characters",
+  "date": "2025-11-12",
+  "character_count": 10,
+  "description": "Top 10 most common Category 1 multi-pronunciation characters from Epic 8",
+  "characters": [
+    {
+      "simp": "行",
+      "trad": "行",
+      "default_pronunciation": {
+        "pinyin": "xíng",
+        "zhuyin": [["ㄒ", "ㄧㄥ", "ˊ"]],
+        "meanings": ["to walk", "to go", "to travel", "to do", "OK", "capable"],
+        "context_words": ["步行", "旅行", "可行", "不行", "流行"],
+        "hsk_level": 1
+      },
+      "variants": [
+        {
+          "pinyin": "háng",
+          "zhuyin": [["ㄏ", "ㄤ", "ˊ"]],
+          "meanings": ["row", "line", "profession", "business"],
+          "context_words": ["银行", "行业", "一行", "同行"],
+          "hsk_level": 3
+        }
+      ],
+      "notes": "Most common multi-pronunciation character. xíng for movement/action, háng for rows/professions."
+    },
+    {
+      "simp": "重",
+      "trad": "重",
+      "default_pronunciation": {
+        "pinyin": "zhòng",
+        "zhuyin": [["ㄓ", "ㄨㄥ", "ˋ"]],
+        "meanings": ["heavy", "serious", "important", "to attach importance to"],
+        "context_words": ["重要", "体重", "重量", "严重"],
+        "hsk_level": 1
+      },
+      "variants": [
+        {
+          "pinyin": "chóng",
+          "zhuyin": [["ㄔ", "ㄨㄥ", "ˊ"]],
+          "meanings": ["to repeat", "again", "re-", "layer"],
+          "context_words": ["重复", "重新", "重来"],
+          "hsk_level": 3
+        }
+      ],
+      "notes": "zhòng for weight/importance, chóng for repetition."
+    },
+    {
+      "simp": "还",
+      "trad": "還",
+      "default_pronunciation": {
+        "pinyin": "hái",
+        "zhuyin": [["ㄏ", "ㄞ", "ˊ"]],
+        "meanings": ["still", "yet", "even more", "also", "in addition"],
+        "context_words": ["还有", "还是", "还好"],
+        "hsk_level": 1
+      },
+      "variants": [
+        {
+          "pinyin": "huán",
+          "zhuyin": [["ㄏ", "ㄨㄢ", "ˊ"]],
+          "meanings": ["to return", "to give back", "to pay back"],
+          "context_words": ["还钱", "归还", "偿还"],
+          "hsk_level": 1
+        }
+      ],
+      "notes": "hái is adverb (still/also), huán is verb (to return)."
+    },
+    {
+      "simp": "为",
+      "trad": "為",
+      "default_pronunciation": {
+        "pinyin": "wèi",
+        "zhuyin": [["ㄨ", "ㄟ", "ˋ"]],
+        "meanings": ["for", "because of", "to"],
+        "context_words": ["因为", "为了", "为什么"],
+        "hsk_level": 2
+      },
+      "variants": [
+        {
+          "pinyin": "wéi",
+          "zhuyin": [["ㄨ", "ㄟ", "ˊ"]],
+          "meanings": ["as", "to act as", "to serve as", "to become", "to be"],
+          "context_words": ["作为", "认为", "成为", "行为"],
+          "hsk_level": 3
+        }
+      ],
+      "notes": "wèi for purpose/reason, wéi for acting as/becoming."
+    },
+    {
+      "simp": "给",
+      "trad": "給",
+      "default_pronunciation": {
+        "pinyin": "gěi",
+        "zhuyin": [["ㄍ", "ㄟ", "ˇ"]],
+        "meanings": ["to give", "for", "to allow", "by (passive)"],
+        "context_words": ["给你", "送给", "给他"],
+        "hsk_level": 1
+      },
+      "variants": [
+        {
+          "pinyin": "jǐ",
+          "zhuyin": [["ㄐ", "ㄧ", "ˇ"]],
+          "meanings": ["to supply", "to provide"],
+          "context_words": ["供给", "给予"],
+          "hsk_level": null
+        }
+      ],
+      "notes": "gěi is extremely common, jǐ is rare in spoken Chinese."
+    },
+    {
+      "simp": "都",
+      "trad": "都",
+      "default_pronunciation": {
+        "pinyin": "dōu",
+        "zhuyin": [["ㄉ", "ㄡ", "ˉ"]],
+        "meanings": ["all", "both", "entirely", "even", "already"],
+        "context_words": ["都是", "全都", "都有"],
+        "hsk_level": 1
+      },
+      "variants": [
+        {
+          "pinyin": "dū",
+          "zhuyin": [["ㄉ", "ㄨ", "ˉ"]],
+          "meanings": ["capital city", "metropolis", "surname Du"],
+          "context_words": ["首都", "成都", "都市"],
+          "hsk_level": null
+        }
+      ],
+      "notes": "dōu is adverb (all), dū is noun (capital city)."
+    },
+    {
+      "simp": "没",
+      "trad": "沒",
+      "default_pronunciation": {
+        "pinyin": "méi",
+        "zhuyin": [["ㄇ", "ㄟ", "ˊ"]],
+        "meanings": ["not", "have not", "did not"],
+        "context_words": ["没有", "没关系", "没事"],
+        "hsk_level": 1
+      },
+      "variants": [
+        {
+          "pinyin": "mò",
+          "zhuyin": [["ㄇ", "ㄛ", "ˋ"]],
+          "meanings": ["to sink", "to drown", "to submerge", "to die"],
+          "context_words": ["淹没", "沉没", "埋没"],
+          "hsk_level": null
+        }
+      ],
+      "notes": "méi is negative prefix (extremely common), mò is literary (sink/drown)."
+    },
+    {
+      "simp": "教",
+      "trad": "教",
+      "default_pronunciation": {
+        "pinyin": "jiāo",
+        "zhuyin": [["ㄐ", "ㄧㄠ", "ˉ"]],
+        "meanings": ["to teach", "to instruct"],
+        "context_words": ["教书", "教会", "教给"],
+        "hsk_level": 1
+      },
+      "variants": [
+        {
+          "pinyin": "jiào",
+          "zhuyin": [["ㄐ", "ㄧㄠ", "ˋ"]],
+          "meanings": ["teaching", "religion", "to cause", "to tell"],
+          "context_words": ["教育", "教室", "宗教", "教学"],
+          "hsk_level": 2
+        }
+      ],
+      "notes": "jiāo in single-syllable words (教书), jiào in multi-syllable words (教育, 宗教)."
+    },
+    {
+      "simp": "正",
+      "trad": "正",
+      "default_pronunciation": {
+        "pinyin": "zhèng",
+        "zhuyin": [["ㄓ", "ㄥ", "ˋ"]],
+        "meanings": ["correct", "upright", "proper", "main", "exactly", "just"],
+        "context_words": ["正常", "正在", "正确", "正好"],
+        "hsk_level": 1
+      },
+      "variants": [
+        {
+          "pinyin": "zhēng",
+          "zhuyin": [["ㄓ", "ㄥ", "ˉ"]],
+          "meanings": ["first month of the lunar year"],
+          "context_words": ["正月"],
+          "hsk_level": 1
+        }
+      ],
+      "notes": "zhèng is common (correct/proper), zhēng only in 正月 (first lunar month)."
+    },
+    {
+      "simp": "更",
+      "trad": "更",
+      "default_pronunciation": {
+        "pinyin": "gèng",
+        "zhuyin": [["ㄍ", "ㄥ", "ˋ"]],
+        "meanings": ["more", "even more", "further", "still"],
+        "context_words": ["更好", "更多", "更加"],
+        "hsk_level": 2
+      },
+      "variants": [
+        {
+          "pinyin": "gēng",
+          "zhuyin": [["ㄍ", "ㄥ", "ˉ"]],
+          "meanings": ["to change", "night watch period", "watch"],
+          "context_words": ["三更", "打更", "更换"],
+          "hsk_level": 2
+        }
+      ],
+      "notes": "gèng is comparative adverb (more), gēng is literary (change/night watch)."
+    }
+  ],
+  "sources": [
+    "MDBG Chinese Dictionary (https://www.mdbg.net/)",
+    "Context Chinese Dictionary (https://contextualchinese.com/)",
+    "Chinese Grammar Wiki (https://resources.allsetlearning.com/)",
+    "Various HSK vocabulary resources"
+  ],
+  "quality_notes": {
+    "default_selection": "Selected based on most common usage in modern Mandarin",
+    "context_words": "2-4 high-frequency words per pronunciation",
+    "taiwan_focus": "Pronunciations verified for Taiwan Mandarin standard",
+    "ready_for_migration": true
+  }
+}
