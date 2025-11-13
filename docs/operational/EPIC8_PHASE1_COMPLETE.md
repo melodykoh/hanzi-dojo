@@ -81,42 +81,29 @@ Successfully researched, documented, and generated migration for **35 confirmed 
 
 ---
 
-## ✅ Next Steps
+## ✅ Deployment Complete (Session 11)
 
-### 1. **Backup Dictionary (REQUIRED)**
-```bash
-node scripts/backup-dictionary.js
-```
-Creates: `data/backups/dictionary_backup_pre_011_YYYY-MM-DD.json`
+### Migration 011b - Pattern A Structure
+**Deployed:** 2025-11-12 (Session 11)
 
-### 2. **Test Migration Locally (RECOMMENDED)**
-```bash
-# Apply to local Supabase instance
-supabase db reset
-# Then apply migrations 001-011
+**Status:** ✅ Successfully applied to production
+- All 35 characters now show `variant_count = 2` (Pattern A structure)
+- Pronunciation modal displays default + variants with full context
+- Character 什 verified: shén (什么, 为什么) + shí (什锦)
 
-# Or use psql directly
-psql -h localhost -U postgres -d postgres < supabase/migrations/011_dictionary_quality_category1_complete.sql
-```
+**Pattern A Structure:**
+- Default pronunciation prepended as FIRST element in `zhuyin_variants` array
+- Provides context words for ALL pronunciations (default + alternates)
+- Unified structure with Migration 010a entries
 
-### 3. **Verify Results**
-Run the verification queries at the end of Migration 011:
-```sql
-SELECT simp, trad, zhuyin, zhuyin_variants,
-       jsonb_array_length(zhuyin_variants) as variant_count
-FROM dictionary_entries
-WHERE simp IN ('行', '重', '还', ... )
-ORDER BY simp;
-```
+**Key Files:**
+- `supabase/migrations/011b_pattern_a_structure.sql` - Production migration
+- `src/components/EntryCatalog.tsx` - Simplified modal logic (uses variants directly)
+- `scripts/generate-migration-011.cjs` - Updated with exclusion filter + rollback fix
 
-Expected: All 35 characters should have `variant_count > 0`
-
-### 4. **Apply to Production**
-Via Supabase Dashboard → SQL Editor:
-1. Copy contents of Migration 011
-2. Run in production (takes ~5 seconds)
-3. Verify with SELECT queries (should return 35 characters with variants)
-4. Test in AddItemForm - should see variant selection UI
+**Commits:**
+- `ca5b03c` - Adopt Pattern A for multi-pronunciation dictionary structure
+- `688c55f` - Add Migration 011b - Pattern A structure transformation
 
 ---
 
