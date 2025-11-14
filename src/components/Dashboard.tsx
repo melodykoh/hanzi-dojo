@@ -114,45 +114,44 @@ export function Dashboard() {
         </div>
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6 relative z-10">
-          <div className="flex items-center justify-between mb-3 sm:mb-4">
-            <div className="flex-1 min-w-0">
-              <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-1 sm:mb-2 tracking-wide drop-shadow-lg" style={{ textShadow: '0 4px 8px rgba(0,0,0,0.5)', lineHeight: '1.2' }}>
-                ⚔️ 漢字道場<br className="sm:hidden" />
-                <span className="hidden sm:inline"> </span>HANZI DOJO ⚔️
-              </h1>
-              <p className="text-ninja-yellow font-bold text-xs sm:text-sm md:text-base lg:text-lg tracking-wide uppercase">
-                Master the Art of Hanzi
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <ConnectionStatusBadge />
-              <button
-                onClick={handleSignOut}
-                className="px-4 py-2 bg-ninja-black text-white font-bold hover:bg-ninja-gray transition-all text-sm rounded shadow-lg border-2 border-ninja-gray"
-              >
-                SIGN OUT
-              </button>
-            </div>
+          {/* Utility bar - minimal, top right */}
+          <div className="flex items-center justify-end gap-2 mb-2 sm:mb-3">
+            <ConnectionStatusBadge />
+            <button
+              onClick={handleSignOut}
+              className="px-3 py-1.5 bg-ninja-black bg-opacity-50 text-white text-xs font-bold hover:bg-opacity-70 transition-all rounded border border-white border-opacity-30"
+            >
+              Sign Out
+            </button>
           </div>
 
-          {/* Action Bar - Responsive */}
-          <div className="grid w-full max-w-2xl gap-3 sm:gap-4 grid-cols-2">
+          {/* Hero title - dominant */}
+          <div className="text-center sm:text-left mb-4 sm:mb-5">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 tracking-wide drop-shadow-lg" style={{ textShadow: '0 4px 8px rgba(0,0,0,0.5)', lineHeight: '1.1' }}>
+              ⚔️ 漢字道場 HANZI DOJO ⚔️
+            </h1>
+            <p className="text-ninja-yellow font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide uppercase drop-shadow-md">
+              Master the Art of Hanzi
+            </p>
+          </div>
+
+          {/* Action Bar - Equal width, prominent */}
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-2xl mx-auto sm:mx-0">
             <OfflineAwareButton
               onClick={() => setShowAddItemForm(true)}
               disabled={!kidId}
-              className="ninja-button ninja-button-lightning disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1 sm:gap-2 text-sm sm:text-base"
+              className="ninja-button ninja-button-lightning disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base sm:text-lg font-black py-2.5"
             >
               <span aria-hidden="true">➕</span>
-              <span className="whitespace-nowrap">Add Item</span>
+              <span>Add Item</span>
             </OfflineAwareButton>
             <button
               onClick={handleLaunchTraining}
               disabled={!kidId}
-              className="ninja-button ninja-button-gold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1 sm:gap-2 text-sm sm:text-base"
+              className="ninja-button ninja-button-gold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base sm:text-lg font-black py-2.5"
             >
               <span aria-hidden="true">🥋</span>
-              <span className="whitespace-nowrap hidden sm:inline">Begin Training</span>
-              <span className="whitespace-nowrap sm:hidden">Train</span>
+              <span>Train</span>
             </button>
           </div>
         </div>

@@ -91,13 +91,15 @@ export function TrainingMode() {
     setToastPoints(points as 0 | 0.5 | 1.0)
     setShowToast(true)
 
-    // Move to next item
-    if (currentIndex + 1 < currentQueue.length) {
-      setCurrentIndex(prev => prev + 1)
-    } else {
-      // Session complete
-      setShowSummary(true)
-    }
+    // Delay moving to next item to allow Spinjitzu animation to start
+    setTimeout(() => {
+      if (currentIndex + 1 < currentQueue.length) {
+        setCurrentIndex(prev => prev + 1)
+      } else {
+        // Session complete
+        setShowSummary(true)
+      }
+    }, 300)
   }
 
   const handleError = (error: Error) => {

@@ -63,26 +63,28 @@ export function FeedbackToast({
   show,
   points,
   message,
-  duration = 3500,
+  duration = 2500,
   onHide
 }: FeedbackToastProps) {
   const [visible, setVisible] = useState(false)
-  
+  const [animationKey, setAnimationKey] = useState(Date.now())
+
   useEffect(() => {
     if (show) {
       setVisible(true)
-      
+      setAnimationKey(Date.now()) // Use timestamp for guaranteed uniqueness
+
       const timer = setTimeout(() => {
         setVisible(false)
         if (onHide) onHide()
       }, duration)
-      
+
       return () => clearTimeout(timer)
     } else {
       setVisible(false)
     }
   }, [show, duration, onHide])
-  
+
   if (!visible) return null
 
   const senseiMessage = message || getRandomMessage(points)
@@ -97,7 +99,7 @@ export function FeedbackToast({
         badgeBg: 'bg-ninja-green',
         badgeBorder: 'border-4 border-green-700',
         shimmer: true,
-        glow: 'element-energy'
+        glow: '' // Removed element-energy to fix animation conflict with spinjitzu-spin
       }
     } else if (points === 0.5) {
       // Energy (partial success)
@@ -125,8 +127,9 @@ export function FeedbackToast({
   const style = getElementalStyle()
 
   return (
-    <div className="fixed top-4 left-0 right-0 z-50 flex justify-center">
-      <div className={`
+    <div key={animationKey} className="fixed top-4 left-0 right-0 z-50 flex justify-center">
+      <div
+        className={`
         ${style.bg} ${style.border}
         text-white px-8 py-6 shadow-2xl
         flex items-center gap-6 min-w-[380px]
