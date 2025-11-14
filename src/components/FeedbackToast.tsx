@@ -9,50 +9,8 @@ import { useEffect, useState } from 'react'
 export interface FeedbackToastProps {
   show: boolean
   points: 0 | 0.5 | 1.0
-  message: string
   duration?: number
   onHide?: () => void
-}
-
-// =============================================================================
-// SENSEI MESSAGES
-// =============================================================================
-
-const SENSEI_MESSAGES = {
-  firstTry: [
-    'Perfect form!',
-    'Excellent focus!',
-    'The Sensei nods in approval.',
-    'Your strokes are strong!',
-    'Well done, student!'
-  ],
-  secondTry: [
-    'Good recovery.',
-    'Better with practice.',
-    'You found the way.',
-    'Persistence pays off.',
-    'Every stroke improves.'
-  ],
-  miss: [
-    'The Sensei shows you the way.',
-    'We learn through practice.',
-    'Study this form carefully.',
-    'Every master was once a beginner.',
-    'Return to this character.'
-  ]
-}
-
-function getRandomMessage(points: 0 | 0.5 | 1.0): string {
-  if (points === 1.0) {
-    const messages = SENSEI_MESSAGES.firstTry
-    return messages[Math.floor(Math.random() * messages.length)]
-  } else if (points === 0.5) {
-    const messages = SENSEI_MESSAGES.secondTry
-    return messages[Math.floor(Math.random() * messages.length)]
-  } else {
-    const messages = SENSEI_MESSAGES.miss
-    return messages[Math.floor(Math.random() * messages.length)]
-  }
 }
 
 // =============================================================================
@@ -62,7 +20,6 @@ function getRandomMessage(points: 0 | 0.5 | 1.0): string {
 export function FeedbackToast({
   show,
   points,
-  message,
   duration = 2500,
   onHide
 }: FeedbackToastProps) {
@@ -86,8 +43,6 @@ export function FeedbackToast({
   }, [show, duration, onHide])
 
   if (!visible) return null
-
-  const senseiMessage = message || getRandomMessage(points)
 
   // Elemental styling based on points
   const getElementalStyle = () => {
@@ -224,7 +179,6 @@ export function FeedbackToastDemo() {
       <FeedbackToast
         show={show}
         points={points}
-        message=""
         onHide={() => setShow(false)}
       />
     </div>

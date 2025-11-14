@@ -381,7 +381,6 @@ export function PracticeDemo() {
       <FeedbackToast
         show={showToast}
         points={toastPoints}
-        message=""
         onHide={() => setShowToast(false)}
       />
     </div>
