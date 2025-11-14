@@ -163,63 +163,66 @@ export function TrainingMode() {
       <div className="fixed inset-0 bg-gradient-to-br from-red-800 to-red-600 overflow-auto">
       {/* Top Bar - Fixed position for Exit button and stats */}
       <div className="fixed top-0 left-0 right-0 bg-black bg-opacity-20 backdrop-blur-sm z-10">
-        <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          {/* Exit Button */}
-          <button
-            onClick={exitTraining}
-            className="px-6 py-3 bg-white text-red-700 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg text-lg"
-          >
-            ← Exit Training
-          </button>
+        <div className="w-full mx-auto px-3 py-3">
+          {/* Row 1: Exit Button and Drill Switcher */}
+          <div className="flex items-center justify-between mb-3">
+            {/* Exit Button */}
+            <button
+              onClick={exitTraining}
+              className="px-4 py-2 bg-white text-red-700 font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg text-sm sm:text-base"
+            >
+              ← Exit<span className="hidden sm:inline"> Training</span>
+            </button>
 
-          {/* Session Stats */}
-          <div className="flex items-center gap-6 text-white">
-            <div className="text-center">
-              <div className="text-3xl font-bold">{sessionScore.toFixed(1)}</div>
-              <div className="text-sm opacity-90">Points</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold">
-                {sessionTotal > 0 ? Math.round((sessionCorrect / sessionTotal) * 100) : 0}%
-              </div>
-              <div className="text-sm opacity-90">Accuracy</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold">
-                {currentIndex + 1}/{currentQueue.length}
-              </div>
-              <div className="text-sm opacity-90">Progress</div>
+            {/* Drill Switcher */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  setCurrentDrill('zhuyin')
+                  setCurrentIndex(0)
+                }}
+                className={`px-3 py-2 rounded-lg font-bold transition-colors text-sm sm:text-base ${
+                  currentDrill === 'zhuyin'
+                    ? 'bg-white text-red-700 shadow-lg'
+                    : 'bg-red-700 text-white hover:bg-red-800'
+                }`}
+              >
+                Drill A
+              </button>
+              <button
+                onClick={() => {
+                  setCurrentDrill('trad')
+                  setCurrentIndex(0)
+                }}
+                className={`px-3 py-2 rounded-lg font-bold transition-colors text-sm sm:text-base ${
+                  currentDrill === 'trad'
+                    ? 'bg-white text-red-700 shadow-lg'
+                    : 'bg-red-700 text-white hover:bg-red-800'
+                }`}
+              >
+                Drill B
+              </button>
             </div>
           </div>
 
-          {/* Drill Switcher */}
-          <div className="flex gap-3">
-            <button
-              onClick={() => {
-                setCurrentDrill('zhuyin')
-                setCurrentIndex(0)
-              }}
-              className={`px-5 py-3 rounded-lg font-bold transition-colors text-lg ${
-                currentDrill === 'zhuyin'
-                  ? 'bg-white text-red-700 shadow-lg'
-                  : 'bg-red-700 text-white hover:bg-red-800'
-              }`}
-            >
-              Drill A
-            </button>
-            <button
-              onClick={() => {
-                setCurrentDrill('trad')
-                setCurrentIndex(0)
-              }}
-              className={`px-5 py-3 rounded-lg font-bold transition-colors text-lg ${
-                currentDrill === 'trad'
-                  ? 'bg-white text-red-700 shadow-lg'
-                  : 'bg-red-700 text-white hover:bg-red-800'
-              }`}
-            >
-              Drill B
-            </button>
+          {/* Row 2: Session Stats */}
+          <div className="flex items-center justify-center gap-4 sm:gap-6 text-white">
+            <div className="text-center">
+              <div className="text-xl sm:text-2xl font-bold">{sessionScore.toFixed(1)}</div>
+              <div className="text-xs opacity-90">Points</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl sm:text-2xl font-bold">
+                {sessionTotal > 0 ? Math.round((sessionCorrect / sessionTotal) * 100) : 0}%
+              </div>
+              <div className="text-xs opacity-90">Accuracy</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl sm:text-2xl font-bold">
+                {currentIndex + 1}/{currentQueue.length}
+              </div>
+              <div className="text-xs opacity-90">Progress</div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,8 +1,39 @@
+/* Import fonts: Display (Bungee) + UI (DM Sans) */
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=DM+Sans:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Animations for feedback toast */
+/* ========================================
+   NINJAGO ELEMENTAL ANIMATIONS
+   ======================================== */
+
+/* Spinjitzu Success Animation - Flexbox centered */
+@keyframes spinjitzu-spin {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%) rotate(0deg) scale(0.5);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0) rotate(360deg) scale(1.1);
+  }
+  80% {
+    transform: translateY(0) rotate(360deg) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(360deg) scale(1);
+  }
+}
+
+.animate-spinjitzu {
+  animation: spinjitzu-spin 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  animation-fill-mode: forwards;
+}
+
+/* Legacy bounce animation (for compatibility) */
 @keyframes bounce-in {
   0% {
     opacity: 0;
@@ -19,6 +50,100 @@
 
 .animate-bounce-in {
   animation: bounce-in 0.5s ease-out;
+}
+
+/* Elemental Pulse Glows */
+@keyframes fire-pulse {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: 0 0 10px rgba(249, 0, 0, 0.3);
+  }
+  50% {
+    filter: brightness(1.2);
+    box-shadow: 0 0 20px rgba(249, 0, 0, 0.6), 0 0 40px rgba(249, 0, 0, 0.4);
+  }
+}
+
+@keyframes lightning-pulse {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: 0 0 10px rgba(0, 149, 252, 0.3);
+  }
+  50% {
+    filter: brightness(1.3);
+    box-shadow: 0 0 20px rgba(0, 149, 252, 0.6), 0 0 40px rgba(247, 245, 3, 0.5);
+  }
+}
+
+@keyframes energy-pulse {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: 0 0 10px rgba(0, 159, 40, 0.3);
+  }
+  50% {
+    filter: brightness(1.15);
+    box-shadow: 0 0 20px rgba(0, 159, 40, 0.6), 0 0 40px rgba(255, 215, 0, 0.4);
+  }
+}
+
+.element-fire {
+  animation: fire-pulse 2s ease-in-out infinite;
+}
+
+.element-lightning {
+  animation: lightning-pulse 1.5s ease-in-out infinite;
+}
+
+.element-energy {
+  animation: energy-pulse 2.5s ease-in-out infinite;
+}
+
+/* Golden Shimmer Effect */
+@keyframes golden-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.golden-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.6) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: golden-shimmer 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Ninja Star Rotation */
+@keyframes ninja-star-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ninja-star-spin {
+  animation: ninja-star-spin 4s linear infinite;
+}
+
+.ninja-star-spin-reverse {
+  animation: ninja-star-spin 6s linear infinite reverse;
+}
+
+/* Angular Shift Background Pattern */
+@keyframes angular-shift {
+  0%, 100% { background-position: 0 0, 30px 30px, 0 0; }
+  50% { background-position: 30px 30px, 0 0, 0 0; }
 }
 
 /* Hanzi Dojo Custom Styles */
@@ -42,15 +167,149 @@
 }
 
 @layer components {
+  /* Card Styles */
   .dojo-card {
     @apply bg-white rounded-lg shadow-md p-6 border border-gray-200;
   }
-  
+
+  .ninja-card {
+    @apply bg-white rounded shadow-lg p-6 border-2 border-ninja-gray relative;
+  }
+
+  .ninja-card-angular {
+    @apply bg-white shadow-lg p-6 border-3 border-ninja-black relative;
+    border-radius: 4px;
+  }
+
+  /* Legacy Button Styles (compatibility) */
   .dojo-button-primary {
     @apply bg-dojo-red text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors;
   }
-  
+
   .dojo-button-secondary {
     @apply bg-dojo-gold text-ink-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-colors;
+  }
+
+  /* Ninjago Elemental Button Styles */
+  .ninja-button {
+    @apply px-6 py-3 font-bold uppercase tracking-wide transition-all;
+    border-radius: 4px;
+    font-family: 'Bungee', 'Luckiest Guy', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  .ninja-button-fire {
+    @apply bg-gradient-to-b from-ninja-red to-ninja-red-dark text-white border-2 border-ninja-red-dark;
+    box-shadow:
+      0 4px 0 #990000,
+      0 6px 12px rgba(249, 0, 0, 0.4);
+  }
+
+  .ninja-button-fire:hover {
+    filter: brightness(1.1);
+    box-shadow:
+      0 4px 0 #990000,
+      0 6px 16px rgba(249, 0, 0, 0.6);
+  }
+
+  .ninja-button-fire:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #990000,
+      0 3px 6px rgba(249, 0, 0, 0.4);
+  }
+
+  .ninja-button-lightning {
+    @apply bg-gradient-to-b from-ninja-blue to-ninja-blue-dark text-white border-2 border-ninja-blue-dark;
+    box-shadow:
+      0 4px 0 #0050a0,
+      0 6px 12px rgba(0, 149, 252, 0.4);
+  }
+
+  .ninja-button-lightning:hover {
+    filter: brightness(1.1);
+    box-shadow:
+      0 4px 0 #0050a0,
+      0 6px 16px rgba(0, 149, 252, 0.6);
+  }
+
+  .ninja-button-lightning:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #0050a0,
+      0 3px 6px rgba(0, 149, 252, 0.4);
+  }
+
+  .ninja-button-gold {
+    @apply bg-gradient-to-b from-ninja-gold to-ninja-gold-dark text-ninja-black border-2 border-ninja-gold-dark;
+    box-shadow:
+      0 4px 0 #B8860B,
+      0 6px 12px rgba(255, 215, 0, 0.5);
+  }
+
+  .ninja-button-gold:hover {
+    filter: brightness(1.1);
+    box-shadow:
+      0 4px 0 #B8860B,
+      0 6px 16px rgba(255, 215, 0, 0.7);
+  }
+
+  .ninja-button-gold:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #B8860B,
+      0 3px 6px rgba(255, 215, 0, 0.5);
+  }
+
+  .ninja-button-energy {
+    @apply bg-gradient-to-b from-ninja-green to-ninja-green-dark text-white border-2 border-ninja-green-dark;
+    box-shadow:
+      0 4px 0 #005010,
+      0 6px 12px rgba(0, 159, 40, 0.4);
+  }
+
+  .ninja-button-energy:hover {
+    filter: brightness(1.1);
+    box-shadow:
+      0 4px 0 #005010,
+      0 6px 16px rgba(0, 159, 40, 0.6);
+  }
+
+  .ninja-button-energy:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #005010,
+      0 3px 6px rgba(0, 159, 40, 0.4);
+  }
+
+  /* Angular Pattern Overlays */
+  .angular-stripe {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.05) 10px,
+      rgba(0, 0, 0, 0.05) 20px
+    );
+  }
+
+  .angular-stripe-fire {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(249, 0, 0, 0.05) 10px,
+      rgba(249, 0, 0, 0.05) 20px
+    );
+  }
+
+  .angular-stripe-lightning {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 149, 252, 0.05) 10px,
+      rgba(0, 149, 252, 0.05) 20px
+    );
   }
 }

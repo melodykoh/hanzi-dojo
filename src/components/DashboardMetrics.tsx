@@ -240,77 +240,77 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
 
   return (
     <div className="space-y-6">
-      {/* Metric Tiles */}
+      {/* Metric Tiles - Cohesive Palette */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* All-Time Points */}
-        <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg shadow-lg p-6">
+        {/* All-Time Points - Gold */}
+        <div className="bg-gradient-to-br from-ninja-gold to-ninja-gold-dark text-ninja-black shadow-xl p-6" style={{ borderRadius: '16px' }}>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold opacity-90">
-              All-Time Points
+            <h3 className="text-xs font-bold opacity-80 uppercase tracking-wide">
+              Total Points
             </h3>
-            <span className="text-2xl">🎯</span>
+            <span className="text-2xl">⭐</span>
           </div>
-          <div className="text-4xl font-bold">
+          <div className="text-4xl font-black">
             {metrics.allTimeFamiliarity.toFixed(1)}
           </div>
-          <div className="text-sm opacity-75 mt-1">
-            Total familiarity earned
+          <div className="text-xs font-bold opacity-70 mt-1">
+            Familiarity earned
           </div>
         </div>
 
-        {/* Last Practiced */}
-        <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg shadow-lg p-6">
+        {/* Last Practiced - White/Gray */}
+        <div className="bg-white border-2 border-gray-200 shadow-md p-6" style={{ borderRadius: '16px' }}>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold opacity-90">
-              Last Practiced
+            <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide">
+              Last Practice
             </h3>
             <span className="text-2xl">📅</span>
           </div>
-          <div className="text-3xl font-bold">
+          <div className="text-3xl font-black text-gray-900">
             {formatLastPracticed(metrics.lastPracticedDays)}
           </div>
-          <div className="text-sm opacity-75 mt-1">
-            {metrics.lastPracticedDays !== null && metrics.lastPracticedDays > 3 
-              ? 'Time to practice!' 
+          <div className="text-xs font-bold text-gray-500 mt-1">
+            {metrics.lastPracticedDays !== null && metrics.lastPracticedDays > 3
+              ? 'Time to practice!'
               : 'Keep it up!'}
           </div>
         </div>
 
-        {/* Accuracy Streak */}
-        <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-lg shadow-lg p-6">
+        {/* Accuracy Streak - Red */}
+        <div className="bg-gradient-to-br from-ninja-red to-ninja-red-dark text-white shadow-xl p-6" style={{ borderRadius: '16px' }}>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold opacity-90">Accuracy Streak</h3>
+            <h3 className="text-xs font-bold opacity-80 uppercase tracking-wide">Streak</h3>
             <span className="text-2xl">🔥</span>
           </div>
-          <div className="text-2xl font-bold">
+          <div className="text-2xl font-black">
             {metrics.improvingStreak > 0 && (
-              <div>{metrics.improvingStreak} improving 🔥</div>
+              <div>{metrics.improvingStreak} improving</div>
             )}
             {metrics.perfectStreak > 0 && (
-              <div>{metrics.perfectStreak} perfect 💯</div>
+              <div>{metrics.perfectStreak} perfect</div>
             )}
             {metrics.improvingStreak === 0 && metrics.perfectStreak === 0 && (
-              <div>Start your streak!</div>
+              <div>Start practicing!</div>
             )}
           </div>
-          <div className="text-sm opacity-75 mt-1">
+          <div className="text-xs font-bold opacity-70 mt-1">
             Consecutive sessions
           </div>
         </div>
 
-        {/* Characters Mastered */}
-        <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg shadow-lg p-6">
+        {/* Characters Mastered - White/Gray */}
+        <div className="bg-white border-2 border-gray-200 shadow-md p-6" style={{ borderRadius: '16px' }}>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold opacity-90">Characters</h3>
-            <span className="text-2xl">⭐</span>
+            <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide">Progress</h3>
+            <span className="text-2xl">📚</span>
           </div>
-          <div className="text-4xl font-bold">
-            {metrics.knownCount} of {metrics.totalEntries}
+          <div className="text-3xl font-black text-gray-900">
+            {metrics.knownCount}/{metrics.totalEntries}
           </div>
-          <div className="text-sm opacity-75 mt-1">
+          <div className="text-xs font-bold text-gray-500 mt-1">
             {metrics.knownCount === metrics.totalEntries && metrics.totalEntries > 0
               ? 'All mastered!'
-              : 'Mastered so far'}
+              : 'Characters known'}
           </div>
         </div>
       </div>

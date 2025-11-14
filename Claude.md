@@ -269,19 +269,26 @@ For significant changes (>50 lines or >3 files):
 - Dictionary: 1,067 characters (HSK 1-4), 86% properly structured
 - All core features complete: Drills A/B, familiarity scoring, entry management, training mode
 
-### **Session 9 Complete (Nov 12, 2025)** ✅
-**Status:** Mobile polish + repository cleanup complete
+### **Session 12 Complete (Nov 13, 2025)** ✅
+**Status:** Critical auth bug fixed - automatic profile creation deployed
 
 **Completed & Deployed:**
-1. ✅ **PR #8** - Mobile header uniformity (fixed dashboard action button wrapping/height)
-2. ✅ **PR #9** - Hide first-tone marker (ˉ) in Zhuyin display (preserves data integrity, matches textbook format)
-3. ✅ **Shared Zhuyin helper** - Created `src/lib/zhuyin.ts` for consistent formatting
-4. ✅ **Repository cleanup** - Organized scattered files per REPO_STRUCTURE.md
-5. ✅ **PROJECT_PLAN.md updated** - Marked bugs 6.1.5, 6.1.6, 6.1.7 as complete
+1. ✅ **Migration 012** - Database trigger to auto-create kid profiles on signup
+2. ✅ **Bug fix** - New users no longer see "No student profile found" error after email confirmation
+3. ✅ **Production verified** - Tested with new signup, Dashboard loads immediately without error
 
-**Session 8 Complete (Nov 10, 2025):** Migration 010a (248 tone marks + 22 multi-pronunciation + 麼), Multi-pronunciation review UI (PR #1), Bug fixes #2-#7 (5 PRs), Production data cleanup (86 → 9 entries), Dictionary logger validation
+**Root Cause Identified:**
+- Profile creation only ran in login handler, not during signup
+- Users clicking email confirmation link bypassed login flow → no profile created
+- Database trigger now ensures profiles created automatically when auth.users record inserted
 
-**Next Priority:** Epic 8 Phase 1 - Dictionary Quality (10 high-frequency characters, ~3 hrs)
+**Previous Sessions:**
+- **Session 11 (Nov 12):** Pattern A structure unification + pronunciation modal fix
+- **Session 10 (Nov 12):** Epic 8 Phase 1 research complete (35 deployed + 1 deferred)
+- **Session 9 (Nov 12):** Mobile polish + repository cleanup
+- **Session 8 (Nov 10):** Migration 010a + bug fixes #2-#7
+
+**Next Priority:** Epic 8 Phase 2 - Category 2 triage (102 characters) + '干/幹/乾' data cleanup
 
 ### **Epic Status Overview**
 - Epic 1-6: ✅ COMPLETE (V1 production deployed)
@@ -305,6 +312,14 @@ For significant changes (>50 lines or >3 files):
 - **Mobile landscape:** Next button requires scrolling after option selection (Epic 7, optional polish)
 
 ### Recently Fixed
+
+**Session 12 (Nov 13, 2025):**
+- ✅ **Critical Auth Bug** - New users getting "No student profile found" error after email confirmation (Migration 012: database trigger)
+
+**Session 11 (Nov 12, 2025):**
+- ✅ EntryCatalog pronunciation modal missing default option (Pattern A structure)
+- ✅ Migration 011 rollback bug (uncommented statements executing)
+- ✅ Character '干' exclusion (malformed database entry)
 
 **Session 9 (Nov 12, 2025):**
 - ✅ Mobile header button wrapping on narrow screens (PR #8)

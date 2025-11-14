@@ -63,7 +63,7 @@ export function FeedbackToast({
   show,
   points,
   message,
-  duration = 2000,
+  duration = 3500,
   onHide
 }: FeedbackToastProps) {
   const [visible, setVisible] = useState(false)
@@ -84,28 +84,97 @@ export function FeedbackToast({
   }, [show, duration, onHide])
   
   if (!visible) return null
-  
-  const bgColor = points === 1.0 ? 'bg-green-500' : points === 0.5 ? 'bg-yellow-500' : 'bg-orange-500'
+
   const senseiMessage = message || getRandomMessage(points)
-  
+
+  // Elemental styling based on points
+  const getElementalStyle = () => {
+    if (points === 1.0) {
+      // Ultimate Golden Power
+      return {
+        bg: 'bg-gradient-to-br from-ninja-gold to-ninja-gold-dark',
+        border: 'border-4 border-yellow-600',
+        badgeBg: 'bg-ninja-green',
+        badgeBorder: 'border-4 border-green-700',
+        shimmer: true,
+        glow: 'element-energy'
+      }
+    } else if (points === 0.5) {
+      // Energy (partial success)
+      return {
+        bg: 'bg-gradient-to-br from-ninja-green to-ninja-green-dark',
+        border: 'border-4 border-green-700',
+        badgeBg: 'bg-ninja-yellow',
+        badgeBorder: 'border-4 border-yellow-600',
+        shimmer: false,
+        glow: ''
+      }
+    } else {
+      // Learning (no points)
+      return {
+        bg: 'bg-gradient-to-br from-ninja-orange to-ninja-red',
+        border: 'border-4 border-red-700',
+        badgeBg: 'bg-ninja-gray',
+        badgeBorder: 'border-4 border-ninja-black',
+        shimmer: false,
+        glow: ''
+      }
+    }
+  }
+
+  const style = getElementalStyle()
+
   return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-bounce-in">
-      <div className={`${bgColor} text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-4 min-w-[320px]`}>
-        {/* Points Badge */}
-        <div className="text-4xl font-bold">
-          {points === 1.0 && '+1.0'}
-          {points === 0.5 && '+0.5'}
-          {points === 0 && '0'}
+    <div className="fixed top-4 left-0 right-0 z-50 flex justify-center">
+      <div className={`
+        ${style.bg} ${style.border}
+        text-white px-8 py-6 shadow-2xl
+        flex items-center gap-6 min-w-[380px]
+        relative overflow-hidden
+        ${style.glow}
+        animate-spinjitzu
+      `}
+        style={{ borderRadius: '12px' }}
+      >
+        {/* Golden shimmer effect for perfect scores */}
+        {style.shimmer && (
+          <div className="golden-shimmer" />
+        )}
+
+        {/* Points Badge - Circular with elemental glow */}
+        <div className={`
+          ${style.badgeBg} ${style.badgeBorder}
+          w-20 h-20 rounded-full
+          flex items-center justify-center
+          text-3xl font-black text-white
+          shadow-inner
+          relative z-10
+        `}>
+          {points === 1.0 && '⭐'}
+          {points === 0.5 && '✨'}
+          {points === 0 && '📖'}
         </div>
-        
+
         {/* Message */}
-        <div className="flex-1">
-          <div className="text-lg font-semibold">{senseiMessage}</div>
-          <div className="text-sm opacity-90">{points} point{points !== 1 ? 's' : ''} earned</div>
+        <div className="flex-1 relative z-10">
+          <div className="text-2xl font-heading font-black drop-shadow-lg uppercase tracking-wide">
+            {points === 1.0 && 'PERFECT!'}
+            {points === 0.5 && 'GOOD!'}
+            {points === 0 && 'KEEP GOING!'}
+          </div>
+          <div className="text-lg font-bold mt-1 drop-shadow-md">
+            {points === 1.0 && '+1.0 Points'}
+            {points === 0.5 && '+0.5 Points'}
+            {points === 0 && 'Try Again'}
+          </div>
         </div>
-        
-        {/* Sensei Icon (placeholder - can be replaced with actual mascot) */}
-        <div className="text-3xl">🥋</div>
+
+        {/* Ninja icon */}
+        <div className="text-5xl relative z-10 drop-shadow-lg">
+          {points === 1.0 && '👑'}
+          {points === 0.5 && '🥋'}
+          {points === 0 && '📚'}
+        </div>
       </div>
     </div>
   )
