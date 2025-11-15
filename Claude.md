@@ -64,9 +64,15 @@ Before coding:
 For significant changes (>50 lines or >3 files):
 - [ ] Create feature branch: `git checkout -b feature/name`
 - [ ] Commit with descriptive message and co-author
+- [ ] **Update `public/CHANGELOG.md` with user-facing changes** ⭐
+  - Use plain language (avoid technical jargon)
+  - Group by session/date
+  - Focus on user benefits ("Faster practice" not "Removed 300ms delay")
+  - Include emoji for visual scanning (✨ feature, 🐛 bug, 🎨 improvement)
 - [ ] Push branch: `git push -u origin feature/name`
 - [ ] Create PR: `gh pr create --title "..." --body "..." --base main`
 - [ ] Wait for Vercel preview (~2 min), test thoroughly
+- [ ] **Verify changelog renders correctly at `/changelog`** ⭐
 - [ ] Merge via GitHub UI or `gh pr merge <#>`
 - [ ] Update local: `git checkout main && git pull`
 - [ ] Clean up: `git branch -d feature/name`
