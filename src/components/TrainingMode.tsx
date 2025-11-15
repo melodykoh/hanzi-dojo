@@ -91,15 +91,13 @@ export function TrainingMode() {
     setToastPoints(points as 0 | 0.5 | 1.0)
     setShowToast(true)
 
-    // Delay moving to next item to allow Spinjitzu animation to start
-    setTimeout(() => {
-      if (currentIndex + 1 < currentQueue.length) {
-        setCurrentIndex(prev => prev + 1)
-      } else {
-        // Session complete
-        setShowSummary(true)
-      }
-    }, 300)
+    // Move to next question immediately (CSS animations are independent of React state)
+    if (currentIndex + 1 < currentQueue.length) {
+      setCurrentIndex(prev => prev + 1)
+    } else {
+      // Session complete
+      setShowSummary(true)
+    }
   }
 
   const handleError = (error: Error) => {

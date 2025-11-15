@@ -427,8 +427,7 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
           return (
             <div
               key={item.entry.id}
-              className="bg-white shadow-lg p-6 border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all relative overflow-hidden"
-              style={{ borderRadius: '12px' }}
+              className="bg-white shadow-lg p-6 border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all relative overflow-hidden rounded-xl"
             >
               {/* Subtle angular pattern */}
               <div className="absolute inset-0 angular-stripe opacity-5 pointer-events-none" />
@@ -440,12 +439,12 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
                   {/* Drill badges (left) */}
                   <div className="flex gap-1">
                     {hasDrillA && (
-                      <div className="bg-ninja-blue text-white px-2 py-1 text-xs font-bold shadow-md" style={{ borderRadius: '4px' }} title="Drill A: Zhuyin">
+                      <div className="bg-ninja-blue text-white px-2 py-1 text-xs font-bold shadow-md rounded" title="Drill A: Zhuyin">
                         ⚡
                       </div>
                     )}
                     {hasDrillB && (
-                      <div className="bg-ninja-red text-white px-2 py-1 text-xs font-bold shadow-md" style={{ borderRadius: '4px' }} title="Drill B: Traditional">
+                      <div className="bg-ninja-red text-white px-2 py-1 text-xs font-bold shadow-md rounded" title="Drill B: Traditional">
                         🔥
                       </div>
                     )}
@@ -496,15 +495,13 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
                 <div className="flex-1 grid grid-cols-2 gap-2">
                   <button
                     onClick={() => setSelectedEntry(item)}
-                    className="px-4 py-3 bg-gray-200 border-2 border-gray-300 text-gray-800 text-sm font-bold hover:bg-gray-300 hover:border-gray-400 transition-all"
-                    style={{ borderRadius: '8px' }}
+                    className="px-4 py-3 bg-gray-200 border-2 border-gray-300 text-gray-800 text-sm font-bold hover:bg-gray-300 hover:border-gray-400 transition-all rounded-lg"
                   >
                     Details
                   </button>
                   <button
                     onClick={() => handlePracticeThis()}
-                    className="px-4 py-3 bg-ninja-red text-white text-sm font-bold hover:bg-ninja-red-dark transition-all shadow-md"
-                    style={{ borderRadius: '8px' }}
+                    className="px-4 py-3 bg-ninja-red text-white text-sm font-bold hover:bg-ninja-red-dark transition-all shadow-md rounded-lg"
                   >
                     Practice
                   </button>

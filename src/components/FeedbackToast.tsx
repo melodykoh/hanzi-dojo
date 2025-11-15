@@ -24,12 +24,12 @@ export function FeedbackToast({
   onHide
 }: FeedbackToastProps) {
   const [visible, setVisible] = useState(false)
-  const [animationKey, setAnimationKey] = useState(Date.now())
+  const [animationKey, setAnimationKey] = useState(0)
 
   useEffect(() => {
     if (show) {
       setVisible(true)
-      setAnimationKey(Date.now()) // Use timestamp for guaranteed uniqueness
+      setAnimationKey(prev => prev + 1)
 
       const timer = setTimeout(() => {
         setVisible(false)
@@ -91,8 +91,8 @@ export function FeedbackToast({
         relative overflow-hidden
         ${style.glow}
         animate-spinjitzu
+        rounded-xl
       `}
-        style={{ borderRadius: '12px' }}
       >
         {/* Golden shimmer effect for perfect scores */}
         {style.shimmer && (

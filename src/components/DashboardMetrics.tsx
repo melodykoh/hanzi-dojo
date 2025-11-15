@@ -243,7 +243,7 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
       {/* Metric Tiles - Cohesive Palette */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* All-Time Points - Gold */}
-        <div className="bg-gradient-to-br from-ninja-gold to-ninja-gold-dark text-ninja-black shadow-xl p-6" style={{ borderRadius: '16px' }}>
+        <div className="bg-gradient-to-br from-ninja-gold to-ninja-gold-dark text-ninja-black shadow-xl p-6 rounded-2xl">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-bold opacity-80 uppercase tracking-wide">
               Total Points
@@ -259,7 +259,7 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
         </div>
 
         {/* Last Practiced - White/Gray */}
-        <div className="bg-white border-2 border-gray-200 shadow-md p-6" style={{ borderRadius: '16px' }}>
+        <div className="bg-white border-2 border-gray-200 shadow-md p-6 rounded-2xl">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide">
               Last Practice
@@ -277,7 +277,7 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
         </div>
 
         {/* Accuracy Streak - Red */}
-        <div className="bg-gradient-to-br from-ninja-red to-ninja-red-dark text-white shadow-xl p-6" style={{ borderRadius: '16px' }}>
+        <div className="bg-gradient-to-br from-ninja-red to-ninja-red-dark text-white shadow-xl p-6 rounded-2xl">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-bold opacity-80 uppercase tracking-wide">Streak</h3>
             <span className="text-2xl">🔥</span>
@@ -299,7 +299,7 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
         </div>
 
         {/* Characters Mastered - White/Gray */}
-        <div className="bg-white border-2 border-gray-200 shadow-md p-6" style={{ borderRadius: '16px' }}>
+        <div className="bg-white border-2 border-gray-200 shadow-md p-6 rounded-2xl">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide">Progress</h3>
             <span className="text-2xl">📚</span>

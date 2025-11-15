@@ -160,12 +160,12 @@ export function PracticeCard({
     const drillAOptions = options as DrillAOption[]
 
     return (
-      <div className="bg-white shadow-2xl p-4 sm:p-6 md:p-8 w-full sm:max-w-3xl mx-auto border-4 border-ninja-blue relative overflow-hidden" style={{ borderRadius: '12px' }}>
+      <div className="bg-white shadow-2xl p-4 sm:p-6 md:p-8 w-full sm:max-w-3xl mx-auto border-4 border-ninja-blue relative overflow-hidden rounded-xl">
         {/* Subtle lightning element overlay */}
         <div className="absolute inset-0 angular-stripe-lightning opacity-10 pointer-events-none" />
 
         {/* Drill indicator badge */}
-        <div className="absolute top-4 left-4 bg-ninja-blue text-white px-3 py-1 font-bold text-sm shadow-lg" style={{ borderRadius: '4px' }}>
+        <div className="absolute top-4 left-4 bg-ninja-blue text-white px-3 py-1 font-bold text-sm shadow-lg rounded">
           ⚡ DRILL A
         </div>
 
@@ -201,8 +201,8 @@ export function PracticeCard({
                   ${isWrong ? 'border-red-500 bg-red-50' : ''}
                   ${showAsCorrect ? 'border-green-500 bg-green-50' : ''}
                   ${!isDisabled && !isSelected && !showAsCorrect ? 'border-gray-300 hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100' : ''}
+                  rounded-xl
                 `}
-                style={{ borderRadius: '12px' }}
               >
                 <span className="break-words">{option.display}</span>
               </button>
@@ -253,12 +253,12 @@ export function PracticeCard({
     const drillBOptions = options as DrillBOption[]
 
     return (
-      <div className="bg-white shadow-2xl p-4 sm:p-6 md:p-8 w-full sm:max-w-3xl mx-auto border-4 border-ninja-red relative overflow-hidden" style={{ borderRadius: '12px' }}>
+      <div className="bg-white shadow-2xl p-4 sm:p-6 md:p-8 w-full sm:max-w-3xl mx-auto border-4 border-ninja-red relative overflow-hidden rounded-xl">
         {/* Subtle fire element overlay */}
         <div className="absolute inset-0 angular-stripe-fire opacity-10 pointer-events-none" />
 
         {/* Drill indicator badge */}
-        <div className="absolute top-4 left-4 bg-ninja-red text-white px-3 py-1 font-bold text-sm shadow-lg" style={{ borderRadius: '4px' }}>
+        <div className="absolute top-4 left-4 bg-ninja-red text-white px-3 py-1 font-bold text-sm shadow-lg rounded">
           🔥 DRILL B
         </div>
 
@@ -292,8 +292,8 @@ export function PracticeCard({
                   ${isWrong ? 'border-red-500 bg-red-50' : ''}
                   ${showAsCorrect ? 'border-green-500 bg-green-50' : ''}
                   ${!isDisabled && !isSelected && !showAsCorrect ? 'border-gray-300 hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100' : ''}
+                  rounded-xl
                 `}
-                style={{ borderRadius: '12px' }}
               >
                 {option.traditional}
               </button>
