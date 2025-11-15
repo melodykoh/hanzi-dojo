@@ -126,6 +126,23 @@ export function Dashboard() {
     }
 
     checkAuth()
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT' || !session) {
+        setSession(null)
+        setKidId(null)
+        setActiveTab('metrics') // Reset to demo view
+        setShowAddItemForm(false) // Close any open modals
+        setShowDrillSelection(false)
+        setShowSignupModal(false)
+      } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+        // Re-run auth check to load kid profile
+        checkAuth()
+      }
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
 
   // Show loading spinner while checking auth
