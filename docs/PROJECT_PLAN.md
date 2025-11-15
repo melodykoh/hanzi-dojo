@@ -237,8 +237,11 @@ Status legend: ☐ Pending · ⧖ In Progress · ☑ Completed
 
 ---
 
-## Epic 7 — Mobile Polish & Field Readiness ☐ PENDING
+## Epic 7 — Mobile Polish & Field Readiness ☑ SUBSTANTIALLY COMPLETE
 - **Goal:** Resolve remaining UX polish gaps discovered during device testing and document operational guardrails.
+- **Status:** Session 12 (Nov 14, 2025) - Ninjago theme + comprehensive mobile optimizations deployed
+- **Completed:** Responsive layouts, full-width cards, 2-row headers, Tailwind utilities, Bungee/DM Sans typography
+- **Remaining:** Landscape CSS polish for mobile/tablet rotation (minor, optional)
 - **Deferred to V1.1:** Multi-character word support (4 pts) - parent can add characters separately for V1
 - **Deferred to V2:** Belt animations (2 pts), Summary modal enhancements (2 pts), Grade/week UI fields (2 pts backlog)
 
