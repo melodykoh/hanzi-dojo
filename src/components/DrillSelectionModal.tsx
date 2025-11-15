@@ -2,12 +2,13 @@
 // Epic 5.5: UX Refinement - Tasks 5.5.2 & 5.5.4
 
 import { useState, useEffect } from 'react'
-import { 
-  recommendDrill, 
+import {
+  recommendDrill,
   getRecommendationMessage,
-  type DrillRecommendation 
+  type DrillRecommendation
 } from '../lib/drillBalanceService'
 import type { PracticeDrill } from '../types'
+import { DRILLS } from '../types'
 
 interface DrillSelectionModalProps {
   kidId: string
@@ -43,14 +44,14 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
       // Build drill info from recommendation data
       const info: DrillInfo[] = [
         {
-          drill: 'zhuyin',
+          drill: DRILLS.ZHUYIN,
           queueDepth: rec.drillA.queueDepth,
           displayName: 'Drill A',
           description: 'Zhuyin Recognition',
           emoji: 'ㄅ'
         },
         {
-          drill: 'trad',
+          drill: DRILLS.TRAD,
           queueDepth: rec.drillB.queueDepth,
           displayName: 'Drill B',
           description: 'Traditional Form',
@@ -93,7 +94,7 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
 
   const getProficiencyInfo = (drill: PracticeDrill) => {
     if (!recommendation) return null
-    const proficiency = drill === 'zhuyin' ? recommendation.drillA : recommendation.drillB
+    const proficiency = drill === DRILLS.ZHUYIN ? recommendation.drillA : recommendation.drillB
     return proficiency
   }
 
@@ -110,7 +111,7 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
               <span className="text-lg">💡</span>
               <div>
                 <p className="font-semibold text-blue-900 text-sm">
-                  Recommended: {recommendation.recommendedDrill === 'zhuyin' ? 'Drill A' : 'Drill B'}
+                  Recommended: {recommendation.recommendedDrill === DRILLS.ZHUYIN ? 'Drill A' : 'Drill B'}
                 </p>
                 <p className="text-sm text-blue-700">
                   {getRecommendationMessage(recommendation)}

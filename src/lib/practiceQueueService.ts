@@ -2,6 +2,7 @@
 
 import { supabase } from './supabase'
 import type { Entry, PracticeState, PracticeDrill, Reading } from '../types'
+import { DRILLS } from '../types'
 import { isDrillKnown, computeFamiliarity } from './practiceStateService'
 
 // =============================================================================
@@ -227,7 +228,7 @@ export async function fetchCombinedQueue(
   kidId: string,
   limit: number = 10
 ): Promise<Array<QueueEntry & { drill: PracticeDrill }>> {
-  const drills: PracticeDrill[] = ['zhuyin', 'trad']
+  const drills: PracticeDrill[] = [DRILLS.ZHUYIN, DRILLS.TRAD]
   const allQueues: Array<QueueEntry & { drill: PracticeDrill }> = []
   
   for (const drill of drills) {

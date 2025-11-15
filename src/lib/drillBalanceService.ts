@@ -3,6 +3,7 @@
 
 import { supabase } from './supabase'
 import type { PracticeDrill } from '../types'
+import { DRILLS } from '../types'
 
 // =============================================================================
 // TYPES
@@ -101,8 +102,8 @@ export async function calculateDrillProficiency(
  */
 export async function recommendDrill(kidId: string): Promise<DrillRecommendation> {
   // Calculate proficiency for both drills
-  const drillA = await calculateDrillProficiency(kidId, 'zhuyin')
-  const drillB = await calculateDrillProficiency(kidId, 'trad')
+  const drillA = await calculateDrillProficiency(kidId, DRILLS.ZHUYIN)
+  const drillB = await calculateDrillProficiency(kidId, DRILLS.TRAD)
 
   // Edge case: Both drills have no items
   if (drillA.queueDepth === 0 && drillB.queueDepth === 0) {
@@ -117,7 +118,7 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
   // Edge case: Only one drill has items
   if (drillA.queueDepth === 0) {
     return {
-      recommendedDrill: 'trad',
+      recommendedDrill: DRILLS.TRAD,
       reason: 'balanced',
       drillA,
       drillB
@@ -126,7 +127,7 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
 
   if (drillB.queueDepth === 0) {
     return {
-      recommendedDrill: 'zhuyin',
+      recommendedDrill: DRILLS.ZHUYIN,
       reason: 'balanced',
       drillA,
       drillB
@@ -136,7 +137,7 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
   // Priority 1: Drill with more struggling items (diff >= 3)
   if (drillA.strugglingCount > drillB.strugglingCount + 2) {
     return {
-      recommendedDrill: 'zhuyin',
+      recommendedDrill: DRILLS.ZHUYIN,
       reason: 'struggling_items',
       drillA: { ...drillA, needsAttention: true },
       drillB
@@ -145,7 +146,7 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
 
   if (drillB.strugglingCount > drillA.strugglingCount + 2) {
     return {
-      recommendedDrill: 'trad',
+      recommendedDrill: DRILLS.TRAD,
       reason: 'struggling_items',
       drillA,
       drillB: { ...drillB, needsAttention: true }
@@ -155,7 +156,7 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
   // Priority 2: Drill never practiced
   if (drillA.avgAccuracy === null && drillB.avgAccuracy !== null) {
     return {
-      recommendedDrill: 'zhuyin',
+      recommendedDrill: DRILLS.ZHUYIN,
       reason: 'never_practiced',
       drillA: { ...drillA, needsAttention: true },
       drillB
@@ -164,7 +165,7 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
 
   if (drillB.avgAccuracy === null && drillA.avgAccuracy !== null) {
     return {
-      recommendedDrill: 'trad',
+      recommendedDrill: DRILLS.TRAD,
       reason: 'never_practiced',
       drillA,
       drillB: { ...drillB, needsAttention: true }
@@ -185,13 +186,13 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
   const accuracyGap = Math.abs((drillA.avgAccuracy || 0) - (drillB.avgAccuracy || 0))
 
   if (accuracyGap >= 15) {
-    const weakerDrill = (drillA.avgAccuracy || 0) < (drillB.avgAccuracy || 0) ? 'zhuyin' : 'trad'
-    
+    const weakerDrill = (drillA.avgAccuracy || 0) < (drillB.avgAccuracy || 0) ? DRILLS.ZHUYIN : DRILLS.TRAD
+
     return {
       recommendedDrill: weakerDrill,
       reason: 'proficiency_gap',
-      drillA: { ...drillA, needsAttention: weakerDrill === 'zhuyin' },
-      drillB: { ...drillB, needsAttention: weakerDrill === 'trad' }
+      drillA: { ...drillA, needsAttention: weakerDrill === DRILLS.ZHUYIN },
+      drillB: { ...drillB, needsAttention: weakerDrill === DRILLS.TRAD }
     }
   }
 
@@ -219,16 +220,16 @@ export function getRecommendationMessage(recommendation: DrillRecommendation): s
       return 'No items available for practice'
     
     case 'struggling_items': {
-      const weakerDrill = recommendedDrill === 'zhuyin' ? drillA : drillB
+      const weakerDrill = recommendedDrill === DRILLS.ZHUYIN ? drillA : drillB
       return `${weakerDrill.strugglingCount} struggling items need attention`
     }
-    
+
     case 'never_practiced':
       return 'Not practiced yet - good time to start'
-    
+
     case 'proficiency_gap': {
-      const weakerDrill = recommendedDrill === 'zhuyin' ? drillA : drillB
-      const strongerDrill = recommendedDrill === 'zhuyin' ? drillB : drillA
+      const weakerDrill = recommendedDrill === DRILLS.ZHUYIN ? drillA : drillB
+      const strongerDrill = recommendedDrill === DRILLS.ZHUYIN ? drillB : drillA
       return `Lower proficiency (${weakerDrill.avgAccuracy}% vs ${strongerDrill.avgAccuracy}%)`
     }
     
@@ -244,12 +245,12 @@ export function getRecommendationMessage(recommendation: DrillRecommendation): s
  * Get display name for drill
  */
 export function getDrillDisplayName(drill: PracticeDrill): string {
-  return drill === 'zhuyin' ? 'Drill A' : 'Drill B'
+  return drill === DRILLS.ZHUYIN ? 'Drill A' : 'Drill B'
 }
 
 /**
  * Get drill description
  */
 export function getDrillDescription(drill: PracticeDrill): string {
-  return drill === 'zhuyin' ? 'Zhuyin Recognition' : 'Traditional Form'
+  return drill === DRILLS.ZHUYIN ? 'Zhuyin Recognition' : 'Traditional Form'
 }

@@ -6,6 +6,7 @@ import { ChevronUpIcon } from '@heroicons/react/24/solid'
 import { supabase } from '../lib/supabase'
 import { formatZhuyinDisplay } from '../lib/zhuyin'
 import type { Entry, PracticeState, ZhuyinSyllable, DictionaryEntry } from '../types'
+import { DRILLS } from '../types'
 
 interface EntryCatalogProps {
   kidId: string
@@ -417,40 +418,68 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
         </div>
       </div>
 
-      {/* Entries Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredItems.map(item => (
-          <div
-            key={item.entry.id}
-            className="bg-white rounded-lg shadow p-6 hover:shadow-lg transition-shadow"
-          >
-            {/* Character */}
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <div className="text-4xl font-bold mb-2">{item.entry.simp}</div>
-                {item.entry.simp !== item.entry.trad && (
-                  <div className="text-2xl text-gray-600">{item.entry.trad}</div>
-                )}
-              </div>
-              <div className="flex gap-1">
-                {item.isKnown && (
-                  <div className="text-2xl" title="Known">⭐</div>
-                )}
-                {!item.isKnown && item.strugglingCount > 0 && (
-                  <div className="text-2xl" title="Needs practice">⚠️</div>
-                )}
-                {item.needsPronunciationReview && (
-                  <div className="text-2xl" title="Review pronunciation">
-                    <span className="inline-block bg-yellow-100 text-yellow-600 rounded-full px-2 text-base font-semibold">
-                      ⚠️
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
+      {/* Entries Grid - Simplified Colors, Full-width on mobile */}
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {filteredItems.map(item => {
+          const applicableDrills = item.entry.applicable_drills || []
+          const hasDrillA = applicableDrills.includes(DRILLS.ZHUYIN)
+          const hasDrillB = applicableDrills.includes(DRILLS.TRAD)
 
-            {/* Stats */}
-            <div className="space-y-2 text-sm text-gray-600 mb-4">
+          return (
+            <div
+              key={item.entry.id}
+              className="bg-white shadow-lg p-6 border-2 border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all relative overflow-hidden rounded-xl"
+            >
+              {/* Subtle angular pattern */}
+              <div className="absolute inset-0 angular-stripe opacity-5 pointer-events-none" />
+
+              {/* Character */}
+              <div className="mb-4 relative z-10">
+                {/* Top row: Drill badges + Status icons */}
+                <div className="flex items-start justify-between mb-3">
+                  {/* Drill badges (left) */}
+                  <div className="flex gap-1">
+                    {hasDrillA && (
+                      <div className="bg-ninja-blue text-white px-2 py-1 text-xs font-bold shadow-md rounded" title="Drill A: Zhuyin">
+                        ⚡
+                      </div>
+                    )}
+                    {hasDrillB && (
+                      <div className="bg-ninja-red text-white px-2 py-1 text-xs font-bold shadow-md rounded" title="Drill B: Traditional">
+                        🔥
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Status icons (right) */}
+                  <div className="flex gap-1">
+                    {item.isKnown && (
+                      <div className="text-xl" title="Known">🌟</div>
+                    )}
+                    {!item.isKnown && item.strugglingCount > 0 && (
+                      <div className="text-xl" title="Needs practice">⚠️</div>
+                    )}
+                    {item.needsPronunciationReview && (
+                      <div className="text-xl" title="Review pronunciation">
+                        <span className="inline-block bg-yellow-100 text-yellow-600 rounded-full px-2 text-sm font-semibold">
+                          ⚠️
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Character display */}
+                <div>
+                  <div className="text-4xl font-bold mb-2">{item.entry.simp}</div>
+                  {item.entry.simp !== item.entry.trad && (
+                    <div className="text-2xl text-gray-600">{item.entry.trad}</div>
+                  )}
+                </div>
+              </div>
+
+              {/* Stats */}
+              <div className="space-y-2 text-sm text-gray-600 mb-4 relative z-10">
               <div className="flex justify-between">
                 <span>Familiarity:</span>
                 <span className="font-semibold">{item.familiarity.toFixed(1)} pts</span>
@@ -461,32 +490,39 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex gap-2">
-              <button
-                onClick={() => setSelectedEntry(item)}
-                className="flex-1 px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition-colors"
-              >
-                Details
-              </button>
-              <button
-                onClick={() => handlePracticeThis()}
-                className="flex-1 px-3 py-2 bg-green-600 text-white text-sm font-medium rounded hover:bg-green-700 transition-colors"
-              >
-                Practice
-              </button>
-              <button
-                onClick={() => {
-                  setDeleteTarget(item.entry.id)
-                  setShowDeleteConfirm(true)
-                }}
-                className="px-3 py-2 bg-red-600 text-white text-sm font-medium rounded hover:bg-red-700 transition-colors"
-              >
-                🗑️
-              </button>
+              {/* Actions */}
+              <div className="flex items-center gap-2 relative z-10">
+                {/* Main action buttons */}
+                <div className="flex-1 grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setSelectedEntry(item)}
+                    className="px-4 py-3 bg-gray-200 border-2 border-gray-300 text-gray-800 text-sm font-bold hover:bg-gray-300 hover:border-gray-400 transition-all rounded-lg"
+                  >
+                    Details
+                  </button>
+                  <button
+                    onClick={() => handlePracticeThis()}
+                    className="px-4 py-3 bg-ninja-red text-white text-sm font-bold hover:bg-ninja-red-dark transition-all shadow-md rounded-lg"
+                  >
+                    Practice
+                  </button>
+                </div>
+
+                {/* Delete button - small, minimal, on the side */}
+                <button
+                  onClick={() => {
+                    setDeleteTarget(item.entry.id)
+                    setShowDeleteConfirm(true)
+                  }}
+                  className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  title="Delete"
+                >
+                  🗑️
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       {filteredItems.length === 0 && (
@@ -601,15 +637,15 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
                 {selectedEntry.practiceStates
                   .sort((a, b) => {
                     // Always show Drill A first, then Drill B
-                    if (a.drill === 'zhuyin' && b.drill === 'trad') return -1
-                    if (a.drill === 'trad' && b.drill === 'zhuyin') return 1
+                    if (a.drill === DRILLS.ZHUYIN && b.drill === DRILLS.TRAD) return -1
+                    if (a.drill === DRILLS.TRAD && b.drill === DRILLS.ZHUYIN) return 1
                     return 0
                   })
                   .map(state => (
                   <div key={state.id} className="bg-gray-50 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-medium">
-                        {state.drill === 'zhuyin' ? 'ㄅ Drill A (Zhuyin)' : '🈚 Drill B (Traditional)'}
+                        {state.drill === DRILLS.ZHUYIN ? 'ㄅ Drill A (Zhuyin)' : '🈚 Drill B (Traditional)'}
                       </span>
                       {state.first_try_success_count + state.second_try_success_count >= 2 && 
                        state.consecutive_miss_count < 2 && (

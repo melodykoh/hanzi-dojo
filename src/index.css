@@ -1,8 +1,76 @@
+/* Import fonts: Display (Bungee) + UI (DM Sans) */
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=DM+Sans:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Animations for feedback toast */
+/* ========================================
+   ANIMATION SYSTEM - CONFLICT PREVENTION
+   ========================================
+
+   IMPORTANT: Only apply ONE .animate-* class per element.
+   CSS animation property can only have one value.
+
+   If multiple .animate-* classes are applied to the same element,
+   only the LAST one in the CSS cascade will take effect.
+
+   For combined effects, use composite animations below:
+   - .animate-spinjitzu-gold (spinjitzu spin + golden shimmer)
+   - .animate-pulse-fire (fire element pulsing glow)
+   - .animate-pulse-lightning (lightning element pulsing glow)
+   - .animate-pulse-energy (energy element pulsing glow)
+
+   DO NOT combine multiple .animate-* classes on the same element!
+
+   Example of WRONG usage:
+     ❌ className="animate-spinjitzu animate-pulse-energy"
+
+   Example of CORRECT usage:
+     ✅ className="animate-spinjitzu-gold"
+     ✅ className="animate-pulse-fire"
+
+   ======================================== */
+
+/* ========================================
+   NINJAGO ELEMENTAL ANIMATIONS
+   ======================================== */
+
+/* Spinjitzu Success Animation - Dramatic spinning entrance */
+@keyframes spinjitzu-spin {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%) rotate(0deg) scale(0.3);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(0) rotate(360deg) scale(1.2);
+  }
+  60% {
+    transform: translateY(0) rotate(360deg) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(360deg) scale(1);
+  }
+}
+
+/* Base spinjitzu animation (single effect) */
+.animate-spinjitzu {
+  animation: spinjitzu-spin 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Composite: Spinjitzu + Golden Shimmer (for perfect score toasts) */
+.animate-spinjitzu-gold {
+  animation:
+    spinjitzu-spin 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+    golden-shimmer 2s ease-in-out infinite;
+  position: relative;
+}
+
+/* Note: Golden shimmer uses ::before pseudo-element, see .golden-shimmer class below */
+
+/* Legacy bounce animation (for compatibility) */
 @keyframes bounce-in {
   0% {
     opacity: 0;
@@ -17,8 +85,141 @@
   }
 }
 
-.animate-bounce-in {
-  animation: bounce-in 0.5s ease-out;
+/* ========================================
+   ELEMENTAL PULSE ANIMATIONS
+   ========================================
+
+   WARNING: These modify filter and box-shadow properties.
+   Do NOT combine with animations that also modify these properties!
+
+   Safe to combine with: animations that only modify transform/opacity
+   NOT safe to combine with: other pulse animations
+
+   ======================================== */
+
+/* Fire Element - Red pulsing glow */
+@keyframes fire-pulse {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: 0 0 10px rgba(249, 0, 0, 0.3);
+  }
+  50% {
+    filter: brightness(1.2);
+    box-shadow: 0 0 20px rgba(249, 0, 0, 0.6), 0 0 40px rgba(249, 0, 0, 0.4);
+  }
+}
+
+.animate-pulse-fire {
+  animation: fire-pulse 2s ease-in-out infinite;
+}
+
+/* Lightning Element - Blue/yellow pulsing glow */
+@keyframes lightning-pulse {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: 0 0 10px rgba(0, 149, 252, 0.3);
+  }
+  50% {
+    filter: brightness(1.3);
+    box-shadow: 0 0 20px rgba(0, 149, 252, 0.6), 0 0 40px rgba(247, 245, 3, 0.5);
+  }
+}
+
+.animate-pulse-lightning {
+  animation: lightning-pulse 2s ease-in-out infinite;
+}
+
+/* Energy Element - Green/gold pulsing glow */
+@keyframes energy-pulse {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: 0 0 10px rgba(0, 159, 40, 0.3);
+  }
+  50% {
+    filter: brightness(1.15);
+    box-shadow: 0 0 20px rgba(0, 159, 40, 0.6), 0 0 40px rgba(255, 215, 0, 0.4);
+  }
+}
+
+.animate-pulse-energy {
+  animation: energy-pulse 2s ease-in-out infinite;
+}
+
+/* ========================================
+   GOLDEN SHIMMER EFFECT
+   ========================================
+
+   This uses ::before pseudo-element, NOT the animation property.
+   Safe to combine with any .animate-* class!
+
+   The shimmer is applied via the .golden-shimmer class which
+   adds a moving gradient overlay using ::before.
+
+   Usage: Add both classes to the same element:
+     ✅ className="animate-spinjitzu golden-shimmer"
+     ✅ className="animate-pulse-fire golden-shimmer"
+
+   Or use the composite .animate-spinjitzu-gold class which
+   includes both the animation and pseudo-element styling.
+
+   ======================================== */
+
+@keyframes golden-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Adds animated golden shimmer overlay via ::before pseudo-element */
+.golden-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.6) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: golden-shimmer 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ========================================
+   NINJA STAR ROTATION
+   ========================================
+
+   These are standalone rotation animations.
+   Do NOT combine with other .animate-* classes!
+
+   Use these for decorative spinning elements only.
+
+   ======================================== */
+
+@keyframes ninja-star-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ninja-star-spin {
+  animation: ninja-star-spin 4s linear infinite;
+}
+
+.ninja-star-spin-reverse {
+  animation: ninja-star-spin 6s linear infinite reverse;
+}
+
+/* Angular Shift Background Pattern */
+@keyframes angular-shift {
+  0%, 100% { background-position: 0 0, 30px 30px, 0 0; }
+  50% { background-position: 30px 30px, 0 0, 0 0; }
 }
 
 /* Hanzi Dojo Custom Styles */
@@ -42,15 +243,149 @@
 }
 
 @layer components {
+  /* Card Styles */
   .dojo-card {
     @apply bg-white rounded-lg shadow-md p-6 border border-gray-200;
   }
-  
+
+  .ninja-card {
+    @apply bg-white rounded shadow-lg p-6 border-2 border-ninja-gray relative;
+  }
+
+  .ninja-card-angular {
+    @apply bg-white shadow-lg p-6 border-3 border-ninja-black relative;
+    border-radius: 4px;
+  }
+
+  /* Legacy Button Styles (compatibility) */
   .dojo-button-primary {
     @apply bg-dojo-red text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors;
   }
-  
+
   .dojo-button-secondary {
     @apply bg-dojo-gold text-ink-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-colors;
+  }
+
+  /* Ninjago Elemental Button Styles */
+  .ninja-button {
+    @apply px-6 py-3 font-bold uppercase tracking-wide transition-all;
+    border-radius: 4px;
+    font-family: 'Bungee', 'Luckiest Guy', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  .ninja-button-fire {
+    @apply bg-gradient-to-b from-ninja-red to-ninja-red-dark text-white border-2 border-ninja-red-dark;
+    box-shadow:
+      0 4px 0 #990000,
+      0 6px 12px rgba(249, 0, 0, 0.4);
+  }
+
+  .ninja-button-fire:hover {
+    filter: brightness(1.1);
+    box-shadow:
+      0 4px 0 #990000,
+      0 6px 16px rgba(249, 0, 0, 0.6);
+  }
+
+  .ninja-button-fire:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #990000,
+      0 3px 6px rgba(249, 0, 0, 0.4);
+  }
+
+  .ninja-button-lightning {
+    @apply bg-gradient-to-b from-ninja-blue to-ninja-blue-dark text-white border-2 border-ninja-blue-dark;
+    box-shadow:
+      0 4px 0 #0050a0,
+      0 6px 12px rgba(0, 149, 252, 0.4);
+  }
+
+  .ninja-button-lightning:hover {
+    filter: brightness(1.1);
+    box-shadow:
+      0 4px 0 #0050a0,
+      0 6px 16px rgba(0, 149, 252, 0.6);
+  }
+
+  .ninja-button-lightning:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #0050a0,
+      0 3px 6px rgba(0, 149, 252, 0.4);
+  }
+
+  .ninja-button-gold {
+    @apply bg-gradient-to-b from-ninja-gold to-ninja-gold-dark text-ninja-black border-2 border-ninja-gold-dark;
+    box-shadow:
+      0 4px 0 #B8860B,
+      0 6px 12px rgba(255, 215, 0, 0.5);
+  }
+
+  .ninja-button-gold:hover {
+    filter: brightness(1.1);
+    box-shadow:
+      0 4px 0 #B8860B,
+      0 6px 16px rgba(255, 215, 0, 0.7);
+  }
+
+  .ninja-button-gold:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #B8860B,
+      0 3px 6px rgba(255, 215, 0, 0.5);
+  }
+
+  .ninja-button-energy {
+    @apply bg-gradient-to-b from-ninja-green to-ninja-green-dark text-white border-2 border-ninja-green-dark;
+    box-shadow:
+      0 4px 0 #005010,
+      0 6px 12px rgba(0, 159, 40, 0.4);
+  }
+
+  .ninja-button-energy:hover {
+    filter: brightness(1.1);
+    box-shadow:
+      0 4px 0 #005010,
+      0 6px 16px rgba(0, 159, 40, 0.6);
+  }
+
+  .ninja-button-energy:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 2px 0 #005010,
+      0 3px 6px rgba(0, 159, 40, 0.4);
+  }
+
+  /* Angular Pattern Overlays */
+  .angular-stripe {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.05) 10px,
+      rgba(0, 0, 0, 0.05) 20px
+    );
+  }
+
+  .angular-stripe-fire {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(249, 0, 0, 0.05) 10px,
+      rgba(249, 0, 0, 0.05) 20px
+    );
+  }
+
+  .angular-stripe-lightning {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 149, 252, 0.05) 10px,
+      rgba(0, 149, 252, 0.05) 20px
+    );
   }
 }

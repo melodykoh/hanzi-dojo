@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { recommendDrill, type DrillRecommendation } from '../lib/drillBalanceService'
+import { DRILLS } from '../types'
 
 interface DrillBalanceWidgetProps {
   kidId: string
@@ -129,7 +130,7 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
         <div className="mt-4 pt-4 border-t border-gray-200">
           <p className="text-sm text-gray-600">
             <span className="font-semibold text-blue-700">💡 Tip:</span>{' '}
-            Try {recommendation.recommendedDrill === 'zhuyin' ? 'Drill A' : 'Drill B'} next for better balance
+            Try {recommendation.recommendedDrill === DRILLS.ZHUYIN ? 'Drill A' : 'Drill B'} next for better balance
           </p>
         </div>
       )}

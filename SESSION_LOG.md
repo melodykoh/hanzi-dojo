@@ -2965,3 +2965,230 @@ const pronunciationData = zhuyin_variants[selectedVariantIndex]
 
 **Session 11 Summary:** ✅ COMPLETE - Discovered and unified two dictionary patterns (Pattern A vs B). Deployed Migration 011b transforming 35 Category 1 characters to Pattern A structure (prepend default to variants array). Fixed EntryCatalog pronunciation modal bug. Documented word-first learning approach, deferring complex character-level multi-pronunciation tracking to V2.
 
+---
+
+## Session 12: Critical Auth Bug Fix - Automatic Profile Creation
+
+**Date:** 2025-11-13
+**Status:** ✅ Complete
+**Epic:** Bug Fix (Production Issue)
+
+### 🎯 Session Objectives
+1. Investigate and fix critical auth bug: "No student profile found" error for new signups
+2. Implement database trigger to auto-create kid profiles
+3. Test fix with new signup flow
+4. Update documentation
+
+### 🐛 Bug Discovery & Investigation
+
+**User Report:**
+Friend signed up, confirmed email, and received error:
+```
+Profile Error
+No student profile found. Please contact support.
+```
+
+**Initial Confusion:**
+Another friend had signed up successfully on Sunday (Nov 10) without issues, so bug appeared intermittent.
+
+### 🔍 Root Cause Analysis
+
+**Profile Creation Flow Discovery:**
+
+**Current Login Handler** (`src/components/AuthScreen.tsx:48-74`) ✅ Works:
+```typescript
+// Check if user has a kid profile, create one if not
+const { data: kids } = await supabase
+  .from('kids')
+  .select('id')
+  .eq('owner_id', user.id)
+  .limit(1)
+
+if (!kids || kids.length === 0) {
+  // Creates profile with default name "My Student"
+  await supabase.from('kids').insert([{
+    owner_id: user.id,
+    name: 'My Student',
+    belt_rank: 'white'
+  }])
+}
+```
+
+**Current Signup Handler** (`src/components/AuthScreen.tsx:27-38`) ❌ Missing:
+```typescript
+if (mode === 'signup') {
+  const { error } = await supabase.auth.signUp({ email, password })
+  if (signUpError) throw signUpError
+
+  // NO PROFILE CREATION HERE!
+  setSuccessMessage('Account created! Please check your email...')
+  setMode('login')
+}
+```
+
+**Dashboard Profile Check** (`src/components/Dashboard.tsx:67-84`) ❌ Detection Only:
+```typescript
+if (!kids || kids.length === 0) {
+  // Shows error but doesn't create profile
+  setAuthError('No student profile found. Please contact support.')
+}
+```
+
+### 🧩 Understanding Why Friend A Succeeded vs Friend B Failed
+
+**Friend A (Sunday - Success):**
+1. Signed up → Email confirmation sent
+2. Clicked confirmation link → Account confirmed
+3. **Manually navigated to `/auth` and entered password to login**
+4. Login handler ran → Profile created ✅
+5. Dashboard loaded successfully
+
+**Friend B (Today - Failed):**
+1. Signed up → Email confirmation sent
+2. Clicked confirmation link → Account confirmed
+3. **Supabase redirected directly to `/` (Dashboard)**
+4. Session already active from confirmation
+5. Dashboard checked for profile → NOT FOUND ❌
+6. Error displayed
+
+**Key Insight:** Email confirmation link behavior determines success/failure:
+- If user manually logs in after confirmation → Profile created ✅
+- If user clicks confirmation link and goes straight to Dashboard → No profile ❌
+
+### 🧪 Bug Reproduction
+
+Tested with new account:
+1. ✅ Confirmed: Clicking email confirmation link → Error displayed
+2. ✅ Confirmed: Manual login after error → Profile created, Dashboard works
+
+### 💡 Solution Design
+
+**Initial Consideration: Multiple Approaches**
+
+**Option 1: Database Trigger** ⭐ SELECTED
+- Server-side automation
+- Guaranteed execution regardless of client flow
+- No reliance on client code
+
+**Option 2: Move Profile Creation to Signup Handler**
+- Client-side fix
+- Still vulnerable to edge cases (session restoration, etc.)
+
+**Option 3: Add Dashboard Fallback**
+- Recovery mechanism only
+- Not semantically correct (Dashboard shouldn't create data)
+
+**Option 4: Hybrid (Trigger + Dashboard Fallback)**
+- Initially considered for maximum reliability
+- User correctly questioned: "Why safety net if trigger runs server-side?"
+
+**Decision:** Database trigger only (Option 1)
+- New users → Trigger creates profile automatically ✅
+- Edge cases where trigger fails → Login handler already serves as fallback ✅
+- No legacy users to migrate → Friend B already fixed herself via re-login ✅
+- No dashboard changes needed → Keep it simple ✅
+
+### 🛠️ Implementation
+
+**Migration 012: Auto-Create Kid Profile on Signup**
+
+Created `supabase/migrations/012_auto_create_kid_profile.sql`:
+
+```sql
+-- Create trigger function to auto-create kid profile
+CREATE OR REPLACE FUNCTION handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Create default kid profile for new user
+  INSERT INTO public.kids (owner_id, name, belt_rank)
+  VALUES (NEW.id, 'My Student', 'white');
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Create trigger that fires on new user creation
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW
+  EXECUTE FUNCTION handle_new_user();
+```
+
+**How It Works:**
+1. New user signs up → Supabase creates record in `auth.users`
+2. Trigger fires immediately after INSERT
+3. `handle_new_user()` function creates corresponding `kids` profile
+4. User clicks confirmation link → Dashboard loads with existing profile ✅
+
+### ✅ Testing & Verification
+
+**Test Case 1: Email Confirmation Flow** ✅
+1. Logged out completely
+2. Signed up with new test email
+3. Clicked email confirmation link
+4. **Result:** Dashboard loaded immediately without error
+5. **Verified:** Profile existed in database with default name "My Student"
+
+**Test Case 2: Edge Case - Existing Session** ✅
+1. Logged in as Email A
+2. Signed up with Email B (alias email to same inbox)
+3. Clicked Email B confirmation link
+4. Browser remained on Email A session (expected behavior)
+5. **Verified:** Email B's profile still created in database (trigger fired correctly)
+
+**Production Impact:**
+- ✅ Future signups work regardless of email confirmation redirect behavior
+- ✅ No code changes needed in client-side auth flow
+- ✅ Login handler remains as passive fallback for edge cases
+- ✅ No migration needed for existing users (all have profiles from manual login)
+
+### 📁 Files Modified
+
+**Created:**
+- `supabase/migrations/012_auto_create_kid_profile.sql`
+
+**Updated:**
+- `CLAUDE.md` - Added Session 12 summary, updated "Recently Fixed" section
+- `SESSION_LOG.md` - This entry
+
+### 💭 Key Learnings
+
+**Architecture:**
+- Critical user flows (profile creation) should use server-side automation, not client-side logic
+- Database triggers provide guaranteed execution regardless of client path
+- "Defense in depth" (multiple safety nets) sounds good but adds complexity without clear benefit
+- User correctly pushed back on unnecessary "hybrid approach" → Keep it simple
+
+**Requirements Gathering:**
+- "But Friend A worked fine!" → Intermittent bugs reveal race conditions or path dependencies
+- Reproduction is key: Created new account and confirmed exact failure scenario
+- Understanding full auth flow (signup → email → confirmation → redirect) critical to diagnosis
+
+**Testing:**
+- Edge case testing revealed browser session behavior (Email A/B confusion)
+- Server-side trigger fired correctly even when browser showed wrong session
+- Database verification more reliable than UI testing for data creation
+
+### 📊 Current Status
+
+**Completed:**
+- ✅ Migration 012 created and deployed to production
+- ✅ Database trigger verified working
+- ✅ New signup tested successfully (no error after email confirmation)
+- ✅ Documentation updated (CLAUDE.md, SESSION_LOG.md)
+
+**Production Impact:**
+- All future signups automatically get kid profiles
+- Existing users unaffected (already have profiles)
+- Critical auth bug resolved
+
+### 🚀 Next Steps
+
+Resume Epic 8 Phase 2:
+- Category 2 triage (102 characters)
+- '干/幹/乾' data cleanup
+
+---
+
+**Session 12 Summary:** ✅ COMPLETE - Fixed critical auth bug where new users received "No student profile found" error after email confirmation. Root cause: Profile creation only ran in login handler, not during signup. Implemented database trigger (Migration 012) to auto-create kid profiles when auth.users records inserted. Tested and verified working in production. All future signups now work correctly regardless of email confirmation redirect behavior.
+

@@ -9,103 +9,167 @@ import { useEffect, useState } from 'react'
 export interface FeedbackToastProps {
   show: boolean
   points: 0 | 0.5 | 1.0
-  message: string
   duration?: number
   onHide?: () => void
-}
-
-// =============================================================================
-// SENSEI MESSAGES
-// =============================================================================
-
-const SENSEI_MESSAGES = {
-  firstTry: [
-    'Perfect form!',
-    'Excellent focus!',
-    'The Sensei nods in approval.',
-    'Your strokes are strong!',
-    'Well done, student!'
-  ],
-  secondTry: [
-    'Good recovery.',
-    'Better with practice.',
-    'You found the way.',
-    'Persistence pays off.',
-    'Every stroke improves.'
-  ],
-  miss: [
-    'The Sensei shows you the way.',
-    'We learn through practice.',
-    'Study this form carefully.',
-    'Every master was once a beginner.',
-    'Return to this character.'
-  ]
-}
-
-function getRandomMessage(points: 0 | 0.5 | 1.0): string {
-  if (points === 1.0) {
-    const messages = SENSEI_MESSAGES.firstTry
-    return messages[Math.floor(Math.random() * messages.length)]
-  } else if (points === 0.5) {
-    const messages = SENSEI_MESSAGES.secondTry
-    return messages[Math.floor(Math.random() * messages.length)]
-  } else {
-    const messages = SENSEI_MESSAGES.miss
-    return messages[Math.floor(Math.random() * messages.length)]
-  }
 }
 
 // =============================================================================
 // COMPONENT
 // =============================================================================
 
+/**
+ * FeedbackToast - Animated success/failure feedback using Ninjago Spinjitzu theme
+ *
+ * IMPORTANT IMPLEMENTATION DETAILS:
+ * - Uses increment counter key to force fresh CSS animation on each show
+ * - Session 12 bug fix: Do NOT apply multiple CSS animations to same element
+ * - Previously had `element-energy` glow + `spinjitzu-spin` on same element causing conflicts
+ * - Solution: Removed `element-energy` animation, kept only `spinjitzu-spin` on container
+ *
+ * ANIMATION STRATEGY:
+ * - `animationKey` increments on each show, forcing React to remount the DOM element
+ * - Fresh DOM element ensures CSS animation plays from start every time
+ * - Without key increment, subsequent shows would reuse same element with completed animation
+ *
+ * SCORING DESIGN:
+ * - 1.0 points (first try): Golden Power theme with star, shimmer effect
+ * - 0.5 points (second try): Energy theme with sparkles, green gradient
+ * - 0 points (miss): Learning theme with book icon, orange-red gradient
+ *
+ * @param show - Whether to display toast (triggers animation when true)
+ * @param points - Score: 1.0 (perfect/first try), 0.5 (second try), 0 (miss/try again)
+ * @param duration - Display duration in milliseconds (default 2500ms)
+ * @param onHide - Callback when toast auto-hides after duration
+ *
+ * @example
+ * ```tsx
+ * <FeedbackToast
+ *   show={showToast}
+ *   points={1.0}
+ *   duration={2500}
+ *   onHide={() => setShowToast(false)}
+ * />
+ * ```
+ */
 export function FeedbackToast({
   show,
   points,
-  message,
-  duration = 2000,
+  duration = 2500,
   onHide
 }: FeedbackToastProps) {
   const [visible, setVisible] = useState(false)
-  
+  const [animationKey, setAnimationKey] = useState(0)
+
   useEffect(() => {
     if (show) {
       setVisible(true)
-      
+      setAnimationKey(prev => prev + 1)
+
       const timer = setTimeout(() => {
         setVisible(false)
         if (onHide) onHide()
       }, duration)
-      
+
       return () => clearTimeout(timer)
     } else {
       setVisible(false)
     }
   }, [show, duration, onHide])
-  
+
   if (!visible) return null
-  
-  const bgColor = points === 1.0 ? 'bg-green-500' : points === 0.5 ? 'bg-yellow-500' : 'bg-orange-500'
-  const senseiMessage = message || getRandomMessage(points)
-  
+
+  // Elemental styling based on points
+  const getElementalStyle = () => {
+    if (points === 1.0) {
+      // Ultimate Golden Power
+      // ANIMATION SAFETY: Using animate-spinjitzu + golden-shimmer (pseudo-element)
+      // This is SAFE because golden-shimmer uses ::before, not the animation property
+      return {
+        bg: 'bg-gradient-to-br from-ninja-gold to-ninja-gold-dark',
+        border: 'border-4 border-yellow-600',
+        badgeBg: 'bg-ninja-green',
+        badgeBorder: 'border-4 border-green-700',
+        shimmer: true,
+        animation: 'animate-spinjitzu' // Single animation class only
+      }
+    } else if (points === 0.5) {
+      // Energy (partial success)
+      return {
+        bg: 'bg-gradient-to-br from-ninja-green to-ninja-green-dark',
+        border: 'border-4 border-green-700',
+        badgeBg: 'bg-ninja-yellow',
+        badgeBorder: 'border-4 border-yellow-600',
+        shimmer: false,
+        animation: 'animate-spinjitzu' // Single animation class only
+      }
+    } else {
+      // Learning (no points)
+      return {
+        bg: 'bg-gradient-to-br from-ninja-orange to-ninja-red',
+        border: 'border-4 border-red-700',
+        badgeBg: 'bg-ninja-gray',
+        badgeBorder: 'border-4 border-ninja-black',
+        shimmer: false,
+        animation: 'animate-spinjitzu' // Single animation class only
+      }
+    }
+  }
+
+  const style = getElementalStyle()
+
   return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-bounce-in">
-      <div className={`${bgColor} text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-4 min-w-[320px]`}>
-        {/* Points Badge */}
-        <div className="text-4xl font-bold">
-          {points === 1.0 && '+1.0'}
-          {points === 0.5 && '+0.5'}
-          {points === 0 && '0'}
+    <div key={animationKey} className="fixed top-4 left-0 right-0 z-50 flex justify-center">
+      <div
+        className={`
+        ${style.bg} ${style.border}
+        text-white px-8 py-6 shadow-2xl
+        flex items-center gap-6 min-w-[380px]
+        relative overflow-hidden
+        ${style.animation}
+        rounded-xl
+      `}
+      >
+        {/* Golden shimmer effect for perfect scores
+            ANIMATION SAFETY: golden-shimmer uses ::before pseudo-element,
+            safe to combine with any .animate-* class! */}
+        {style.shimmer && (
+          <div className="golden-shimmer" />
+        )}
+
+        {/* Points Badge - Circular with elemental glow */}
+        <div className={`
+          ${style.badgeBg} ${style.badgeBorder}
+          w-20 h-20 rounded-full
+          flex items-center justify-center
+          text-3xl font-black text-white
+          shadow-inner
+          relative z-10
+        `}>
+          {points === 1.0 && '⭐'}
+          {points === 0.5 && '✨'}
+          {points === 0 && '📖'}
         </div>
-        
+
         {/* Message */}
-        <div className="flex-1">
-          <div className="text-lg font-semibold">{senseiMessage}</div>
-          <div className="text-sm opacity-90">{points} point{points !== 1 ? 's' : ''} earned</div>
+        <div className="flex-1 relative z-10">
+          <div className="text-2xl font-heading font-black drop-shadow-lg uppercase tracking-wide">
+            {points === 1.0 && 'PERFECT!'}
+            {points === 0.5 && 'GOOD!'}
+            {points === 0 && 'KEEP GOING!'}
+          </div>
+          <div className="text-lg font-bold mt-1 drop-shadow-md">
+            {points === 1.0 && '+1.0 Points'}
+            {points === 0.5 && '+0.5 Points'}
+            {points === 0 && 'Try Again'}
+          </div>
         </div>
-        
-        {/* Sensei Icon (placeholder - can be replaced with actual mascot) */}
-        <div className="text-3xl">🥋</div>
+
+        {/* Ninja icon */}
+        <div className="text-5xl relative z-10 drop-shadow-lg">
+          {points === 1.0 && '👑'}
+          {points === 0.5 && '🥋'}
+          {points === 0 && '📚'}
+        </div>
       </div>
     </div>
   )
@@ -152,7 +216,6 @@ export function FeedbackToastDemo() {
       <FeedbackToast
         show={show}
         points={points}
-        message=""
         onHide={() => setShow(false)}
       />
     </div>

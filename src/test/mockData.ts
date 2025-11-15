@@ -1,5 +1,6 @@
 // Mock data for testing
 import type { Entry, Reading, PracticeState, DictionaryEntry } from '../types'
+import { DRILLS } from '../types'
 
 export const mockEntry: Entry = {
   id: 'test-entry-1',
@@ -8,7 +9,7 @@ export const mockEntry: Entry = {
   simp: '阳',
   trad: '陽',
   type: 'char',
-  applicable_drills: ['zhuyin', 'trad'],
+  applicable_drills: [DRILLS.ZHUYIN, DRILLS.TRAD],
   created_at: '2025-01-01T00:00:00Z',
   updated_at: '2025-01-01T00:00:00Z',
 }
@@ -20,7 +21,7 @@ export const mockEntryIdenticalForms: Entry = {
   simp: '太',
   trad: '太',
   type: 'char',
-  applicable_drills: ['zhuyin'],
+  applicable_drills: [DRILLS.ZHUYIN],
   created_at: '2025-01-01T00:00:00Z',
   updated_at: '2025-01-01T00:00:00Z',
 }
@@ -45,7 +46,7 @@ export const mockPracticeStateNew: PracticeState = {
   id: 'test-state-1',
   kid_id: 'test-kid-1',
   entry_id: 'test-entry-1',
-  drill: 'zhuyin',
+  drill: DRILLS.ZHUYIN,
   first_try_success_count: 0,
   second_try_success_count: 0,
   consecutive_miss_count: 0,
@@ -59,7 +60,7 @@ export const mockPracticeStateInProgress: PracticeState = {
   id: 'test-state-2',
   kid_id: 'test-kid-1',
   entry_id: 'test-entry-1',
-  drill: 'zhuyin',
+  drill: DRILLS.ZHUYIN,
   first_try_success_count: 1,
   second_try_success_count: 0,
   consecutive_miss_count: 0,
@@ -73,7 +74,7 @@ export const mockPracticeStateKnown: PracticeState = {
   id: 'test-state-3',
   kid_id: 'test-kid-1',
   entry_id: 'test-entry-1',
-  drill: 'zhuyin',
+  drill: DRILLS.ZHUYIN,
   first_try_success_count: 2,
   second_try_success_count: 1,
   consecutive_miss_count: 0,
@@ -87,7 +88,7 @@ export const mockPracticeStateStruggling: PracticeState = {
   id: 'test-state-4',
   kid_id: 'test-kid-1',
   entry_id: 'test-entry-1',
-  drill: 'zhuyin',
+  drill: DRILLS.ZHUYIN,
   first_try_success_count: 1,
   second_try_success_count: 1,
   consecutive_miss_count: 2,

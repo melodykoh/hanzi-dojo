@@ -2,6 +2,7 @@
 // Covers: Scoring logic, familiarity calculations, known status computation
 
 import { describe, it, expect } from 'vitest'
+import { DRILLS } from '../types'
 import {
   computeFamiliarity,
   isDrillKnown,
@@ -155,11 +156,11 @@ describe('practiceStateService', () => {
     it('should require all applicable drills to be known', () => {
       const zhuyinKnown: PracticeState = {
         ...mockPracticeStateKnown,
-        drill: 'zhuyin',
+        drill: DRILLS.ZHUYIN,
       }
       const tradNotKnown: PracticeState = {
         ...mockPracticeStateInProgress,
-        drill: 'trad',
+        drill: DRILLS.TRAD,
       }
       const result = computeKnownStatus(mockEntry, [zhuyinKnown, tradNotKnown])
       expect(result.isKnown).toBe(false)
@@ -168,11 +169,11 @@ describe('practiceStateService', () => {
     it('should return isKnown: true when all applicable drills are known', () => {
       const zhuyinKnown: PracticeState = {
         ...mockPracticeStateKnown,
-        drill: 'zhuyin',
+        drill: DRILLS.ZHUYIN,
       }
       const tradKnown: PracticeState = {
         ...mockPracticeStateKnown,
-        drill: 'trad',
+        drill: DRILLS.TRAD,
       }
       const result = computeKnownStatus(mockEntry, [zhuyinKnown, tradKnown])
       expect(result.isKnown).toBe(true)
@@ -181,7 +182,7 @@ describe('practiceStateService', () => {
     it('should handle entry with single applicable drill (identical forms)', () => {
       const zhuyinKnown: PracticeState = {
         ...mockPracticeStateKnown,
-        drill: 'zhuyin',
+        drill: DRILLS.ZHUYIN,
       }
       const result = computeKnownStatus(mockEntryIdenticalForms, [zhuyinKnown])
       expect(result.isKnown).toBe(true)
@@ -191,13 +192,13 @@ describe('practiceStateService', () => {
     it('should provide detailed drill statuses', () => {
       const zhuyinKnown: PracticeState = {
         ...mockPracticeStateKnown,
-        drill: 'zhuyin',
+        drill: DRILLS.ZHUYIN,
         first_try_success_count: 3,
         second_try_success_count: 1,
         consecutive_miss_count: 0,
       }
       const result = computeKnownStatus(mockEntry, [zhuyinKnown])
-      const zhuyinStatus = result.drillStatuses.find(d => d.drill === 'zhuyin')
+      const zhuyinStatus = result.drillStatuses.find(d => d.drill === DRILLS.ZHUYIN)
 
       expect(zhuyinStatus).toBeDefined()
       expect(zhuyinStatus?.isKnown).toBe(true)

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import type { PracticeDrill } from '../types'
+import { DRILLS } from '../types'
 import type { QueueEntry } from '../lib/practiceQueueService'
 import type { DrillAOption, DrillBOption } from '../lib/drillBuilders'
 import { buildDrillAOptions, buildDrillBOptions, validateDrillOptions } from '../lib/drillBuilders'
@@ -47,7 +48,7 @@ export function PracticeCard({
   
   useEffect(() => {
     try {
-      if (drill === 'zhuyin') {
+      if (drill === DRILLS.ZHUYIN) {
         const drillAOptions = buildDrillAOptions(queueEntry.reading.zhuyin)
         const validation = validateDrillOptions(drillAOptions)
         if (!validation.valid) {
@@ -55,7 +56,7 @@ export function PracticeCard({
         }
         setOptions(drillAOptions)
         setCorrectOptionIndex(drillAOptions.findIndex(opt => opt.isCorrect))
-      } else if (drill === 'trad') {
+      } else if (drill === DRILLS.TRAD) {
         const drillBOptions = buildDrillBOptions(
           queueEntry.entry.simp,
           queueEntry.entry.trad
@@ -155,21 +156,29 @@ export function PracticeCard({
     }
   }
   
-  // Render Drill A (Zhuyin)
-  if (drill === 'zhuyin' && options.length > 0) {
+  // Render Drill A (Zhuyin) - Lightning Element
+  if (drill === DRILLS.ZHUYIN && options.length > 0) {
     const drillAOptions = options as DrillAOption[]
-    
+
     return (
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
+      <div className="bg-white shadow-2xl p-4 sm:p-6 md:p-8 w-full sm:max-w-3xl mx-auto border-4 border-ninja-blue relative overflow-hidden rounded-xl">
+        {/* Subtle lightning element overlay */}
+        <div className="absolute inset-0 angular-stripe-lightning opacity-10 pointer-events-none" />
+
+        {/* Drill indicator badge */}
+        <div className="absolute top-4 left-4 bg-ninja-blue text-white px-3 py-1 font-bold text-sm shadow-lg rounded">
+          ⚡ DRILL A
+        </div>
+
         {/* Prompt */}
-        <div className="text-center mb-8">
-          <div className="text-sm text-gray-500 mb-2">
+        <div className="text-center mb-6 sm:mb-8 relative z-10 pt-12">
+          <div className="text-xs sm:text-sm text-gray-600 mb-2 font-semibold uppercase tracking-wide">
             {queueEntry.entry.type === 'word' ? 'Word' : 'Character'}
           </div>
-          <div className="text-8xl font-serif mb-4">
+          <div className="text-7xl sm:text-8xl md:text-9xl font-serif mb-4">
             {queueEntry.entry.simp}
           </div>
-          <div className="text-lg text-gray-600">
+          <div className="text-base sm:text-lg text-gray-700 font-semibold">
             Select the correct pronunciation
           </div>
         </div>
@@ -188,11 +197,12 @@ export function PracticeCard({
                 onClick={() => handleOptionClick(index)}
                 disabled={isDisabled || attemptState === 'complete' || isSubmitting}
                 className={`
-                  p-6 text-3xl font-sans rounded-lg border-2 transition-all
+                  p-4 sm:p-6 min-h-[64px] sm:min-h-[72px] text-2xl sm:text-3xl font-sans border-2 transition-all
                   ${isDisabled ? 'opacity-30 cursor-not-allowed bg-gray-100 border-gray-300' : ''}
                   ${isWrong ? 'border-red-500 bg-red-50' : ''}
                   ${showAsCorrect ? 'border-green-500 bg-green-50' : ''}
-                  ${!isDisabled && !isSelected && !showAsCorrect ? 'border-gray-300 hover:border-gray-400 hover:bg-gray-50' : ''}
+                  ${!isDisabled && !isSelected && !showAsCorrect ? 'border-gray-300 hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100' : ''}
+                  rounded-xl
                 `}
               >
                 <span className="break-words">{option.display}</span>
@@ -219,39 +229,47 @@ export function PracticeCard({
         )}
         
         {/* Progress indicator / Next button */}
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center relative z-10">
           {attemptState === 'first' && (
-            <div className="text-sm text-gray-500">First attempt</div>
+            <div className="text-sm text-ninja-gray font-bold uppercase tracking-wide">First attempt</div>
           )}
           {attemptState === 'second' && (
-            <div className="text-sm text-gray-500">Second attempt (retry)</div>
+            <div className="text-sm text-ninja-yellow font-bold uppercase tracking-wide">Second attempt (retry)</div>
           )}
           {attemptState === 'complete' && (
             <button
               onClick={() => onComplete(pointsAwarded)}
-              className="px-8 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+              className="ninja-button ninja-button-lightning"
             >
-              Next →
+              Next ⚡
             </button>
           )}
         </div>
       </div>
     )
   }
-  
-  // Render Drill B (Traditional)
-  if (drill === 'trad' && options.length > 0) {
+
+  // Render Drill B (Traditional) - Fire Element
+  if (drill === DRILLS.TRAD && options.length > 0) {
     const drillBOptions = options as DrillBOption[]
-    
+
     return (
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">
+      <div className="bg-white shadow-2xl p-4 sm:p-6 md:p-8 w-full sm:max-w-3xl mx-auto border-4 border-ninja-red relative overflow-hidden rounded-xl">
+        {/* Subtle fire element overlay */}
+        <div className="absolute inset-0 angular-stripe-fire opacity-10 pointer-events-none" />
+
+        {/* Drill indicator badge */}
+        <div className="absolute top-4 left-4 bg-ninja-red text-white px-3 py-1 font-bold text-sm shadow-lg rounded">
+          🔥 DRILL B
+        </div>
+
         {/* Prompt */}
-        <div className="text-center mb-8">
-          <div className="text-sm text-gray-500 mb-2">Simplified</div>
-          <div className="text-8xl font-serif mb-4">
+        <div className="text-center mb-6 sm:mb-8 relative z-10 pt-12">
+          <div className="text-xs sm:text-sm text-gray-600 mb-2 font-semibold uppercase tracking-wide">Simplified</div>
+          <div className="text-7xl sm:text-8xl md:text-9xl font-serif mb-4">
             {queueEntry.entry.simp}
           </div>
-          <div className="text-lg text-gray-600">
+          <div className="text-base sm:text-lg text-gray-700 font-semibold">
             Select the Traditional form
           </div>
         </div>
@@ -270,11 +288,12 @@ export function PracticeCard({
                 onClick={() => handleOptionClick(index)}
                 disabled={isDisabled || attemptState === 'complete' || isSubmitting}
                 className={`
-                  p-6 text-6xl font-serif rounded-lg border-2 transition-all whitespace-nowrap
+                  p-4 sm:p-6 min-h-[80px] sm:min-h-[96px] text-5xl sm:text-6xl font-serif border-2 transition-all
                   ${isDisabled ? 'opacity-30 cursor-not-allowed bg-gray-100 border-gray-300' : ''}
                   ${isWrong ? 'border-red-500 bg-red-50' : ''}
                   ${showAsCorrect ? 'border-green-500 bg-green-50' : ''}
-                  ${!isDisabled && !isSelected && !showAsCorrect ? 'border-gray-300 hover:border-gray-400 hover:bg-gray-50' : ''}
+                  ${!isDisabled && !isSelected && !showAsCorrect ? 'border-gray-300 hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100' : ''}
+                  rounded-xl
                 `}
               >
                 {option.traditional}
@@ -301,26 +320,26 @@ export function PracticeCard({
         )}
         
         {/* Progress indicator / Next button */}
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center relative z-10">
           {attemptState === 'first' && (
-            <div className="text-sm text-gray-500">First attempt</div>
+            <div className="text-sm text-ninja-gray font-bold uppercase tracking-wide">First attempt</div>
           )}
           {attemptState === 'second' && (
-            <div className="text-sm text-gray-500">Second attempt (retry)</div>
+            <div className="text-sm text-ninja-orange font-bold uppercase tracking-wide">Second attempt (retry)</div>
           )}
           {attemptState === 'complete' && (
             <button
               onClick={() => onComplete(pointsAwarded)}
-              className="px-8 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors"
+              className="ninja-button ninja-button-fire"
             >
-              Next →
+              Next 🔥
             </button>
           )}
         </div>
       </div>
     )
   }
-  
+
   // Loading state
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto">

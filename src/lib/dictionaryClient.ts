@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import { DictionaryLookupResult, DictionaryEntry } from '../types'
+import { DictionaryLookupResult, DictionaryEntry, PracticeDrill, DRILLS } from '../types'
 
 /**
  * Dictionary Client with In-Memory Caching
@@ -137,17 +137,17 @@ export const dictionaryClient = new DictionaryClient()
 /**
  * Utility function: Determine applicable drills based on entry data
  */
-export function determineApplicableDrills(entry: DictionaryEntry): ('zhuyin' | 'trad')[] {
-  const drills: ('zhuyin' | 'trad')[] = []
+export function determineApplicableDrills(entry: DictionaryEntry): PracticeDrill[] {
+  const drills: PracticeDrill[] = []
 
   // Drill A (Zhuyin) - always applicable if zhuyin present
   if (entry.zhuyin && entry.zhuyin.length > 0) {
-    drills.push('zhuyin')
+    drills.push(DRILLS.ZHUYIN)
   }
 
   // Drill B (Traditional) - only if Simplified ≠ Traditional
   if (entry.simp !== entry.trad) {
-    drills.push('trad')
+    drills.push(DRILLS.TRAD)
   }
 
   return drills

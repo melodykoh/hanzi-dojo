@@ -98,96 +98,114 @@ export function Dashboard() {
         </div>
       )}
 
-      {/* Header */}
-      <div className="bg-gradient-to-r from-red-800 to-red-600 text-white shadow-lg">
-        <div className="max-w-6xl mx-auto px-6 py-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-4xl font-bold mb-2">漢字道場 Hanzi Dojo</h1>
-              <p className="text-red-100">Traditional Chinese Character Training</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <ConnectionStatusBadge />
-              <button
-                onClick={handleSignOut}
-                className="px-4 py-2 bg-red-900 text-white rounded-lg hover:bg-red-950 transition-colors text-sm font-semibold"
-              >
-                Sign Out
-              </button>
-            </div>
+      {/* Header - Ninjago Fire Element Theme */}
+      <div className="bg-gradient-to-r from-ninja-red to-ninja-red-dark text-white shadow-2xl relative overflow-hidden">
+        {/* Subtle angular background pattern */}
+        <div className="absolute inset-0 angular-stripe-fire opacity-30 pointer-events-none" />
+
+        {/* Decorative ninja stars */}
+        <div className="absolute top-4 right-4 w-12 h-12 text-ninja-gold opacity-20 ninja-star-spin">
+          <svg viewBox="0 0 100 100" className="w-full h-full">
+            <path
+              d="M50,10 L55,40 L85,35 L60,55 L80,80 L50,65 L20,80 L40,55 L15,35 L45,40 Z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6 relative z-10">
+          {/* Utility bar - minimal, top right */}
+          <div className="flex items-center justify-end gap-2 mb-2 sm:mb-3">
+            <ConnectionStatusBadge />
+            <button
+              onClick={handleSignOut}
+              className="px-3 py-1.5 bg-ninja-black bg-opacity-50 text-white text-xs font-bold hover:bg-opacity-70 transition-all rounded border border-white border-opacity-30"
+            >
+              Sign Out
+            </button>
           </div>
 
-          {/* Sticky Action Bar */}
-          <div className="grid w-full max-w-xl gap-3 grid-cols-2">
+          {/* Hero title - dominant */}
+          <div className="text-center sm:text-left mb-4 sm:mb-5">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 tracking-wide drop-shadow-lg" style={{ textShadow: '0 4px 8px rgba(0,0,0,0.5)', lineHeight: '1.1' }}>
+              ⚔️ 漢字道場 HANZI DOJO ⚔️
+            </h1>
+            <p className="text-ninja-yellow font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide uppercase drop-shadow-md">
+              Master the Art of Hanzi
+            </p>
+          </div>
+
+          {/* Action Bar - Equal width, prominent */}
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-2xl mx-auto sm:mx-0">
             <OfflineAwareButton
               onClick={() => setShowAddItemForm(true)}
               disabled={!kidId}
-              className="w-full h-14 px-6 bg-white text-red-700 font-bold rounded-lg hover:bg-red-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="ninja-button ninja-button-lightning disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base sm:text-lg font-black py-2.5"
             >
               <span aria-hidden="true">➕</span>
-              <span className="whitespace-nowrap">Add Item</span>
+              <span>Add Item</span>
             </OfflineAwareButton>
             <button
               onClick={handleLaunchTraining}
               disabled={!kidId}
-              className="w-full h-14 px-6 bg-yellow-400 text-red-900 font-bold rounded-lg hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="ninja-button ninja-button-gold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base sm:text-lg font-black py-2.5"
             >
               <span aria-hidden="true">🥋</span>
-              <span className="whitespace-nowrap">Train</span>
+              <span>Train</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Tabs */}
+      {/* Tabs - Elemental Theme */}
       <div className="max-w-6xl mx-auto px-6 py-4">
-        <div className="flex gap-2 border-b border-gray-200 overflow-x-auto">
+        <div className="flex gap-2 border-b-2 border-ninja-gray overflow-x-auto">
           <button
             onClick={() => setActiveTab('metrics')}
-            className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
+            className={`px-4 py-2 font-bold transition-all whitespace-nowrap ${
               activeTab === 'metrics'
-                ? 'text-red-600 border-b-2 border-red-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'text-ninja-red border-b-4 border-ninja-red'
+                : 'text-gray-600 hover:text-ninja-black'
             }`}
           >
             📊 Dashboard
           </button>
           <button
             onClick={() => setActiveTab('catalog')}
-            className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
+            className={`px-4 py-2 font-bold transition-all whitespace-nowrap ${
               activeTab === 'catalog'
-                ? 'text-red-600 border-b-2 border-red-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'text-ninja-green border-b-4 border-ninja-green'
+                : 'text-gray-600 hover:text-ninja-black'
             }`}
           >
             📚 My Characters
           </button>
           <button
             onClick={() => setActiveTab('practice')}
-            className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
+            className={`px-4 py-2 font-bold transition-all whitespace-nowrap ${
               activeTab === 'practice'
-                ? 'text-red-600 border-b-2 border-red-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'text-ninja-blue border-b-4 border-ninja-blue'
+                : 'text-gray-600 hover:text-ninja-black'
             }`}
           >
-            🥋 Practice Demo
+            ⚡ Practice Demo
           </button>
           <button
             onClick={() => setActiveTab('demo')}
-            className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
+            className={`px-4 py-2 font-bold transition-all whitespace-nowrap ${
               activeTab === 'demo'
-                ? 'text-red-600 border-b-2 border-red-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'text-ninja-teal border-b-4 border-ninja-teal'
+                : 'text-gray-600 hover:text-ninja-black'
             }`}
           >
-            📚 Dictionary
+            📖 Dictionary
           </button>
           <button
             onClick={() => setActiveTab('missing')}
-            className={`px-4 py-2 font-semibold transition-colors whitespace-nowrap ${
+            className={`px-4 py-2 font-bold transition-all whitespace-nowrap ${
               activeTab === 'missing'
-                ? 'text-red-600 border-b-2 border-red-600'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'text-ninja-purple border-b-4 border-ninja-purple'
+                : 'text-gray-600 hover:text-ninja-black'
             }`}
           >
             🔍 Missing
