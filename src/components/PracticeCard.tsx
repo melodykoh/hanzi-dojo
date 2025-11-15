@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import type { PracticeDrill } from '../types'
+import { DRILLS } from '../types'
 import type { QueueEntry } from '../lib/practiceQueueService'
 import type { DrillAOption, DrillBOption } from '../lib/drillBuilders'
 import { buildDrillAOptions, buildDrillBOptions, validateDrillOptions } from '../lib/drillBuilders'
@@ -47,7 +48,7 @@ export function PracticeCard({
   
   useEffect(() => {
     try {
-      if (drill === 'zhuyin') {
+      if (drill === DRILLS.ZHUYIN) {
         const drillAOptions = buildDrillAOptions(queueEntry.reading.zhuyin)
         const validation = validateDrillOptions(drillAOptions)
         if (!validation.valid) {
@@ -55,7 +56,7 @@ export function PracticeCard({
         }
         setOptions(drillAOptions)
         setCorrectOptionIndex(drillAOptions.findIndex(opt => opt.isCorrect))
-      } else if (drill === 'trad') {
+      } else if (drill === DRILLS.TRAD) {
         const drillBOptions = buildDrillBOptions(
           queueEntry.entry.simp,
           queueEntry.entry.trad
@@ -156,7 +157,7 @@ export function PracticeCard({
   }
   
   // Render Drill A (Zhuyin) - Lightning Element
-  if (drill === 'zhuyin' && options.length > 0) {
+  if (drill === DRILLS.ZHUYIN && options.length > 0) {
     const drillAOptions = options as DrillAOption[]
 
     return (
@@ -249,7 +250,7 @@ export function PracticeCard({
   }
 
   // Render Drill B (Traditional) - Fire Element
-  if (drill === 'trad' && options.length > 0) {
+  if (drill === DRILLS.TRAD && options.length > 0) {
     const drillBOptions = options as DrillBOption[]
 
     return (

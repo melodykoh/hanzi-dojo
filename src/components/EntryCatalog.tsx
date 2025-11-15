@@ -6,6 +6,7 @@ import { ChevronUpIcon } from '@heroicons/react/24/solid'
 import { supabase } from '../lib/supabase'
 import { formatZhuyinDisplay } from '../lib/zhuyin'
 import type { Entry, PracticeState, ZhuyinSyllable, DictionaryEntry } from '../types'
+import { DRILLS } from '../types'
 
 interface EntryCatalogProps {
   kidId: string
@@ -421,8 +422,8 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {filteredItems.map(item => {
           const applicableDrills = item.entry.applicable_drills || []
-          const hasDrillA = applicableDrills.includes('zhuyin')
-          const hasDrillB = applicableDrills.includes('trad')
+          const hasDrillA = applicableDrills.includes(DRILLS.ZHUYIN)
+          const hasDrillB = applicableDrills.includes(DRILLS.TRAD)
 
           return (
             <div
@@ -636,15 +637,15 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
                 {selectedEntry.practiceStates
                   .sort((a, b) => {
                     // Always show Drill A first, then Drill B
-                    if (a.drill === 'zhuyin' && b.drill === 'trad') return -1
-                    if (a.drill === 'trad' && b.drill === 'zhuyin') return 1
+                    if (a.drill === DRILLS.ZHUYIN && b.drill === DRILLS.TRAD) return -1
+                    if (a.drill === DRILLS.TRAD && b.drill === DRILLS.ZHUYIN) return 1
                     return 0
                   })
                   .map(state => (
                   <div key={state.id} className="bg-gray-50 rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
                       <span className="font-medium">
-                        {state.drill === 'zhuyin' ? 'ㄅ Drill A (Zhuyin)' : '🈚 Drill B (Traditional)'}
+                        {state.drill === DRILLS.ZHUYIN ? 'ㄅ Drill A (Zhuyin)' : '🈚 Drill B (Traditional)'}
                       </span>
                       {state.first_try_success_count + state.second_try_success_count >= 2 && 
                        state.consecutive_miss_count < 2 && (

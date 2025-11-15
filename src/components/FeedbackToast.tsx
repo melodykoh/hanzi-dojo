@@ -17,6 +17,40 @@ export interface FeedbackToastProps {
 // COMPONENT
 // =============================================================================
 
+/**
+ * FeedbackToast - Animated success/failure feedback using Ninjago Spinjitzu theme
+ *
+ * IMPORTANT IMPLEMENTATION DETAILS:
+ * - Uses increment counter key to force fresh CSS animation on each show
+ * - Session 12 bug fix: Do NOT apply multiple CSS animations to same element
+ * - Previously had `element-energy` glow + `spinjitzu-spin` on same element causing conflicts
+ * - Solution: Removed `element-energy` animation, kept only `spinjitzu-spin` on container
+ *
+ * ANIMATION STRATEGY:
+ * - `animationKey` increments on each show, forcing React to remount the DOM element
+ * - Fresh DOM element ensures CSS animation plays from start every time
+ * - Without key increment, subsequent shows would reuse same element with completed animation
+ *
+ * SCORING DESIGN:
+ * - 1.0 points (first try): Golden Power theme with star, shimmer effect
+ * - 0.5 points (second try): Energy theme with sparkles, green gradient
+ * - 0 points (miss): Learning theme with book icon, orange-red gradient
+ *
+ * @param show - Whether to display toast (triggers animation when true)
+ * @param points - Score: 1.0 (perfect/first try), 0.5 (second try), 0 (miss/try again)
+ * @param duration - Display duration in milliseconds (default 2500ms)
+ * @param onHide - Callback when toast auto-hides after duration
+ *
+ * @example
+ * ```tsx
+ * <FeedbackToast
+ *   show={showToast}
+ *   points={1.0}
+ *   duration={2500}
+ *   onHide={() => setShowToast(false)}
+ * />
+ * ```
+ */
 export function FeedbackToast({
   show,
   points,
@@ -48,13 +82,15 @@ export function FeedbackToast({
   const getElementalStyle = () => {
     if (points === 1.0) {
       // Ultimate Golden Power
+      // ANIMATION SAFETY: Using animate-spinjitzu + golden-shimmer (pseudo-element)
+      // This is SAFE because golden-shimmer uses ::before, not the animation property
       return {
         bg: 'bg-gradient-to-br from-ninja-gold to-ninja-gold-dark',
         border: 'border-4 border-yellow-600',
         badgeBg: 'bg-ninja-green',
         badgeBorder: 'border-4 border-green-700',
         shimmer: true,
-        glow: '' // Removed element-energy to fix animation conflict with spinjitzu-spin
+        animation: 'animate-spinjitzu' // Single animation class only
       }
     } else if (points === 0.5) {
       // Energy (partial success)
@@ -64,7 +100,7 @@ export function FeedbackToast({
         badgeBg: 'bg-ninja-yellow',
         badgeBorder: 'border-4 border-yellow-600',
         shimmer: false,
-        glow: ''
+        animation: 'animate-spinjitzu' // Single animation class only
       }
     } else {
       // Learning (no points)
@@ -74,7 +110,7 @@ export function FeedbackToast({
         badgeBg: 'bg-ninja-gray',
         badgeBorder: 'border-4 border-ninja-black',
         shimmer: false,
-        glow: ''
+        animation: 'animate-spinjitzu' // Single animation class only
       }
     }
   }
@@ -89,12 +125,13 @@ export function FeedbackToast({
         text-white px-8 py-6 shadow-2xl
         flex items-center gap-6 min-w-[380px]
         relative overflow-hidden
-        ${style.glow}
-        animate-spinjitzu
+        ${style.animation}
         rounded-xl
       `}
       >
-        {/* Golden shimmer effect for perfect scores */}
+        {/* Golden shimmer effect for perfect scores
+            ANIMATION SAFETY: golden-shimmer uses ::before pseudo-element,
+            safe to combine with any .animate-* class! */}
         {style.shimmer && (
           <div className="golden-shimmer" />
         )}

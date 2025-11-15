@@ -6,8 +6,10 @@ import { FeedbackToast } from './FeedbackToast'
 import { KnownBadge } from './KnownBadge'
 import type { QueueEntry } from '../lib/practiceQueueService'
 import type { PracticeDrill, Entry, Reading } from '../types'
+import { DRILLS } from '../types'
 import { fetchPracticeQueue } from '../lib/practiceQueueService'
 import { supabase } from '../lib/supabase'
+import { usePracticeSession } from '../hooks/usePracticeSession'
 
 // =============================================================================
 // MOCK DATA
@@ -20,7 +22,7 @@ const MOCK_ENTRY: Entry = {
   simp: '阳',
   trad: '陽',
   type: 'char',
-  applicable_drills: ['zhuyin', 'trad'],
+  applicable_drills: [DRILLS.ZHUYIN, DRILLS.TRAD],
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString()
 }
@@ -48,12 +50,20 @@ const MOCK_QUEUE_ENTRY: QueueEntry = {
 // =============================================================================
 
 export function PracticeDemo() {
-  const [currentDrill, setCurrentDrill] = useState<PracticeDrill>('zhuyin')
-  const [sessionScore, setSessionScore] = useState(0)
-  const [sessionCorrect, setSessionCorrect] = useState(0)
-  const [sessionTotal, setSessionTotal] = useState(0)
-  const [showToast, setShowToast] = useState(false)
-  const [toastPoints, setToastPoints] = useState<0 | 0.5 | 1.0>(0)
+  const [currentDrill, setCurrentDrill] = useState<PracticeDrill>(DRILLS.ZHUYIN)
+
+  // Use shared practice session hook
+  const {
+    sessionScore,
+    sessionCorrect,
+    sessionTotal,
+    showToast,
+    toastPoints,
+    setShowToast,
+    handleCardComplete: handleCardCompleteBase,
+    resetSession: resetSessionBase
+  } = usePracticeSession()
+
   const [currentQueue, setCurrentQueue] = useState<QueueEntry[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
@@ -114,25 +124,16 @@ export function PracticeDemo() {
   }, [currentDrill, useMockData])
   
   const handleCardComplete = (points: number) => {
-    // Update session stats
-    setSessionScore(prev => prev + points)
-    setSessionTotal(prev => prev + 1)
-    if (points > 0) {
-      setSessionCorrect(prev => prev + 1)
-    }
-    
-    // Show toast
-    setToastPoints(points as 0 | 0.5 | 1.0)
-    setShowToast(true)
-    
-    // Move to next item immediately
-    if (useMockData) {
-      // Increment round counter to force re-render with fresh card
-      setRoundCounter(prev => prev + 1)
-    } else {
-      // Move to next in queue
-      setCurrentIndex(prev => prev + 1)
-    }
+    handleCardCompleteBase(points, () => {
+      // Move to next item immediately
+      if (useMockData) {
+        // Increment round counter to force re-render with fresh card
+        setRoundCounter(prev => prev + 1)
+      } else {
+        // Move to next in queue
+        setCurrentIndex(prev => prev + 1)
+      }
+    })
   }
   
   const handleError = (error: Error) => {
@@ -141,9 +142,7 @@ export function PracticeDemo() {
   }
   
   const resetSession = () => {
-    setSessionScore(0)
-    setSessionCorrect(0)
-    setSessionTotal(0)
+    resetSessionBase()
     setCurrentIndex(0)
     setRoundCounter(0)
     setShowSummary(false)
@@ -204,9 +203,9 @@ export function PracticeDemo() {
         <div className="bg-white rounded-lg shadow p-4 mb-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div className="flex flex-wrap gap-2 sm:gap-4 justify-center sm:justify-start">
             <button
-              onClick={() => setCurrentDrill('zhuyin')}
+              onClick={() => setCurrentDrill(DRILLS.ZHUYIN)}
               className={`px-4 py-2 rounded whitespace-nowrap ${
-                currentDrill === 'zhuyin'
+                currentDrill === DRILLS.ZHUYIN
                   ? 'bg-blue-500 text-white'
                   : 'bg-gray-200 text-gray-700'
               }`}
@@ -214,9 +213,9 @@ export function PracticeDemo() {
               Drill A (Zhuyin)
             </button>
             <button
-              onClick={() => setCurrentDrill('trad')}
+              onClick={() => setCurrentDrill(DRILLS.TRAD)}
               className={`px-4 py-2 rounded whitespace-nowrap ${
-                currentDrill === 'trad'
+                currentDrill === DRILLS.TRAD
                   ? 'bg-blue-500 text-white'
                   : 'bg-gray-200 text-gray-700'
               }`}

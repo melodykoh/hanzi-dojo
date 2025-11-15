@@ -2,6 +2,7 @@
 // Epic 5: Entry Management & Belt System
 
 import { describe, it, expect } from 'vitest'
+import { DRILLS } from '../types'
 
 describe('DashboardMetrics - Automated Logic Tests', () => {
   describe('Familiarity Computation', () => {
@@ -70,20 +71,20 @@ describe('DashboardMetrics - Automated Logic Tests', () => {
   describe('Known Count Computation', () => {
     it('should count entry as known when all drills meet criteria', () => {
       const entries = [
-        { id: 'entry-1', applicable_drills: ['zhuyin', 'trad'] }
+        { id: 'entry-1', applicable_drills: [DRILLS.ZHUYIN, DRILLS.TRAD] }
       ]
 
       const practiceStates = [
         {
           entry_id: 'entry-1',
-          drill: 'zhuyin',
+          drill: DRILLS.ZHUYIN,
           first_try_success_count: 2,
           second_try_success_count: 1,
           consecutive_miss_count: 0
         },
         {
           entry_id: 'entry-1',
-          drill: 'trad',
+          drill: DRILLS.TRAD,
           first_try_success_count: 1,
           second_try_success_count: 2,
           consecutive_miss_count: 1
@@ -98,20 +99,20 @@ describe('DashboardMetrics - Automated Logic Tests', () => {
 
     it('should not count entry as known if any drill fails criteria', () => {
       const entries = [
-        { id: 'entry-1', applicable_drills: ['zhuyin', 'trad'] }
+        { id: 'entry-1', applicable_drills: [DRILLS.ZHUYIN, DRILLS.TRAD] }
       ]
 
       const practiceStates = [
         {
           entry_id: 'entry-1',
-          drill: 'zhuyin',
+          drill: DRILLS.ZHUYIN,
           first_try_success_count: 2,
           second_try_success_count: 1,
           consecutive_miss_count: 0
         },
         {
           entry_id: 'entry-1',
-          drill: 'trad',
+          drill: DRILLS.TRAD,
           first_try_success_count: 0,
           second_try_success_count: 1,
           consecutive_miss_count: 0
@@ -126,13 +127,13 @@ describe('DashboardMetrics - Automated Logic Tests', () => {
 
     it('should not count entry as known if consecutive misses >= 2', () => {
       const entries = [
-        { id: 'entry-1', applicable_drills: ['zhuyin'] }
+        { id: 'entry-1', applicable_drills: [DRILLS.ZHUYIN] }
       ]
 
       const practiceStates = [
         {
           entry_id: 'entry-1',
-          drill: 'zhuyin',
+          drill: DRILLS.ZHUYIN,
           first_try_success_count: 3,
           second_try_success_count: 2,
           consecutive_miss_count: 2
@@ -147,7 +148,7 @@ describe('DashboardMetrics - Automated Logic Tests', () => {
 
     it('should handle entries with no practice states', () => {
       const entries = [
-        { id: 'entry-1', applicable_drills: ['zhuyin'] }
+        { id: 'entry-1', applicable_drills: [DRILLS.ZHUYIN] }
       ]
 
       const practiceStates = []

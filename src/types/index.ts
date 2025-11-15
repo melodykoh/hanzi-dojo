@@ -1,7 +1,13 @@
 // Hanzi Dojo Type Definitions
 
 export type EntryType = 'char' | 'word'
-export type PracticeDrill = 'zhuyin' | 'trad'
+
+export const DRILLS = {
+  ZHUYIN: 'zhuyin',
+  TRAD: 'trad',
+} as const
+
+export type PracticeDrill = typeof DRILLS[keyof typeof DRILLS]
 
 export type BeltRank = 'white' | 'yellow' | 'green' | 'blue' | 'red' | 'black'
 

@@ -7,6 +7,7 @@ import { dictionaryLogger } from '../lib/dictionaryLogger'
 import { supabase } from '../lib/supabase'
 import { formatZhuyinDisplay } from '../lib/zhuyin'
 import type { ZhuyinSyllable, PracticeDrill, ZhuyinVariant } from '../types'
+import { DRILLS } from '../types'
 
 interface AddItemFormProps {
   kidId: string
@@ -269,12 +270,12 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
 
     // Zhuyin drill always applicable if we have zhuyin
     if (formData.zhuyin.length > 0) {
-      drills.push('zhuyin')
+      drills.push(DRILLS.ZHUYIN)
     }
 
     // Traditional drill only applicable if simp !== trad
     if (formData.simplified !== formData.traditional) {
-      drills.push('trad')
+      drills.push(DRILLS.TRAD)
     }
 
     return drills
@@ -627,12 +628,12 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
                 Applicable Drills
               </label>
               <div className="flex gap-3">
-                {applicableDrills.includes('zhuyin') && (
+                {applicableDrills.includes(DRILLS.ZHUYIN) && (
                   <div className="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-semibold">
                     ✓ Drill A (Zhuyin)
                   </div>
                 )}
-                {applicableDrills.includes('trad') && (
+                {applicableDrills.includes(DRILLS.TRAD) && (
                   <div className="px-4 py-2 bg-green-100 text-green-800 rounded-lg font-semibold">
                     ✓ Drill B (Traditional)
                   </div>

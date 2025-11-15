@@ -1,17 +1,21 @@
 // Dashboard Metrics - Real-time metrics from practice_state
 // Epic 5: Entry Management & Belt System
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { supabase } from '../lib/supabase'
-import type { PracticeState } from '../types'
+import type { PracticeState, PracticeDrill } from '../types'
 
-interface MetricsData {
-  allTimeFamiliarity: number
-  lastPracticedDays: number | null  // Days since last practice, null if never
-  improvingStreak: number  // Consecutive sessions with improving accuracy
-  perfectStreak: number    // Consecutive sessions with 100% accuracy
-  knownCount: number
-  totalEntries: number
+// Partial Entry shape returned from the query (only id and applicable_drills)
+interface EntryPartial {
+  id: string
+  applicable_drills: PracticeDrill[]
+}
+
+// Practice Event shape used for session tracking
+interface PracticeEventPartial {
+  created_at: string
+  is_correct: boolean
+  attempt_index: number
 }
 
 interface DashboardMetricsProps {
@@ -19,14 +23,10 @@ interface DashboardMetricsProps {
 }
 
 export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
-  const [metrics, setMetrics] = useState<MetricsData>({
-    allTimeFamiliarity: 0,
-    lastPracticedDays: null,
-    improvingStreak: 0,
-    perfectStreak: 0,
-    knownCount: 0,
-    totalEntries: 0
-  })
+  // Store raw data instead of computed metrics
+  const [practiceStates, setPracticeStates] = useState<PracticeState[]>([])
+  const [entries, setEntries] = useState<EntryPartial[]>([])
+  const [allEvents, setAllEvents] = useState<PracticeEventPartial[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -62,14 +62,10 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
 
       if (eventsError) throw eventsError
 
-      // Compute metrics
-      const computed = computeMetrics(
-        practiceStates || [],
-        entries || [],
-        allEvents || []
-      )
-
-      setMetrics(computed)
+      // Store raw data - metrics will be computed via useMemo
+      setPracticeStates(practiceStates || [])
+      setEntries(entries || [])
+      setAllEvents(allEvents || [])
     } catch (error) {
       console.error('Failed to load metrics:', error)
     } finally {
@@ -77,40 +73,46 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
     }
   }
 
-  const computeMetrics = (
-    practiceStates: PracticeState[],
-    entries: any[],
-    allEvents: any[]
-  ): MetricsData => {
-    // 1. All-time familiarity (sum of weighted successes)
-    let allTimeFamiliarity = 0
+  // Memoized metric calculations - only recompute when dependencies change
+
+  // 1. All-time familiarity (sum of weighted successes)
+  const allTimeFamiliarity = useMemo(() => {
+    let total = 0
     for (const state of practiceStates) {
-      allTimeFamiliarity +=
+      total +=
         state.first_try_success_count * 1.0 +
         state.second_try_success_count * 0.5
     }
+    return total
+  }, [practiceStates])
 
-    // 2. Last practiced (days since most recent practice)
-    let lastPracticedDays: number | null = null
+  // 2. Last practiced (days since most recent practice)
+  const lastPracticedDays = useMemo(() => {
     const lastAttemptDates = practiceStates
       .map(s => s.last_attempt_at)
       .filter(d => d !== null)
       .sort()
       .reverse()
 
-    if (lastAttemptDates.length > 0) {
-      const lastDate = new Date(lastAttemptDates[0]!)
-      const now = new Date()
-      const diffMs = now.getTime() - lastDate.getTime()
-      lastPracticedDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-    }
+    if (lastAttemptDates.length === 0) return null
 
-    // 3. Session-based accuracy streaks
-    const sessions = groupIntoSessions(allEvents)
-    const { improvingStreak, perfectStreak } = calculateStreaks(sessions)
+    const lastDate = new Date(lastAttemptDates[0]!)
+    const now = new Date()
+    const diffMs = now.getTime() - lastDate.getTime()
+    return Math.floor(diffMs / (1000 * 60 * 60 * 24))
+  }, [practiceStates])
 
-    // 4. Known count (entries with ALL applicable drills "known")
-    let knownCount = 0
+  // 3. Session-based accuracy streaks
+  const sessions = useMemo(() => groupIntoSessions(allEvents), [allEvents])
+
+  const { improvingStreak, perfectStreak } = useMemo(
+    () => calculateStreaks(sessions),
+    [sessions]
+  )
+
+  // 4. Known count (entries with ALL applicable drills "known")
+  const knownCount = useMemo(() => {
+    let count = 0
     for (const entry of entries) {
       const entryStates = practiceStates.filter(s => s.entry_id === entry.id)
       const applicableDrills: string[] = entry.applicable_drills || []
@@ -132,25 +134,19 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
         }
       }
 
-      if (allDrillsKnown) knownCount++
+      if (allDrillsKnown) count++
     }
+    return count
+  }, [entries, practiceStates])
 
-    return {
-      allTimeFamiliarity,
-      lastPracticedDays,
-      improvingStreak,
-      perfectStreak,
-      knownCount,
-      totalEntries: entries.length
-    }
-  }
+  const totalEntries = useMemo(() => entries.length, [entries])
 
   // Group practice events into sessions (2-hour window)
-  function groupIntoSessions(events: any[]) {
+  function groupIntoSessions(events: PracticeEventPartial[]) {
     if (events.length === 0) return []
 
-    const sessions: any[][] = []
-    let currentSession: any[] = []
+    const sessions: PracticeEventPartial[][] = []
+    let currentSession: PracticeEventPartial[] = []
     const SESSION_GAP_MS = 2 * 60 * 60 * 1000 // 2 hours
 
     for (const event of events) {
@@ -177,7 +173,7 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
   }
 
   // Calculate accuracy streaks from sessions
-  function calculateStreaks(sessions: any[][]) {
+  function calculateStreaks(sessions: PracticeEventPartial[][]) {
     if (sessions.length === 0) {
       return { improvingStreak: 0, perfectStreak: 0 }
     }
@@ -251,7 +247,7 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
             <span className="text-2xl">⭐</span>
           </div>
           <div className="text-4xl font-black">
-            {metrics.allTimeFamiliarity.toFixed(1)}
+            {allTimeFamiliarity.toFixed(1)}
           </div>
           <div className="text-xs font-bold opacity-70 mt-1">
             Familiarity earned
@@ -267,10 +263,10 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
             <span className="text-2xl">📅</span>
           </div>
           <div className="text-3xl font-black text-gray-900">
-            {formatLastPracticed(metrics.lastPracticedDays)}
+            {formatLastPracticed(lastPracticedDays)}
           </div>
           <div className="text-xs font-bold text-gray-500 mt-1">
-            {metrics.lastPracticedDays !== null && metrics.lastPracticedDays > 3
+            {lastPracticedDays !== null && lastPracticedDays > 3
               ? 'Time to practice!'
               : 'Keep it up!'}
           </div>
@@ -283,13 +279,13 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
             <span className="text-2xl">🔥</span>
           </div>
           <div className="text-2xl font-black">
-            {metrics.improvingStreak > 0 && (
-              <div>{metrics.improvingStreak} improving</div>
+            {improvingStreak > 0 && (
+              <div>{improvingStreak} improving</div>
             )}
-            {metrics.perfectStreak > 0 && (
-              <div>{metrics.perfectStreak} perfect</div>
+            {perfectStreak > 0 && (
+              <div>{perfectStreak} perfect</div>
             )}
-            {metrics.improvingStreak === 0 && metrics.perfectStreak === 0 && (
+            {improvingStreak === 0 && perfectStreak === 0 && (
               <div>Start practicing!</div>
             )}
           </div>
@@ -305,10 +301,10 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
             <span className="text-2xl">📚</span>
           </div>
           <div className="text-3xl font-black text-gray-900">
-            {metrics.knownCount}/{metrics.totalEntries}
+            {knownCount}/{totalEntries}
           </div>
           <div className="text-xs font-bold text-gray-500 mt-1">
-            {metrics.knownCount === metrics.totalEntries && metrics.totalEntries > 0
+            {knownCount === totalEntries && totalEntries > 0
               ? 'All mastered!'
               : 'Characters known'}
           </div>

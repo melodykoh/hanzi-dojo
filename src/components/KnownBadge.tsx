@@ -1,6 +1,7 @@
 // Known Badge - Dynamic status indicator for entries
 
 import type { Entry, PracticeState } from '../types'
+import { DRILLS } from '../types'
 import { computeKnownStatus } from '../lib/practiceStateService'
 
 // =============================================================================
@@ -199,16 +200,16 @@ export function KnownBadgeDemo() {
     simp: '太',
     trad: '太',
     type: 'char',
-    applicable_drills: ['zhuyin'],
+    applicable_drills: [DRILLS.ZHUYIN],
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
   }
-  
+
   const knownState: PracticeState = {
     id: '1',
     kid_id: 'kid1',
     entry_id: '1',
-    drill: 'zhuyin',
+    drill: DRILLS.ZHUYIN,
     first_try_success_count: 2,
     second_try_success_count: 1,
     consecutive_miss_count: 0,

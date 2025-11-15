@@ -8,21 +8,86 @@ import { FeedbackToast } from './FeedbackToast'
 import { OfflineGuard } from './OfflineModal'
 import type { QueueEntry } from '../lib/practiceQueueService'
 import type { PracticeDrill } from '../types'
+import { DRILLS } from '../types'
 import { fetchPracticeQueue } from '../lib/practiceQueueService'
 import { supabase } from '../lib/supabase'
+import { usePracticeSession } from '../hooks/usePracticeSession'
 
+/**
+ * TrainingMode - Full-screen landscape-optimized practice mode for kids
+ *
+ * CORE FEATURES:
+ * - Fetches practice queue (20 items) ordered by familiarity/struggle state
+ * - Supports drill switching (A: Zhuyin recognition, B: Simplified→Traditional)
+ * - Session stats tracking (score, accuracy, progress)
+ * - Auto-generated session summary on completion/exit
+ *
+ * UX DESIGN PHILOSOPHY:
+ * - Parent supervision assumed (no passcode needed for exit)
+ * - Simple "Exit Training" button returns to dashboard
+ * - Offline detection pauses training with themed modal
+ * - Landscape-optimized for tablets (full-screen experience)
+ *
+ * DRILL FLOW:
+ * 1. Load practice queue from Supabase (fetchPracticeQueue)
+ * 2. Render current drill question (PracticeCard)
+ * 3. Capture answer and update stats (handleCardComplete)
+ * 4. Show feedback toast (1.0/0.5/0 points)
+ * 5. Move to next question automatically
+ * 6. Display summary modal when queue exhausted or user exits
+ *
+ * STATE MANAGEMENT:
+ * - currentDrill: 'zhuyin' | 'trad' (from URL params or switcher)
+ * - currentQueue: Array of 20 practice entries
+ * - currentIndex: Position in queue (0-19)
+ * - Session stats: Delegated to usePracticeSession hook (shared with Practice Demo)
+ *
+ * DRILL SWITCHING:
+ * - URL param ?drill=zhuyin or ?drill=trad (from Dashboard selection modal)
+ * - In-session switcher buttons reload queue for new drill type
+ * - Switching resets queue to index 0 (fresh start)
+ *
+ * EXIT BEHAVIOR:
+ * - If sessionTotal > 0: Show summary modal first
+ * - If sessionTotal === 0: Exit directly to dashboard (no summary needed)
+ * - Summary modal offers "Continue Training" or "Exit to Dashboard"
+ *
+ * OFFLINE HANDLING:
+ * - OfflineGuard wrapper monitors navigator.onLine + Supabase connectivity
+ * - Training pauses automatically when offline (dojo-themed modal)
+ * - Resumes when connection restored
+ *
+ * RELATED COMPONENTS:
+ * @see PracticeCard - Renders individual drill questions with options
+ * @see FeedbackToast - Shows animated scoring feedback
+ * @see OfflineGuard - Network connectivity monitoring wrapper
+ * @see fetchPracticeQueue - Supabase service to fetch ordered practice items
+ * @see usePracticeSession - Shared hook for session stats (score, accuracy, toast state)
+ *
+ * EPIC CONTEXT:
+ * - Epic 4: Training Mode UX & Guardrails
+ * - Epic 5.5: Drill selection modal before training
+ * - Session 8-12: Mobile polish, exit summary, offline detection
+ */
 export function TrainingMode() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  
+
   // Get drill from URL params (Epic 5.5 - drill selection modal)
   const drillParam = searchParams.get('drill') as PracticeDrill | null
-  const [currentDrill, setCurrentDrill] = useState<PracticeDrill>(drillParam || 'zhuyin')
-  const [sessionScore, setSessionScore] = useState(0)
-  const [sessionCorrect, setSessionCorrect] = useState(0)
-  const [sessionTotal, setSessionTotal] = useState(0)
-  const [showToast, setShowToast] = useState(false)
-  const [toastPoints, setToastPoints] = useState<0 | 0.5 | 1.0>(0)
+  const [currentDrill, setCurrentDrill] = useState<PracticeDrill>(drillParam || DRILLS.ZHUYIN)
+
+  // Use shared practice session hook
+  const {
+    sessionScore,
+    sessionCorrect,
+    sessionTotal,
+    showToast,
+    toastPoints,
+    setShowToast,
+    handleCardComplete: handleCardCompleteBase
+  } = usePracticeSession()
+
   const [currentQueue, setCurrentQueue] = useState<QueueEntry[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
@@ -80,24 +145,15 @@ export function TrainingMode() {
   }, [drillParam])
 
   const handleCardComplete = (points: number) => {
-    // Update session stats
-    setSessionScore(prev => prev + points)
-    setSessionTotal(prev => prev + 1)
-    if (points > 0) {
-      setSessionCorrect(prev => prev + 1)
-    }
-
-    // Show toast
-    setToastPoints(points as 0 | 0.5 | 1.0)
-    setShowToast(true)
-
-    // Move to next question immediately (CSS animations are independent of React state)
-    if (currentIndex + 1 < currentQueue.length) {
-      setCurrentIndex(prev => prev + 1)
-    } else {
-      // Session complete
-      setShowSummary(true)
-    }
+    handleCardCompleteBase(points, () => {
+      // Move to next question immediately (CSS animations are independent of React state)
+      if (currentIndex + 1 < currentQueue.length) {
+        setCurrentIndex(prev => prev + 1)
+      } else {
+        // Session complete
+        setShowSummary(true)
+      }
+    })
   }
 
   const handleError = (error: Error) => {
@@ -178,11 +234,11 @@ export function TrainingMode() {
             <div className="flex gap-2">
               <button
                 onClick={() => {
-                  setCurrentDrill('zhuyin')
+                  setCurrentDrill(DRILLS.ZHUYIN)
                   setCurrentIndex(0)
                 }}
                 className={`px-3 py-2 rounded-lg font-bold transition-colors text-sm sm:text-base ${
-                  currentDrill === 'zhuyin'
+                  currentDrill === DRILLS.ZHUYIN
                     ? 'bg-white text-red-700 shadow-lg'
                     : 'bg-red-700 text-white hover:bg-red-800'
                 }`}
@@ -191,11 +247,11 @@ export function TrainingMode() {
               </button>
               <button
                 onClick={() => {
-                  setCurrentDrill('trad')
+                  setCurrentDrill(DRILLS.TRAD)
                   setCurrentIndex(0)
                 }}
                 className={`px-3 py-2 rounded-lg font-bold transition-colors text-sm sm:text-base ${
-                  currentDrill === 'trad'
+                  currentDrill === DRILLS.TRAD
                     ? 'bg-white text-red-700 shadow-lg'
                     : 'bg-red-700 text-white hover:bg-red-800'
                 }`}
