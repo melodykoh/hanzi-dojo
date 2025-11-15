@@ -111,8 +111,8 @@ export function DemoDashboard() {
               🥋
             </span>
           </div>
-          <div className="text-2xl font-bold text-gray-900 mb-2">
-            {DEMO_METRICS.currentBelt}
+          <div className="text-2xl font-bold text-gray-900 mb-2 capitalize">
+            {DEMO_METRICS.currentBelt} Belt
           </div>
           <p className="text-sm text-gray-600">Belt progression based on familiarity</p>
         </div>

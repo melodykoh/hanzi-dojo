@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
 
 export function Changelog() {
   const [markdown, setMarkdown] = useState('')
@@ -81,7 +82,57 @@ export function Changelog() {
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="prose prose-lg max-w-none">
-            <MarkdownRenderer content={markdown} />
+            <ReactMarkdown
+              components={{
+                h1: ({ children }) => (
+                  <h1 className="text-3xl font-heading font-bold text-gray-900 mb-6">
+                    {children}
+                  </h1>
+                ),
+                h2: ({ children }) => (
+                  <h2 className="text-2xl font-heading font-bold text-gray-900 mt-8 mb-4 pb-2 border-b-2 border-gray-200">
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children }) => (
+                  <h3 className="text-xl font-bold text-gray-900 mt-6 mb-3">
+                    {children}
+                  </h3>
+                ),
+                p: ({ children }) => (
+                  <p className="text-gray-700 my-3">{children}</p>
+                ),
+                ul: ({ children }) => (
+                  <ul className="list-disc list-inside space-y-2 my-4 text-gray-700">
+                    {children}
+                  </ul>
+                ),
+                strong: ({ children }) => (
+                  <strong className="font-bold text-gray-900">{children}</strong>
+                ),
+                em: ({ children }) => (
+                  <em className="italic">{children}</em>
+                ),
+                code: ({ children }) => (
+                  <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono text-ninja-fire-600">
+                    {children}
+                  </code>
+                ),
+                a: ({ href, children }) => (
+                  <a
+                    href={href}
+                    className="text-ninja-fire-600 hover:text-ninja-fire-700 underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {children}
+                  </a>
+                ),
+                hr: () => <hr className="my-8 border-gray-300" />,
+              }}
+            >
+              {markdown}
+            </ReactMarkdown>
           </div>
         </div>
 
@@ -98,91 +149,4 @@ export function Changelog() {
       </div>
     </div>
   )
-}
-
-/**
- * Simple markdown renderer
- * Handles basic markdown formatting without external dependencies
- */
-function MarkdownRenderer({ content }: { content: string }) {
-  // Simple markdown to HTML conversion
-  const renderMarkdown = (text: string): JSX.Element[] => {
-    const lines = text.split('\n')
-    const elements: JSX.Element[] = []
-    let key = 0
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i]
-
-      // Headings
-      if (line.startsWith('### ')) {
-        elements.push(
-          <h3 key={key++} className="text-xl font-bold text-gray-900 mt-6 mb-3">
-            {line.replace('### ', '')}
-          </h3>
-        )
-      } else if (line.startsWith('## ')) {
-        elements.push(
-          <h2 key={key++} className="text-2xl font-heading font-bold text-gray-900 mt-8 mb-4 pb-2 border-b-2 border-gray-200">
-            {line.replace('## ', '')}
-          </h2>
-        )
-      } else if (line.startsWith('# ')) {
-        elements.push(
-          <h1 key={key++} className="text-3xl font-heading font-bold text-gray-900 mb-6">
-            {line.replace('# ', '')}
-          </h1>
-        )
-      }
-      // Horizontal rule
-      else if (line.startsWith('---')) {
-        elements.push(<hr key={key++} className="my-8 border-gray-300" />)
-      }
-      // List items
-      else if (line.startsWith('- ')) {
-        const listItems: string[] = []
-        let j = i
-        while (j < lines.length && lines[j].startsWith('- ')) {
-          listItems.push(lines[j].replace('- ', ''))
-          j++
-        }
-        elements.push(
-          <ul key={key++} className="list-disc list-inside space-y-2 my-4 text-gray-700">
-            {listItems.map((item, idx) => (
-              <li key={idx} dangerouslySetInnerHTML={{ __html: formatInlineMarkdown(item) }} />
-            ))}
-          </ul>
-        )
-        i = j - 1
-      }
-      // Paragraphs
-      else if (line.trim().length > 0 && !line.startsWith('*')) {
-        elements.push(
-          <p key={key++} className="text-gray-700 my-3" dangerouslySetInnerHTML={{ __html: formatInlineMarkdown(line) }} />
-        )
-      }
-      // Empty lines
-      else if (line.trim().length === 0) {
-        // Skip empty lines (handled by spacing)
-        continue
-      }
-    }
-
-    return elements
-  }
-
-  // Format inline markdown (bold, italic, code, links)
-  const formatInlineMarkdown = (text: string): string => {
-    return text
-      // Bold
-      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-gray-900">$1</strong>')
-      // Italic
-      .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
-      // Code
-      .replace(/`(.*?)`/g, '<code class="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono text-ninja-fire-600">$1</code>')
-      // Links
-      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-ninja-fire-600 hover:text-ninja-fire-700 underline" target="_blank" rel="noopener noreferrer">$1</a>')
-  }
-
-  return <div className="space-y-2">{renderMarkdown(content)}</div>
 }
