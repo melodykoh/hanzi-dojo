@@ -51,20 +51,32 @@ export function PracticeCard({
     async function generateOptions() {
       try {
         if (drill === DRILLS.ZHUYIN) {
-          // Fetch all readings for this entry to get all valid pronunciations
-          const { data: allReadings, error: readingsError } = await supabase
-            .from('readings')
-            .select('zhuyin')
-            .eq('entry_id', queueEntry.entry.id)
+          // Fetch dictionary entry to get ALL valid pronunciations (including alternates)
+          const { data: dictEntry, error: dictError } = await supabase
+            .from('dictionary')
+            .select('zhuyin, zhuyin_variants')
+            .or(`simp.eq.${queueEntry.entry.simp},trad.eq.${queueEntry.entry.trad}`)
+            .limit(1)
+            .single()
 
-          if (readingsError) {
-            console.error('Failed to fetch readings for multi-pronunciation check:', readingsError)
+          if (dictError) {
+            console.error('Failed to fetch dictionary entry for multi-pronunciation check:', dictError)
           }
 
-          // Extract all valid pronunciations (all readings for this entry)
-          const allValidPronunciations: ZhuyinSyllable[][] = allReadings
-            ? allReadings.map(r => r.zhuyin)
-            : [queueEntry.reading.zhuyin] // Fallback to just current reading if query fails
+          // Extract all valid pronunciations from dictionary
+          let allValidPronunciations: ZhuyinSyllable[][] = [queueEntry.reading.zhuyin]
+
+          if (dictEntry) {
+            if (dictEntry.zhuyin_variants && Array.isArray(dictEntry.zhuyin_variants)) {
+              // Pattern A structure: extract zhuyin from each variant
+              allValidPronunciations = dictEntry.zhuyin_variants.map(
+                (variant: any) => variant.zhuyin
+              )
+            } else if (dictEntry.zhuyin) {
+              // Single pronunciation or old format
+              allValidPronunciations = [dictEntry.zhuyin]
+            }
+          }
 
           const drillAOptions = buildDrillAOptions(
             queueEntry.reading.zhuyin,
