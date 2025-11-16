@@ -79,12 +79,23 @@ export function PracticeCard({
     if (attemptState === 'complete') return
     if (disabledOptions.has(index)) return
     if (isSubmitting) return
-    
+
+    // Check online status before attempting to record
+    if (!navigator.onLine) {
+      setFeedback("You're offline. Please reconnect to save your progress.")
+      return
+    }
+
     setSelectedOption(index)
     setIsSubmitting(true)
-    
+
     const isCorrect = index === correctOptionIndex
-    
+
+    // Capture current state for potential rollback
+    const previousAttemptState = attemptState
+    const previousDisabledOptions = new Set(disabledOptions)
+    const previousSelectedOption = selectedOption
+
     try {
       if (attemptState === 'first') {
         // First attempt
@@ -149,7 +160,39 @@ export function PracticeCard({
       }
     } catch (error) {
       console.error('Failed to record attempt:', error)
-      setFeedback('Error recording attempt. Please try again.')
+
+      // Categorize error and provide user-friendly feedback
+      const errorMessage = error instanceof Error ? error.message.toLowerCase() : String(error).toLowerCase()
+
+      // Network errors (connection issues, load failed, timeouts)
+      if (
+        errorMessage.includes('load failed') ||
+        errorMessage.includes('network') ||
+        errorMessage.includes('timeout') ||
+        errorMessage.includes('fetch failed') ||
+        errorMessage.includes('connection')
+      ) {
+        setFeedback('Connection lost. Please check your internet and try again.')
+      }
+      // Permission/auth errors
+      else if (
+        errorMessage.includes('permission') ||
+        errorMessage.includes('rls') ||
+        errorMessage.includes('unauthorized') ||
+        errorMessage.includes('forbidden')
+      ) {
+        setFeedback('Permission error. Please sign in again.')
+      }
+      // Generic error fallback
+      else {
+        setFeedback('Unable to save answer. Please try again.')
+      }
+
+      // Rollback UI state on failure
+      setAttemptState(previousAttemptState)
+      setDisabledOptions(previousDisabledOptions)
+      setSelectedOption(previousSelectedOption)
+
       if (onError) onError(error as Error)
     } finally {
       setIsSubmitting(false)

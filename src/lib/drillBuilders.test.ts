@@ -2,8 +2,18 @@
 // Covers: Option generation, validation, confusion logic
 
 import { describe, it, expect } from 'vitest'
-import { buildZhuyinOptions, buildTraditionalOptions } from './drillBuilders'
+import { buildDrillAOptions, buildDrillBOptions, validateUniqueness } from './drillBuilders'
 import { mockEntry, mockReading, mockReadingMulti } from '../test/mockData'
+
+// Helper to build Zhuyin options with old API (for backward compat tests)
+const buildZhuyinOptions = (entry: any, reading: any) => {
+  return buildDrillAOptions(reading.zhuyin)
+}
+
+// Helper to build Traditional options with old API (for backward compat tests)
+const buildTraditionalOptions = (entry: any) => {
+  return buildDrillBOptions(entry.simp, entry.trad)
+}
 
 describe('drillBuilders', () => {
   describe('buildZhuyinOptions', () => {
@@ -259,6 +269,109 @@ describe('drillBuilders', () => {
       })
 
       expect(hasToneVariant).toBe(true)
+    })
+  })
+
+  describe('Bug Fixes - Issue #13', () => {
+    describe('Multi-pronunciation character handling', () => {
+      it('should exclude all valid pronunciations when generating distractors', () => {
+        // Character 可 (kě/kè) - both pronunciations are valid
+        const correctZhuyin = [['ㄎ', 'ㄜ', 'ˇ']] // kě (can, may)
+        const allValidPronunciations = [
+          [['ㄎ', 'ㄜ', 'ˇ']], // kě (can, may)
+          [['ㄎ', 'ㄜ', 'ˋ']]  // kè (khan)
+        ]
+
+        const options = buildDrillAOptions(correctZhuyin, undefined, allValidPronunciations)
+
+        // Check that the other valid pronunciation (kè) is NOT used as a distractor
+        const hasOtherValidAsDistractor = options.some(opt => {
+          if (opt.isCorrect) return false
+          // Check if it matches [['ㄎ', 'ㄜ', 'ˋ']]
+          return opt.zhuyin.length === 1 &&
+                 opt.zhuyin[0][0] === 'ㄎ' &&
+                 opt.zhuyin[0][1] === 'ㄜ' &&
+                 opt.zhuyin[0][2] === 'ˋ'
+        })
+
+        expect(hasOtherValidAsDistractor).toBe(false)
+      })
+
+      it('should exclude all valid pronunciations - character 么 (mó/me)', () => {
+        const correctZhuyin = [['ㄇ', 'ㄛ', 'ˊ']] // mó
+        const allValidPronunciations = [
+          [['ㄇ', 'ㄛ', 'ˊ']], // mó
+          [['ㄇ', 'ㄜ', '˙']]  // me (neutral tone)
+        ]
+
+        const options = buildDrillAOptions(correctZhuyin, undefined, allValidPronunciations)
+
+        // Check that me (ㄇㄜ˙) is NOT used as a distractor
+        const hasOtherValidAsDistractor = options.some(opt => {
+          if (opt.isCorrect) return false
+          return opt.zhuyin.length === 1 &&
+                 opt.zhuyin[0][0] === 'ㄇ' &&
+                 opt.zhuyin[0][1] === 'ㄜ' &&
+                 opt.zhuyin[0][2] === '˙'
+        })
+
+        expect(hasOtherValidAsDistractor).toBe(false)
+      })
+
+      it('should work backward compatible (no allValidPronunciations parameter)', () => {
+        // When allValidPronunciations is not provided, function should work as before
+        const correctZhuyin = [['ㄎ', 'ㄜ', 'ˇ']]
+        const options = buildDrillAOptions(correctZhuyin)
+
+        expect(options).toHaveLength(4)
+        expect(options.filter(opt => opt.isCorrect)).toHaveLength(1)
+      })
+    })
+
+    describe('Display string uniqueness validation', () => {
+      it('should never generate duplicate display strings', () => {
+        // Run 100 iterations to ensure consistency
+        for (let i = 0; i < 100; i++) {
+          const correctZhuyin = [['ㄎ', 'ㄜ', 'ˇ']]
+          const allValidPronunciations = [[['ㄎ', 'ㄜ', 'ˇ']], [['ㄎ', 'ㄜ', 'ˋ']]]
+
+          const options = buildDrillAOptions(correctZhuyin, undefined, allValidPronunciations)
+
+          // Check display string uniqueness
+          const displays = options.map(opt => opt.display)
+          const uniqueDisplays = new Set(displays)
+
+          expect(uniqueDisplays.size).toBe(4) // All 4 displays must be unique
+        }
+      })
+
+      it('should use validateUniqueness helper correctly', () => {
+        const options = buildDrillAOptions([['ㄒ', 'ㄢ', 'ˊ']])
+        expect(validateUniqueness(options)).toBe(true)
+      })
+    })
+
+    describe('Improved duplicate padding logging', () => {
+      it('should not generate duplicate options for problematic characters', () => {
+        // These characters previously caused duplicate options in production
+        const problematicCharacters = [
+          [['ㄎ', 'ㄜ', 'ˇ']], // 可 (kě)
+          [['ㄇ', 'ㄛ', 'ˊ']], // 么 (mó)
+          [['ㄍ', 'ㄢ', 'ˉ']], // 干 (gān)
+        ]
+
+        for (const zhuyin of problematicCharacters) {
+          const options = buildDrillAOptions(zhuyin)
+
+          // Verify no duplicate syllable arrays
+          const serialized = options.map(opt => JSON.stringify(opt.zhuyin))
+          const uniqueSerialized = new Set(serialized)
+          expect(uniqueSerialized.size).toBe(4)
+
+          // Verify no duplicate display strings
+          expect(validateUniqueness(options)).toBe(true)
+        }
+      })
     })
   })
 })

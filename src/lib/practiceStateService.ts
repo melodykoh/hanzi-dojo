@@ -1,6 +1,7 @@
 // Practice State Service - Manages scoring, familiarity, and known status computation
 
 import { supabase } from './supabase'
+import { retryableInsert, retryableUpdate } from './supabaseRetry'
 import type { PracticeState, PracticeDrill, Entry } from '../types'
 
 // =============================================================================
@@ -256,20 +257,40 @@ export async function recordAttempt(
     pointsAwarded = attemptIndex === 1 ? FIRST_TRY_POINTS : SECOND_TRY_POINTS
   }
   
-  // Log to practice_events (immutable record)
-  const { error: eventError } = await supabase
-    .from('practice_events')
-    .insert({
-      kid_id: kidId,
-      entry_id: entryId,
+  // Log to practice_events (immutable record) with retry logic
+  try {
+    await retryableInsert(
+      () => supabase
+        .from('practice_events')
+        .insert({
+          kid_id: kidId,
+          entry_id: entryId,
+          drill,
+          attempt_index: attemptIndex,
+          is_correct: isCorrect,
+          points_awarded: pointsAwarded,
+          chosen_option: chosenOption
+        })
+        .select()
+        .single(),
+      `Log practice event for entry ${entryId}, drill ${drill}, attempt ${attemptIndex}`
+    )
+  } catch (error) {
+    // Add context to error for better debugging
+    const contextualError = new Error(
+      `Failed to log practice event: ${error instanceof Error ? error.message : String(error)}`
+    )
+    contextualError.cause = error
+    console.error('Practice event logging failed:', {
+      entryId,
+      kidId,
       drill,
-      attempt_index: attemptIndex,
-      is_correct: isCorrect,
-      points_awarded: pointsAwarded,
-      chosen_option: chosenOption
+      attemptIndex,
+      timestamp: new Date().toISOString(),
+      error
     })
-  
-  if (eventError) throw eventError
+    throw contextualError
+  }
   
   // Update practice_state counters
   const updates: Partial<PracticeState> = {
@@ -292,17 +313,36 @@ export async function recordAttempt(
     updates.consecutive_miss_count = currentState.consecutive_miss_count + 1
   }
   
-  // Apply updates
-  const { data: updatedState, error: updateError } = await supabase
-    .from('practice_state')
-    .update(updates)
-    .eq('id', currentState.id)
-    .select()
-    .single()
-  
-  if (updateError) throw updateError
-  
-  return { state: updatedState, pointsAwarded }
+  // Apply updates with retry logic
+  try {
+    const updatedState = await retryableUpdate(
+      () => supabase
+        .from('practice_state')
+        .update(updates)
+        .eq('id', currentState.id)
+        .select()
+        .single(),
+      `Update practice state for entry ${entryId}, drill ${drill}`
+    )
+
+    return { state: updatedState, pointsAwarded }
+  } catch (error) {
+    // Add context to error for better debugging
+    const contextualError = new Error(
+      `Failed to update practice state: ${error instanceof Error ? error.message : String(error)}`
+    )
+    contextualError.cause = error
+    console.error('Practice state update failed:', {
+      entryId,
+      kidId,
+      drill,
+      currentStateId: currentState.id,
+      updates,
+      timestamp: new Date().toISOString(),
+      error
+    })
+    throw contextualError
+  }
 }
 
 /**
