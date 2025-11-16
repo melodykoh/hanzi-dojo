@@ -1,12 +1,13 @@
 // Practice Card - Drill display with attempt tracking
 
 import { useState, useEffect } from 'react'
-import type { PracticeDrill } from '../types'
+import type { PracticeDrill, ZhuyinSyllable } from '../types'
 import { DRILLS } from '../types'
 import type { QueueEntry } from '../lib/practiceQueueService'
 import type { DrillAOption, DrillBOption } from '../lib/drillBuilders'
 import { buildDrillAOptions, buildDrillBOptions, validateDrillOptions } from '../lib/drillBuilders'
 import { recordFirstAttempt, recordSecondAttempt } from '../lib/practiceStateService'
+import { supabase } from '../lib/supabase'
 
 // =============================================================================
 // TYPES
@@ -47,32 +48,55 @@ export function PracticeCard({
   const [options, setOptions] = useState<DrillAOption[] | DrillBOption[]>([])
   
   useEffect(() => {
-    try {
-      if (drill === DRILLS.ZHUYIN) {
-        const drillAOptions = buildDrillAOptions(queueEntry.reading.zhuyin)
-        const validation = validateDrillOptions(drillAOptions)
-        if (!validation.valid) {
-          throw new Error(`Invalid DrillA options: ${validation.error}`)
+    async function generateOptions() {
+      try {
+        if (drill === DRILLS.ZHUYIN) {
+          // Fetch all readings for this entry to get all valid pronunciations
+          const { data: allReadings, error: readingsError } = await supabase
+            .from('readings')
+            .select('zhuyin')
+            .eq('entry_id', queueEntry.entry.id)
+
+          if (readingsError) {
+            console.error('Failed to fetch readings for multi-pronunciation check:', readingsError)
+          }
+
+          // Extract all valid pronunciations (all readings for this entry)
+          const allValidPronunciations: ZhuyinSyllable[][] = allReadings
+            ? allReadings.map(r => r.zhuyin)
+            : [queueEntry.reading.zhuyin] // Fallback to just current reading if query fails
+
+          const drillAOptions = buildDrillAOptions(
+            queueEntry.reading.zhuyin,
+            undefined, // confusionData
+            allValidPronunciations
+          )
+          const validation = validateDrillOptions(drillAOptions)
+          if (!validation.valid) {
+            throw new Error(`Invalid DrillA options: ${validation.error}`)
+          }
+          setOptions(drillAOptions)
+          setCorrectOptionIndex(drillAOptions.findIndex(opt => opt.isCorrect))
+        } else if (drill === DRILLS.TRAD) {
+          const drillBOptions = buildDrillBOptions(
+            queueEntry.entry.simp,
+            queueEntry.entry.trad
+          )
+          const validation = validateDrillOptions(drillBOptions)
+          if (!validation.valid) {
+            throw new Error(`Invalid DrillB options: ${validation.error}`)
+          }
+          setOptions(drillBOptions)
+          setCorrectOptionIndex(drillBOptions.findIndex(opt => opt.isCorrect))
         }
-        setOptions(drillAOptions)
-        setCorrectOptionIndex(drillAOptions.findIndex(opt => opt.isCorrect))
-      } else if (drill === DRILLS.TRAD) {
-        const drillBOptions = buildDrillBOptions(
-          queueEntry.entry.simp,
-          queueEntry.entry.trad
-        )
-        const validation = validateDrillOptions(drillBOptions)
-        if (!validation.valid) {
-          throw new Error(`Invalid DrillB options: ${validation.error}`)
-        }
-        setOptions(drillBOptions)
-        setCorrectOptionIndex(drillBOptions.findIndex(opt => opt.isCorrect))
+      } catch (error) {
+        console.error('Failed to generate drill options:', error)
+        if (onError) onError(error as Error)
       }
-    } catch (error) {
-      console.error('Failed to generate drill options:', error)
-      if (onError) onError(error as Error)
     }
-  }, [queueEntry, drill])
+
+    generateOptions()
+  }, [queueEntry, drill, onError])
   
   // Handle option selection
   const handleOptionClick = async (index: number) => {
