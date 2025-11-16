@@ -3785,3 +3785,340 @@ CREATE POLICY dictionary_entries_public_read ON dictionary_entries
 
 **Session 13 Final Summary:** ✅ COMPLETE - Deployed PR #11 (demo mode + changelog) with comprehensive code review and systematic resolution of 8 improvements via parallel execution workflow. Fixed 2 critical bugs (auth state listener, dictionary RLS), optimized performance (30% faster auth), added security (XSS fix), improved quality (17 tests, type safety), and enhanced process (deployment checklist). Applied migration 013 to production. Repository clean, all tests passing, production verified working. Ready for Feature 1 (Tally.so help/feedback tab) implementation.
 
+
+## Session 14: Feedback Tab Implementation + Comprehensive Code Review
+**Date:** 2025-11-16  
+**Status:** ✅ Complete  
+**Epic:** Feature 1 - Feedback System
+
+### 🎯 Objectives Accomplished
+1. ✅ Implemented Feedback tab with Tally.so embedded form
+2. ✅ Conducted comprehensive 6-agent parallel code review
+3. ✅ Triaged 10 code review findings → created 8 actionable todos
+4. ✅ Resolved all 8 todos using 3-wave parallel execution workflow
+5. ✅ Merged all improvements to main with full test coverage
+
+### 📋 Phase 1: Feature Planning & Implementation
+
+#### Planning Research (3 Parallel Agents)
+- **repo-research-analyst:** Analyzed codebase patterns, confirmed no Tally integration exists
+- **best-practices-researcher:** Researched feedback system patterns, recommended Tally.so + dashboard tab
+- **framework-docs-researcher:** Researched Tally.so integration options (component vs iframe)
+
+#### User Decisions
+- **Form:** Create new Tally form (ID: VLL59J)
+- **Location:** Dashboard tab only (not floating button)
+- **Access:** Public (demo users can submit anonymously)
+- **Tab Name:** "Feedback"
+
+#### Implementation
+- Created `FeedbackTab.tsx` component with iframe embed approach
+- Pre-populated hidden fields: email, user_id, user_type, page, timestamp, viewport, browser
+- Added Feedback tab to Dashboard navigation with ninja-purple theme
+- Created comprehensive `docs/operational/FEEDBACK_TAB_IMPLEMENTATION.md` guide
+- Built component tests: `FeedbackTab.test.tsx` (4 initial tests)
+
+**Initial Commit:** Feature branch `feature/feedback-tab` created and implemented
+
+### 📋 Phase 2: Comprehensive Code Review
+
+#### Review Workflow
+Used `/compounding-engineering:review` command to launch **6 specialized agents in parallel**:
+
+1. **kieran-typescript-reviewer** - TypeScript best practices, type safety
+2. **security-sentinel** - Security vulnerabilities, input validation, CSP
+3. **performance-oracle** - Performance bottlenecks, optimization opportunities
+4. **architecture-strategist** - Design patterns, component structure
+5. **code-simplicity-reviewer** - YAGNI principles, code minimalism
+6. **pattern-recognition-specialist** - Code smells, anti-patterns, consistency
+
+**Review Duration:** ~2 minutes (parallel execution)  
+**Findings:** 10 total (1 P1, 3 P2, 6 P3)
+
+#### Review Findings Summary
+
+**Critical (P1):**
+1. Unused `react-tally` dependency (package installed but not used after switching to iframe)
+
+**Important (P2):**
+2. Test `act()` warnings (3 tests missing `waitFor()`)
+3. Implicit `any` type in `_event` parameter
+4. Security gaps: No input validation, missing CSP headers, excessive fingerprinting
+
+**Nice-to-Have (P3):**
+5. Duplicate auth state management (FeedbackTab reimplements Dashboard's auth listener)
+6. Tab color inconsistency (Missing tab uses `purple-600` vs Feedback's `ninja-purple`)
+7. Hardcoded form ID (should be in config)
+8. Missing loading state for iframe (1-3 second blank screen)
+9. Unnecessary re-renders (useState + useEffect instead of useMemo)
+10. Duplicate auth subscription (memory overhead, race conditions)
+
+### 📋 Phase 3: Triage & Todo Creation
+
+Used `/compounding-engineering:triage` command to process findings one-by-one:
+
+**Created Todos (8):**
+- ✅ 001: Remove unused react-tally dependency (P1)
+- ✅ 002: Fix test act() warnings (P2)
+- ✅ 003: Add explicit AuthChangeEvent type (P2)
+- ✅ 004: Fix tab color inconsistency (P3)
+- ✅ 005: Add loading state for iframe (P3)
+- ✅ 006: Security hardening (P2)
+- ✅ 007: Optimize FeedbackTab re-renders (P3)
+- ✅ 008: Remove duplicate auth listener (P3)
+
+**Skipped Items (2):**
+- Issue #4 (duplicate of #10) - Architectural refactor
+- Issue #6 - Hardcoded form ID (low priority for V1)
+
+**Estimated Total Effort:** 71 minutes (actual: ~45 minutes via parallel execution)
+
+### 📋 Phase 4: Parallel Resolution (3 Waves)
+
+#### Wave 1: Foundation (4 Parallel Tasks)
+**Status:** ✅ Complete  
+**Duration:** ~8 minutes
+
+1. ✅ **Remove react-tally dependency**
+   - Executed: `npm uninstall react-tally`
+   - Verified: package.json and package-lock.json updated
+   - **Issue:** Agent mistakenly deleted entire FeedbackTab feature
+   - **Recovery:** Restored files from git, re-applied fixes
+
+2. ✅ **Fix test act() warnings**
+   - Updated 3 tests to wrap assertions in `waitFor()`
+   - Changed test functions to `async`
+   - Result: All 4 tests pass without warnings
+
+3. ✅ **Add AuthChangeEvent type**
+   - Added `AuthChangeEvent` to imports from `@supabase/supabase-js`
+   - Added type annotation: `_event: AuthChangeEvent`
+   - TypeScript compilation successful
+
+4. ✅ **Fix tab color inconsistency**
+   - Changed Missing tab from `purple-600` → `ninja-purple`
+   - Now consistent with Feedback tab styling
+
+#### Wave 2: Architecture Refactor (1 Task)
+**Status:** ✅ Complete  
+**Duration:** ~10 minutes
+
+5. ✅ **Remove duplicate auth listener**
+   - Pass `session` prop from Dashboard to FeedbackTab
+   - Remove auth state management from FeedbackTab (useState, useEffect)
+   - Simplify component by 14 lines
+   - Update all 4 tests to pass session prop
+   - Add new test for authenticated user scenario
+   - **Result:** Eliminated duplicate Supabase subscription, improved maintainability
+
+#### Wave 3: Performance & Security (3 Parallel Tasks)
+**Status:** ✅ Complete  
+**Duration:** ~15 minutes
+
+6. ✅ **Optimize re-renders with useMemo**
+   - Replace `useState` + `useEffect` with `useMemo`
+   - Only rebuild URL when `session.user.email` or `session.user.id` change
+   - **Performance Impact:** Prevents unnecessary iframe reloads on token refresh
+
+7. ✅ **Add loading state for iframe**
+   - Added `isLoading` state variable
+   - Added animated sword emoji (⚔️) + "Loading feedback form..." text
+   - Added `onLoad` handler to iframe
+   - Smooth 300ms opacity fade-in transition
+   - Added 3 new tests for loading behavior
+   - **UX Impact:** Users see feedback during 1-3 second loading period
+
+8. ✅ **Security hardening**
+   - **8a:** Input sanitization functions (email, userId, path)
+   - **8b:** CSP headers in `vercel.json` (restrict iframe to tally.so)
+   - **8c:** Removed fingerprinting (viewport, browser data)
+   - **Result:** Defense-in-depth security improvements
+
+### 📊 Final Commit Summary
+
+**Commit:** `fc956d1`  
+**Message:** Code quality improvements: FeedbackTab optimizations (8 resolutions)  
+**Branch:** `review-pr-12` → merged to `main`
+
+**Files Changed:** 6 files, 139 additions, 67 deletions
+- `src/components/FeedbackTab.tsx` (refactored: props, useMemo, loading, security)
+- `src/components/FeedbackTab.test.tsx` (8 tests, all passing, no warnings)
+- `src/components/Dashboard.tsx` (pass session prop, fix Missing tab color)
+- `package.json` + `package-lock.json` (removed react-tally)
+- `vercel.json` (added CSP headers)
+
+**Test Results:** 8/8 passing  
+**Build:** Successful  
+**TypeScript:** No errors
+
+### 🎓 Key Decisions & Rationale
+
+#### 1. Iframe vs TallyForm Component
+**Decision:** Use direct iframe embed with manual URL construction  
+**Rationale:**
+- TallyForm component doesn't support hidden field pre-population via props
+- Direct iframe gives full control over URL parameters
+- Zero additional bundle size (no react-tally dependency needed)
+- Simpler implementation and debugging
+
+#### 2. Session as Prop vs Local Auth State
+**Decision:** Pass session as prop from Dashboard instead of local auth management  
+**Rationale:**
+- Single source of truth for auth state (Dashboard already manages it)
+- Eliminates duplicate Supabase subscription (memory + race condition risk)
+- Follows React best practice: lift state up, pass down as props
+- Reduces component complexity (-14 lines)
+- Better separation of concerns
+
+#### 3. useMemo vs useState + useEffect
+**Decision:** Replace useState/useEffect with useMemo for formUrl  
+**Rationale:**
+- URL only needs to rebuild when email/ID change, not on every session object update
+- Session object can change for many reasons (token refresh, metadata updates)
+- useMemo dependencies `[session?.user?.email, session?.user?.id]` prevent unnecessary recalculations
+- Performance: Fewer iframe reloads, smoother UX
+
+#### 4. Security Hardening Approach
+**Decision:** Three-layer defense: input sanitization + CSP headers + reduced fingerprinting  
+**Rationale:**
+- **Input sanitization:** Don't rely solely on Tally.so validation (defense-in-depth)
+- **CSP headers:** Restrict iframe sources to prevent clickjacking attacks
+- **Reduced fingerprinting:** Remove viewport/browser data to minimize privacy exposure
+- All three layers work together for comprehensive security
+
+#### 5. Loading State with Sword Emoji
+**Decision:** Animated ⚔️ emoji + "Loading feedback form..." text  
+**Rationale:**
+- Matches dojo theme (consistent with Dashboard loading state)
+- Playful, on-brand visual feedback
+- Smooth 300ms opacity transition feels polished
+- Users understand the 1-3 second wait is normal iframe loading
+
+### 🐛 Issues Resolved
+
+**All 8 Todos Resolved:**
+
+**P1 Critical (1):**
+1. ✅ Removed unused react-tally dependency
+
+**P2 Important (3):**
+2. ✅ Fixed test act() warnings with waitFor()
+3. ✅ Added explicit AuthChangeEvent type
+4. ✅ Security hardening (sanitization + CSP + privacy)
+
+**P3 Nice-to-Have (4):**
+5. ✅ Fixed tab color inconsistency (Missing tab)
+6. ✅ Added loading state for iframe
+7. ✅ Optimized re-renders with useMemo
+8. ✅ Removed duplicate auth listener
+
+**Skipped (2):**
+- Duplicate auth management architectural refactor (covered by #8)
+- Hardcoded form ID extraction (deferred to V1.1)
+
+### 📈 Production Impact
+
+**Code Quality:**
+- Reduced component complexity: 82 → 68 lines (FeedbackTab.tsx)
+- Eliminated duplicate code: 14 lines of auth management removed
+- Improved test coverage: 4 → 8 tests
+- Enhanced security: Input validation + CSP headers + reduced tracking
+- Better performance: useMemo prevents unnecessary re-renders
+
+**User Experience:**
+- Loading feedback: Spinning sword emoji during 1-3 second wait
+- Smooth transitions: 300ms opacity fade-in for iframe
+- Privacy: Removed viewport/browser fingerprinting
+- Reliability: No duplicate auth subscriptions = fewer race conditions
+
+**Development:**
+- Better maintainability: Single source of truth for auth state
+- Type safety: Explicit AuthChangeEvent type
+- Test reliability: No act() warnings
+- Clean dependencies: No unused packages
+
+### 🧹 Cleanup
+
+**Todo Files:**
+- All 8 todo files moved to `.todos/resolved/`
+- Clear audit trail of all fixes with before/after examples
+
+**Temporary Files:**
+- `test_auth_types.ts` removed (temporary test file from agent)
+
+**Branches:**
+- `review-pr-12` merged to main
+- Local worktree cleaned up
+
+### 📝 Next Session Planning
+
+**Status:** Feature 1 (Feedback Tab) complete and deployed to production  
+
+**User Feedback Required:**
+- Test Feedback tab in production
+- Verify Tally form submissions work correctly
+- Confirm email pre-population for authenticated users
+- Check anonymous submission flow for demo users
+
+**Alternative Priorities:**
+- Epic 8 Phase 2: Category 2 dictionary triage (102 characters)
+- Epic 7: Mobile polish (7 story points, optional)
+- New feature requests from user feedback
+
+### 🎓 Learnings & Best Practices
+
+**Parallel Code Review Workflow:**
+- 6 specialized agents identify diverse issues (TypeScript, security, performance, architecture, simplicity, patterns)
+- Review completes in ~2 minutes vs. manual review taking hours
+- Triage step prevents over-engineering (user decides priority)
+- Todo files provide clear roadmap with effort estimates
+
+**Wave-Based Resolution:**
+- **Wave 1:** Independent changes (no conflicts, can run in parallel)
+- **Wave 2:** Architectural changes (dependencies on Wave 1 fixes)
+- **Wave 3:** Optimizations building on Wave 2 structure
+- This pattern respects dependencies while maximizing parallelism
+
+**Agent Recovery Strategy:**
+- When agent misinterprets task (removed entire feature instead of just dependency), have clear recovery path
+- Git restore is your friend
+- Re-apply fixes systematically to restored files
+- Verify with build + tests before proceeding to next wave
+
+**Security Best Practices:**
+- Always sanitize user inputs before embedding in URLs
+- Use CSP headers to restrict iframe sources
+- Minimize fingerprinting data collection (GDPR/privacy consideration)
+- Defense-in-depth: don't rely solely on third-party validation
+
+**Test Quality:**
+- Fix act() warnings immediately (they indicate real async issues)
+- Add loading state tests for components with async operations
+- Test both authenticated and demo user scenarios
+- 8 tests with no warnings > 4 tests with warnings
+
+**Performance Optimization:**
+- useMemo for derived state that depends on specific values
+- Careful dependency arrays prevent unnecessary recalculations
+- Session object changes ≠ user email/ID changes
+- Measure impact: fewer iframe reloads = better UX
+
+### 🔄 Documentation Updates
+
+**Updated Files:**
+- `SESSION_LOG.md` - This entry (Session 14)
+- `CLAUDE.md` - Updated current status to reflect Feature 1 completion
+- `docs/operational/FEEDBACK_TAB_IMPLEMENTATION.md` - Created comprehensive implementation guide
+
+**Todo Archive:**
+- `.todos/resolved/` - Contains all 8 resolved todo files with full context
+
+**Production Verification:**
+- Feature deployed and accessible at https://hanzi-dojo.vercel.app
+- Feedback tab visible to all users (authenticated + demo)
+- Tally form loading with pre-populated fields
+- CSP headers active in production
+
+---
+
+**Session 14 Final Summary:** ✅ COMPLETE - Implemented Feature 1 (Feedback Tab) with Tally.so integration. Conducted comprehensive 6-agent parallel code review identifying 10 findings. Triaged and created 8 actionable todos. Resolved all 8 using 3-wave parallel execution: Wave 1 (foundation fixes), Wave 2 (architecture refactor), Wave 3 (performance + security). Merged to main with 8/8 tests passing, build successful, no TypeScript errors. Production deployment verified. Ready for user feedback and next feature prioritization.
