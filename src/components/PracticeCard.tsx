@@ -73,8 +73,37 @@ export function PracticeCard({
                 (variant: any) => variant.zhuyin
               )
             } else if (dictEntry.zhuyin) {
-              // Single pronunciation or old format
-              allValidPronunciations = [dictEntry.zhuyin]
+              // OLD FORMAT COMPATIBILITY: Handle multi-pronunciation characters
+              // Old format stores multi-pronunciation as: [["ㄕ","ㄨㄚ",""], ["ㄕ","ㄨㄚ","ˋ"]]
+              // This is ambiguous - could be:
+              //   1. A 2-syllable word with pronunciation shuā-shuà
+              //   2. A 1-character with 2 possible pronunciations (shuā OR shuà)
+              //
+              // Solution: Check if all elements are single syllables (3-element tuples)
+              // If yes, treat as multi-pronunciation (#2), otherwise as multi-syllable word (#1)
+
+              if (Array.isArray(dictEntry.zhuyin) && dictEntry.zhuyin.length > 1) {
+                // Check if this looks like old multi-pronunciation format
+                const isSingleSyllableList = dictEntry.zhuyin.every(
+                  (elem: any) => Array.isArray(elem) && elem.length === 3 && typeof elem[0] === 'string'
+                )
+
+                if (isSingleSyllableList) {
+                  // OLD MULTI-PRONUNCIATION FORMAT DETECTED
+                  // Convert: [["ㄕ","ㄨㄚ",""], ["ㄕ","ㄨㄚ","ˋ"]]
+                  //      to: [[["ㄕ","ㄨㄚ",""]], [["ㄕ","ㄨㄚ","ˋ"]]]
+                  console.debug(
+                    `Old format detected for ${queueEntry.entry.simp}, converting ${dictEntry.zhuyin.length} pronunciations`
+                  )
+                  allValidPronunciations = dictEntry.zhuyin.map((syl: ZhuyinSyllable) => [syl])
+                } else {
+                  // Multi-syllable word or complex structure - keep as-is
+                  allValidPronunciations = [dictEntry.zhuyin]
+                }
+              } else {
+                // Single pronunciation
+                allValidPronunciations = [dictEntry.zhuyin]
+              }
             }
           }
 
