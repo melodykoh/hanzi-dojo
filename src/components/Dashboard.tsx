@@ -13,12 +13,13 @@ import { DrillBalanceWidget } from './DrillBalanceWidget'
 import { EntryCatalog } from './EntryCatalog'
 import { DemoDashboard } from './DemoDashboard'
 import { SignupModal } from './SignupModal'
+import { FeedbackTab } from './FeedbackTab'
 import { supabase } from '../lib/supabase'
 import type { PracticeDrill } from '../types'
 import type { Session } from '@supabase/supabase-js'
 
 export function Dashboard() {
-  const [activeTab, setActiveTab] = useState<'metrics' | 'catalog' | 'practice' | 'demo' | 'stats' | 'missing'>('metrics')
+  const [activeTab, setActiveTab] = useState<'metrics' | 'catalog' | 'practice' | 'demo' | 'stats' | 'missing' | 'feedback'>('metrics')
   const [showAddItemForm, setShowAddItemForm] = useState(false)
   const [showDrillSelection, setShowDrillSelection] = useState(false)
   const [catalogRefreshTrigger, setCatalogRefreshTrigger] = useState(0)
@@ -293,12 +294,22 @@ export function Dashboard() {
           >
             📖 Dictionary
           </button>
+          <button
+            onClick={() => setActiveTab('feedback')}
+            className={`px-4 py-2 font-bold transition-all whitespace-nowrap ${
+              activeTab === 'feedback'
+                ? 'text-ninja-purple border-b-4 border-ninja-purple'
+                : 'text-gray-600 hover:text-ninja-black'
+            }`}
+          >
+            💬 Feedback
+          </button>
           {session && (
             <button
               onClick={() => setActiveTab('missing')}
               className={`px-4 py-2 font-bold transition-all whitespace-nowrap ${
                 activeTab === 'missing'
-                  ? 'text-ninja-purple border-b-4 border-ninja-purple'
+                  ? 'text-purple-600 border-b-4 border-purple-600'
                   : 'text-gray-600 hover:text-ninja-black'
               }`}
             >
@@ -409,6 +420,9 @@ export function Dashboard() {
             )}
           </>
         )}
+
+        {/* Feedback Tab - public access */}
+        {activeTab === 'feedback' && <FeedbackTab />}
       </div>
 
       {/* Add Item Form Modal */}

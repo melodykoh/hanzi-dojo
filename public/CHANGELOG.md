@@ -4,6 +4,17 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## November 15, 2025 - Session 14
+
+### ✨ New Features
+- **Feedback Tab**: New tab where you can report bugs, request features, or ask questions
+  - Available to everyone (even demo mode users!)
+  - Three quick action buttons for bug reports, feature ideas, and general feedback
+  - Your email auto-fills if you're signed in (optional for demo users)
+  - We read every submission and respond within 48 hours for critical bugs
+
+---
+
 ## November 14, 2025 - Session 12
 
 ### ✨ New Features
