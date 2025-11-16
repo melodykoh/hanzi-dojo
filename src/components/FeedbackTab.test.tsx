@@ -4,10 +4,9 @@ import { FeedbackTab } from './FeedbackTab';
 
 // Mock react-tally
 vi.mock('react-tally', () => ({
-  useTallyPopup: () => ({
-    open: vi.fn(),
-    close: vi.fn()
-  })
+  TallyForm: ({ formId }: { formId: string }) => (
+    <div data-testid="tally-form">Tally Form: {formId}</div>
+  )
 }));
 
 // Mock supabase
@@ -33,29 +32,16 @@ describe('FeedbackTab', () => {
     expect(screen.getByText(/We'd love to hear from you/i)).toBeInTheDocument();
   });
 
-  it('renders three action cards', () => {
+  it('renders embedded Tally form', () => {
     render(<FeedbackTab />);
-    expect(screen.getByText('Report a Bug')).toBeInTheDocument();
-    expect(screen.getByText('Request a Feature')).toBeInTheDocument();
-    expect(screen.getByText('General Feedback')).toBeInTheDocument();
-  });
-
-  it('renders action buttons', () => {
-    render(<FeedbackTab />);
-    expect(screen.getByRole('button', { name: /Report Bug/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Share Idea/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Send Feedback/i })).toBeInTheDocument();
+    const tallyForm = screen.getByTestId('tally-form');
+    expect(tallyForm).toBeInTheDocument();
+    expect(tallyForm).toHaveTextContent('Tally Form: VLL59J');
   });
 
   it('displays privacy notice', () => {
     render(<FeedbackTab />);
     expect(screen.getByText(/Privacy:/i)).toBeInTheDocument();
     expect(screen.getByText(/Your feedback is confidential/i)).toBeInTheDocument();
-  });
-
-  it('displays emoji icons for each card', () => {
-    render(<FeedbackTab />);
-    const cards = screen.getAllByText(/🐛|✨|💬/);
-    expect(cards).toHaveLength(3);
   });
 });
