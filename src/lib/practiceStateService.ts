@@ -260,27 +260,26 @@ export async function recordAttempt(
   // Log to practice_events (immutable record) with retry logic
   try {
     await retryableInsert(
-      () => supabase
-        .from('practice_events')
-        .insert({
-          kid_id: kidId,
-          entry_id: entryId,
-          drill,
-          attempt_index: attemptIndex,
-          is_correct: isCorrect,
-          points_awarded: pointsAwarded,
-          chosen_option: chosenOption
-        })
-        .select()
-        .single(),
+      async () => {
+        const result = await supabase
+          .from('practice_events')
+          .insert({
+            kid_id: kidId,
+            entry_id: entryId,
+            drill,
+            attempt_index: attemptIndex,
+            is_correct: isCorrect,
+            points_awarded: pointsAwarded,
+            chosen_option: chosenOption
+          })
+          .select()
+          .single()
+        return result
+      },
       `Log practice event for entry ${entryId}, drill ${drill}, attempt ${attemptIndex}`
     )
   } catch (error) {
     // Add context to error for better debugging
-    const contextualError = new Error(
-      `Failed to log practice event: ${error instanceof Error ? error.message : String(error)}`
-    )
-    contextualError.cause = error
     console.error('Practice event logging failed:', {
       entryId,
       kidId,
@@ -289,7 +288,9 @@ export async function recordAttempt(
       timestamp: new Date().toISOString(),
       error
     })
-    throw contextualError
+    throw new Error(
+      `Failed to log practice event: ${error instanceof Error ? error.message : String(error)}`
+    )
   }
   
   // Update practice_state counters
@@ -315,23 +316,22 @@ export async function recordAttempt(
   
   // Apply updates with retry logic
   try {
-    const updatedState = await retryableUpdate(
-      () => supabase
-        .from('practice_state')
-        .update(updates)
-        .eq('id', currentState.id)
-        .select()
-        .single(),
+    const updatedState = await retryableUpdate<PracticeState>(
+      async () => {
+        const result = await supabase
+          .from('practice_state')
+          .update(updates)
+          .eq('id', currentState.id)
+          .select()
+          .single()
+        return result
+      },
       `Update practice state for entry ${entryId}, drill ${drill}`
     )
 
     return { state: updatedState, pointsAwarded }
   } catch (error) {
     // Add context to error for better debugging
-    const contextualError = new Error(
-      `Failed to update practice state: ${error instanceof Error ? error.message : String(error)}`
-    )
-    contextualError.cause = error
     console.error('Practice state update failed:', {
       entryId,
       kidId,
@@ -341,7 +341,9 @@ export async function recordAttempt(
       timestamp: new Date().toISOString(),
       error
     })
-    throw contextualError
+    throw new Error(
+      `Failed to update practice state: ${error instanceof Error ? error.message : String(error)}`
+    )
   }
 }
 
