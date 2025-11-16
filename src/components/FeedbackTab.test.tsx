@@ -1,13 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { FeedbackTab } from './FeedbackTab';
-
-// Mock react-tally
-vi.mock('react-tally', () => ({
-  TallyForm: ({ formId }: { formId: string }) => (
-    <div data-testid="tally-form">Tally Form: {formId}</div>
-  )
-}));
 
 // Mock supabase
 vi.mock('../lib/supabase', () => ({
@@ -32,11 +25,16 @@ describe('FeedbackTab', () => {
     expect(screen.getByText(/We'd love to hear from you/i)).toBeInTheDocument();
   });
 
-  it('renders embedded Tally form', () => {
+  it('renders embedded Tally iframe with form URL', async () => {
     render(<FeedbackTab />);
-    const tallyForm = screen.getByTestId('tally-form');
-    expect(tallyForm).toBeInTheDocument();
-    expect(tallyForm).toHaveTextContent('Tally Form: VLL59J');
+    await waitFor(() => {
+      const iframe = screen.getByTitle('Feedback Form');
+      expect(iframe).toBeInTheDocument();
+      expect(iframe).toHaveAttribute('src');
+      const src = iframe.getAttribute('src');
+      expect(src).toContain('https://tally.so/embed/VLL59J');
+      expect(src).toContain('user_type=demo');
+    });
   });
 
   it('displays privacy notice', () => {

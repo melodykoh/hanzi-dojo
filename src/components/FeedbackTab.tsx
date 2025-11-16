@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { TallyForm } from 'react-tally';
 import { supabase } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 
 export function FeedbackTab() {
   const [session, setSession] = useState<Session | null>(null);
+  const [formUrl, setFormUrl] = useState<string>('');
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -20,11 +20,11 @@ export function FeedbackTab() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const user = session?.user;
-  const formId = 'VLL59J';
+  // Build form URL with pre-populated hidden fields whenever session changes
+  useEffect(() => {
+    const user = session?.user;
+    const formId = 'VLL59J';
 
-  // Build form URL with pre-populated hidden fields
-  const buildFormUrl = () => {
     const params = new URLSearchParams({
       email: user?.email || '',
       user_id: user?.id || 'anonymous',
@@ -35,8 +35,8 @@ export function FeedbackTab() {
       browser: navigator.userAgent
     });
 
-    return `https://tally.so/r/${formId}?${params.toString()}`;
-  };
+    setFormUrl(`https://tally.so/embed/${formId}?${params.toString()}`);
+  }, [session]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -52,17 +52,21 @@ export function FeedbackTab() {
 
       {/* Embedded Tally Form */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <TallyForm
-          formId={formId}
-          onSubmit={(payload) => {
-            console.log('Feedback submitted:', payload);
-          }}
-          style={{
-            width: '100%',
-            minHeight: '600px',
-            border: 'none'
-          }}
-        />
+        {formUrl && (
+          <iframe
+            src={formUrl}
+            width="100%"
+            height="700"
+            frameBorder="0"
+            marginHeight={0}
+            marginWidth={0}
+            title="Feedback Form"
+            style={{
+              border: 'none',
+              minHeight: '700px'
+            }}
+          />
+        )}
       </div>
 
       {/* Privacy Notice */}
