@@ -64,9 +64,15 @@ Before coding:
 For significant changes (>50 lines or >3 files):
 - [ ] Create feature branch: `git checkout -b feature/name`
 - [ ] Commit with descriptive message and co-author
+- [ ] **Update `public/CHANGELOG.md` with user-facing changes** ⭐
+  - Use plain language (avoid technical jargon)
+  - Group by session/date
+  - Focus on user benefits ("Faster practice" not "Removed 300ms delay")
+  - Include emoji for visual scanning (✨ feature, 🐛 bug, 🎨 improvement)
 - [ ] Push branch: `git push -u origin feature/name`
 - [ ] Create PR: `gh pr create --title "..." --body "..." --base main`
 - [ ] Wait for Vercel preview (~2 min), test thoroughly
+- [ ] **Verify changelog renders correctly at `/changelog`** ⭐
 - [ ] Merge via GitHub UI or `gh pr merge <#>`
 - [ ] Update local: `git checkout main && git pull`
 - [ ] Clean up: `git branch -d feature/name`
@@ -269,18 +275,31 @@ For significant changes (>50 lines or >3 files):
 - Dictionary: 1,067 characters (HSK 1-4), 86% properly structured
 - All core features complete: Drills A/B, familiarity scoring, entry management, training mode
 
-### **Session 12 Complete (Nov 13, 2025)** ✅
-**Status:** Critical auth bug fixed - automatic profile creation deployed
+### **Session 12 Complete (Nov 14, 2025)** ✅
+**Status:** Ninjago theme + Code quality sprint - Major UX and architecture improvements deployed
 
-**Completed & Deployed:**
-1. ✅ **Migration 012** - Database trigger to auto-create kid profiles on signup
-2. ✅ **Bug fix** - New users no longer see "No student profile found" error after email confirmation
-3. ✅ **Production verified** - Tested with new signup, Dashboard loads immediately without error
+**Part 1: Ninjago Theme Redesign (PR #10)**
+1. ✅ **Design System** - Elemental color palette (Fire, Lightning, Energy, Gold) + Bungee/DM Sans typography
+2. ✅ **Spinjitzu Animations** - 720° rotation success feedback with golden shimmer
+3. ✅ **Mobile Optimizations** - Full-width PracticeCard, 2-row TrainingMode header, responsive button layouts
+4. ✅ **Critical Bug Fix** - Gold banner animation conflict (Session 12 gold banner not spinning)
+5. ✅ **Component Polish** - Dashboard header hierarchy, EntryCatalog drill badges, Details/Delete buttons
 
-**Root Cause Identified:**
-- Profile creation only ran in login handler, not during signup
-- Users clicking email confirmation link bypassed login flow → no profile created
-- Database trigger now ensures profiles created automatically when auth.users record inserted
+**Part 2: Code Quality Sprint (11 Improvements)**
+6. ✅ **Performance** - Removed 300ms delay (6s saved per session), Date.now() → counter, useMemo optimizations
+7. ✅ **TypeScript Safety** - Eliminated all `any` types in DashboardMetrics, DRILLS constants (72 replacements)
+8. ✅ **Code Simplification** - Spinjitzu 360° rotation, removed 15 lines unused CSS, Tailwind utilities
+9. ✅ **Architecture** - usePracticeSession hook (21 lines deduplication), animation conflict prevention system
+10. ✅ **Documentation** - 658+ lines (ANIMATION_SYSTEM_GUIDE.md + JSDoc for 3 components)
+
+**Part 3: Critical Auth Fix (Migration 012)**
+11. ✅ **Database Trigger** - Auto-create kid profiles on signup (fixes "No student profile found" error)
+
+**Technical Achievements:**
+- 🎯 Comprehensive 6-agent code review (TypeScript, Architecture, Performance, Simplicity, Pattern, Security)
+- ⚡ Parallel execution workflow: 11 improvements across 3 phases in ~1 hour
+- 🔍 Discovered CSS animation property conflict and implemented systematic prevention
+- 📊 32 files changed, 4,322 additions, 503 deletions
 
 **Previous Sessions:**
 - **Session 11 (Nov 12):** Pattern A structure unification + pronunciation modal fix
@@ -313,8 +332,12 @@ For significant changes (>50 lines or >3 files):
 
 ### Recently Fixed
 
-**Session 12 (Nov 13, 2025):**
-- ✅ **Critical Auth Bug** - New users getting "No student profile found" error after email confirmation (Migration 012: database trigger)
+**Session 12 (Nov 14, 2025):**
+- ✅ **Critical Auth Bug** - New users getting "No student profile found" error (Migration 012: database trigger)
+- ✅ **Gold Banner Animation** - Spinjitzu not spinning on 1.0 point feedback (CSS animation property conflict)
+- ✅ **300ms Dead Time** - Artificial delay between practice questions removed (6s saved per session)
+- ✅ **TypeScript Safety** - All `any` types replaced with proper interfaces in DashboardMetrics
+- ✅ **Performance** - Added useMemo to 5 expensive calculations (prevents O(e×d×s) on every render)
 
 **Session 11 (Nov 12, 2025):**
 - ✅ EntryCatalog pronunciation modal missing default option (Pattern A structure)
