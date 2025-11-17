@@ -52,6 +52,7 @@ export function PracticeCard({
       try {
         if (drill === DRILLS.ZHUYIN) {
           // Fetch dictionary entry to get ALL valid pronunciations (including alternates)
+          console.log('[PracticeCard] Fetching dictionary for:', queueEntry.entry.simp)
           const { data: dictEntry, error: dictError } = await supabase
             .from('dictionary')
             .select('zhuyin, zhuyin_variants')
@@ -60,7 +61,14 @@ export function PracticeCard({
             .single()
 
           if (dictError) {
-            console.error('Failed to fetch dictionary entry for multi-pronunciation check:', dictError)
+            console.error('[PracticeCard] Dictionary query failed:', dictError)
+          } else {
+            console.log('[PracticeCard] Dictionary entry:', {
+              char: queueEntry.entry.simp,
+              hasZhuyinVariants: !!dictEntry?.zhuyin_variants,
+              hasZhuyin: !!dictEntry?.zhuyin,
+              zhuyinLength: Array.isArray(dictEntry?.zhuyin) ? dictEntry.zhuyin.length : 'not array'
+            })
           }
 
           // Extract all valid pronunciations from dictionary
@@ -72,6 +80,7 @@ export function PracticeCard({
               allValidPronunciations = dictEntry.zhuyin_variants.map(
                 (variant: any) => variant.zhuyin
               )
+              console.log('[PracticeCard] Using Pattern A variants:', allValidPronunciations.length)
             } else if (dictEntry.zhuyin) {
               // OLD FORMAT COMPATIBILITY: Handle multi-pronunciation characters
               // Old format stores multi-pronunciation as: [["ㄕ","ㄨㄚ",""], ["ㄕ","ㄨㄚ","ˋ"]]
@@ -88,24 +97,36 @@ export function PracticeCard({
                   (elem: any) => Array.isArray(elem) && elem.length === 3 && typeof elem[0] === 'string'
                 )
 
+                console.log('[PracticeCard] Multi-element zhuyin:', {
+                  length: dictEntry.zhuyin.length,
+                  isSingleSyllableList,
+                  raw: dictEntry.zhuyin
+                })
+
                 if (isSingleSyllableList) {
                   // OLD MULTI-PRONUNCIATION FORMAT DETECTED
                   // Convert: [["ㄕ","ㄨㄚ",""], ["ㄕ","ㄨㄚ","ˋ"]]
                   //      to: [[["ㄕ","ㄨㄚ",""]], [["ㄕ","ㄨㄚ","ˋ"]]]
-                  console.debug(
-                    `Old format detected for ${queueEntry.entry.simp}, converting ${dictEntry.zhuyin.length} pronunciations`
+                  console.log(
+                    `[PracticeCard] ✓ Old format detected for ${queueEntry.entry.simp}, converting ${dictEntry.zhuyin.length} pronunciations`
                   )
                   allValidPronunciations = dictEntry.zhuyin.map((syl: ZhuyinSyllable) => [syl])
                 } else {
                   // Multi-syllable word or complex structure - keep as-is
+                  console.log('[PracticeCard] Multi-syllable word format')
                   allValidPronunciations = [dictEntry.zhuyin]
                 }
               } else {
                 // Single pronunciation
+                console.log('[PracticeCard] Single pronunciation')
                 allValidPronunciations = [dictEntry.zhuyin]
               }
             }
+          } else {
+            console.log('[PracticeCard] No dictionary entry found, using reading zhuyin only')
           }
+
+          console.log('[PracticeCard] Final allValidPronunciations:', allValidPronunciations)
 
           const drillAOptions = buildDrillAOptions(
             queueEntry.reading.zhuyin,
@@ -137,7 +158,7 @@ export function PracticeCard({
     }
 
     generateOptions()
-  }, [queueEntry, drill, onError])
+  }, [queueEntry, drill])  // CRITICAL: Removed onError from deps to prevent re-shuffle during user interaction
   
   // Handle option selection
   const handleOptionClick = async (index: number) => {
