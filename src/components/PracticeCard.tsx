@@ -54,7 +54,7 @@ export function PracticeCard({
           // Fetch dictionary entry to get ALL valid pronunciations (including alternates)
           console.log('[PracticeCard] Fetching dictionary for:', queueEntry.entry.simp)
           const { data: dictEntry, error: dictError } = await supabase
-            .from('dictionary')
+            .from('dictionary_entries')  // FIXED: Correct table name (was 'dictionary')
             .select('zhuyin, zhuyin_variants')
             .or(`simp.eq.${queueEntry.entry.simp},trad.eq.${queueEntry.entry.trad}`)
             .limit(1)
