@@ -53,12 +53,13 @@ export function PracticeCard({
         if (drill === DRILLS.ZHUYIN) {
           // Fetch dictionary entry to get ALL valid pronunciations (including alternates)
           console.log('[PracticeCard] Fetching dictionary for:', queueEntry.entry.simp)
+          console.log('[PracticeCard] Current reading.zhuyin:', queueEntry.reading.zhuyin)
           const { data: dictEntry, error: dictError } = await supabase
             .from('dictionary_entries')  // FIXED: Correct table name (was 'dictionary')
             .select('zhuyin, zhuyin_variants')
             .or(`simp.eq.${queueEntry.entry.simp},trad.eq.${queueEntry.entry.trad}`)
             .limit(1)
-            .single()
+            .maybeSingle()  // FIXED: Use maybeSingle() instead of single() to handle 0 results gracefully
 
           if (dictError) {
             console.error('[PracticeCard] Dictionary query failed:', dictError)
