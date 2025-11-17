@@ -301,23 +301,36 @@ export interface DrillAOption {
  */
 export function buildDrillAOptions(
   correctZhuyin: ZhuyinSyllable[],
-  _confusionData?: any
+  _confusionData?: any,
+  allValidPronunciations?: ZhuyinSyllable[][]
 ): DrillAOption[] {
   const options: ZhuyinSyllable[][] = [correctZhuyin]
   const lastIdx = correctZhuyin.length - 1
   const [lastIni, lastFin, lastTone] = correctZhuyin[lastIdx]
-  
+
+  // Helper: Check if a pronunciation variant is valid (should not be used as distractor)
+  const isValidPronunciation = (variant: ZhuyinSyllable[]): boolean => {
+    if (!allValidPronunciations || allValidPronunciations.length === 0) return false
+    return allValidPronunciations.some(valid => areSyllablesEqual(variant, valid))
+  }
+
   // Strategy 1: Tone variants on last syllable (most common confusion)
   for (const tone of TONES) {
     if (tone === lastTone) continue
-    
+
     const variant = cloneSyllables(correctZhuyin)
     variant[lastIdx] = [lastIni, lastFin, tone]
-    
+
+    // Skip if this variant is also a valid pronunciation for this character
+    if (isValidPronunciation(variant) && !areSyllablesEqual(variant, correctZhuyin)) {
+      console.debug('[DrillA] Skipping variant (valid pronunciation):', formatZhuyinDisplay(variant))
+      continue
+    }
+
     if (!options.some(opt => areSyllablesEqual(opt, variant))) {
       options.push(variant)
     }
-    
+
     if (options.length === 4) break
   }
   
@@ -326,50 +339,68 @@ export function buildDrillAOptions(
     for (const altIni of CONFUSE_INITIAL[lastIni]) {
       const variant = cloneSyllables(correctZhuyin)
       variant[lastIdx] = [altIni, lastFin, lastTone]
-      
+
+      // Skip if this variant is also a valid pronunciation
+      if (isValidPronunciation(variant) && !areSyllablesEqual(variant, correctZhuyin)) {
+        console.debug('[DrillA] Skipping variant (valid pronunciation):', formatZhuyinDisplay(variant))
+        continue
+      }
+
       if (!options.some(opt => areSyllablesEqual(opt, variant))) {
         options.push(variant)
       }
-      
+
       if (options.length === 4) break
     }
   }
-  
+
   // Strategy 3: Final vowel confusion on last syllable
   if (options.length < 4 && CONFUSE_FINAL[lastFin]) {
     for (const altFin of CONFUSE_FINAL[lastFin]) {
       const variant = cloneSyllables(correctZhuyin)
       variant[lastIdx] = [lastIni, altFin, lastTone]
-      
+
+      // Skip if this variant is also a valid pronunciation
+      if (isValidPronunciation(variant) && !areSyllablesEqual(variant, correctZhuyin)) {
+        console.debug('[DrillA] Skipping variant (valid pronunciation):', formatZhuyinDisplay(variant))
+        continue
+      }
+
       if (!options.some(opt => areSyllablesEqual(opt, variant))) {
         options.push(variant)
       }
-      
+
       if (options.length === 4) break
     }
   }
-  
+
   // Strategy 4: Multi-syllable fallback (tweak earlier syllables)
   if (options.length < 4 && correctZhuyin.length > 1) {
     for (let i = 0; i < lastIdx && options.length < 4; i++) {
       const [ini, fin, tone] = correctZhuyin[i]
-      
+
       // Try tone changes on earlier syllables
       for (const altTone of TONES) {
         if (altTone === tone) continue
-        
+
         const variant = cloneSyllables(correctZhuyin)
         variant[i] = [ini, fin, altTone]
-        
+
+        // Skip if this variant is also a valid pronunciation
+        if (isValidPronunciation(variant) && !areSyllablesEqual(variant, correctZhuyin)) {
+          console.debug('[DrillA] Skipping variant (valid pronunciation):', formatZhuyinDisplay(variant))
+          continue
+        }
+
         if (!options.some(opt => areSyllablesEqual(opt, variant))) {
           options.push(variant)
         }
-        
+
         if (options.length === 4) break
       }
     }
   }
-  
+
   // Strategy 5: Random tone changes if still not enough (fallback)
   if (options.length < 4) {
     const attempts = 100
@@ -378,10 +409,16 @@ export function buildDrillAOptions(
       const randIdx = Math.floor(Math.random() * variant.length)
       const [ini, fin, tone] = variant[randIdx]
       const randTone = TONES[Math.floor(Math.random() * TONES.length)]
-      
+
       if (randTone !== tone) {
         variant[randIdx] = [ini, fin, randTone]
-        
+
+        // Skip if this variant is also a valid pronunciation
+        if (isValidPronunciation(variant) && !areSyllablesEqual(variant, correctZhuyin)) {
+          console.debug('[DrillA] Skipping variant (valid pronunciation):', formatZhuyinDisplay(variant))
+          continue
+        }
+
         if (!options.some(opt => areSyllablesEqual(opt, variant))) {
           options.push(variant)
         }
