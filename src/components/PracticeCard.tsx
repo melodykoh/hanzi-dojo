@@ -1,12 +1,13 @@
 // Practice Card - Drill display with attempt tracking
 
 import { useState, useEffect } from 'react'
-import type { PracticeDrill } from '../types'
+import type { PracticeDrill, ZhuyinSyllable } from '../types'
 import { DRILLS } from '../types'
 import type { QueueEntry } from '../lib/practiceQueueService'
 import type { DrillAOption, DrillBOption } from '../lib/drillBuilders'
 import { buildDrillAOptions, buildDrillBOptions, validateDrillOptions } from '../lib/drillBuilders'
 import { recordFirstAttempt, recordSecondAttempt } from '../lib/practiceStateService'
+import { supabase } from '../lib/supabase'
 
 // =============================================================================
 // TYPES
@@ -47,44 +48,141 @@ export function PracticeCard({
   const [options, setOptions] = useState<DrillAOption[] | DrillBOption[]>([])
   
   useEffect(() => {
-    try {
-      if (drill === DRILLS.ZHUYIN) {
-        const drillAOptions = buildDrillAOptions(queueEntry.reading.zhuyin)
-        const validation = validateDrillOptions(drillAOptions)
-        if (!validation.valid) {
-          throw new Error(`Invalid DrillA options: ${validation.error}`)
+    async function generateOptions() {
+      try {
+        if (drill === DRILLS.ZHUYIN) {
+          // Fetch dictionary entry to get ALL valid pronunciations (including alternates)
+          console.log('[PracticeCard] Fetching dictionary for:', queueEntry.entry.simp)
+          console.log('[PracticeCard] Current reading.zhuyin:', queueEntry.reading.zhuyin)
+          const { data: dictEntry, error: dictError } = await supabase
+            .from('dictionary_entries')  // FIXED: Correct table name (was 'dictionary')
+            .select('zhuyin, zhuyin_variants')
+            .or(`simp.eq.${queueEntry.entry.simp},trad.eq.${queueEntry.entry.trad}`)
+            .limit(1)
+            .maybeSingle()  // FIXED: Use maybeSingle() instead of single() to handle 0 results gracefully
+
+          if (dictError) {
+            console.error('[PracticeCard] Dictionary query failed:', dictError)
+          } else {
+            console.log('[PracticeCard] Dictionary entry:', {
+              char: queueEntry.entry.simp,
+              hasZhuyinVariants: !!dictEntry?.zhuyin_variants,
+              hasZhuyin: !!dictEntry?.zhuyin,
+              zhuyinLength: Array.isArray(dictEntry?.zhuyin) ? dictEntry.zhuyin.length : 'not array'
+            })
+          }
+
+          // Extract all valid pronunciations from dictionary
+          let allValidPronunciations: ZhuyinSyllable[][] = [queueEntry.reading.zhuyin]
+
+          if (dictEntry) {
+            if (dictEntry.zhuyin_variants && Array.isArray(dictEntry.zhuyin_variants)) {
+              // Pattern A structure: extract zhuyin from each variant
+              allValidPronunciations = dictEntry.zhuyin_variants.map(
+                (variant: any) => variant.zhuyin
+              )
+              console.log('[PracticeCard] Using Pattern A variants:', allValidPronunciations.length)
+            } else if (dictEntry.zhuyin) {
+              // OLD FORMAT COMPATIBILITY: Handle multi-pronunciation characters
+              // Old format stores multi-pronunciation as: [["ㄕ","ㄨㄚ",""], ["ㄕ","ㄨㄚ","ˋ"]]
+              // This is ambiguous - could be:
+              //   1. A 2-syllable word with pronunciation shuā-shuà
+              //   2. A 1-character with 2 possible pronunciations (shuā OR shuà)
+              //
+              // Solution: Check if all elements are single syllables (3-element tuples)
+              // If yes, treat as multi-pronunciation (#2), otherwise as multi-syllable word (#1)
+
+              if (Array.isArray(dictEntry.zhuyin) && dictEntry.zhuyin.length > 1) {
+                // Check if this looks like old multi-pronunciation format
+                const isSingleSyllableList = dictEntry.zhuyin.every(
+                  (elem: any) => Array.isArray(elem) && elem.length === 3 && typeof elem[0] === 'string'
+                )
+
+                console.log('[PracticeCard] Multi-element zhuyin:', {
+                  length: dictEntry.zhuyin.length,
+                  isSingleSyllableList,
+                  raw: dictEntry.zhuyin
+                })
+
+                if (isSingleSyllableList) {
+                  // OLD MULTI-PRONUNCIATION FORMAT DETECTED
+                  // Convert: [["ㄕ","ㄨㄚ",""], ["ㄕ","ㄨㄚ","ˋ"]]
+                  //      to: [[["ㄕ","ㄨㄚ",""]], [["ㄕ","ㄨㄚ","ˋ"]]]
+                  console.log(
+                    `[PracticeCard] ✓ Old format detected for ${queueEntry.entry.simp}, converting ${dictEntry.zhuyin.length} pronunciations`
+                  )
+                  allValidPronunciations = dictEntry.zhuyin.map((syl: ZhuyinSyllable) => [syl])
+                } else {
+                  // Multi-syllable word or complex structure - keep as-is
+                  console.log('[PracticeCard] Multi-syllable word format')
+                  allValidPronunciations = [dictEntry.zhuyin]
+                }
+              } else {
+                // Single pronunciation
+                console.log('[PracticeCard] Single pronunciation')
+                allValidPronunciations = [dictEntry.zhuyin]
+              }
+            }
+          } else {
+            console.log('[PracticeCard] No dictionary entry found, using reading zhuyin only')
+          }
+
+          console.log('[PracticeCard] Final allValidPronunciations:', allValidPronunciations)
+
+          const drillAOptions = buildDrillAOptions(
+            queueEntry.reading.zhuyin,
+            undefined, // confusionData
+            allValidPronunciations
+          )
+          const validation = validateDrillOptions(drillAOptions)
+          if (!validation.valid) {
+            throw new Error(`Invalid DrillA options: ${validation.error}`)
+          }
+          setOptions(drillAOptions)
+          setCorrectOptionIndex(drillAOptions.findIndex(opt => opt.isCorrect))
+        } else if (drill === DRILLS.TRAD) {
+          const drillBOptions = buildDrillBOptions(
+            queueEntry.entry.simp,
+            queueEntry.entry.trad
+          )
+          const validation = validateDrillOptions(drillBOptions)
+          if (!validation.valid) {
+            throw new Error(`Invalid DrillB options: ${validation.error}`)
+          }
+          setOptions(drillBOptions)
+          setCorrectOptionIndex(drillBOptions.findIndex(opt => opt.isCorrect))
         }
-        setOptions(drillAOptions)
-        setCorrectOptionIndex(drillAOptions.findIndex(opt => opt.isCorrect))
-      } else if (drill === DRILLS.TRAD) {
-        const drillBOptions = buildDrillBOptions(
-          queueEntry.entry.simp,
-          queueEntry.entry.trad
-        )
-        const validation = validateDrillOptions(drillBOptions)
-        if (!validation.valid) {
-          throw new Error(`Invalid DrillB options: ${validation.error}`)
-        }
-        setOptions(drillBOptions)
-        setCorrectOptionIndex(drillBOptions.findIndex(opt => opt.isCorrect))
+      } catch (error) {
+        console.error('Failed to generate drill options:', error)
+        if (onError) onError(error as Error)
       }
-    } catch (error) {
-      console.error('Failed to generate drill options:', error)
-      if (onError) onError(error as Error)
     }
-  }, [queueEntry, drill])
+
+    generateOptions()
+  }, [queueEntry, drill])  // CRITICAL: Removed onError from deps to prevent re-shuffle during user interaction
   
   // Handle option selection
   const handleOptionClick = async (index: number) => {
     if (attemptState === 'complete') return
     if (disabledOptions.has(index)) return
     if (isSubmitting) return
-    
+
+    // Check online status before attempting to record
+    if (!navigator.onLine) {
+      setFeedback("You're offline. Please reconnect to save your progress.")
+      return
+    }
+
     setSelectedOption(index)
     setIsSubmitting(true)
-    
+
     const isCorrect = index === correctOptionIndex
-    
+
+    // Capture current state for potential rollback
+    const previousAttemptState = attemptState
+    const previousDisabledOptions = new Set(disabledOptions)
+    const previousSelectedOption = selectedOption
+
     try {
       if (attemptState === 'first') {
         // First attempt
@@ -149,7 +247,39 @@ export function PracticeCard({
       }
     } catch (error) {
       console.error('Failed to record attempt:', error)
-      setFeedback('Error recording attempt. Please try again.')
+
+      // Categorize error and provide user-friendly feedback
+      const errorMessage = error instanceof Error ? error.message.toLowerCase() : String(error).toLowerCase()
+
+      // Network errors (connection issues, load failed, timeouts)
+      if (
+        errorMessage.includes('load failed') ||
+        errorMessage.includes('network') ||
+        errorMessage.includes('timeout') ||
+        errorMessage.includes('fetch failed') ||
+        errorMessage.includes('connection')
+      ) {
+        setFeedback('Connection lost. Please check your internet and try again.')
+      }
+      // Permission/auth errors
+      else if (
+        errorMessage.includes('permission') ||
+        errorMessage.includes('rls') ||
+        errorMessage.includes('unauthorized') ||
+        errorMessage.includes('forbidden')
+      ) {
+        setFeedback('Permission error. Please sign in again.')
+      }
+      // Generic error fallback
+      else {
+        setFeedback('Unable to save answer. Please try again.')
+      }
+
+      // Rollback UI state on failure
+      setAttemptState(previousAttemptState)
+      setDisabledOptions(previousDisabledOptions)
+      setSelectedOption(previousSelectedOption)
+
       if (onError) onError(error as Error)
     } finally {
       setIsSubmitting(false)
