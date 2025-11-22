@@ -2,13 +2,22 @@
 // Covers: Option generation, validation, confusion logic
 
 import { describe, it, expect } from 'vitest'
-import { buildZhuyinOptions, buildTraditionalOptions } from './drillBuilders'
+import { buildDrillAOptions, buildDrillBOptions } from './drillBuilders'
 import { mockEntry, mockReading, mockReadingMulti } from '../test/mockData'
+import type { ZhuyinSyllable } from '../types'
+
+const buildZhuyinOptions = (
+  reading = mockReading,
+  valid: ZhuyinSyllable[][] = []
+) => buildDrillAOptions(reading.zhuyin, valid)
+
+const buildTraditionalOptions = (entry = mockEntry) =>
+  buildDrillBOptions(entry.simp, entry.trad)
 
 describe('drillBuilders', () => {
   describe('buildZhuyinOptions', () => {
     it('should generate exactly 4 unique options', () => {
-      const options = buildZhuyinOptions(mockEntry, mockReading)
+      const options = buildZhuyinOptions()
       expect(options).toHaveLength(4)
 
       // Check uniqueness
@@ -17,7 +26,7 @@ describe('drillBuilders', () => {
     })
 
     it('should include the correct answer', () => {
-      const options = buildZhuyinOptions(mockEntry, mockReading)
+      const options = buildZhuyinOptions()
       const correctAnswer = options.find(opt => opt.isCorrect)
 
       expect(correctAnswer).toBeDefined()
@@ -25,15 +34,15 @@ describe('drillBuilders', () => {
     })
 
     it('should have exactly one correct answer', () => {
-      const options = buildZhuyinOptions(mockEntry, mockReading)
+      const options = buildZhuyinOptions()
       const correctCount = options.filter(opt => opt.isCorrect).length
 
       expect(correctCount).toBe(1)
     })
 
     it('should generate different options on multiple calls (randomness)', () => {
-      const options1 = buildZhuyinOptions(mockEntry, mockReading)
-      const options2 = buildZhuyinOptions(mockEntry, mockReading)
+      const options1 = buildZhuyinOptions()
+      const options2 = buildZhuyinOptions()
 
       // Options should be in different order (or have different distractors)
       const order1 = options1.map(opt => JSON.stringify(opt.zhuyin))
@@ -50,7 +59,7 @@ describe('drillBuilders', () => {
         zhuyin: [['ㄇ', 'ㄚ', 'ˉ']]
       }
 
-      const options = buildZhuyinOptions(mockEntry, firstToneReading)
+      const options = buildZhuyinOptions(firstToneReading)
       const correct = options.find(opt => opt.isCorrect)
 
       expect(correct?.display).toContain('ㄇㄚ')
@@ -59,7 +68,7 @@ describe('drillBuilders', () => {
 
     it('should handle multi-syllable zhuyin', () => {
       const multiReading = { ...mockReadingMulti }
-      const options = buildZhuyinOptions(mockEntry, multiReading)
+      const options = buildZhuyinOptions(multiReading)
 
       expect(options).toHaveLength(4)
       const correctAnswer = options.find(opt => opt.isCorrect)
@@ -67,7 +76,7 @@ describe('drillBuilders', () => {
     })
 
     it('should create plausible distractors (not random garbage)', () => {
-      const options = buildZhuyinOptions(mockEntry, mockReading)
+      const options = buildZhuyinOptions()
       const distractors = options.filter(opt => !opt.isCorrect)
 
       // Each distractor should have same number of syllables as correct answer
@@ -149,7 +158,7 @@ describe('drillBuilders', () => {
 
   describe('Option Validation', () => {
     it('should not have duplicate options (Zhuyin)', () => {
-      const options = buildZhuyinOptions(mockEntry, mockReading)
+      const options = buildZhuyinOptions()
       const serialized = options.map(opt => JSON.stringify(opt.zhuyin))
       const unique = new Set(serialized)
 
@@ -167,7 +176,7 @@ describe('drillBuilders', () => {
     it('should always have correct answer present (Zhuyin)', () => {
       // Run 10 times to ensure consistency
       for (let i = 0; i < 10; i++) {
-        const options = buildZhuyinOptions(mockEntry, mockReading)
+        const options = buildZhuyinOptions()
         const hasCorrect = options.some(opt => opt.isCorrect)
         expect(hasCorrect).toBe(true)
       }
@@ -188,7 +197,7 @@ describe('drillBuilders', () => {
       const singleChar = { ...mockEntry, simp: '太', trad: '太' }
       const singleReading = { ...mockReading, zhuyin: [['ㄊ', 'ㄞ', 'ˋ']] }
 
-      const options = buildZhuyinOptions(singleChar, singleReading)
+      const options = buildZhuyinOptions(singleReading)
       expect(options).toHaveLength(4)
       expect(options.filter(opt => opt.isCorrect)).toHaveLength(1)
     })
@@ -218,7 +227,7 @@ describe('drillBuilders', () => {
           ['ㄒ', 'ㄧㄠ', 'ˋ'],
         ],
       }
-      const options = buildZhuyinOptions(mockEntry, complexReading)
+      const options = buildZhuyinOptions(complexReading)
 
       expect(options).toHaveLength(4)
       const correctAnswer = options.find(opt => opt.isCorrect)
@@ -228,13 +237,25 @@ describe('drillBuilders', () => {
 
   describe('Distractor Quality', () => {
     it('should not use correct answer as distractor (Zhuyin)', () => {
-      const options = buildZhuyinOptions(mockEntry, mockReading)
+      const options = buildZhuyinOptions()
       const distractors = options.filter(opt => !opt.isCorrect)
 
       distractors.forEach(distractor => {
         const isSameAsCorrect = JSON.stringify(distractor.zhuyin) === JSON.stringify(mockReading.zhuyin)
         expect(isSameAsCorrect).toBe(false)
       })
+    })
+
+    it('should exclude alternate valid pronunciations from distractors', () => {
+      const alternatePronunciation = [['ㄎ', 'ㄜ', 'ˋ']]
+      const baseReading = { ...mockReading, zhuyin: [['ㄎ', 'ㄜ', 'ˇ']] }
+      const options = buildZhuyinOptions(baseReading, [alternatePronunciation])
+
+      const containsAlternate = options.some(opt =>
+        !opt.isCorrect && JSON.stringify(opt.zhuyin) === JSON.stringify(alternatePronunciation)
+      )
+
+      expect(containsAlternate).toBe(false)
     })
 
     it('should not use correct answer as distractor (Traditional)', () => {
@@ -247,7 +268,7 @@ describe('drillBuilders', () => {
     })
 
     it('should generate tone variants as distractors (Zhuyin)', () => {
-      const options = buildZhuyinOptions(mockEntry, mockReading)
+      const options = buildZhuyinOptions()
       const correctTone = mockReading.zhuyin[0][2]
 
       // At least one distractor should have different tone on same syllable
