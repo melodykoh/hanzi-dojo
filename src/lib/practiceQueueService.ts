@@ -1,7 +1,14 @@
 // Practice Queue Service - Fetches and orders entries for drill practice
 
 import { supabase } from './supabase'
-import type { Entry, PracticeState, PracticeDrill, Reading } from '../types'
+import type {
+  Entry,
+  PracticeState,
+  PracticeDrill,
+  Reading,
+  ZhuyinSyllable,
+  ZhuyinVariant
+} from '../types'
 import { DRILLS } from '../types'
 import { isDrillKnown, computeFamiliarity } from './practiceStateService'
 
@@ -17,6 +24,66 @@ export interface QueueEntry {
   priorityReason: string
   familiarity: number
   isKnown: boolean
+  allPronunciations: ZhuyinSyllable[][]
+}
+
+interface PronunciationRow {
+  entry_id: string
+  dictionary_zhuyin: ZhuyinSyllable[] | null
+  dictionary_variants: ZhuyinVariant[] | null
+  manual_readings: ZhuyinSyllable[][] | null
+}
+
+function serializePronunciation(zhuyin: ZhuyinSyllable[]): string {
+  return zhuyin.map(([ini, fin, tone]) => `${ini}|${fin}|${tone}`).join(';')
+}
+
+function dedupePronunciations(pronunciations: ZhuyinSyllable[][]): ZhuyinSyllable[][] {
+  const seen = new Set<string>()
+  const result: ZhuyinSyllable[][] = []
+
+  for (const zhuyin of pronunciations) {
+    if (!zhuyin || zhuyin.length === 0) continue
+    const key = serializePronunciation(zhuyin)
+    if (seen.has(key)) continue
+    seen.add(key)
+    result.push(zhuyin)
+  }
+
+  return result
+}
+
+function buildPronunciationList(
+  primary: ZhuyinSyllable[] | undefined,
+  row?: PronunciationRow
+): ZhuyinSyllable[][] {
+  const collected: ZhuyinSyllable[][] = []
+
+  if (primary && primary.length > 0) {
+    collected.push(primary)
+  }
+
+  if (row?.manual_readings) {
+    for (const manual of row.manual_readings) {
+      if (Array.isArray(manual) && manual.length > 0) {
+        collected.push(manual)
+      }
+    }
+  }
+
+  if (row?.dictionary_zhuyin && row.dictionary_zhuyin.length > 0) {
+    collected.push(row.dictionary_zhuyin)
+  }
+
+  if (row?.dictionary_variants) {
+    for (const variant of row.dictionary_variants) {
+      if (variant.zhuyin && variant.zhuyin.length > 0) {
+        collected.push(variant.zhuyin)
+      }
+    }
+  }
+
+  return dedupePronunciations(collected)
 }
 
 // =============================================================================
@@ -131,6 +198,25 @@ export async function fetchPracticeQueue(
     .in('entry_id', entryIds)
   
   if (statesError) throw statesError
+
+  // Fetch canonical pronunciations (dictionary + manual variants)
+  let pronunciationRows: PronunciationRow[] = []
+  if (entryIds.length > 0) {
+    try {
+      const { data, error } = await supabase.rpc('rpc_get_entry_pronunciations', {
+        entry_ids: entryIds
+      })
+      if (error) throw error
+      pronunciationRows = (data || []) as PronunciationRow[]
+    } catch (rpcError) {
+      console.error('Failed to load pronunciation variants', rpcError)
+      pronunciationRows = []
+    }
+  }
+
+  const pronunciationsByEntry = new Map(
+    pronunciationRows.map(row => [row.entry_id, row])
+  )
   
   // Build queue entries
   const statesByEntry = new Map(states?.map(s => [s.entry_id, s]) || [])
@@ -152,7 +238,11 @@ export async function fetchPracticeQueue(
       priority,
       priorityReason: reason,
       familiarity,
-      isKnown
+      isKnown,
+      allPronunciations: buildPronunciationList(
+        reading.zhuyin,
+        pronunciationsByEntry.get(entry.id)
+      )
     })
   }
   

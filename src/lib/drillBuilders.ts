@@ -236,6 +236,46 @@ function shuffle<T>(array: T[]): T[] {
 
 export { formatZhuyinDisplay as formatZhuyin } from './zhuyin'
 
+function serializePronunciation(zhuyin: ZhuyinSyllable[]): string {
+  return zhuyin.map(([ini, fin, tone]) => `${ini}|${fin}|${tone}`).join(';')
+}
+
+function normalizePronunciationList(pronunciations: ZhuyinSyllable[][]): ZhuyinSyllable[][] {
+  const seen = new Set<string>()
+  const normalized: ZhuyinSyllable[][] = []
+
+  for (const zhuyin of pronunciations) {
+    if (!zhuyin || zhuyin.length === 0) continue
+    const key = serializePronunciation(zhuyin)
+    if (seen.has(key)) continue
+    seen.add(key)
+    normalized.push(cloneSyllables(zhuyin))
+  }
+
+  return normalized
+}
+
+function shouldIncludeVariant(
+  options: ZhuyinSyllable[][],
+  candidate: ZhuyinSyllable[],
+  excludedKeys: Set<string>
+): boolean {
+  if (!candidate || candidate.length === 0) return false
+  const key = serializePronunciation(candidate)
+  if (excludedKeys.has(key)) return false
+  if (options.some(opt => areSyllablesEqual(opt, candidate))) return false
+  return true
+}
+
+const FALLBACK_PRONUNCIATIONS: ZhuyinSyllable[][] = [
+  [['ㄅ', 'ㄚ', 'ˊ']],
+  [['ㄇ', 'ㄚ', 'ˇ']],
+  [['ㄓ', 'ㄠ', 'ˊ']],
+  [['ㄑ', 'ㄧㄣ', 'ˉ']],
+  [['ㄌ', 'ㄧㄤ', 'ˊ']],
+  [['ㄍ', 'ㄨㄥ', 'ˋ']]
+]
+
 // =============================================================================
 // DRILL A: ZHUYIN RECOGNITION
 // =============================================================================
@@ -275,6 +315,7 @@ export interface DrillAOption {
  * @param correctZhuyin - The correct Zhuyin pronunciation as syllable array
  *   - Example: [['ㄒ', 'ㄢ', 'ˊ']] for "xián" (鹹)
  *   - Each syllable: [initial, final, tone]
+ * @param allValidPronunciations - Additional pronunciations that should NOT be used as distractors (alternate readings)
  * @param _confusionData - Reserved for future custom confusion data (currently unused)
  *
  * @returns Array of 4 DrillAOption objects with:
@@ -301,8 +342,20 @@ export interface DrillAOption {
  */
 export function buildDrillAOptions(
   correctZhuyin: ZhuyinSyllable[],
+  allValidPronunciations: ZhuyinSyllable[][] = [],
   _confusionData?: any
 ): DrillAOption[] {
+  const normalizedValid = normalizePronunciationList([
+    correctZhuyin,
+    ...allValidPronunciations
+  ])
+  const correctKey = serializePronunciation(correctZhuyin)
+  const excludedKeys = new Set(
+    normalizedValid
+      .map(serializePronunciation)
+      .filter(key => key !== correctKey)
+  )
+
   const options: ZhuyinSyllable[][] = [correctZhuyin]
   const lastIdx = correctZhuyin.length - 1
   const [lastIni, lastFin, lastTone] = correctZhuyin[lastIdx]
@@ -314,7 +367,7 @@ export function buildDrillAOptions(
     const variant = cloneSyllables(correctZhuyin)
     variant[lastIdx] = [lastIni, lastFin, tone]
     
-    if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+    if (shouldIncludeVariant(options, variant, excludedKeys)) {
       options.push(variant)
     }
     
@@ -327,7 +380,7 @@ export function buildDrillAOptions(
       const variant = cloneSyllables(correctZhuyin)
       variant[lastIdx] = [altIni, lastFin, lastTone]
       
-      if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+      if (shouldIncludeVariant(options, variant, excludedKeys)) {
         options.push(variant)
       }
       
@@ -341,7 +394,7 @@ export function buildDrillAOptions(
       const variant = cloneSyllables(correctZhuyin)
       variant[lastIdx] = [lastIni, altFin, lastTone]
       
-      if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+      if (shouldIncludeVariant(options, variant, excludedKeys)) {
         options.push(variant)
       }
       
@@ -361,7 +414,7 @@ export function buildDrillAOptions(
         const variant = cloneSyllables(correctZhuyin)
         variant[i] = [ini, fin, altTone]
         
-        if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+        if (shouldIncludeVariant(options, variant, excludedKeys)) {
           options.push(variant)
         }
         
@@ -382,10 +435,19 @@ export function buildDrillAOptions(
       if (randTone !== tone) {
         variant[randIdx] = [ini, fin, randTone]
         
-        if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+        if (shouldIncludeVariant(options, variant, excludedKeys)) {
           options.push(variant)
         }
       }
+    }
+  }
+  
+  if (options.length < 4) {
+    for (const fallback of FALLBACK_PRONUNCIATIONS) {
+      if (shouldIncludeVariant(options, fallback, excludedKeys)) {
+        options.push(cloneSyllables(fallback))
+      }
+      if (options.length === 4) break
     }
   }
   

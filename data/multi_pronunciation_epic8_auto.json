@@ -1,0 +1,5022 @@
+{
+  "phase": "Epic 8 - Category 1 + 2 auto-generated pronunciations",
+  "date": "2025-11-22",
+  "character_count": 136,
+  "description": "Auto-generated pronunciations for remaining multi-tone characters prior to Drill A guardrails.",
+  "characters": [
+    {
+      "simp": "为",
+      "trad": "為",
+      "default_pronunciation": {
+        "pinyin": "wéi",
+        "zhuyin": [
+          [
+            "",
+            "ㄨㄟ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "why?; for what reason?",
+          "because",
+          "become; turn into"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "wèi",
+          "zhuyin": [
+            [
+              "",
+              "ㄨㄟ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "why?; for what reason?",
+            "because",
+            "become; turn into"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1085"
+    },
+    {
+      "simp": "传",
+      "trad": "傳",
+      "default_pronunciation": {
+        "pinyin": "chuán",
+        "zhuyin": [
+          [
+            "ㄔ",
+            "ㄨㄢ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "fax; facsimile"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zhuàn",
+          "zhuyin": [
+            [
+              "ㄓ",
+              "ㄨㄢ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "fax; facsimile"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1498"
+    },
+    {
+      "simp": "供",
+      "trad": "供",
+      "default_pronunciation": {
+        "pinyin": "gōng",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄨㄥ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to supply; provide; furnish"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gòng",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄨㄥ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to supply; provide; furnish"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1504"
+    },
+    {
+      "simp": "便",
+      "trad": "便",
+      "default_pronunciation": {
+        "pinyin": "biàn",
+        "zhuyin": [
+          [
+            "ㄅ",
+            "ㄧㄢ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "cheap",
+          "convenient"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "pián",
+          "zhuyin": [
+            [
+              "ㄆ",
+              "ㄧㄢ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "cheap",
+            "convenient"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1096"
+    },
+    {
+      "simp": "假",
+      "trad": "假",
+      "default_pronunciation": {
+        "pinyin": "jiǎ",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄚ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to ask for time off",
+          "have summer vacation"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jià",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧㄚ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to ask for time off",
+            "have summer vacation"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1233"
+    },
+    {
+      "simp": "几",
+      "trad": "幾",
+      "default_pronunciation": {
+        "pinyin": "jī",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "how many; several; a few",
+          "almost"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jǐ",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "how many; several; a few",
+            "almost"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1013"
+    },
+    {
+      "simp": "切",
+      "trad": "切",
+      "default_pronunciation": {
+        "pinyin": "qiē",
+        "zhuyin": [
+          [
+            "ㄑ",
+            "ㄧㄝ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "all; every; everything"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "qiè",
+          "zhuyin": [
+            [
+              "ㄑ",
+              "ㄧㄝ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "all; every; everything"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1526"
+    },
+    {
+      "simp": "划",
+      "trad": "劃",
+      "default_pronunciation": {
+        "pinyin": "huá",
+        "zhuyin": [
+          [
+            "ㄏ",
+            "ㄨㄚ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "plan; project"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "huà",
+          "zhuyin": [
+            [
+              "ㄏ",
+              "ㄨㄚ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "plan; project"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1527"
+    },
+    {
+      "simp": "地",
+      "trad": "地",
+      "default_pronunciation": {
+        "pinyin": "dì",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄧ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "earth; ground | (adverbial particle)",
+          "place; space; room; part, (fāng: local; regional)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "de",
+          "zhuyin": [
+            [
+              "ㄉ",
+              "ㄜ",
+              "˙"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "earth; ground | (adverbial particle)",
+            "place; space; room; part, (fāng: local; regional)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1276"
+    },
+    {
+      "simp": "场",
+      "trad": "場",
+      "default_pronunciation": {
+        "pinyin": "cháng",
+        "zhuyin": [
+          [
+            "ㄔ",
+            "ㄤ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "airport; airfield",
+          "courtyard; place; field; (mw for games, performances, etc.)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "chǎng",
+          "zhuyin": [
+            [
+              "ㄔ",
+              "ㄤ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "airport; airfield",
+            "courtyard; place; field; (mw for games, performances, etc.)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1117"
+    },
+    {
+      "simp": "将",
+      "trad": "將",
+      "default_pronunciation": {
+        "pinyin": "jiāng",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄤ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "the future"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jiàng",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧㄤ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "the future"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1601"
+    },
+    {
+      "simp": "干",
+      "trad": "干",
+      "default_pronunciation": {
+        "pinyin": "gān",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄢ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "clean; neat and tidy",
+          "biscuit; cracker; cookie",
+          "to drink a toast; cheers!; bottoms up!"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gàn",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄢ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "clean; neat and tidy",
+            "biscuit; cracker; cookie",
+            "to drink a toast; cheers!; bottoms up!"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1300"
+    },
+    {
+      "simp": "应",
+      "trad": "應",
+      "default_pronunciation": {
+        "pinyin": "yīng",
+        "zhuyin": [
+          [
+            "",
+            "ㄧㄥ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "should; ought to; must",
+          "to suit; to fit; adapt"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "yìng",
+          "zhuyin": [
+            [
+              "",
+              "ㄧㄥ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "should; ought to; must",
+            "to suit; to fit; adapt"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1302"
+    },
+    {
+      "simp": "弹",
+      "trad": "彈",
+      "default_pronunciation": {
+        "pinyin": "dàn",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄢ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "play the piano"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "tán",
+          "zhuyin": [
+            [
+              "ㄊ",
+              "ㄢ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "play the piano"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1625"
+    },
+    {
+      "simp": "扫",
+      "trad": "掃",
+      "default_pronunciation": {
+        "pinyin": "sǎo",
+        "zhuyin": [
+          [
+            "ㄙ",
+            "ㄠ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to clean; to sweep"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "sào",
+          "zhuyin": [
+            [
+              "ㄙ",
+              "ㄠ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to clean; to sweep"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1319"
+    },
+    {
+      "simp": "把",
+      "trad": "把",
+      "default_pronunciation": {
+        "pinyin": "bǎ",
+        "zhuyin": [
+          [
+            "ㄅ",
+            "ㄚ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "(mw for things with handles); (pretransitive particle); to hold"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "bà",
+          "zhuyin": [
+            [
+              "ㄅ",
+              "ㄚ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "(mw for things with handles); (pretransitive particle); to hold"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1320"
+    },
+    {
+      "simp": "担",
+      "trad": "擔",
+      "default_pronunciation": {
+        "pinyin": "dān",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄢ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to worry; feel anxious"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "dàn",
+          "zhuyin": [
+            [
+              "ㄉ",
+              "ㄢ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to worry; feel anxious"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1322"
+    },
+    {
+      "simp": "教",
+      "trad": "教",
+      "default_pronunciation": {
+        "pinyin": "jiào",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄠ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "classroom",
+          "teach; instruct | religion; teaching"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jiāo",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧㄠ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "classroom",
+            "teach; instruct | religion; teaching"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1148"
+    },
+    {
+      "simp": "更",
+      "trad": "更",
+      "default_pronunciation": {
+        "pinyin": "gēng",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄥ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "more; even more"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gèng",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄥ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "more; even more"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1339"
+    },
+    {
+      "simp": "正",
+      "trad": "正",
+      "default_pronunciation": {
+        "pinyin": "zhèng",
+        "zhuyin": [
+          [
+            "ㄓ",
+            "ㄥ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "in the process of (doing something); currently",
+          "genuine; real; true"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zhēng",
+          "zhuyin": [
+            [
+              "ㄓ",
+              "ㄥ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "in the process of (doing something); currently",
+            "genuine; real; true"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1156"
+    },
+    {
+      "simp": "没",
+      "trad": "沒",
+      "default_pronunciation": {
+        "pinyin": "méi",
+        "zhuyin": [
+          [
+            "ㄇ",
+            "ㄟ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "it doesn't matter; never mind",
+          "not have; there is not"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "mò",
+          "zhuyin": [
+            [
+              "ㄇ",
+              "ㄛ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "it doesn't matter; never mind",
+            "not have; there is not"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1055"
+    },
+    {
+      "simp": "相",
+      "trad": "相",
+      "default_pronunciation": {
+        "pinyin": "xiāng",
+        "zhuyin": [
+          [
+            "ㄒ",
+            "ㄧㄤ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "believe (sb.); be convinced of",
+          "camera"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "xiàng",
+          "zhuyin": [
+            [
+              "ㄒ",
+              "ㄧㄤ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "believe (sb.); be convinced of",
+            "camera"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1384"
+    },
+    {
+      "simp": "省",
+      "trad": "省",
+      "default_pronunciation": {
+        "pinyin": "shěng",
+        "zhuyin": [
+          [
+            "ㄕ",
+            "ㄥ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to save; economize; omit; province"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "xǐng",
+          "zhuyin": [
+            [
+              "ㄒ",
+              "ㄧㄥ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to save; economize; omit; province"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1756"
+    },
+    {
+      "simp": "种",
+      "trad": "種",
+      "default_pronunciation": {
+        "pinyin": "zhǒng",
+        "zhuyin": [
+          [
+            "ㄓ",
+            "ㄨㄥ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "type; breed; race; seed"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zhòng",
+          "zhuyin": [
+            [
+              "ㄓ",
+              "ㄨㄥ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "type; breed; race; seed"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1389"
+    },
+    {
+      "simp": "系",
+      "trad": "系",
+      "default_pronunciation": {
+        "pinyin": "xì",
+        "zhuyin": [
+          [
+            "ㄒ",
+            "ㄧ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "it doesn't matter; never mind",
+          "relation; to concern"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jì",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "it doesn't matter; never mind",
+            "relation; to concern"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1064"
+    },
+    {
+      "simp": "结",
+      "trad": "結",
+      "default_pronunciation": {
+        "pinyin": "jié",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄝ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "get married",
+          "to end; to finish; conclude"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jiē",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧㄝ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "get married",
+            "to end; to finish; conclude"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1400"
+    },
+    {
+      "simp": "给",
+      "trad": "給",
+      "default_pronunciation": {
+        "pinyin": "gěi",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄟ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to give; to grant; (passive particle)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jǐ",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to give; to grant; (passive particle)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1187"
+    },
+    {
+      "simp": "行",
+      "trad": "行",
+      "default_pronunciation": {
+        "pinyin": "háng",
+        "zhuyin": [
+          [
+            "ㄏ",
+            "ㄤ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "trunk; suitcase",
+          "bank"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "xíng",
+          "zhuyin": [
+            [
+              "ㄒ",
+              "ㄧㄥ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "trunk; suitcase",
+            "bank"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1418"
+    },
+    {
+      "simp": "觉",
+      "trad": "覺",
+      "default_pronunciation": {
+        "pinyin": "jué",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄩㄝ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to sleep; go to bed",
+          "feel; think"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jiào",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧㄠ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to sleep; go to bed",
+            "feel; think"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1068"
+    },
+    {
+      "simp": "角",
+      "trad": "角",
+      "default_pronunciation": {
+        "pinyin": "jiǎo",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄠ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "horn; angle; unit of money (1/10 yuan); corner (Kangxi radical 148) | role (theater)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jué",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄩㄝ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "horn; angle; unit of money (1/10 yuan); corner (Kangxi radical 148) | role (theater)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1425"
+    },
+    {
+      "simp": "调",
+      "trad": "調",
+      "default_pronunciation": {
+        "pinyin": "diào",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄧㄠ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "air conditioning",
+          "investigate; survey; inquiry"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "tiáo",
+          "zhuyin": [
+            [
+              "ㄊ",
+              "ㄧㄠ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "air conditioning",
+            "investigate; survey; inquiry"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1432"
+    },
+    {
+      "simp": "还",
+      "trad": "還",
+      "default_pronunciation": {
+        "pinyin": "huán",
+        "zhuyin": [
+          [
+            "ㄏ",
+            "ㄨㄢ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "still; yet; in addition; even",
+          "or; still; nevertheless; had better"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "hái",
+          "zhuyin": [
+            [
+              "ㄏ",
+              "ㄞ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "still; yet; in addition; even",
+            "or; still; nevertheless; had better"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1207"
+    },
+    {
+      "simp": "都",
+      "trad": "都",
+      "default_pronunciation": {
+        "pinyin": "dū",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄨ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "all; both",
+          "capital (city)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "dōu",
+          "zhuyin": [
+            [
+              "ㄉ",
+              "ㄡ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "all; both",
+            "capital (city)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1076"
+    },
+    {
+      "simp": "重",
+      "trad": "重",
+      "default_pronunciation": {
+        "pinyin": "zhòng",
+        "zhuyin": [
+          [
+            "ㄓ",
+            "ㄨㄥ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "important; significant; major",
+          "again; anew; once more"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "chóng",
+          "zhuyin": [
+            [
+              "ㄔ",
+              "ㄨㄥ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "important; significant; major",
+            "again; anew; once more"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1448"
+    },
+    {
+      "simp": "量",
+      "trad": "量",
+      "default_pronunciation": {
+        "pinyin": "liáng",
+        "zhuyin": [
+          [
+            "ㄌ",
+            "ㄧㄤ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "consult; talk over; discuss",
+          "amount; quantity; number"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "liàng",
+          "zhuyin": [
+            [
+              "ㄌ",
+              "ㄧㄤ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "consult; talk over; discuss",
+            "amount; quantity; number"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1881"
+    },
+    {
+      "simp": "什",
+      "trad": "什",
+      "default_pronunciation": {
+        "pinyin": "shí",
+        "zhuyin": [
+          [
+            "ㄕ",
+            "",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "what? (replaces the noun to turn a statement into a question)",
+          "why?; for what reason?"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shén",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄣ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "what? (replaces the noun to turn a statement into a question)",
+            "why?; for what reason?"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1005"
+    },
+    {
+      "simp": "且",
+      "trad": "且",
+      "default_pronunciation": {
+        "pinyin": "qiě",
+        "zhuyin": [
+          [
+            "ㄑ",
+            "ㄧㄝ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "moreover; in addition; as well as",
+          "and; besides; moreover"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jū",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄩ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "moreover; in addition; as well as",
+            "and; besides; moreover"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1222"
+    },
+    {
+      "simp": "丽",
+      "trad": "麗",
+      "default_pronunciation": {
+        "pinyin": "lí",
+        "zhuyin": [
+          [
+            "ㄌ",
+            "ㄧ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "beautiful"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "lì",
+          "zhuyin": [
+            [
+              "ㄌ",
+              "ㄧ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "beautiful"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1475"
+    },
+    {
+      "simp": "么",
+      "trad": "麼",
+      "default_pronunciation": {
+        "pinyin": "mó",
+        "zhuyin": [
+          [
+            "ㄇ",
+            "ㄛ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "what? (replaces the noun to turn a statement into a question)",
+          "how?"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "me",
+          "zhuyin": [
+            [
+              "ㄇ",
+              "ㄜ",
+              "˙"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "what? (replaces the noun to turn a statement into a question)",
+            "how?"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1000"
+    },
+    {
+      "simp": "乘",
+      "trad": "乘",
+      "default_pronunciation": {
+        "pinyin": "chéng",
+        "zhuyin": [
+          [
+            "ㄔ",
+            "ㄥ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "ride; get into (a vehicle)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shèng",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄥ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "ride; get into (a vehicle)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1481"
+    },
+    {
+      "simp": "于",
+      "trad": "於",
+      "default_pronunciation": {
+        "pinyin": "yú",
+        "zhuyin": [
+          [
+            "",
+            "ㄩ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "about; regarding; concerning",
+          "at last; in the end; finally",
+          "regarding; as far as sth. is concerned; with regards to; for"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "wū",
+          "zhuyin": [
+            [
+              "",
+              "ㄨ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "about; regarding; concerning",
+            "at last; in the end; finally",
+            "regarding; as far as sth. is concerned; with regards to; for"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1228"
+    },
+    {
+      "simp": "亚",
+      "trad": "亞",
+      "default_pronunciation": {
+        "pinyin": "yā",
+        "zhuyin": [
+          [
+            "",
+            "ㄧㄚ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "Asia"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "yà",
+          "zhuyin": [
+            [
+              "",
+              "ㄧㄚ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "Asia"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1485"
+    },
+    {
+      "simp": "些",
+      "trad": "些",
+      "default_pronunciation": {
+        "pinyin": "xiē",
+        "zhuyin": [
+          [
+            "ㄒ",
+            "ㄧㄝ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "some; few; several"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "suò",
+          "zhuyin": [
+            [
+              "ㄙ",
+              "ㄨㄛ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "some; few; several"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1003"
+    },
+    {
+      "simp": "亲",
+      "trad": "親",
+      "default_pronunciation": {
+        "pinyin": "qīn",
+        "zhuyin": [
+          [
+            "ㄑ",
+            "ㄧㄣ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "father",
+          "mother"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "qìng",
+          "zhuyin": [
+            [
+              "ㄑ",
+              "ㄧㄥ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "father",
+            "mother"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1487"
+    },
+    {
+      "simp": "仅",
+      "trad": "僅",
+      "default_pronunciation": {
+        "pinyin": "jǐn",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄣ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "not only; not just"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jìn",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧㄣ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "not only; not just"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1488"
+    },
+    {
+      "simp": "从",
+      "trad": "從",
+      "default_pronunciation": {
+        "pinyin": "cóng",
+        "zhuyin": [
+          [
+            "ㄘ",
+            "ㄨㄥ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "from; obey; observe",
+          "always; at all times"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zòng",
+          "zhuyin": [
+            [
+              "ㄗ",
+              "ㄨㄥ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "from; obey; observe",
+            "always; at all times"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1090"
+    },
+    {
+      "simp": "价",
+      "trad": "價",
+      "default_pronunciation": {
+        "pinyin": "jià",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄚ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "price"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jie",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧㄝ",
+              "˙"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "price"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1492"
+    },
+    {
+      "simp": "任",
+      "trad": "任",
+      "default_pronunciation": {
+        "pinyin": "rèn",
+        "zhuyin": [
+          [
+            "ㄖ",
+            "ㄣ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "any; whatever; whichever",
+          "a mission; an assignment; a task"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "rén",
+          "zhuyin": [
+            [
+              "ㄖ",
+              "ㄣ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "any; whatever; whichever",
+            "a mission; an assignment; a task"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1493"
+    },
+    {
+      "simp": "份",
+      "trad": "份",
+      "default_pronunciation": {
+        "pinyin": "fèn",
+        "zhuyin": [
+          [
+            "ㄈ",
+            "ㄣ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "part; portion; (mw for documents, papers, jobs, etc.)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "bīn",
+          "zhuyin": [
+            [
+              "ㄅ",
+              "ㄧㄣ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "part; portion; (mw for documents, papers, jobs, etc.)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1494"
+    },
+    {
+      "simp": "休",
+      "trad": "休",
+      "default_pronunciation": {
+        "pinyin": "xiū",
+        "zhuyin": [
+          [
+            "ㄒ",
+            "ㄧㄡ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to rest; take a break"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "xǔ",
+          "zhuyin": [
+            [
+              "ㄒ",
+              "ㄩ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to rest; take a break"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1093"
+    },
+    {
+      "simp": "估",
+      "trad": "估",
+      "default_pronunciation": {
+        "pinyin": "gū",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄨ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "appraise; estimate"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gù",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄨ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "appraise; estimate"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1500"
+    },
+    {
+      "simp": "体",
+      "trad": "體",
+      "default_pronunciation": {
+        "pinyin": "tǐ",
+        "zhuyin": [
+          [
+            "ㄊ",
+            "ㄧ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "health; (human) body",
+          "physical training; sports"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "tī",
+          "zhuyin": [
+            [
+              "ㄊ",
+              "ㄧ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "health; (human) body",
+            "physical training; sports"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1095"
+    },
+    {
+      "simp": "信",
+      "trad": "信",
+      "default_pronunciation": {
+        "pinyin": "xìn",
+        "zhuyin": [
+          [
+            "ㄒ",
+            "ㄧㄣ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "believe (sb.); be convinced of",
+          "credit card"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shēn",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄣ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "believe (sb.); be convinced of",
+            "credit card"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1231"
+    },
+    {
+      "simp": "俩",
+      "trad": "倆",
+      "default_pronunciation": {
+        "pinyin": "liǎng",
+        "zhuyin": [
+          [
+            "ㄌ",
+            "ㄧㄤ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "(colloquial) two (people)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "liǎ",
+          "zhuyin": [
+            [
+              "ㄌ",
+              "ㄧㄚ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "(colloquial) two (people)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1506"
+    },
+    {
+      "simp": "倒",
+      "trad": "倒",
+      "default_pronunciation": {
+        "pinyin": "dǎo",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄠ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to collapse; to fall; fail; to exchange | to pour; contrary to expectations"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "dào",
+          "zhuyin": [
+            [
+              "ㄉ",
+              "ㄠ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to collapse; to fall; fail; to exchange | to pour; contrary to expectations"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1509"
+    },
+    {
+      "simp": "共",
+      "trad": "共",
+      "default_pronunciation": {
+        "pinyin": "gòng",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄨㄥ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "(public) bus",
+          "altogether; in total"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gōng",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄨㄥ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "(public) bus",
+            "altogether; in total"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1098"
+    },
+    {
+      "simp": "其",
+      "trad": "其",
+      "default_pronunciation": {
+        "pinyin": "qí",
+        "zhuyin": [
+          [
+            "ㄑ",
+            "ㄧ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "actually; in fact",
+          "other; else"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jī",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "actually; in fact",
+            "other; else"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1237"
+    },
+    {
+      "simp": "冒",
+      "trad": "冒",
+      "default_pronunciation": {
+        "pinyin": "mào",
+        "zhuyin": [
+          [
+            "ㄇ",
+            "ㄠ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "catch cold; (common) cold"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "mò",
+          "zhuyin": [
+            [
+              "ㄇ",
+              "ㄛ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "catch cold; (common) cold"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1239"
+    },
+    {
+      "simp": "净",
+      "trad": "淨",
+      "default_pronunciation": {
+        "pinyin": "jìng",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄥ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "clean; neat and tidy"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "chēng",
+          "zhuyin": [
+            [
+              "ㄔ",
+              "ㄥ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "clean; neat and tidy"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1243"
+    },
+    {
+      "simp": "凉",
+      "trad": "涼",
+      "default_pronunciation": {
+        "pinyin": "liáng",
+        "zhuyin": [
+          [
+            "ㄌ",
+            "ㄧㄤ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "nice and cool; pleasantly cool"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "liàng",
+          "zhuyin": [
+            [
+              "ㄌ",
+              "ㄧㄤ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "nice and cool; pleasantly cool"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1523"
+    },
+    {
+      "simp": "别",
+      "trad": "別",
+      "default_pronunciation": {
+        "pinyin": "bié",
+        "zhuyin": [
+          [
+            "ㄅ",
+            "ㄧㄝ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "don't do something; don't | depart; | other; difference; distinguish",
+          "other people; others"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "biè",
+          "zhuyin": [
+            [
+              "ㄅ",
+              "ㄧㄝ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "don't do something; don't | depart; | other; difference; distinguish",
+            "other people; others"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1101"
+    },
+    {
+      "simp": "刷",
+      "trad": "刷",
+      "default_pronunciation": {
+        "pinyin": "shuā",
+        "zhuyin": [
+          [
+            "ㄕ",
+            "ㄨㄚ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "brush one's teeth"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shuà",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄨㄚ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "brush one's teeth"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1246"
+    },
+    {
+      "simp": "助",
+      "trad": "助",
+      "default_pronunciation": {
+        "pinyin": "zhù",
+        "zhuyin": [
+          [
+            "ㄓ",
+            "ㄨ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "help; assist; aid"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "chú",
+          "zhuyin": [
+            [
+              "ㄔ",
+              "ㄨ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "help; assist; aid"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1105"
+    },
+    {
+      "simp": "化",
+      "trad": "化",
+      "default_pronunciation": {
+        "pinyin": "huà",
+        "zhuyin": [
+          [
+            "ㄏ",
+            "ㄨㄚ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "change",
+          "culture; civilization"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "huā",
+          "zhuyin": [
+            [
+              "ㄏ",
+              "ㄨㄚ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "change",
+            "culture; civilization"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1253"
+    },
+    {
+      "simp": "匙",
+      "trad": "匙",
+      "default_pronunciation": {
+        "pinyin": "chí",
+        "zhuyin": [
+          [
+            "ㄔ",
+            "",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "key"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shi",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "",
+              "˙"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "key"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1538"
+    },
+    {
+      "simp": "区",
+      "trad": "區",
+      "default_pronunciation": {
+        "pinyin": "qū",
+        "zhuyin": [
+          [
+            "ㄑ",
+            "ㄩ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "suburbs; outskirts",
+          "difference; distinguish"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "ōu",
+          "zhuyin": [
+            [
+              "",
+              "ㄡ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "suburbs; outskirts",
+            "difference; distinguish"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1539"
+    },
+    {
+      "simp": "占",
+      "trad": "占",
+      "default_pronunciation": {
+        "pinyin": "zhān",
+        "zhuyin": [
+          [
+            "ㄓ",
+            "ㄢ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "the (phone) line is busy"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zhàn",
+          "zhuyin": [
+            [
+              "ㄓ",
+              "ㄢ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "the (phone) line is busy"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1541"
+    },
+    {
+      "simp": "卡",
+      "trad": "卡",
+      "default_pronunciation": {
+        "pinyin": "kǎ",
+        "zhuyin": [
+          [
+            "ㄎ",
+            "ㄚ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "credit card"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "qiǎ",
+          "zhuyin": [
+            [
+              "ㄑ",
+              "ㄧㄚ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "credit card"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1256"
+    },
+    {
+      "simp": "压",
+      "trad": "壓",
+      "default_pronunciation": {
+        "pinyin": "yā",
+        "zhuyin": [
+          [
+            "",
+            "ㄧㄚ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "pressure; stress"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "yà",
+          "zhuyin": [
+            [
+              "",
+              "ㄧㄚ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "pressure; stress"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1549"
+    },
+    {
+      "simp": "句",
+      "trad": "句",
+      "default_pronunciation": {
+        "pinyin": "jù",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄩ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "sentence"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gōu",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄡ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "sentence"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1264"
+    },
+    {
+      "simp": "可",
+      "trad": "可",
+      "default_pronunciation": {
+        "pinyin": "kě",
+        "zhuyin": [
+          [
+            "ㄎ",
+            "ㄜ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "possible; maybe",
+          "can; may; possible; okay"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "kè",
+          "zhuyin": [
+            [
+              "ㄎ",
+              "ㄜ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "possible; maybe",
+            "can; may; possible; okay"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1108"
+    },
+    {
+      "simp": "台",
+      "trad": "台",
+      "default_pronunciation": {
+        "pinyin": "tái",
+        "zhuyin": [
+          [
+            "ㄊ",
+            "ㄞ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "platform; Taiwan (abbr.); desk; stage; typhoon; (mw for machines); (classical) you (in letters)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "tāi",
+          "zhuyin": [
+            [
+              "ㄊ",
+              "ㄞ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "platform; Taiwan (abbr.); desk; stage; typhoon; (mw for machines); (classical) you (in letters)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1560"
+    },
+    {
+      "simp": "号",
+      "trad": "號",
+      "default_pronunciation": {
+        "pinyin": "hào",
+        "zhuyin": [
+          [
+            "ㄏ",
+            "ㄠ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "number; day of a month",
+          "number"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "háo",
+          "zhuyin": [
+            [
+              "ㄏ",
+              "ㄠ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "number; day of a month",
+            "number"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1018"
+    },
+    {
+      "simp": "各",
+      "trad": "各",
+      "default_pronunciation": {
+        "pinyin": "gè",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄜ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "each; every"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gě",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄜ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "each; every"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1562"
+    },
+    {
+      "simp": "合",
+      "trad": "合",
+      "default_pronunciation": {
+        "pinyin": "hé",
+        "zhuyin": [
+          [
+            "ㄏ",
+            "ㄜ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "in keeping with; in accordance with; conform",
+          "qualified; up to standard"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gě",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄜ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "in keeping with; in accordance with; conform",
+            "qualified; up to standard"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1563"
+    },
+    {
+      "simp": "同",
+      "trad": "同",
+      "default_pronunciation": {
+        "pinyin": "tóng",
+        "zhuyin": [
+          [
+            "ㄊ",
+            "ㄨㄥ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "fellow student; schoolmate",
+          "colleague; co-worker"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "tòng",
+          "zhuyin": [
+            [
+              "ㄊ",
+              "ㄨㄥ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "fellow student; schoolmate",
+            "colleague; co-worker"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1019"
+    },
+    {
+      "simp": "否",
+      "trad": "否",
+      "default_pronunciation": {
+        "pinyin": "fǒu",
+        "zhuyin": [
+          [
+            "ㄈ",
+            "ㄡ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "if not; otherwise; or else",
+          "whether (or not); if"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "pǐ",
+          "zhuyin": [
+            [
+              "ㄆ",
+              "ㄧ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "if not; otherwise; or else",
+            "whether (or not); if"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1564"
+    },
+    {
+      "simp": "吧",
+      "trad": "吧",
+      "default_pronunciation": {
+        "pinyin": "bā",
+        "zhuyin": [
+          [
+            "ㄅ",
+            "ㄚ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "particle indicating polite suggestion; | onomatopoeia | bar (serving drinks, providing internet access, etc.)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "ba",
+          "zhuyin": [
+            [
+              "ㄅ",
+              "ㄚ",
+              "˙"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "particle indicating polite suggestion; | onomatopoeia | bar (serving drinks, providing internet access, etc.)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1110"
+    },
+    {
+      "simp": "呀",
+      "trad": "呀",
+      "default_pronunciation": {
+        "pinyin": "yā",
+        "zhuyin": [
+          [
+            "",
+            "ㄧㄚ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "ah; oh; (used for 啊 after words ending with a, e, i, o, or ü)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "ya",
+          "zhuyin": [
+            [
+              "",
+              "ㄧㄚ",
+              "˙"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "ah; oh; (used for 啊 after words ending with a, e, i, o, or ü)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1566"
+    },
+    {
+      "simp": "呢",
+      "trad": "呢",
+      "default_pronunciation": {
+        "pinyin": "ne",
+        "zhuyin": [
+          [
+            "ㄋ",
+            "ㄜ",
+            "˙"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "indicates a question; how about...?;"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "ní",
+          "zhuyin": [
+            [
+              "ㄋ",
+              "ㄧ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "indicates a question; how about...?;"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1022"
+    },
+    {
+      "simp": "咖",
+      "trad": "咖",
+      "default_pronunciation": {
+        "pinyin": "kā",
+        "zhuyin": [
+          [
+            "ㄎ",
+            "ㄚ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "coffee"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gā",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄚ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "coffee"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1113"
+    },
+    {
+      "simp": "咳",
+      "trad": "咳",
+      "default_pronunciation": {
+        "pinyin": "ké",
+        "zhuyin": [
+          [
+            "ㄎ",
+            "ㄜ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to cough"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "hāi",
+          "zhuyin": [
+            [
+              "ㄏ",
+              "ㄞ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to cough"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1571"
+    },
+    {
+      "simp": "填",
+      "trad": "填",
+      "default_pronunciation": {
+        "pinyin": "tián",
+        "zhuyin": [
+          [
+            "ㄊ",
+            "ㄧㄢ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "fill in the blanks; fill a vacancy"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zhèn",
+          "zhuyin": [
+            [
+              "ㄓ",
+              "ㄣ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "fill in the blanks; fill a vacancy"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1584"
+    },
+    {
+      "simp": "夫",
+      "trad": "夫",
+      "default_pronunciation": {
+        "pinyin": "fū",
+        "zhuyin": [
+          [
+            "ㄈ",
+            "ㄨ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "husband; man",
+          "doctor; physician"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "fú",
+          "zhuyin": [
+            [
+              "ㄈ",
+              "ㄨ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "husband; man",
+            "doctor; physician"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1120"
+    },
+    {
+      "simp": "奇",
+      "trad": "奇",
+      "default_pronunciation": {
+        "pinyin": "qí",
+        "zhuyin": [
+          [
+            "ㄑ",
+            "ㄧ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "strange; odd"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jī",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "strange; odd"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1283"
+    },
+    {
+      "simp": "妻",
+      "trad": "妻",
+      "default_pronunciation": {
+        "pinyin": "qī",
+        "zhuyin": [
+          [
+            "ㄑ",
+            "ㄧ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "wife"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "qì",
+          "zhuyin": [
+            [
+              "ㄑ",
+              "ㄧ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "wife"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1122"
+    },
+    {
+      "simp": "孙",
+      "trad": "孫",
+      "default_pronunciation": {
+        "pinyin": "sūn",
+        "zhuyin": [
+          [
+            "ㄙ",
+            "ㄨㄣ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "grandson; son's son"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "xùn",
+          "zhuyin": [
+            [
+              "ㄒ",
+              "ㄩㄣ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "grandson; son's son"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1593"
+    },
+    {
+      "simp": "底",
+      "trad": "底",
+      "default_pronunciation": {
+        "pinyin": "dǐ",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄧ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "after all; in the end (used in a question)",
+          "bottom; background; base"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "de",
+          "zhuyin": [
+            [
+              "ㄉ",
+              "ㄜ",
+              "˙"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "after all; in the end (used in a question)",
+            "bottom; background; base"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1617"
+    },
+    {
+      "simp": "度",
+      "trad": "度",
+      "default_pronunciation": {
+        "pinyin": "dù",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄨ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "speed; rate; velocity",
+          "manner; bearing; attitude"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "duó",
+          "zhuyin": [
+            [
+              "ㄉ",
+              "ㄨㄛ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "speed; rate; velocity",
+            "manner; bearing; attitude"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1618"
+    },
+    {
+      "simp": "弄",
+      "trad": "弄",
+      "default_pronunciation": {
+        "pinyin": "nòng",
+        "zhuyin": [
+          [
+            "ㄋ",
+            "ㄨㄥ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "do; manage; to handle; make"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "lòng",
+          "zhuyin": [
+            [
+              "ㄌ",
+              "ㄨㄥ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "do; manage; to handle; make"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1622"
+    },
+    {
+      "simp": "思",
+      "trad": "思",
+      "default_pronunciation": {
+        "pinyin": "sī",
+        "zhuyin": [
+          [
+            "ㄙ",
+            "",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "meaning; idea; opinion"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "sāi",
+          "zhuyin": [
+            [
+              "ㄙ",
+              "ㄞ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "meaning; idea; opinion"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1139"
+    },
+    {
+      "simp": "愉",
+      "trad": "愉",
+      "default_pronunciation": {
+        "pinyin": "yú",
+        "zhuyin": [
+          [
+            "",
+            "ㄩ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "happy; cheerful; delightful"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "tōu",
+          "zhuyin": [
+            [
+              "ㄊ",
+              "ㄡ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "happy; cheerful; delightful"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1641"
+    },
+    {
+      "simp": "戏",
+      "trad": "戲",
+      "default_pronunciation": {
+        "pinyin": "xì",
+        "zhuyin": [
+          [
+            "ㄒ",
+            "ㄧ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "game; play; recreation"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "hū",
+          "zhuyin": [
+            [
+              "ㄏ",
+              "ㄨ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "game; play; recreation"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1315"
+    },
+    {
+      "simp": "打",
+      "trad": "打",
+      "default_pronunciation": {
+        "pinyin": "dǎ",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄚ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "make a phone call",
+          "play basketball"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "dá",
+          "zhuyin": [
+            [
+              "ㄉ",
+              "ㄚ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "make a phone call",
+            "play basketball"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1040"
+    },
+    {
+      "simp": "择",
+      "trad": "擇",
+      "default_pronunciation": {
+        "pinyin": "zé",
+        "zhuyin": [
+          [
+            "ㄗ",
+            "ㄜ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "select; to pick; choose"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zhái",
+          "zhuyin": [
+            [
+              "ㄓ",
+              "ㄞ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "select; to pick; choose"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1323"
+    },
+    {
+      "simp": "拾",
+      "trad": "拾",
+      "default_pronunciation": {
+        "pinyin": "shí",
+        "zhuyin": [
+          [
+            "ㄕ",
+            "",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to tidy; put in order; to repair; to settle with; punish"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shè",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄜ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to tidy; put in order; to repair; to settle with; punish"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1661"
+    },
+    {
+      "simp": "据",
+      "trad": "據",
+      "default_pronunciation": {
+        "pinyin": "jù",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄩ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "according to; based on; basis"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jū",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄩ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "according to; based on; basis"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1326"
+    },
+    {
+      "simp": "排",
+      "trad": "排",
+      "default_pronunciation": {
+        "pinyin": "pái",
+        "zhuyin": [
+          [
+            "ㄆ",
+            "ㄞ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "arrange; to plan",
+          "queue; stand in line"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "pǎi",
+          "zhuyin": [
+            [
+              "ㄆ",
+              "ㄞ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "arrange; to plan",
+            "queue; stand in line"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1669"
+    },
+    {
+      "simp": "散",
+      "trad": "散",
+      "default_pronunciation": {
+        "pinyin": "sàn",
+        "zhuyin": [
+          [
+            "ㄙ",
+            "ㄢ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to go for a walk"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "sǎn",
+          "zhuyin": [
+            [
+              "ㄙ",
+              "ㄢ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to go for a walk"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1678"
+    },
+    {
+      "simp": "旁",
+      "trad": "旁",
+      "default_pronunciation": {
+        "pinyin": "páng",
+        "zhuyin": [
+          [
+            "ㄆ",
+            "ㄤ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "side, beside"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "bàng",
+          "zhuyin": [
+            [
+              "ㄅ",
+              "ㄤ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "side, beside"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1149"
+    },
+    {
+      "simp": "景",
+      "trad": "景",
+      "default_pronunciation": {
+        "pinyin": "jǐng",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄥ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "scenery; landscape; scene; view"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "yǐng",
+          "zhuyin": [
+            [
+              "",
+              "ㄧㄥ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "scenery; landscape; scene; view"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1686"
+    },
+    {
+      "simp": "服",
+      "trad": "服",
+      "default_pronunciation": {
+        "pinyin": "fú",
+        "zhuyin": [
+          [
+            "ㄈ",
+            "ㄨ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "clothes",
+          "waiter/waitress; server; attendant"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "fù",
+          "zhuyin": [
+            [
+              "ㄈ",
+              "ㄨ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "clothes",
+            "waiter/waitress; server; attendant"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1044"
+    },
+    {
+      "simp": "条",
+      "trad": "條",
+      "default_pronunciation": {
+        "pinyin": "tiáo",
+        "zhuyin": [
+          [
+            "ㄊ",
+            "ㄧㄠ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "noodles",
+          "strip; (mw for long thin objects); item"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "tiāo",
+          "zhuyin": [
+            [
+              "ㄊ",
+              "ㄧㄠ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "noodles",
+            "strip; (mw for long thin objects); item"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1153"
+    },
+    {
+      "simp": "查",
+      "trad": "查",
+      "default_pronunciation": {
+        "pinyin": "chá",
+        "zhuyin": [
+          [
+            "ㄔ",
+            "ㄚ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to check; examine; inspect",
+          "investigate; survey; inquiry"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zhā",
+          "zhuyin": [
+            [
+              "ㄓ",
+              "ㄚ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to check; examine; inspect",
+            "investigate; survey; inquiry"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1346"
+    },
+    {
+      "simp": "校",
+      "trad": "校",
+      "default_pronunciation": {
+        "pinyin": "xiào",
+        "zhuyin": [
+          [
+            "ㄒ",
+            "ㄧㄠ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "school",
+          "principal (of school, college or university); president; headmaster"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jiào",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧㄠ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "school",
+            "principal (of school, college or university); president; headmaster"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1049"
+    },
+    {
+      "simp": "椅",
+      "trad": "椅",
+      "default_pronunciation": {
+        "pinyin": "yǐ",
+        "zhuyin": [
+          [
+            "",
+            "ㄧ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "chair"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "yī",
+          "zhuyin": [
+            [
+              "",
+              "ㄧ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "chair"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1052"
+    },
+    {
+      "simp": "汗",
+      "trad": "汗",
+      "default_pronunciation": {
+        "pinyin": "hàn",
+        "zhuyin": [
+          [
+            "ㄏ",
+            "ㄢ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "sweat; perspiration; Khan"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "hán",
+          "zhuyin": [
+            [
+              "ㄏ",
+              "ㄢ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "sweat; perspiration; Khan"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1720"
+    },
+    {
+      "simp": "汤",
+      "trad": "湯",
+      "default_pronunciation": {
+        "pinyin": "tāng",
+        "zhuyin": [
+          [
+            "ㄊ",
+            "ㄤ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "soup; broth"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shāng",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄤ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "soup; broth"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1723"
+    },
+    {
+      "simp": "沙",
+      "trad": "沙",
+      "default_pronunciation": {
+        "pinyin": "shā",
+        "zhuyin": [
+          [
+            "ㄕ",
+            "ㄚ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "sofa"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shà",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄚ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "sofa"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1724"
+    },
+    {
+      "simp": "洗",
+      "trad": "洗",
+      "default_pronunciation": {
+        "pinyin": "xǐ",
+        "zhuyin": [
+          [
+            "ㄒ",
+            "ㄧ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to wash; bathe",
+          "toilet; lavatory; washroom"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "xiǎn",
+          "zhuyin": [
+            [
+              "ㄒ",
+              "ㄧㄢ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to wash; bathe",
+            "toilet; lavatory; washroom"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1162"
+    },
+    {
+      "simp": "济",
+      "trad": "濟",
+      "default_pronunciation": {
+        "pinyin": "jì",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "economy; economic"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jǐ",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "economy; economic"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1732"
+    },
+    {
+      "simp": "父",
+      "trad": "父",
+      "default_pronunciation": {
+        "pinyin": "fù",
+        "zhuyin": [
+          [
+            "ㄈ",
+            "ㄨ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "father"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "fǔ",
+          "zhuyin": [
+            [
+              "ㄈ",
+              "ㄨ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "father"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1745"
+    },
+    {
+      "simp": "片",
+      "trad": "片",
+      "default_pronunciation": {
+        "pinyin": "piàn",
+        "zhuyin": [
+          [
+            "ㄆ",
+            "ㄧㄢ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "picture; photograph"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "piān",
+          "zhuyin": [
+            [
+              "ㄆ",
+              "ㄧㄢ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "picture; photograph"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1367"
+    },
+    {
+      "simp": "甚",
+      "trad": "甚",
+      "default_pronunciation": {
+        "pinyin": "shèn",
+        "zhuyin": [
+          [
+            "ㄕ",
+            "ㄣ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "even (to the point of); so much so that"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shén",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄣ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "even (to the point of); so much so that"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1749"
+    },
+    {
+      "simp": "疑",
+      "trad": "疑",
+      "default_pronunciation": {
+        "pinyin": "yí",
+        "zhuyin": [
+          [
+            "",
+            "ㄧ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "doubt; to suspect; be skeptical"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "nǐ",
+          "zhuyin": [
+            [
+              "ㄋ",
+              "ㄧ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "doubt; to suspect; be skeptical"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1752"
+    },
+    {
+      "simp": "研",
+      "trad": "研",
+      "default_pronunciation": {
+        "pinyin": "yán",
+        "zhuyin": [
+          [
+            "",
+            "ㄧㄢ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to study; to research"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "yàn",
+          "zhuyin": [
+            [
+              "",
+              "ㄧㄢ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to study; to research"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1759"
+    },
+    {
+      "simp": "硕",
+      "trad": "碩",
+      "default_pronunciation": {
+        "pinyin": "shuò",
+        "zhuyin": [
+          [
+            "ㄕ",
+            "ㄨㄛ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "Master's degree (M.A.)"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shí",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "Master's degree (M.A.)"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1762"
+    },
+    {
+      "simp": "票",
+      "trad": "票",
+      "default_pronunciation": {
+        "pinyin": "piào",
+        "zhuyin": [
+          [
+            "ㄆ",
+            "ㄧㄠ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "ticket; bank note; a vote"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "piāo",
+          "zhuyin": [
+            [
+              "ㄆ",
+              "ㄧㄠ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "ticket; bank note; a vote"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1175"
+    },
+    {
+      "simp": "禁",
+      "trad": "禁",
+      "default_pronunciation": {
+        "pinyin": "jīn",
+        "zhuyin": [
+          [
+            "ㄐ",
+            "ㄧㄣ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to ban; prohibit"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "jìn",
+          "zhuyin": [
+            [
+              "ㄐ",
+              "ㄧㄣ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to ban; prohibit"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1767"
+    },
+    {
+      "simp": "稍",
+      "trad": "稍",
+      "default_pronunciation": {
+        "pinyin": "shāo",
+        "zhuyin": [
+          [
+            "ㄕ",
+            "ㄠ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "a little bit; slightly"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shào",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄠ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "a little bit; slightly"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1774"
+    },
+    {
+      "simp": "约",
+      "trad": "約",
+      "default_pronunciation": {
+        "pinyin": "yuē",
+        "zhuyin": [
+          [
+            "",
+            "ㄩㄝ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "approximately; about",
+          "frugal; to save"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "yāo",
+          "zhuyin": [
+            [
+              "",
+              "ㄧㄠ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "approximately; about",
+            "frugal; to save"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1789"
+    },
+    {
+      "simp": "肚",
+      "trad": "肚",
+      "default_pronunciation": {
+        "pinyin": "dù",
+        "zhuyin": [
+          [
+            "ㄉ",
+            "ㄨ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "belly; abdomen; stomach"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "dǔ",
+          "zhuyin": [
+            [
+              "ㄉ",
+              "ㄨ",
+              "ˇ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "belly; abdomen; stomach"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1808"
+    },
+    {
+      "simp": "胳",
+      "trad": "胳",
+      "default_pronunciation": {
+        "pinyin": "gē",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄜ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "arm"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gé",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄜ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "arm"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1812"
+    },
+    {
+      "simp": "膏",
+      "trad": "膏",
+      "default_pronunciation": {
+        "pinyin": "gāo",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄠ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "toothpaste"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gào",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄠ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "toothpaste"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1817"
+    },
+    {
+      "simp": "苹",
+      "trad": "蘋",
+      "default_pronunciation": {
+        "pinyin": "pín",
+        "zhuyin": [
+          [
+            "ㄆ",
+            "ㄧㄣ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "apple"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "píng",
+          "zhuyin": [
+            [
+              "ㄆ",
+              "ㄧㄥ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "apple"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1066"
+    },
+    {
+      "simp": "被",
+      "trad": "被",
+      "default_pronunciation": {
+        "pinyin": "bèi",
+        "zhuyin": [
+          [
+            "ㄅ",
+            "ㄟ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "by (indicates passive voice sentences); a quilt/blanket"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "pī",
+          "zhuyin": [
+            [
+              "ㄆ",
+              "ㄧ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "by (indicates passive voice sentences); a quilt/blanket"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1422"
+    },
+    {
+      "simp": "观",
+      "trad": "觀",
+      "default_pronunciation": {
+        "pinyin": "guān",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄨㄢ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to visit (a place, such as a tourist spot); inspect",
+          "spectator; audience"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "guàn",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄨㄢ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to visit (a place, such as a tourist spot); inspect",
+            "spectator; audience"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1830"
+    },
+    {
+      "simp": "论",
+      "trad": "論",
+      "default_pronunciation": {
+        "pinyin": "lùn",
+        "zhuyin": [
+          [
+            "ㄌ",
+            "ㄨㄣ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to discuss; discussion; to talk over",
+          "no matter what; regardless of whether..."
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "lún",
+          "zhuyin": [
+            [
+              "ㄌ",
+              "ㄨㄣ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to discuss; discussion; to talk over",
+            "no matter what; regardless of whether..."
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1836"
+    },
+    {
+      "simp": "语",
+      "trad": "語",
+      "default_pronunciation": {
+        "pinyin": "yǔ",
+        "zhuyin": [
+          [
+            "",
+            "ㄩ",
+            "ˇ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "Chinese language",
+          "words and expressions; terms"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "yù",
+          "zhuyin": [
+            [
+              "",
+              "ㄩ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "Chinese language",
+            "words and expressions; terms"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1071"
+    },
+    {
+      "simp": "谁",
+      "trad": "誰",
+      "default_pronunciation": {
+        "pinyin": "shuí",
+        "zhuyin": [
+          [
+            "ㄕ",
+            "ㄨㄟ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "who"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "shéi",
+          "zhuyin": [
+            [
+              "ㄕ",
+              "ㄟ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "who"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1073"
+    },
+    {
+      "simp": "责",
+      "trad": "責",
+      "default_pronunciation": {
+        "pinyin": "zé",
+        "zhuyin": [
+          [
+            "ㄗ",
+            "ㄜ",
+            "ˊ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "responsible for (something); in charge of",
+          "responsibility; blame; duty"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zhài",
+          "zhuyin": [
+            [
+              "ㄓ",
+              "ㄞ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "responsible for (something); in charge of",
+            "responsibility; blame; duty"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1850"
+    },
+    {
+      "simp": "赚",
+      "trad": "賺",
+      "default_pronunciation": {
+        "pinyin": "zhuàn",
+        "zhuyin": [
+          [
+            "ㄓ",
+            "ㄨㄢ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "earn; make a profit"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "zuàn",
+          "zhuyin": [
+            [
+              "ㄗ",
+              "ㄨㄢ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "earn; make a profit"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1858"
+    },
+    {
+      "simp": "趟",
+      "trad": "趟",
+      "default_pronunciation": {
+        "pinyin": "tàng",
+        "zhuyin": [
+          [
+            "ㄊ",
+            "ㄤ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "(mw for trips times) | to wade"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "tāng",
+          "zhuyin": [
+            [
+              "ㄊ",
+              "ㄤ",
+              "ˉ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "(mw for trips times) | to wade"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1861"
+    },
+    {
+      "simp": "趣",
+      "trad": "趣",
+      "default_pronunciation": {
+        "pinyin": "qù",
+        "zhuyin": [
+          [
+            "ㄑ",
+            "ㄩ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "be interested in",
+          "interesting; fascinating; amusing"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "cù",
+          "zhuyin": [
+            [
+              "ㄘ",
+              "ㄨ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "be interested in",
+            "interesting; fascinating; amusing"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1436"
+    },
+    {
+      "simp": "跳",
+      "trad": "跳",
+      "default_pronunciation": {
+        "pinyin": "tiào",
+        "zhuyin": [
+          [
+            "ㄊ",
+            "ㄧㄠ",
+            "ˋ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "to dance"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "táo",
+          "zhuyin": [
+            [
+              "ㄊ",
+              "ㄠ",
+              "ˊ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "to dance"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1201"
+    },
+    {
+      "simp": "钢",
+      "trad": "鋼",
+      "default_pronunciation": {
+        "pinyin": "gāng",
+        "zhuyin": [
+          [
+            "ㄍ",
+            "ㄤ",
+            "ˉ"
+          ]
+        ],
+        "context_words": [],
+        "meanings": [
+          "play the piano"
+        ]
+      },
+      "variants": [
+        {
+          "pinyin": "gàng",
+          "zhuyin": [
+            [
+              "ㄍ",
+              "ㄤ",
+              "ˋ"
+            ]
+          ],
+          "context_words": [],
+          "meanings": [
+            "play the piano"
+          ]
+        }
+      ],
+      "notes": "Auto-generated from dictionary_expansion_v2.json (no manual context words)",
+      "source": "HSK frequency #1883"
+    }
+  ]
+}

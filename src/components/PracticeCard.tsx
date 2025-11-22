@@ -49,7 +49,13 @@ export function PracticeCard({
   useEffect(() => {
     try {
       if (drill === DRILLS.ZHUYIN) {
-        const drillAOptions = buildDrillAOptions(queueEntry.reading.zhuyin)
+        const validPronunciations = queueEntry.allPronunciations?.length
+          ? queueEntry.allPronunciations
+          : [queueEntry.reading.zhuyin]
+        const drillAOptions = buildDrillAOptions(
+          queueEntry.reading.zhuyin,
+          validPronunciations
+        )
         const validation = validateDrillOptions(drillAOptions)
         if (!validation.valid) {
           throw new Error(`Invalid DrillA options: ${validation.error}`)
