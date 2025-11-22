@@ -52,8 +52,14 @@ export function PracticeCard({
         const validPronunciations = queueEntry.allPronunciations?.length
           ? queueEntry.allPronunciations
           : [queueEntry.reading.zhuyin]
+
+        const canonicalZhuyin = queueEntry.entry.type === 'char'
+          ? (validPronunciations.find(pronunciation => pronunciation.length === 1)
+            ?? validPronunciations[0])
+          : queueEntry.reading.zhuyin
+
         const drillAOptions = buildDrillAOptions(
-          queueEntry.reading.zhuyin,
+          canonicalZhuyin,
           validPronunciations
         )
         const validation = validateDrillOptions(drillAOptions)
