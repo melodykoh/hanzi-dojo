@@ -89,7 +89,7 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
         const fallbackVariants: ZhuyinVariant[] = []
 
         if (dictionaryVariants.length === 0 && isSingleCharacter && result.entry.zhuyin.length > 1) {
-          const [firstPronunciation, ...otherPronunciations] = result.entry.zhuyin
+          const [, ...otherPronunciations] = result.entry.zhuyin
           fallbackVariants.push(
             ...otherPronunciations.map(syllable => ({ zhuyin: [syllable] }))
           )
