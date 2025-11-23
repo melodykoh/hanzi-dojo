@@ -42,7 +42,8 @@ const MOCK_QUEUE_ENTRY: QueueEntry = {
   priority: 1000,
   priorityReason: 'Never practiced',
   familiarity: 0,
-  isKnown: false
+  isKnown: false,
+  allPronunciations: [MOCK_READING.zhuyin]
 }
 
 // =============================================================================

@@ -72,6 +72,43 @@
 
 import type { ZhuyinSyllable, DictionaryEntry } from '../types'
 import { formatZhuyinDisplay } from './zhuyin'
+import { serializePronunciation } from './zhuyinUtils'
+
+// =============================================================================
+// TYPE DEFINITIONS
+// =============================================================================
+
+/**
+ * Custom confusion data for drill option generation.
+ * Reserved for V2 feature: user-defined confusion maps.
+ *
+ * @remarks
+ * This interface defines the structure for custom confusion maps that can be
+ * used to override or extend the default confusion patterns used in drill
+ * generation. Currently unused in V1, but reserved for future extensibility.
+ *
+ * @example
+ * ```typescript
+ * const customConfusion: ConfusionData = {
+ *   tones: ['ˉ', 'ˊ', 'ˇ', 'ˋ'],
+ *   initials: { 'ㄓ': ['ㄗ', 'ㄐ'] },
+ *   finals: { 'ㄢ': ['ㄤ', 'ㄣ'] }
+ * }
+ * ```
+ */
+interface ConfusionData {
+  /** Custom tone marker set (overrides TONES constant) */
+  tones?: string[]
+
+  /** Custom initial consonant confusion map (extends CONFUSE_INITIAL) */
+  initials?: Record<string, string[]>
+
+  /** Custom final vowel confusion map (extends CONFUSE_FINAL) */
+  finals?: Record<string, string[]>
+
+  /** Custom traditional character visual confusion (extends CONFUSE_TRAD_VISUAL) */
+  traditionalVisual?: Record<string, string[]>
+}
 
 // =============================================================================
 // CONFUSION MAPS (From confusion_maps_v1.json)
@@ -236,6 +273,42 @@ function shuffle<T>(array: T[]): T[] {
 
 export { formatZhuyinDisplay as formatZhuyin } from './zhuyin'
 
+function normalizePronunciationList(pronunciations: ZhuyinSyllable[][]): ZhuyinSyllable[][] {
+  const seen = new Set<string>()
+  const normalized: ZhuyinSyllable[][] = []
+
+  for (const zhuyin of pronunciations) {
+    if (!zhuyin || zhuyin.length === 0) continue
+    const key = serializePronunciation(zhuyin)
+    if (seen.has(key)) continue
+    seen.add(key)
+    normalized.push(cloneSyllables(zhuyin))
+  }
+
+  return normalized
+}
+
+function shouldIncludeVariant(
+  options: ZhuyinSyllable[][],
+  candidate: ZhuyinSyllable[],
+  excludedKeys: Set<string>
+): boolean {
+  if (!candidate || candidate.length === 0) return false
+  const key = serializePronunciation(candidate)
+  if (excludedKeys.has(key)) return false
+  if (options.some(opt => areSyllablesEqual(opt, candidate))) return false
+  return true
+}
+
+const FALLBACK_PRONUNCIATIONS: ZhuyinSyllable[][] = [
+  [['ㄅ', 'ㄚ', 'ˊ']],
+  [['ㄇ', 'ㄚ', 'ˇ']],
+  [['ㄓ', 'ㄠ', 'ˊ']],
+  [['ㄑ', 'ㄧㄣ', 'ˉ']],
+  [['ㄌ', 'ㄧㄤ', 'ˊ']],
+  [['ㄍ', 'ㄨㄥ', 'ˋ']]
+]
+
 // =============================================================================
 // DRILL A: ZHUYIN RECOGNITION
 // =============================================================================
@@ -275,6 +348,7 @@ export interface DrillAOption {
  * @param correctZhuyin - The correct Zhuyin pronunciation as syllable array
  *   - Example: [['ㄒ', 'ㄢ', 'ˊ']] for "xián" (鹹)
  *   - Each syllable: [initial, final, tone]
+ * @param allValidPronunciations - Additional pronunciations that should NOT be used as distractors (alternate readings)
  * @param _confusionData - Reserved for future custom confusion data (currently unused)
  *
  * @returns Array of 4 DrillAOption objects with:
@@ -301,8 +375,20 @@ export interface DrillAOption {
  */
 export function buildDrillAOptions(
   correctZhuyin: ZhuyinSyllable[],
-  _confusionData?: any
+  allValidPronunciations: ZhuyinSyllable[][] = [],
+  _confusionData?: ConfusionData
 ): DrillAOption[] {
+  const normalizedValid = normalizePronunciationList([
+    correctZhuyin,
+    ...allValidPronunciations
+  ])
+  const correctKey = serializePronunciation(correctZhuyin)
+  const excludedKeys = new Set(
+    normalizedValid
+      .map(serializePronunciation)
+      .filter(key => key !== correctKey)
+  )
+
   const options: ZhuyinSyllable[][] = [correctZhuyin]
   const lastIdx = correctZhuyin.length - 1
   const [lastIni, lastFin, lastTone] = correctZhuyin[lastIdx]
@@ -314,7 +400,7 @@ export function buildDrillAOptions(
     const variant = cloneSyllables(correctZhuyin)
     variant[lastIdx] = [lastIni, lastFin, tone]
     
-    if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+    if (shouldIncludeVariant(options, variant, excludedKeys)) {
       options.push(variant)
     }
     
@@ -327,7 +413,7 @@ export function buildDrillAOptions(
       const variant = cloneSyllables(correctZhuyin)
       variant[lastIdx] = [altIni, lastFin, lastTone]
       
-      if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+      if (shouldIncludeVariant(options, variant, excludedKeys)) {
         options.push(variant)
       }
       
@@ -341,7 +427,7 @@ export function buildDrillAOptions(
       const variant = cloneSyllables(correctZhuyin)
       variant[lastIdx] = [lastIni, altFin, lastTone]
       
-      if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+      if (shouldIncludeVariant(options, variant, excludedKeys)) {
         options.push(variant)
       }
       
@@ -361,7 +447,7 @@ export function buildDrillAOptions(
         const variant = cloneSyllables(correctZhuyin)
         variant[i] = [ini, fin, altTone]
         
-        if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+        if (shouldIncludeVariant(options, variant, excludedKeys)) {
           options.push(variant)
         }
         
@@ -382,10 +468,19 @@ export function buildDrillAOptions(
       if (randTone !== tone) {
         variant[randIdx] = [ini, fin, randTone]
         
-        if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+        if (shouldIncludeVariant(options, variant, excludedKeys)) {
           options.push(variant)
         }
       }
+    }
+  }
+  
+  if (options.length < 4) {
+    for (const fallback of FALLBACK_PRONUNCIATIONS) {
+      if (shouldIncludeVariant(options, fallback, excludedKeys)) {
+        options.push(cloneSyllables(fallback))
+      }
+      if (options.length === 4) break
     }
   }
   
@@ -481,7 +576,7 @@ export function buildDrillBOptions(
   simplified: string,
   correctTraditional: string,
   dictionaryEntries?: DictionaryEntry[],
-  _confusionData?: any
+  _confusionData?: ConfusionData
 ): DrillBOption[] {
   const options = new Set<string>([correctTraditional])
   const chars = [...correctTraditional]

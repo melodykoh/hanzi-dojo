@@ -12,9 +12,11 @@ After Migration 010a, **139 characters** remain with multi-syllable data that ne
 
 | Category | Count | Priority | Status |
 |----------|-------|----------|--------|
-| Known Multi-Pronunciation | 37 | HIGH | Needs context research |
-| Ambiguous (2 syllables) | 102 | MEDIUM | Needs triage & research |
-| **Total** | **139** | - | Deferred to Epic 8 |
+| Known Multi-Pronunciation | 37 | HIGH | ✅ Completed (see `data/multi_pronunciation_epic8_auto.json`) |
+| Ambiguous (2 syllables) | 102 | MEDIUM | ✅ Completed (auto-pattern migration 011c) |
+| **Total** | **139** | - | Ready for Drill A guardrails |
+
+> **Nov 22, 2025 Update:** Category 1 + Category 2 pronunciations are consolidated in `data/multi_pronunciation_epic8_auto.json`, and Migration `011c_dictionary_multi_pronunciations.sql` + `011d_pronunciation_rpc.sql` prepare the database/API for Drill A guardrails.
 
 ---
 
@@ -33,6 +35,8 @@ After Migration 010a, **139 characters** remain with multi-syllable data that ne
 ## 📋 **Category 1: Known Multi-Pronunciation (37 chars)**
 
 **Priority:** HIGH - These are confirmed multi-pronunciation in standard dictionaries
+
+**Status (Nov 22, 2025):** ✅ Completed. All characters have Pattern A variants captured in `data/multi_pronunciation_epic8_auto.json` and applied via migration 011c.
 
 ### **Characters**
 ```
@@ -95,6 +99,8 @@ For each character, document:
 ## 📋 **Category 2: Ambiguous Cases (102 chars)**
 
 **Priority:** MEDIUM - Need to determine if truly multi-pronunciation or data error
+
+**Status (Nov 22, 2025):** ✅ Completed via automated triage + migration 011c. Use `rpc_get_entry_pronunciations` (migration 011d) to expose results to the app layer.
 
 ### **Characters**
 ```
@@ -207,48 +213,48 @@ Implement fixes for Category 2
 ## 📈 **Progress Tracking**
 
 ### **Category 1 Progress**
-- [ ] 为 (wèi / wéi)
-- [ ] 传 (chuán / zhuàn)
-- [ ] 供 (gōng / gòng)
-- [ ] 便 (biàn / pián)
-- [ ] 假 (jiǎ / jià)
-- [ ] 几 (jǐ / jī)
-- [ ] 切 (qiē / qiè)
-- [ ] 划 (huá / huà)
-- [ ] 地 (dì / de)
-- [ ] 场 (chǎng / cháng)
-- [ ] 将 (jiāng / jiàng)
-- [ ] 干 (gān / gàn)
-- [ ] 应 (yīng / yìng)
-- [ ] 弹 (dàn / tán)
-- [ ] 扫 (sǎo / sào)
-- [ ] 把 (bǎ / bà)
-- [ ] 担 (dān / dàn)
-- [ ] 教 (jiāo / jiào)
-- [ ] 更 (gēng / gèng)
-- [ ] 正 (zhèng / zhēng)
-- [ ] 没 (méi / mò)
-- [ ] 相 (xiāng / xiàng)
-- [ ] 省 (shěng / xǐng)
-- [ ] 种 (zhǒng / zhòng)
-- [ ] 系 (xì / jì)
-- [ ] 结 (jié / jiē)
-- [ ] 给 (gěi / jǐ)
-- [ ] 行 (xíng / háng)
-- [ ] 觉 (jué / jiào)
-- [ ] 角 (jiǎo / jué)
-- [ ] 调 (tiáo / diào)
-- [ ] 还 (hái / huán)
-- [ ] 都 (dōu / dū)
-- [ ] 重 (zhòng / chóng)
-- [ ] 量 (liàng / liáng)
-- [ ] 什 (shí / shén)
+- [x] 为 (wèi / wéi)
+- [x] 传 (chuán / zhuàn)
+- [x] 供 (gōng / gòng)
+- [x] 便 (biàn / pián)
+- [x] 假 (jiǎ / jià)
+- [x] 几 (jǐ / jī)
+- [x] 切 (qiē / qiè)
+- [x] 划 (huá / huà)
+- [x] 地 (dì / de)
+- [x] 场 (chǎng / cháng)
+- [x] 将 (jiāng / jiàng)
+- [x] 干 (gān / gàn)
+- [x] 应 (yīng / yìng)
+- [x] 弹 (dàn / tán)
+- [x] 扫 (sǎo / sào)
+- [x] 把 (bǎ / bà)
+- [x] 担 (dān / dàn)
+- [x] 教 (jiāo / jiào)
+- [x] 更 (gēng / gèng)
+- [x] 正 (zhèng / zhēng)
+- [x] 没 (méi / mò)
+- [x] 相 (xiāng / xiàng)
+- [x] 省 (shěng / xǐng)
+- [x] 种 (zhǒng / zhòng)
+- [x] 系 (xì / jì)
+- [x] 结 (jié / jiē)
+- [x] 给 (gěi / jǐ)
+- [x] 行 (xíng / háng)
+- [x] 觉 (jué / jiào)
+- [x] 角 (jiǎo / jué)
+- [x] 调 (tiáo / diào)
+- [x] 还 (hái / huán)
+- [x] 都 (dōu / dū)
+- [x] 重 (zhòng / chóng)
+- [x] 量 (liàng / liáng)
+- [x] 什 (shí / shén)
 
-**Progress:** 0 / 37 (0%)
+**Progress:** 37 / 37 (100%)
 
 ### **Category 2 Progress**
-**Triaged:** 0 / 102 (0%)  
-**Fixed:** 0 / 102 (0%)
+**Triaged:** 102 / 102 (100%)  
+**Fixed:** 102 / 102 (100%)
 
 ---
 
@@ -273,6 +279,6 @@ node scripts/generate-migration-from-json.js
 
 ---
 
-**Last Updated:** 2025-11-10  
+**Last Updated:** 2025-11-22  
 **Owner:** Project maintainer  
 **Epic:** Epic 8 - Dictionary Quality Completion

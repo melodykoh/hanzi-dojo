@@ -1,9 +1,17 @@
 // Practice Queue Service - Fetches and orders entries for drill practice
 
 import { supabase } from './supabase'
-import type { Entry, PracticeState, PracticeDrill, Reading } from '../types'
+import type {
+  Entry,
+  PracticeState,
+  PracticeDrill,
+  Reading,
+  ZhuyinSyllable,
+  ZhuyinVariant
+} from '../types'
 import { DRILLS } from '../types'
 import { isDrillKnown, computeFamiliarity } from './practiceStateService'
+import { serializePronunciation } from './zhuyinUtils'
 
 // =============================================================================
 // TYPES
@@ -17,6 +25,132 @@ export interface QueueEntry {
   priorityReason: string
   familiarity: number
   isKnown: boolean
+  allPronunciations: ZhuyinSyllable[][]
+}
+
+interface PronunciationRow {
+  entry_id: string
+  dictionary_zhuyin: ZhuyinSyllable[] | null
+  dictionary_variants: ZhuyinVariant[] | null
+  manual_readings: ZhuyinSyllable[][] | null
+}
+
+// =============================================================================
+// VALIDATION FUNCTIONS
+// =============================================================================
+
+/**
+ * Validate Zhuyin syllable structure.
+ * Each syllable must be [initial, final, tone] with valid tone marker.
+ *
+ * @param syllable - The syllable to validate
+ * @returns true if syllable is valid ZhuyinSyllable structure
+ */
+function validateZhuyinSyllable(syllable: any): syllable is ZhuyinSyllable {
+  return (
+    Array.isArray(syllable) &&
+    syllable.length === 3 &&
+    typeof syllable[0] === 'string' &&  // initial (can be empty)
+    typeof syllable[1] === 'string' &&  // final
+    typeof syllable[2] === 'string' &&  // tone
+    ['ˉ', 'ˊ', 'ˇ', 'ˋ', '˙', ''].includes(syllable[2]) // valid tones
+  )
+}
+
+/**
+ * Validate complete pronunciation (array of syllables).
+ *
+ * @param pronunciation - The pronunciation to validate
+ * @returns true if pronunciation is valid array of ZhuyinSyllables
+ */
+function validatePronunciation(pronunciation: any): pronunciation is ZhuyinSyllable[] {
+  return (
+    Array.isArray(pronunciation) &&
+    pronunciation.length > 0 &&
+    pronunciation.every(validateZhuyinSyllable)
+  )
+}
+
+// =============================================================================
+// PRONUNCIATION DEDUPLICATION
+// =============================================================================
+
+function dedupePronunciations(pronunciations: ZhuyinSyllable[][]): ZhuyinSyllable[][] {
+  const seen = new Set<string>()
+  const result: ZhuyinSyllable[][] = []
+
+  for (const zhuyin of pronunciations) {
+    if (!zhuyin || zhuyin.length === 0) continue
+    const key = serializePronunciation(zhuyin)
+    if (seen.has(key)) continue
+    seen.add(key)
+    result.push(zhuyin)
+  }
+
+  return result
+}
+
+function buildPronunciationList(
+  primary: ZhuyinSyllable[] | undefined,
+  row?: PronunciationRow
+): ZhuyinSyllable[][] {
+  const collected: ZhuyinSyllable[][] = []
+
+  // Validate primary reading
+  if (primary && validatePronunciation(primary)) {
+    collected.push(primary)
+  } else if (primary) {
+    console.error('[practiceQueueService] Invalid primary pronunciation:', {
+      primary,
+      entryId: row?.entry_id,
+      reason: 'Failed validation - malformed syllable structure or invalid tone marker'
+    })
+  }
+
+  // Validate manual readings
+  if (row?.manual_readings) {
+    for (const manual of row.manual_readings) {
+      if (validatePronunciation(manual)) {
+        collected.push(manual)
+      } else {
+        console.error('[practiceQueueService] Invalid manual reading:', {
+          manual,
+          entryId: row.entry_id,
+          reason: 'Failed validation - malformed syllable structure or invalid tone marker'
+        })
+      }
+    }
+  }
+
+  // Validate dictionary zhuyin
+  if (row?.dictionary_zhuyin) {
+    if (validatePronunciation(row.dictionary_zhuyin)) {
+      collected.push(row.dictionary_zhuyin)
+    } else {
+      console.error('[practiceQueueService] Invalid dictionary zhuyin:', {
+        dictionary_zhuyin: row.dictionary_zhuyin,
+        entryId: row.entry_id,
+        reason: 'Failed validation - malformed syllable structure or invalid tone marker'
+      })
+    }
+  }
+
+  // Validate dictionary variants
+  if (row?.dictionary_variants) {
+    for (const variant of row.dictionary_variants) {
+      if (variant.zhuyin && validatePronunciation(variant.zhuyin)) {
+        collected.push(variant.zhuyin)
+      } else if (variant.zhuyin) {
+        console.error('[practiceQueueService] Invalid dictionary variant:', {
+          variant,
+          entryId: row.entry_id,
+          reason: 'Failed validation - malformed syllable structure or invalid tone marker'
+        })
+      }
+    }
+  }
+
+  return dedupePronunciations(collected)
 }
 
 // =============================================================================
@@ -131,6 +265,25 @@ export async function fetchPracticeQueue(
     .in('entry_id', entryIds)
   
   if (statesError) throw statesError
+
+  // Fetch canonical pronunciations (dictionary + manual variants)
+  let pronunciationRows: PronunciationRow[] = []
+  if (entryIds.length > 0) {
+    try {
+      const { data, error } = await supabase.rpc('rpc_get_entry_pronunciations', {
+        entry_ids: entryIds
+      })
+      if (error) throw error
+      pronunciationRows = (data || []) as PronunciationRow[]
+    } catch (rpcError) {
+      console.error('Failed to load pronunciation variants', rpcError)
+      pronunciationRows = []
+    }
+  }
+
+  const pronunciationsByEntry = new Map(
+    pronunciationRows.map(row => [row.entry_id, row])
+  )
   
   // Build queue entries
   const statesByEntry = new Map(states?.map(s => [s.entry_id, s]) || [])
@@ -152,7 +305,11 @@ export async function fetchPracticeQueue(
       priority,
       priorityReason: reason,
       familiarity,
-      isKnown
+      isKnown,
+      allPronunciations: buildPronunciationList(
+        reading.zhuyin,
+        pronunciationsByEntry.get(entry.id)
+      )
     })
   }
   
