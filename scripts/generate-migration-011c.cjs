@@ -13,10 +13,29 @@ const path = require('path')
 const datasetPath = path.join(__dirname, '../data/multi_pronunciation_epic8_auto.json')
 const dataset = JSON.parse(fs.readFileSync(datasetPath, 'utf8'))
 
-const characters = dataset.characters || []
+// CRITICAL: Exclude 35 characters already deployed in Migration 011b (Session 11)
+// These have curated Pattern A structure with context words that must be preserved
+const EXCLUDE_CHARS = [
+  '为', '什', '传', '供', '便', '假', '几', '切', '划', '地',
+  '场', '将', '应', '弹', '扫', '把', '担', '教', '更', '正',
+  '没', '相', '省', '种', '系', '结', '给', '行', '觉', '角',
+  '调', '还', '都', '重', '量'
+]; // 35 characters from Migration 011b - DO NOT OVERWRITE
+
+const allCharacters = dataset.characters || []
+const characters = allCharacters.filter(char => !EXCLUDE_CHARS.includes(char.simp))
+
+console.log(`📊 Total in dataset: ${allCharacters.length}`)
+console.log(`🚫 Excluded (Migration 011b): ${EXCLUDE_CHARS.length}`)
+console.log(`✅ Characters to deploy: ${characters.length}`)
 
 if (characters.length === 0) {
-  throw new Error('Dataset has no characters. Run build-epic8-multi-pronunciations.cjs first.')
+  throw new Error('No characters to deploy after exclusions. Check EXCLUDE_CHARS list.')
+}
+
+if (allCharacters.length - characters.length !== EXCLUDE_CHARS.length) {
+  console.warn(`⚠️  Warning: Expected to exclude ${EXCLUDE_CHARS.length} characters, but filtered ${allCharacters.length - characters.length}`)
+  console.warn('   Some exclusion characters may not exist in the dataset.')
 }
 
 function formatVariants(char) {
@@ -47,7 +66,14 @@ const migration = `-- Migration 011c: Dictionary Quality - Auto multi-pronunciat
 -- Date: ${dataset.date}
 -- Description: ${dataset.description}
 -- Source: data/multi_pronunciation_epic8_auto.json
--- Characters: ${characters.length}
+-- Total in dataset: ${allCharacters.length}
+-- Excluded (Migration 011b): ${EXCLUDE_CHARS.length} (curated Pattern A entries preserved)
+-- Characters to deploy: ${characters.length}
+--
+-- CRITICAL: This migration excludes 35 characters already deployed in Migration 011b
+-- to prevent overwriting curated context words (175-350 words total).
+--
+-- Excluded characters: ${EXCLUDE_CHARS.join(', ')}
 
 BEGIN;
 
@@ -78,4 +104,22 @@ ${characters.map(char => `UPDATE dictionary_entries SET zhuyin_variants = '[]'::
 
 const outputPath = path.join(__dirname, '../supabase/migrations/011c_dictionary_multi_pronunciations.sql')
 fs.writeFileSync(outputPath, migration)
-console.log('✅ Migration 011c written to', outputPath)
+
+console.log('')
+console.log('✅ Migration 011c generated successfully!')
+console.log(`📄 Output: ${outputPath}`)
+console.log('')
+console.log('📊 Summary:')
+console.log(`   Total characters in dataset: ${allCharacters.length}`)
+console.log(`   Excluded (Migration 011b):   ${EXCLUDE_CHARS.length}`)
+console.log(`   Characters to deploy:        ${characters.length}`)
+console.log('')
+console.log('🛡️  Data Protection:')
+console.log(`   Preserving ${EXCLUDE_CHARS.length} curated entries with ~${EXCLUDE_CHARS.length * 5}-${EXCLUDE_CHARS.length * 10} context words`)
+console.log(`   Zero data loss from Migration 011b`)
+console.log('')
+console.log('Next steps:')
+console.log('1. Review the generated migration file')
+console.log('2. Verify character count matches expected value (101 characters)')
+console.log('3. Test migration on staging database')
+console.log('4. Apply to production via Supabase Dashboard')

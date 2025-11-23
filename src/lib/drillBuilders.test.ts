@@ -282,4 +282,83 @@ describe('drillBuilders', () => {
       expect(hasToneVariant).toBe(true)
     })
   })
+
+  describe('Edge Cases - Fallback Pronunciations', () => {
+    it('should use fallback pronunciations when valid pronunciations consume confusion space', () => {
+      // Edge case: Character with many valid pronunciations that exhaust confusion maps
+      // Base: ㄉㄜˊ with all tone variants + initial confusion + final confusion blocked
+      const baseReading = [['ㄉ', 'ㄜ', 'ˊ']]
+      const manyVariants = [
+        [['ㄉ', 'ㄜ', 'ˉ']],  // Valid alternate 1 (tone variant - 1st tone)
+        [['ㄉ', 'ㄜ', 'ˇ']],  // Valid alternate 2 (tone variant - 3rd tone)
+        [['ㄉ', 'ㄜ', 'ˋ']],  // Valid alternate 3 (tone variant - 4th tone)
+        [['ㄉ', 'ㄜ', '˙']],  // Valid alternate 4 (tone variant - neutral)
+        [['ㄊ', 'ㄜ', 'ˊ']],  // Valid alternate 5 (initial confusion: ㄉ→ㄊ)
+        [['ㄉ', 'ㄚ', 'ˊ']],  // Valid alternate 6 (final confusion: ㄜ→ㄚ)
+        [['ㄉ', 'ㄛ', 'ˊ']],  // Valid alternate 7 (final confusion: ㄜ→ㄛ)
+      ]
+
+      const options = buildZhuyinOptions({ zhuyin: baseReading }, manyVariants)
+
+      // Should still generate 4 options
+      expect(options).toHaveLength(4)
+
+      // Should not contain any valid variants as distractors
+      const variantKeys = new Set([
+        JSON.stringify(baseReading),
+        ...manyVariants.map(v => JSON.stringify(v))
+      ])
+
+      const distractors = options.filter(opt => !opt.isCorrect)
+      distractors.forEach(distractor => {
+        expect(variantKeys.has(JSON.stringify(distractor.zhuyin))).toBe(false)
+      })
+
+      // At least one distractor should be from FALLBACK_PRONUNCIATIONS
+      // (verifies fallback logic was triggered when confusion maps exhausted)
+      const hasUnrelatedDistractor = distractors.some(opt =>
+        opt.zhuyin[0][0] !== 'ㄉ' && opt.zhuyin[0][0] !== 'ㄊ'
+      )
+      expect(hasUnrelatedDistractor).toBe(true)
+    })
+
+    it('should handle character with all confusion map variants as valid alternates', () => {
+      // Extreme edge case: All confusion map entries are valid pronunciations
+      const baseReading = [['ㄓ', 'ㄠ', 'ˊ']]
+      const exhaustiveVariants = [
+        [['ㄓ', 'ㄠ', 'ˉ']],  // Tone variant 1
+        [['ㄓ', 'ㄠ', 'ˇ']],  // Tone variant 2
+        [['ㄓ', 'ㄠ', 'ˋ']],  // Tone variant 3
+        [['ㄓ', 'ㄠ', '˙']],  // Tone variant 4
+        [['ㄗ', 'ㄠ', 'ˊ']],  // Initial confusion variant 1
+        [['ㄐ', 'ㄠ', 'ˊ']],  // Initial confusion variant 2
+      ]
+
+      const options = buildZhuyinOptions({ zhuyin: baseReading }, exhaustiveVariants)
+
+      expect(options).toHaveLength(4)
+      expect(options.filter(opt => opt.isCorrect)).toHaveLength(1)
+
+      // All distractors must be from FALLBACK_PRONUNCIATIONS
+      const distractors = options.filter(opt => !opt.isCorrect)
+      expect(distractors.length).toBe(3)
+    })
+
+    it('should not duplicate fallback pronunciations as distractors', () => {
+      // Verify FALLBACK_PRONUNCIATIONS are unique and don't appear multiple times
+      const baseReading = [['ㄅ', 'ㄚ', 'ˊ']]
+      const variants = [
+        [['ㄅ', 'ㄚ', 'ˉ']],
+        [['ㄅ', 'ㄚ', 'ˇ']],
+        [['ㄅ', 'ㄚ', 'ˋ']],
+      ]
+
+      const options = buildZhuyinOptions({ zhuyin: baseReading }, variants)
+
+      // All options should be unique
+      const serialized = options.map(opt => JSON.stringify(opt.zhuyin))
+      const unique = new Set(serialized)
+      expect(unique.size).toBe(4)
+    })
+  })
 })

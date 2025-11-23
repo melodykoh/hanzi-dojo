@@ -72,6 +72,43 @@
 
 import type { ZhuyinSyllable, DictionaryEntry } from '../types'
 import { formatZhuyinDisplay } from './zhuyin'
+import { serializePronunciation } from './zhuyinUtils'
+
+// =============================================================================
+// TYPE DEFINITIONS
+// =============================================================================
+
+/**
+ * Custom confusion data for drill option generation.
+ * Reserved for V2 feature: user-defined confusion maps.
+ *
+ * @remarks
+ * This interface defines the structure for custom confusion maps that can be
+ * used to override or extend the default confusion patterns used in drill
+ * generation. Currently unused in V1, but reserved for future extensibility.
+ *
+ * @example
+ * ```typescript
+ * const customConfusion: ConfusionData = {
+ *   tones: ['ˉ', 'ˊ', 'ˇ', 'ˋ'],
+ *   initials: { 'ㄓ': ['ㄗ', 'ㄐ'] },
+ *   finals: { 'ㄢ': ['ㄤ', 'ㄣ'] }
+ * }
+ * ```
+ */
+interface ConfusionData {
+  /** Custom tone marker set (overrides TONES constant) */
+  tones?: string[]
+
+  /** Custom initial consonant confusion map (extends CONFUSE_INITIAL) */
+  initials?: Record<string, string[]>
+
+  /** Custom final vowel confusion map (extends CONFUSE_FINAL) */
+  finals?: Record<string, string[]>
+
+  /** Custom traditional character visual confusion (extends CONFUSE_TRAD_VISUAL) */
+  traditionalVisual?: Record<string, string[]>
+}
 
 // =============================================================================
 // CONFUSION MAPS (From confusion_maps_v1.json)
@@ -236,10 +273,6 @@ function shuffle<T>(array: T[]): T[] {
 
 export { formatZhuyinDisplay as formatZhuyin } from './zhuyin'
 
-function serializePronunciation(zhuyin: ZhuyinSyllable[]): string {
-  return zhuyin.map(([ini, fin, tone]) => `${ini}|${fin}|${tone}`).join(';')
-}
-
 function normalizePronunciationList(pronunciations: ZhuyinSyllable[][]): ZhuyinSyllable[][] {
   const seen = new Set<string>()
   const normalized: ZhuyinSyllable[][] = []
@@ -343,7 +376,7 @@ export interface DrillAOption {
 export function buildDrillAOptions(
   correctZhuyin: ZhuyinSyllable[],
   allValidPronunciations: ZhuyinSyllable[][] = [],
-  _confusionData?: any
+  _confusionData?: ConfusionData
 ): DrillAOption[] {
   const normalizedValid = normalizePronunciationList([
     correctZhuyin,
@@ -543,7 +576,7 @@ export function buildDrillBOptions(
   simplified: string,
   correctTraditional: string,
   dictionaryEntries?: DictionaryEntry[],
-  _confusionData?: any
+  _confusionData?: ConfusionData
 ): DrillBOption[] {
   const options = new Set<string>([correctTraditional])
   const chars = [...correctTraditional]

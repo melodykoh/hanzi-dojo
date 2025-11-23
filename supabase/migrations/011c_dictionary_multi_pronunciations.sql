@@ -2,7 +2,14 @@
 -- Date: 2025-11-22
 -- Description: Auto-generated pronunciations for remaining multi-tone characters prior to Drill A guardrails.
 -- Source: data/multi_pronunciation_epic8_auto.json
--- Characters: 136
+-- Total in dataset: 136
+-- Excluded (Migration 011b): 35 (curated Pattern A entries preserved)
+-- Characters to deploy: 101
+--
+-- CRITICAL: This migration excludes 35 characters already deployed in Migration 011b
+-- to prevent overwriting curated context words (175-350 words total).
+--
+-- Excluded characters: 为, 什, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将, 应, 弹, 扫, 把, 担, 教, 更, 正, 没, 相, 省, 种, 系, 结, 给, 行, 觉, 角, 调, 还, 都, 重, 量
 
 BEGIN;
 
@@ -12,91 +19,14 @@ DECLARE
 BEGIN
   SELECT COUNT(*) INTO char_count
   FROM dictionary_entries
-  WHERE simp IN ('为', '传', '供', '便', '假', '几', '切', '划', '地', '场', '将', '干', '应', '弹', '扫', '把', '担', '教', '更', '正', '没', '相', '省', '种', '系', '结', '给', '行', '觉', '角', '调', '还', '都', '重', '量', '什', '且', '丽', '么', '乘', '于', '亚', '些', '亲', '仅', '从', '价', '任', '份', '休', '估', '体', '信', '俩', '倒', '共', '其', '冒', '净', '凉', '别', '刷', '助', '化', '匙', '区', '占', '卡', '压', '句', '可', '台', '号', '各', '合', '同', '否', '吧', '呀', '呢', '咖', '咳', '填', '夫', '奇', '妻', '孙', '底', '度', '弄', '思', '愉', '戏', '打', '择', '拾', '据', '排', '散', '旁', '景', '服', '条', '查', '校', '椅', '汗', '汤', '沙', '洗', '济', '父', '片', '甚', '疑', '研', '硕', '票', '禁', '稍', '约', '肚', '胳', '膏', '苹', '被', '观', '论', '语', '谁', '责', '赚', '趟', '趣', '跳', '钢');
+  WHERE simp IN ('干', '且', '丽', '么', '乘', '于', '亚', '些', '亲', '仅', '从', '价', '任', '份', '休', '估', '体', '信', '俩', '倒', '共', '其', '冒', '净', '凉', '别', '刷', '助', '化', '匙', '区', '占', '卡', '压', '句', '可', '台', '号', '各', '合', '同', '否', '吧', '呀', '呢', '咖', '咳', '填', '夫', '奇', '妻', '孙', '底', '度', '弄', '思', '愉', '戏', '打', '择', '拾', '据', '排', '散', '旁', '景', '服', '条', '查', '校', '椅', '汗', '汤', '沙', '洗', '济', '父', '片', '甚', '疑', '研', '硕', '票', '禁', '稍', '约', '肚', '胳', '膏', '苹', '被', '观', '论', '语', '谁', '责', '赚', '趟', '趣', '跳', '钢');
 
-  IF char_count != 136 THEN
-    RAISE EXCEPTION 'Expected 136 characters, found %', char_count;
+  IF char_count != 101 THEN
+    RAISE EXCEPTION 'Expected 101 characters, found %', char_count;
   END IF;
 
-  RAISE NOTICE 'Safety check passed: All 136 characters present.';
+  RAISE NOTICE 'Safety check passed: All 101 characters present.';
 END $$;
-
--- Character: 为 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"wéi","zhuyin":[["","ㄨㄟ","ˊ"]],"context_words":[],"meanings":["why?; for what reason?","because","become; turn into"]},{"pinyin":"wèi","zhuyin":[["","ㄨㄟ","ˋ"]],"context_words":[],"meanings":["why?; for what reason?","because","become; turn into"]}]'::jsonb
-WHERE simp = '为'
-  AND trad = '為';
-
--- Character: 传 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"chuán","zhuyin":[["ㄔ","ㄨㄢ","ˊ"]],"context_words":[],"meanings":["fax; facsimile"]},{"pinyin":"zhuàn","zhuyin":[["ㄓ","ㄨㄢ","ˋ"]],"context_words":[],"meanings":["fax; facsimile"]}]'::jsonb
-WHERE simp = '传'
-  AND trad = '傳';
-
--- Character: 供 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"gōng","zhuyin":[["ㄍ","ㄨㄥ","ˉ"]],"context_words":[],"meanings":["to supply; provide; furnish"]},{"pinyin":"gòng","zhuyin":[["ㄍ","ㄨㄥ","ˋ"]],"context_words":[],"meanings":["to supply; provide; furnish"]}]'::jsonb
-WHERE simp = '供'
-  AND trad = '供';
-
--- Character: 便 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"biàn","zhuyin":[["ㄅ","ㄧㄢ","ˋ"]],"context_words":[],"meanings":["cheap","convenient"]},{"pinyin":"pián","zhuyin":[["ㄆ","ㄧㄢ","ˊ"]],"context_words":[],"meanings":["cheap","convenient"]}]'::jsonb
-WHERE simp = '便'
-  AND trad = '便';
-
--- Character: 假 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"jiǎ","zhuyin":[["ㄐ","ㄧㄚ","ˇ"]],"context_words":[],"meanings":["to ask for time off","have summer vacation"]},{"pinyin":"jià","zhuyin":[["ㄐ","ㄧㄚ","ˋ"]],"context_words":[],"meanings":["to ask for time off","have summer vacation"]}]'::jsonb
-WHERE simp = '假'
-  AND trad = '假';
-
--- Character: 几 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"jī","zhuyin":[["ㄐ","ㄧ","ˉ"]],"context_words":[],"meanings":["how many; several; a few","almost"]},{"pinyin":"jǐ","zhuyin":[["ㄐ","ㄧ","ˇ"]],"context_words":[],"meanings":["how many; several; a few","almost"]}]'::jsonb
-WHERE simp = '几'
-  AND trad = '幾';
-
--- Character: 切 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"qiē","zhuyin":[["ㄑ","ㄧㄝ","ˉ"]],"context_words":[],"meanings":["all; every; everything"]},{"pinyin":"qiè","zhuyin":[["ㄑ","ㄧㄝ","ˋ"]],"context_words":[],"meanings":["all; every; everything"]}]'::jsonb
-WHERE simp = '切'
-  AND trad = '切';
-
--- Character: 划 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"huá","zhuyin":[["ㄏ","ㄨㄚ","ˊ"]],"context_words":[],"meanings":["plan; project"]},{"pinyin":"huà","zhuyin":[["ㄏ","ㄨㄚ","ˋ"]],"context_words":[],"meanings":["plan; project"]}]'::jsonb
-WHERE simp = '划'
-  AND trad = '劃';
-
--- Character: 地 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"dì","zhuyin":[["ㄉ","ㄧ","ˋ"]],"context_words":[],"meanings":["earth; ground | (adverbial particle)","place; space; room; part, (fāng: local; regional)"]},{"pinyin":"de","zhuyin":[["ㄉ","ㄜ","˙"]],"context_words":[],"meanings":["earth; ground | (adverbial particle)","place; space; room; part, (fāng: local; regional)"]}]'::jsonb
-WHERE simp = '地'
-  AND trad = '地';
-
--- Character: 场 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"cháng","zhuyin":[["ㄔ","ㄤ","ˊ"]],"context_words":[],"meanings":["airport; airfield","courtyard; place; field; (mw for games, performances, etc.)"]},{"pinyin":"chǎng","zhuyin":[["ㄔ","ㄤ","ˇ"]],"context_words":[],"meanings":["airport; airfield","courtyard; place; field; (mw for games, performances, etc.)"]}]'::jsonb
-WHERE simp = '场'
-  AND trad = '場';
-
--- Character: 将 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"jiāng","zhuyin":[["ㄐ","ㄧㄤ","ˉ"]],"context_words":[],"meanings":["the future"]},{"pinyin":"jiàng","zhuyin":[["ㄐ","ㄧㄤ","ˋ"]],"context_words":[],"meanings":["the future"]}]'::jsonb
-WHERE simp = '将'
-  AND trad = '將';
 
 -- Character: 干 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
 UPDATE dictionary_entries
@@ -104,174 +34,6 @@ SET
   zhuyin_variants = '[{"pinyin":"gān","zhuyin":[["ㄍ","ㄢ","ˉ"]],"context_words":[],"meanings":["clean; neat and tidy","biscuit; cracker; cookie","to drink a toast; cheers!; bottoms up!"]},{"pinyin":"gàn","zhuyin":[["ㄍ","ㄢ","ˋ"]],"context_words":[],"meanings":["clean; neat and tidy","biscuit; cracker; cookie","to drink a toast; cheers!; bottoms up!"]}]'::jsonb
 WHERE simp = '干'
   AND trad = '干';
-
--- Character: 应 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"yīng","zhuyin":[["","ㄧㄥ","ˉ"]],"context_words":[],"meanings":["should; ought to; must","to suit; to fit; adapt"]},{"pinyin":"yìng","zhuyin":[["","ㄧㄥ","ˋ"]],"context_words":[],"meanings":["should; ought to; must","to suit; to fit; adapt"]}]'::jsonb
-WHERE simp = '应'
-  AND trad = '應';
-
--- Character: 弹 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"dàn","zhuyin":[["ㄉ","ㄢ","ˋ"]],"context_words":[],"meanings":["play the piano"]},{"pinyin":"tán","zhuyin":[["ㄊ","ㄢ","ˊ"]],"context_words":[],"meanings":["play the piano"]}]'::jsonb
-WHERE simp = '弹'
-  AND trad = '彈';
-
--- Character: 扫 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"sǎo","zhuyin":[["ㄙ","ㄠ","ˇ"]],"context_words":[],"meanings":["to clean; to sweep"]},{"pinyin":"sào","zhuyin":[["ㄙ","ㄠ","ˋ"]],"context_words":[],"meanings":["to clean; to sweep"]}]'::jsonb
-WHERE simp = '扫'
-  AND trad = '掃';
-
--- Character: 把 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"bǎ","zhuyin":[["ㄅ","ㄚ","ˇ"]],"context_words":[],"meanings":["(mw for things with handles); (pretransitive particle); to hold"]},{"pinyin":"bà","zhuyin":[["ㄅ","ㄚ","ˋ"]],"context_words":[],"meanings":["(mw for things with handles); (pretransitive particle); to hold"]}]'::jsonb
-WHERE simp = '把'
-  AND trad = '把';
-
--- Character: 担 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"dān","zhuyin":[["ㄉ","ㄢ","ˉ"]],"context_words":[],"meanings":["to worry; feel anxious"]},{"pinyin":"dàn","zhuyin":[["ㄉ","ㄢ","ˋ"]],"context_words":[],"meanings":["to worry; feel anxious"]}]'::jsonb
-WHERE simp = '担'
-  AND trad = '擔';
-
--- Character: 教 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"jiào","zhuyin":[["ㄐ","ㄧㄠ","ˋ"]],"context_words":[],"meanings":["classroom","teach; instruct | religion; teaching"]},{"pinyin":"jiāo","zhuyin":[["ㄐ","ㄧㄠ","ˉ"]],"context_words":[],"meanings":["classroom","teach; instruct | religion; teaching"]}]'::jsonb
-WHERE simp = '教'
-  AND trad = '教';
-
--- Character: 更 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"gēng","zhuyin":[["ㄍ","ㄥ","ˉ"]],"context_words":[],"meanings":["more; even more"]},{"pinyin":"gèng","zhuyin":[["ㄍ","ㄥ","ˋ"]],"context_words":[],"meanings":["more; even more"]}]'::jsonb
-WHERE simp = '更'
-  AND trad = '更';
-
--- Character: 正 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"zhèng","zhuyin":[["ㄓ","ㄥ","ˋ"]],"context_words":[],"meanings":["in the process of (doing something); currently","genuine; real; true"]},{"pinyin":"zhēng","zhuyin":[["ㄓ","ㄥ","ˉ"]],"context_words":[],"meanings":["in the process of (doing something); currently","genuine; real; true"]}]'::jsonb
-WHERE simp = '正'
-  AND trad = '正';
-
--- Character: 没 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"méi","zhuyin":[["ㄇ","ㄟ","ˊ"]],"context_words":[],"meanings":["it doesn''t matter; never mind","not have; there is not"]},{"pinyin":"mò","zhuyin":[["ㄇ","ㄛ","ˋ"]],"context_words":[],"meanings":["it doesn''t matter; never mind","not have; there is not"]}]'::jsonb
-WHERE simp = '没'
-  AND trad = '沒';
-
--- Character: 相 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"xiāng","zhuyin":[["ㄒ","ㄧㄤ","ˉ"]],"context_words":[],"meanings":["believe (sb.); be convinced of","camera"]},{"pinyin":"xiàng","zhuyin":[["ㄒ","ㄧㄤ","ˋ"]],"context_words":[],"meanings":["believe (sb.); be convinced of","camera"]}]'::jsonb
-WHERE simp = '相'
-  AND trad = '相';
-
--- Character: 省 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"shěng","zhuyin":[["ㄕ","ㄥ","ˇ"]],"context_words":[],"meanings":["to save; economize; omit; province"]},{"pinyin":"xǐng","zhuyin":[["ㄒ","ㄧㄥ","ˇ"]],"context_words":[],"meanings":["to save; economize; omit; province"]}]'::jsonb
-WHERE simp = '省'
-  AND trad = '省';
-
--- Character: 种 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"zhǒng","zhuyin":[["ㄓ","ㄨㄥ","ˇ"]],"context_words":[],"meanings":["type; breed; race; seed"]},{"pinyin":"zhòng","zhuyin":[["ㄓ","ㄨㄥ","ˋ"]],"context_words":[],"meanings":["type; breed; race; seed"]}]'::jsonb
-WHERE simp = '种'
-  AND trad = '種';
-
--- Character: 系 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"xì","zhuyin":[["ㄒ","ㄧ","ˋ"]],"context_words":[],"meanings":["it doesn''t matter; never mind","relation; to concern"]},{"pinyin":"jì","zhuyin":[["ㄐ","ㄧ","ˋ"]],"context_words":[],"meanings":["it doesn''t matter; never mind","relation; to concern"]}]'::jsonb
-WHERE simp = '系'
-  AND trad = '系';
-
--- Character: 结 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"jié","zhuyin":[["ㄐ","ㄧㄝ","ˊ"]],"context_words":[],"meanings":["get married","to end; to finish; conclude"]},{"pinyin":"jiē","zhuyin":[["ㄐ","ㄧㄝ","ˉ"]],"context_words":[],"meanings":["get married","to end; to finish; conclude"]}]'::jsonb
-WHERE simp = '结'
-  AND trad = '結';
-
--- Character: 给 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"gěi","zhuyin":[["ㄍ","ㄟ","ˇ"]],"context_words":[],"meanings":["to give; to grant; (passive particle)"]},{"pinyin":"jǐ","zhuyin":[["ㄐ","ㄧ","ˇ"]],"context_words":[],"meanings":["to give; to grant; (passive particle)"]}]'::jsonb
-WHERE simp = '给'
-  AND trad = '給';
-
--- Character: 行 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"háng","zhuyin":[["ㄏ","ㄤ","ˊ"]],"context_words":[],"meanings":["trunk; suitcase","bank"]},{"pinyin":"xíng","zhuyin":[["ㄒ","ㄧㄥ","ˊ"]],"context_words":[],"meanings":["trunk; suitcase","bank"]}]'::jsonb
-WHERE simp = '行'
-  AND trad = '行';
-
--- Character: 觉 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"jué","zhuyin":[["ㄐ","ㄩㄝ","ˊ"]],"context_words":[],"meanings":["to sleep; go to bed","feel; think"]},{"pinyin":"jiào","zhuyin":[["ㄐ","ㄧㄠ","ˋ"]],"context_words":[],"meanings":["to sleep; go to bed","feel; think"]}]'::jsonb
-WHERE simp = '觉'
-  AND trad = '覺';
-
--- Character: 角 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"jiǎo","zhuyin":[["ㄐ","ㄧㄠ","ˇ"]],"context_words":[],"meanings":["horn; angle; unit of money (1/10 yuan); corner (Kangxi radical 148) | role (theater)"]},{"pinyin":"jué","zhuyin":[["ㄐ","ㄩㄝ","ˊ"]],"context_words":[],"meanings":["horn; angle; unit of money (1/10 yuan); corner (Kangxi radical 148) | role (theater)"]}]'::jsonb
-WHERE simp = '角'
-  AND trad = '角';
-
--- Character: 调 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"diào","zhuyin":[["ㄉ","ㄧㄠ","ˋ"]],"context_words":[],"meanings":["air conditioning","investigate; survey; inquiry"]},{"pinyin":"tiáo","zhuyin":[["ㄊ","ㄧㄠ","ˊ"]],"context_words":[],"meanings":["air conditioning","investigate; survey; inquiry"]}]'::jsonb
-WHERE simp = '调'
-  AND trad = '調';
-
--- Character: 还 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"huán","zhuyin":[["ㄏ","ㄨㄢ","ˊ"]],"context_words":[],"meanings":["still; yet; in addition; even","or; still; nevertheless; had better"]},{"pinyin":"hái","zhuyin":[["ㄏ","ㄞ","ˊ"]],"context_words":[],"meanings":["still; yet; in addition; even","or; still; nevertheless; had better"]}]'::jsonb
-WHERE simp = '还'
-  AND trad = '還';
-
--- Character: 都 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"dū","zhuyin":[["ㄉ","ㄨ","ˉ"]],"context_words":[],"meanings":["all; both","capital (city)"]},{"pinyin":"dōu","zhuyin":[["ㄉ","ㄡ","ˉ"]],"context_words":[],"meanings":["all; both","capital (city)"]}]'::jsonb
-WHERE simp = '都'
-  AND trad = '都';
-
--- Character: 重 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"zhòng","zhuyin":[["ㄓ","ㄨㄥ","ˋ"]],"context_words":[],"meanings":["important; significant; major","again; anew; once more"]},{"pinyin":"chóng","zhuyin":[["ㄔ","ㄨㄥ","ˊ"]],"context_words":[],"meanings":["important; significant; major","again; anew; once more"]}]'::jsonb
-WHERE simp = '重'
-  AND trad = '重';
-
--- Character: 量 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"liáng","zhuyin":[["ㄌ","ㄧㄤ","ˊ"]],"context_words":[],"meanings":["consult; talk over; discuss","amount; quantity; number"]},{"pinyin":"liàng","zhuyin":[["ㄌ","ㄧㄤ","ˋ"]],"context_words":[],"meanings":["consult; talk over; discuss","amount; quantity; number"]}]'::jsonb
-WHERE simp = '量'
-  AND trad = '量';
-
--- Character: 什 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
-UPDATE dictionary_entries
-SET
-  zhuyin_variants = '[{"pinyin":"shí","zhuyin":[["ㄕ","","ˊ"]],"context_words":[],"meanings":["what? (replaces the noun to turn a statement into a question)","why?; for what reason?"]},{"pinyin":"shén","zhuyin":[["ㄕ","ㄣ","ˊ"]],"context_words":[],"meanings":["what? (replaces the noun to turn a statement into a question)","why?; for what reason?"]}]'::jsonb
-WHERE simp = '什'
-  AND trad = '什';
 
 -- Character: 且 (Auto-generated from dictionary_expansion_v2.json (no manual context words))
 UPDATE dictionary_entries
@@ -978,42 +740,7 @@ COMMIT;
 
 -- Rollback helper
 /*
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '为' AND trad = '為';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '传' AND trad = '傳';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '供' AND trad = '供';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '便' AND trad = '便';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '假' AND trad = '假';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '几' AND trad = '幾';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '切' AND trad = '切';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '划' AND trad = '劃';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '地' AND trad = '地';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '场' AND trad = '場';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '将' AND trad = '將';
 UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '干' AND trad = '干';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '应' AND trad = '應';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '弹' AND trad = '彈';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '扫' AND trad = '掃';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '把' AND trad = '把';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '担' AND trad = '擔';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '教' AND trad = '教';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '更' AND trad = '更';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '正' AND trad = '正';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '没' AND trad = '沒';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '相' AND trad = '相';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '省' AND trad = '省';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '种' AND trad = '種';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '系' AND trad = '系';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '结' AND trad = '結';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '给' AND trad = '給';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '行' AND trad = '行';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '觉' AND trad = '覺';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '角' AND trad = '角';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '调' AND trad = '調';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '还' AND trad = '還';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '都' AND trad = '都';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '重' AND trad = '重';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '量' AND trad = '量';
-UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '什' AND trad = '什';
 UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '且' AND trad = '且';
 UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '丽' AND trad = '麗';
 UPDATE dictionary_entries SET zhuyin_variants = '[]'::jsonb WHERE simp = '么' AND trad = '麼';
