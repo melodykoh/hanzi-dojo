@@ -270,12 +270,18 @@ export interface DrillAOption {
  *
  * UNIQUENESS GUARANTEE:
  * - Uses areSyllablesEqual() to prevent duplicate options
+ * - Excludes all valid pronunciations for multi-pronunciation characters
+ * - Ensures display strings are unique (prevents duplicate visual representations)
  * - Will generate up to 4 unique options (pads with duplicates if impossible, rare)
  *
  * @param correctZhuyin - The correct Zhuyin pronunciation as syllable array
  *   - Example: [['ㄒ', 'ㄢ', 'ˊ']] for "xián" (鹹)
  *   - Each syllable: [initial, final, tone]
  * @param _confusionData - Reserved for future custom confusion data (currently unused)
+ * @param allValidPronunciations - All valid pronunciations for this character (optional)
+ *   - For multi-pronunciation characters like 可 (kě/kè), prevents using valid
+ *     alternate pronunciations as "wrong" answers
+ *   - Example: [[['ㄎ','ㄜ','ˇ']], [['ㄎ','ㄜ','ˋ']]] for 可
  *
  * @returns Array of 4 DrillAOption objects with:
  *   - `zhuyin`: ZhuyinSyllable[] (the pronunciation)
@@ -301,23 +307,49 @@ export interface DrillAOption {
  */
 export function buildDrillAOptions(
   correctZhuyin: ZhuyinSyllable[],
-  _confusionData?: any
+  _confusionData?: any,
+  allValidPronunciations?: ZhuyinSyllable[][]
 ): DrillAOption[] {
   const options: ZhuyinSyllable[][] = [correctZhuyin]
   const lastIdx = correctZhuyin.length - 1
   const [lastIni, lastFin, lastTone] = correctZhuyin[lastIdx]
-  
+
+  // Helper: Check if a variant is a valid pronunciation (to exclude from distractors)
+  const isValidPronunciation = (variant: ZhuyinSyllable[]): boolean => {
+    if (!allValidPronunciations) return false
+    return allValidPronunciations.some(valid => areSyllablesEqual(variant, valid))
+  }
+
+  // Helper: Check if variant is already in options (by syllables or display string)
+  const isUniqueVariant = (variant: ZhuyinSyllable[]): boolean => {
+    // Check syllable equality
+    if (options.some(opt => areSyllablesEqual(opt, variant))) return false
+
+    // Check display string uniqueness (prevents visual duplicates)
+    const variantDisplay = formatZhuyinDisplay(variant)
+    const existingDisplays = options.map(opt => formatZhuyinDisplay(opt))
+    if (existingDisplays.includes(variantDisplay)) return false
+
+    return true
+  }
+
   // Strategy 1: Tone variants on last syllable (most common confusion)
   for (const tone of TONES) {
     if (tone === lastTone) continue
-    
+
     const variant = cloneSyllables(correctZhuyin)
     variant[lastIdx] = [lastIni, lastFin, tone]
-    
-    if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+
+    // Skip if this variant is a valid pronunciation for the character
+    if (isValidPronunciation(variant)) {
+      console.debug('DrillA: Skipping variant (valid pronunciation)', formatZhuyinDisplay(variant))
+      continue
+    }
+
+    if (isUniqueVariant(variant)) {
       options.push(variant)
     }
-    
+
     if (options.length === 4) break
   }
   
@@ -326,25 +358,31 @@ export function buildDrillAOptions(
     for (const altIni of CONFUSE_INITIAL[lastIni]) {
       const variant = cloneSyllables(correctZhuyin)
       variant[lastIdx] = [altIni, lastFin, lastTone]
-      
-      if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+
+      // Skip if this variant is a valid pronunciation
+      if (isValidPronunciation(variant)) continue
+
+      if (isUniqueVariant(variant)) {
         options.push(variant)
       }
-      
+
       if (options.length === 4) break
     }
   }
-  
+
   // Strategy 3: Final vowel confusion on last syllable
   if (options.length < 4 && CONFUSE_FINAL[lastFin]) {
     for (const altFin of CONFUSE_FINAL[lastFin]) {
       const variant = cloneSyllables(correctZhuyin)
       variant[lastIdx] = [lastIni, altFin, lastTone]
-      
-      if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+
+      // Skip if this variant is a valid pronunciation
+      if (isValidPronunciation(variant)) continue
+
+      if (isUniqueVariant(variant)) {
         options.push(variant)
       }
-      
+
       if (options.length === 4) break
     }
   }
@@ -353,23 +391,26 @@ export function buildDrillAOptions(
   if (options.length < 4 && correctZhuyin.length > 1) {
     for (let i = 0; i < lastIdx && options.length < 4; i++) {
       const [ini, fin, tone] = correctZhuyin[i]
-      
+
       // Try tone changes on earlier syllables
       for (const altTone of TONES) {
         if (altTone === tone) continue
-        
+
         const variant = cloneSyllables(correctZhuyin)
         variant[i] = [ini, fin, altTone]
-        
-        if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+
+        // Skip if this variant is a valid pronunciation
+        if (isValidPronunciation(variant)) continue
+
+        if (isUniqueVariant(variant)) {
           options.push(variant)
         }
-        
+
         if (options.length === 4) break
       }
     }
   }
-  
+
   // Strategy 5: Random tone changes if still not enough (fallback)
   if (options.length < 4) {
     const attempts = 100
@@ -378,21 +419,36 @@ export function buildDrillAOptions(
       const randIdx = Math.floor(Math.random() * variant.length)
       const [ini, fin, tone] = variant[randIdx]
       const randTone = TONES[Math.floor(Math.random() * TONES.length)]
-      
+
       if (randTone !== tone) {
         variant[randIdx] = [ini, fin, randTone]
-        
-        if (!options.some(opt => areSyllablesEqual(opt, variant))) {
+
+        // Skip if this variant is a valid pronunciation
+        if (isValidPronunciation(variant)) continue
+
+        if (isUniqueVariant(variant)) {
           options.push(variant)
         }
       }
     }
   }
-  
+
   // Ensure we have exactly 4 options (pad with duplicates if needed, but this should be rare)
-  while (options.length < 4) {
-    console.warn('DrillA: Could not generate 4 unique options, adding duplicate')
-    options.push(cloneSyllables(correctZhuyin))
+  if (options.length < 4) {
+    console.warn(
+      'DrillA: Could not generate 4 unique options after all strategies',
+      {
+        correctZhuyin: formatZhuyinDisplay(correctZhuyin),
+        generatedCount: options.length,
+        allValidPronunciations: allValidPronunciations?.map(formatZhuyinDisplay),
+        message: 'This may indicate a multi-pronunciation character without valid pronunciation data'
+      }
+    )
+
+    // Pad with duplicates to prevent drill from breaking
+    while (options.length < 4) {
+      options.push(cloneSyllables(correctZhuyin))
+    }
   }
   
   // Shuffle and convert to option objects
