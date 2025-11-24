@@ -1,12 +1,13 @@
 // Practice Card - Drill display with attempt tracking
 
 import { useState, useEffect } from 'react'
-import type { PracticeDrill } from '../types'
+import type { PracticeDrill, ZhuyinSyllable } from '../types'
 import { DRILLS } from '../types'
 import type { QueueEntry } from '../lib/practiceQueueService'
 import type { DrillAOption, DrillBOption } from '../lib/drillBuilders'
 import { buildDrillAOptions, buildDrillBOptions, validateDrillOptions } from '../lib/drillBuilders'
 import { recordFirstAttempt, recordSecondAttempt } from '../lib/practiceStateService'
+import { supabase } from '../lib/supabase'
 
 // =============================================================================
 // TYPES
@@ -47,31 +48,131 @@ export function PracticeCard({
   const [options, setOptions] = useState<DrillAOption[] | DrillBOption[]>([])
   
   useEffect(() => {
-    try {
-      if (drill === DRILLS.ZHUYIN) {
-        const drillAOptions = buildDrillAOptions(queueEntry.reading.zhuyin)
-        const validation = validateDrillOptions(drillAOptions)
-        if (!validation.valid) {
-          throw new Error(`Invalid DrillA options: ${validation.error}`)
+    async function generateOptions() {
+      try {
+        if (drill === DRILLS.ZHUYIN) {
+          // Fetch dictionary entry to get ALL valid pronunciations (including alternates)
+          // This prevents using valid alternate pronunciations as "wrong" answer distractors
+          const char = queueEntry.entry.simp
+
+          console.log('[PracticeCard] Fetching dictionary for:', {
+            char,
+            simp: queueEntry.entry.simp,
+            trad: queueEntry.entry.trad
+          })
+
+          // Use RPC function for robust lookup (handles OR logic correctly)
+          const { data: rpcResult, error: rpcError } = await supabase
+            .rpc('lookup_dictionary_entry', { search_char: char })
+
+          if (rpcError) {
+            console.error('[PracticeCard] Dictionary RPC failed:', rpcError)
+          }
+
+          // Extract dictionary entry from RPC result
+          const dictEntry = rpcResult?.found ? rpcResult.entry : null
+
+          if (dictEntry) {
+            console.log('[PracticeCard] Dictionary entry found:', {
+              char,
+              hasZhuyinVariants: !!dictEntry.zhuyin_variants,
+              hasZhuyin: !!dictEntry.zhuyin,
+              zhuyinType: Array.isArray(dictEntry.zhuyin) ? 'array' : typeof dictEntry.zhuyin
+            })
+          } else {
+            console.log('[PracticeCard] No dictionary entry found, using reading zhuyin only')
+          }
+
+          // Extract all valid pronunciations from dictionary
+          let allValidPronunciations: ZhuyinSyllable[][] = [queueEntry.reading.zhuyin]
+
+          if (dictEntry) {
+            if (dictEntry.zhuyin_variants && Array.isArray(dictEntry.zhuyin_variants)) {
+              // Pattern A structure: extract zhuyin from each variant
+              allValidPronunciations = dictEntry.zhuyin_variants.map(
+                (variant: any) => variant.zhuyin
+              )
+              console.log('[PracticeCard] Using Pattern A variants:', {
+                count: allValidPronunciations.length,
+                pronunciations: allValidPronunciations
+              })
+            } else if (dictEntry.zhuyin) {
+              // OLD FORMAT COMPATIBILITY: Handle multi-pronunciation characters
+              // Old format stores multi-pronunciation as: [["ㄕ","ㄨㄚ",""], ["ㄕ","ㄨㄚ","ˋ"]]
+              // This is ambiguous - could be:
+              //   1. A 2-syllable word with pronunciation shuā-shuà
+              //   2. A 1-character with 2 possible pronunciations (shuā OR shuà)
+              //
+              // Solution: Check if all elements are single syllables (3-element tuples)
+              // If yes, treat as multi-pronunciation (#2), otherwise as multi-syllable word (#1)
+
+              if (Array.isArray(dictEntry.zhuyin) && dictEntry.zhuyin.length > 1) {
+                // Check if this looks like old multi-pronunciation format
+                const isSingleSyllableList = dictEntry.zhuyin.every(
+                  (elem: any) => Array.isArray(elem) && elem.length === 3 && typeof elem[0] === 'string'
+                )
+
+                console.log('[PracticeCard] Multi-element zhuyin detected:', {
+                  length: dictEntry.zhuyin.length,
+                  isSingleSyllableList
+                })
+
+                if (isSingleSyllableList) {
+                  // OLD MULTI-PRONUNCIATION FORMAT DETECTED
+                  // Convert: [["ㄕ","ㄨㄚ",""], ["ㄕ","ㄨㄚ","ˋ"]]
+                  //      to: [[["ㄕ","ㄨㄚ",""]], [["ㄕ","ㄨㄚ","ˋ"]]]
+                  console.log(
+                    `[PracticeCard] ✓ Old format detected for ${char}, converting ${dictEntry.zhuyin.length} pronunciations`
+                  )
+                  allValidPronunciations = dictEntry.zhuyin.map((syl: ZhuyinSyllable) => [syl])
+                } else {
+                  // Multi-syllable word or complex structure - keep as-is
+                  console.log('[PracticeCard] Multi-syllable word format')
+                  allValidPronunciations = [dictEntry.zhuyin]
+                }
+              } else {
+                // Single pronunciation
+                console.log('[PracticeCard] Single pronunciation')
+                allValidPronunciations = [dictEntry.zhuyin]
+              }
+            }
+          }
+
+          console.log('[PracticeCard] Final allValidPronunciations:', {
+            count: allValidPronunciations.length,
+            pronunciations: allValidPronunciations
+          })
+
+          const drillAOptions = buildDrillAOptions(
+            queueEntry.reading.zhuyin,
+            undefined, // confusionData - not used yet
+            allValidPronunciations
+          )
+          const validation = validateDrillOptions(drillAOptions)
+          if (!validation.valid) {
+            throw new Error(`Invalid DrillA options: ${validation.error}`)
+          }
+          setOptions(drillAOptions)
+          setCorrectOptionIndex(drillAOptions.findIndex(opt => opt.isCorrect))
+        } else if (drill === DRILLS.TRAD) {
+          const drillBOptions = buildDrillBOptions(
+            queueEntry.entry.simp,
+            queueEntry.entry.trad
+          )
+          const validation = validateDrillOptions(drillBOptions)
+          if (!validation.valid) {
+            throw new Error(`Invalid DrillB options: ${validation.error}`)
+          }
+          setOptions(drillBOptions)
+          setCorrectOptionIndex(drillBOptions.findIndex(opt => opt.isCorrect))
         }
-        setOptions(drillAOptions)
-        setCorrectOptionIndex(drillAOptions.findIndex(opt => opt.isCorrect))
-      } else if (drill === DRILLS.TRAD) {
-        const drillBOptions = buildDrillBOptions(
-          queueEntry.entry.simp,
-          queueEntry.entry.trad
-        )
-        const validation = validateDrillOptions(drillBOptions)
-        if (!validation.valid) {
-          throw new Error(`Invalid DrillB options: ${validation.error}`)
-        }
-        setOptions(drillBOptions)
-        setCorrectOptionIndex(drillBOptions.findIndex(opt => opt.isCorrect))
+      } catch (error) {
+        console.error('Failed to generate drill options:', error)
+        if (onError) onError(error as Error)
       }
-    } catch (error) {
-      console.error('Failed to generate drill options:', error)
-      if (onError) onError(error as Error)
     }
+
+    generateOptions()
   }, [queueEntry, drill])
   
   // Handle option selection
