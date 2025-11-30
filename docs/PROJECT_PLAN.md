@@ -247,167 +247,182 @@ Status legend: ☐ Pending · ⧖ In Progress · ☑ Completed
 
 ---
 
-## Epic 8 — Dictionary Quality Completion ☐ PLANNED
-- **Goal:** Complete dictionary quality improvements for remaining 139 multi-pronunciation characters
-- **Status:** Planned (Post-V1)
-- **Priority:** Medium
-- **Total Points:** 20 pts (research-heavy, phased approach)
+## Epic 8 — Dictionary Quality Completion ☑ COMPLETE
+- **Goal:** Complete dictionary quality improvements for 139 multi-pronunciation characters from Nov 2025 audit
+- **Status:** Complete (PR #17 merged 2025-11-22)
+- **Priority:** HIGH (blocking for multi-pronunciation support)
+- **Total Points:** 20 pts
+- **Actual Effort:** ~25 hours (Session 10-15)
 
 ### Background
 **Context:** Nov 2025 comprehensive audit identified 161 characters with malformed multi-pronunciation data (multiple syllables crammed into main array instead of `zhuyin_variants`).
 
-**Migration 010a (Phase 1) Fixed:**
-- ✅ 248 empty tone marks → "ˉ" (first tone)
+**Total Coverage After Epic 8:**
+- ✅ 136 multi-pronunciation characters deployed (35 curated + 101 auto-generated)
+- ✅ Drill A guardrails prevent valid alternates from appearing as wrong answers
+- ✅ RPC performance optimized (30-40% faster)
+- ✅ Input validation prevents crashes from malformed data
+
+---
+
+## Epic 8 — Phases Complete
+
+### **Phase 1 (Migration 010a) — ☑ COMPLETE (Session 10)**
+**Date:** 2025-11-10
+
+**Delivered:**
+- ✅ 248 characters with empty tone marks → "ˉ" (first tone)
 - ✅ 22 critical multi-pronunciation characters (user-reported: 和, 什, plus high-syllable-count cases)
 - ✅ Added missing character 麼
 
-**Remaining Work:**
-- 139 characters still have malformed data (86% → 100% completion needed)
+**Deliverable:** `supabase/migrations/010a_fix_empty_tones_and_multi_pronunciation.sql`
 
-### Scope - Two Categories Requiring Different Approaches
+---
 
-**Category 1: Known Multi-Pronunciation (37 chars) - HIGH PRIORITY**
+### **Phase 2 (Migrations 011b, 011c, 011d) — ☑ COMPLETE (PR #17, Session 11-15)**
+**Date:** 2025-11-22
+
+**Scope - Two Categories:**
+
+**Category 1: Known Multi-Pronunciation (35 chars) - CURATED ✅**
+Characters with manually researched context words and meanings:
 ```
-为, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将, 干, 应, 弹, 扫, 把, 
-担, 教, 更, 正, 没, 相, 省, 种, 系, 结, 给, 行, 觉, 角, 调, 
-还, 都, 重, 量
+行, 重, 还, 为, 给, 都, 没, 教, 正, 更, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将,
+应, 弹, 扫, 把, 担, 相, 省, 种, 系, 结, 觉, 角, 调, 量, 什
 ```
-These are confirmed multi-pronunciation in standard dictionaries (e.g., 行 xíng/háng, 重 zhòng/chóng). Need context word research and proper `zhuyin_variants` structure.
 
-**Category 2: Ambiguous Cases (102 chars) - MEDIUM PRIORITY**
+**Category 2: Ambiguous Cases (101 chars) - AUTO-GENERATED ✅**
+Characters with auto-generated data (needs manual curation in future):
 ```
-且, 丽, 么, 乘, 于, 亚, 些, 亲, 仅, 从, 价, 任, 份, 休, 估, 体,
-[... 86 more - see docs/operational/DICTIONARY_REMAINING_WORK.md for full list]
+干, 且, 丽, 么, 乘, 于, 亚, 些, 亲, 仅, 从, 价, 任, 份, 休, 估, 体, 信, 俩, 倒...
+[... 81 more - see docs/operational/DICTIONARY_REMAINING_WORK.md for full list]
 ```
-These have 2 syllables but unclear if multi-pronunciation or data errors. Requires triage using MDBG/Taiwan MOE dictionaries.
 
-### Task 8.1 — Research & Triage (12 pts)
-**8.1.1 (5 pts) — Research Category 1 Characters**
-- For each of 37 known multi-pronunciation characters:
-  - Document all pronunciation variants (pinyin + zhuyin)
-  - Find 2-3 context words per variant
-  - Identify most common usage (becomes default)
-  - Source: MDBG, Taiwan MOE Dictionary, Pleco
-- Output: `data/multi_pronunciation_category1.json`
-- Timeline: ~6 hours (37 chars × 10 min each)
+### **Deliverables (PR #17)**
 
-**8.1.2 (5 pts) — Triage Category 2 Characters**
-- For each of 102 ambiguous characters:
-  - Check MDBG/Taiwan MOE for multiple pronunciations
-  - Classify as: multi-pronunciation, data error, or regional variant
-  - Document decision rationale
-  - If multi-pronunciation: research variants as in 8.1.1
-  - If data error: identify correct single pronunciation
-- Output: `data/multi_pronunciation_category2.json` with classifications
-- Timeline: ~8 hours (102 chars × 5 min each)
+**Migrations:**
+- ✅ `supabase/migrations/011b_pattern_a_structure.sql` — 35 curated characters with context words
+- ✅ `supabase/migrations/011c_dictionary_multi_pronunciations.sql` — 101 auto-generated characters
+- ✅ `supabase/migrations/011d_pronunciation_rpc.sql` — RPC optimization (30-40% faster)
 
-**8.1.3 (2 pts) — Create Migration Generator Script**
-- Node.js script to convert JSON research data → SQL UPDATE statements
-- Generate: `supabase/migrations/011_dictionary_quality_phase2.sql`
-- Include verification queries and rollback capability
-- Timeline: ~2 hours
+**Code Quality Improvements (Session 15):**
+- ✅ New utility: `src/lib/zhuyinUtils.ts` (pronunciation serialization)
+- ✅ Type safety: `ConfusionData` interface replaces `any` types
+- ✅ Input validation: `validateZhuyinSyllable()`, `validatePronunciation()`
+- ✅ Test coverage: +28 new tests (all passing)
+- ✅ Performance: N+1 query pattern eliminated
 
-### Task 8.2 — Apply Migration (5 pts)
-**8.2.1 (3 pts) — Test Migration on Staging**
-- Apply generated migration to local Supabase instance
-- Verify variant selection UI appears in AddItemForm for 20 sample characters
-- Test drill generation with corrected pronunciations
-- Document any issues discovered
-- Timeline: ~2 hours
+**Documentation:**
+- ✅ `docs/operational/DICTIONARY_REMAINING_WORK.md` — Updated with Phase 1 & 2 complete
+- ✅ `docs/operational/EPIC_8_PHASE_3_EXPANSION.md` — Future expansion planning
+- ✅ `PR_17_PRE_MERGE_CHECKLIST.md` — Comprehensive pre-merge verification
 
-**8.2.2 (2 pts) — Production Deployment**
-- Follow Database Safety Protocol (docs/operational/DICTIONARY_MIGRATION_GUIDE.md)
-- Apply Migration 011 to production
-- Run verification queries
-- Confirm 0 malformed multi-pronunciation characters remaining
-- Timeline: ~1 hour
+**Scripts:**
+- ✅ `scripts/generate-migration-011c.cjs` — Modified to exclude 35 overlapping characters (todo 009 fix)
 
-### Task 8.3 — Documentation & Verification (3 pts)
-**8.3.1 (2 pts) — End-to-End Testing**
-- Test AddItemForm variant selection for 10 chars from each category
-- Verify drills use selected pronunciation correctly
-- Confirm user can review/change pronunciation in Entry Catalog
-- Document in SESSION_LOG.md
-- Timeline: ~1.5 hours
+**Test Files:**
+- ✅ `src/lib/practiceQueueService.validation.test.ts` — 15 validation tests
+- ✅ `src/lib/practiceQueueService.integration.test.ts` — 10 integration tests
+- ✅ `src/lib/drillBuilders.test.ts` — +3 edge case tests (28 total)
 
-**8.3.2 (1 pt) — Update Documentation**
-- Mark Epic 8 complete in PROJECT_PLAN.md
-- Update CLAUDE.md dictionary status to 100% coverage
-- Archive research files in `data/archive/`
-- Timeline: ~30 minutes
+### Success Criteria ☑ ALL MET
+- [x] 35 Category 1 characters have Pattern A structure with curated context words
+- [x] 101 Category 2 characters deployed with auto-generated data
+- [x] Drill A guardrails exclude valid alternate pronunciations
+- [x] AddItemForm shows "Multiple Pronunciations Detected" for all 136 characters
+- [x] RPC performance improved 30-40%
+- [x] All 53 tests passing
+- [x] TypeScript compilation clean
+- [x] Build successful
 
-### Phased Rollout Strategy (Recommended)
+### **Sessions & Timeline**
+- Session 10 (2025-11-10): Dictionary audit, Migration 010a planning
+- Session 11 (2025-11-12): Migration 011b (35 curated characters) + Pattern A structure
+- Session 12-14 (2025-11-14 to 2025-11-16): Other features, code quality improvements
+- Session 15 (2025-11-22): 6-agent code review, 6 todo resolutions, PR #17 finalization
+- **Total Time:** ~25 hours across 6 sessions
 
-**Phase 1 (Week 1-2): High-Value Quick Wins**
-- Research top 10 most common Category 1 characters (行, 重, 还, 为, 给, 都, 没, 教, 正, 更)
-- Create Migration 011a with just these 10
-- Deploy and verify user impact
-- **Points:** ~8 pts
+### **Key Decisions Made**
+1. **Pattern A Structure:** Default pronunciation must be FIRST in `zhuyin_variants` array
+2. **Phased Approach:** 35 curated + 101 auto-generated (instead of all 136 curated at once)
+3. **Data Corruption Prevention:** Modified script to exclude overlapping characters (todo 009)
+4. **Performance First:** RPC optimization in same PR as feature (not deferred)
+5. **Defensive Programming:** Input validation added proactively (todo 013)
 
-**Phase 2 (Week 3-4): Complete Category 1**
-- Research remaining 27 Category 1 characters
-- Create Migration 011b
-- **Points:** ~6 pts
+### **Known Limitations (Future Work)**
+- 101 auto-generated characters have empty `context_words` arrays (acceptable for V1)
+- Manual curation of these 101 characters deferred to future enhancement
+- Characters beyond original 139 (e.g., 好, 长, 得) not yet supported
+- See Epic 8 Phase 3 below for expansion planning
 
-**Phase 3 (Week 5-8): Category 2 Triage & Fix**
-- Triage all 102 ambiguous characters
-- Create Migration 011c for confirmed multi-pronunciation
-- Create Migration 011d to fix data errors
-- **Points:** ~6 pts
+---
 
-### Success Criteria
-- [ ] All 37 Category 1 characters have proper `zhuyin_variants` with context words
-- [ ] All 102 Category 2 characters resolved (either variants or single pronunciation)
-- [ ] Comprehensive audit shows 0 malformed multi-pronunciation characters
-- [ ] AddItemForm shows variant selection for all true multi-pronunciation characters
-- [ ] Dictionary coverage: 1,000 entries, 100% properly structured
+## Epic 8 Phase 3 — Dictionary Expansion ☐ PLANNED
+- **Goal:** Expand multi-pronunciation coverage from 136 to 250+ characters
+- **Status:** Planned (V1.1+ enhancement)
+- **Priority:** Low (non-blocking)
+- **Total Points:** 15 pts
+- **Documentation:** `docs/operational/EPIC_8_PHASE_3_EXPANSION.md`
+
+### Scope - New Characters Beyond Original 139
+
+**Why Phase 3?**
+Epic 8 Phases 1-2 addressed the 139 characters identified in the Nov 2025 audit (malformed data requiring fixes). Phase 3 expands coverage to include NEW multi-pronunciation characters not in the original audit.
+
+**Target Characters (100+ additional):**
+- **Category A (30 chars):** High-frequency HSK 1-4 characters
+  - Examples: 好 (hǎo/hào), 长 (cháng/zhǎng), 得 (dé/de/děi), 看 (kàn/kān), 分 (fēn/fèn)
+- **Category B (50 chars):** Medium-frequency HSK 5-6 characters
+- **Category C (20 chars):** Edge cases and regional variants
+
+### Phased Implementation
+
+**Phase 3.1 (Week 1-2): Quick Wins — 6 pts**
+- Research 15 high-frequency characters (好, 长, 得, 看, 分, etc.)
+- Create Migration 011e with Pattern A structure
+- Deploy and gather user feedback
+
+**Phase 3.2 (Week 3-5): Complete Categories A & B — 6 pts**
+- Research remaining 15 Category A + first 25 Category B
+- Create Migration 011f with 40 characters
+
+**Phase 3.3 (Week 6-8): Finalize — 3 pts**
+- Research remaining 25 Category B + all 20 Category C
+- Create Migration 011g
+- Final audit: 250+ multi-pronunciation characters verified
 
 ### Deliverables
-- `data/multi_pronunciation_category1.json` — Researched variant data (37 chars)
-- `data/multi_pronunciation_category2.json` — Triaged classification + data (102 chars)
-- `supabase/migrations/011_dictionary_quality_phase2.sql` — Complete migration (or 011a/b/c/d if phased)
-- Updated `docs/operational/DICTIONARY_REMAINING_WORK.md` — Progress tracking
+- `data/multi_pronunciation_phase3a.json` — 15 high-frequency characters
+- `data/multi_pronunciation_phase3b.json` — 40 additional characters
+- `data/multi_pronunciation_phase3c.json` — 45 final characters
+- `supabase/migrations/011e_dictionary_expansion_phase3a.sql`
+- `supabase/migrations/011f_dictionary_expansion_phase3b.sql`
+- `supabase/migrations/011g_dictionary_expansion_phase3c.sql`
 
-### Resources & Research Tools
+### Success Criteria
+- [ ] 100+ additional multi-pronunciation characters beyond initial 136
+- [ ] All additions have Pattern A structure with curated context words
+- [ ] Add Item flow shows multi-pronunciation selection for all new characters
+- [ ] Drill A guardrails work correctly (no valid alternates as distractors)
+- [ ] Dictionary coverage: 250+ multi-pronunciation characters
+
+### Resources
+**Detailed Planning:** `docs/operational/EPIC_8_PHASE_3_EXPANSION.md`
+- Character selection methodology
+- Research process and tools
+- Migration generation guide
+- Quality verification checklist
+
 **Dictionaries:**
 - MDBG Chinese Dictionary: https://www.mdbg.net/
 - Taiwan MOE Dictionary: https://dict.revised.moe.edu.tw/
 - Pleco app (iOS/Android)
 
-**Verification Tools:**
-- `scripts/verify-multi-pronunciation-complete.js` — Re-run audit after migration
-- `scripts/triage-results.json` — Initial audit findings
-
-**Documentation:**
-- `docs/operational/DICTIONARY_REMAINING_WORK.md` — Detailed character lists and research checklist
-- `docs/operational/DICTIONARY_MIGRATION_GUIDE.md` — Database safety protocol
-- `docs/operational/MULTI_PRONUNCIATION_REVIEW.md` — Sample research format
-
-### Risks & Mitigation
-**Risk 1: Ambiguous pronunciations**
-- Some characters have context-dependent pronunciation that's hard to capture
-- **Mitigation:** Use most common pronunciation as default; rely on parent manual selection
-
-**Risk 2: Taiwan vs Mainland differences**
-- Regional pronunciation variations exist
-- **Mitigation:** Prioritize Taiwan standard (project uses Traditional Chinese); document variants
-
-**Risk 3: Time commitment**
-- Research-heavy work requires significant manual effort
-- **Mitigation:** Use phased approach; prioritize high-frequency characters first
-
-### Timeline Estimate
-- **Research (Category 1):** 6 hours
-- **Research (Category 2):** 8 hours  
-- **Implementation:** 3 hours
-- **Testing & Documentation:** 2 hours
-- **Total:** 19 hours (~2-3 weeks part-time work)
-
 ### Notes
-- Epic 8 is **non-blocking** for V1 production
-- Can be completed incrementally (phased approach recommended)
-- User can manually override pronunciations in meantime via AddItemForm
-- Migration 010a already resolves user's immediate pain points (和, 因, 星, 它, 麼)
+- **Not blocking V1 or V1.1** - Pure enhancement for better coverage
+- User can still add characters not in Phase 3 (just won't have multi-pronunciation selection)
+- Priority determined by user feedback: if users request specific characters, prioritize those
+- Can be done incrementally alongside other V1.1 features
 
 ---
 

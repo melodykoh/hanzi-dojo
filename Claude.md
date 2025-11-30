@@ -64,19 +64,14 @@ Before coding:
 For significant changes (>50 lines or >3 files):
 - [ ] Create feature branch: `git checkout -b feature/name`
 - [ ] Commit with descriptive message and co-author
-- [ ] **Update `public/CHANGELOG.md` with user-facing changes** ⭐
-  - Use plain language (avoid technical jargon)
-  - Group by session/date
-  - Focus on user benefits ("Faster practice" not "Removed 300ms delay")
-  - Include emoji for visual scanning (✨ feature, 🐛 bug, 🎨 improvement)
 - [ ] Push branch: `git push -u origin feature/name`
 - [ ] Create PR: `gh pr create --title "..." --body "..." --base main`
 - [ ] Wait for Vercel preview (~2 min), test thoroughly
-- [ ] **Verify changelog renders correctly at `/changelog`** ⭐
 - [ ] Merge via GitHub UI or `gh pr merge <#>`
 - [ ] Update local: `git checkout main && git pull`
 - [ ] Clean up: `git branch -d feature/name`
 - [ ] Verify production at https://hanzi-dojo.vercel.app
+- [ ] Update `SESSION_LOG.md` with session summary
 
 **Reference:** `docs/DEVELOPMENT_AND_DEPLOYMENT.md` for full workflow
 
@@ -275,44 +270,34 @@ For significant changes (>50 lines or >3 files):
 - Dictionary: 1,067 characters (HSK 1-4), 86% properly structured
 - All core features complete: Drills A/B, familiarity scoring, entry management, training mode
 
-### **Session 14 Complete (Nov 16, 2025)** ✅
-**Status:** Feature 1 (Feedback Tab) deployed with comprehensive code review and 8 optimizations
+### **Session 16 Complete (Nov 30, 2025)** ✅
+**Status:** PR #17 verified and ready to merge - Epic 8 Phase 1 & 2 complete
 
-**Feature Delivered:**
-1. ✅ **Feedback Tab** - Tally.so embedded form for bug reports, feature requests, and questions
-   - Public access (demo users can submit anonymously)
-   - Pre-populated hidden fields (email, user_id, user_type, page, timestamp)
-   - Ninja-purple theme matching dashboard design
+**PR #17 - Epic 8 Multi-Pronunciation Characters:**
+- ✅ **136 multi-pronunciation characters** now supported (35 curated + 101 auto-generated)
+- ✅ **Drill A guardrails** - Valid alternate pronunciations excluded from distractors
+- ✅ **RPC optimization** - Entry catalog loads 30-40% faster
+- ✅ **Input validation** - Prevents crashes from malformed pronunciation data
+- ✅ **Code quality** - Type safety, deduplication, +28 tests (53 total passing)
 
-**Code Quality Improvements (8 resolutions via 3-wave parallel execution):**
-2. ✅ **Removed unused dependency** - react-tally package removed (P1 Critical)
-3. ✅ **Fixed test warnings** - All act() warnings resolved with waitFor() (P2)
-4. ✅ **Type safety** - Added explicit AuthChangeEvent type (P2)
-5. ✅ **Tab consistency** - Missing tab color fixed (purple-600 → ninja-purple) (P3)
-6. ✅ **Architecture refactor** - Pass session as prop, removed duplicate auth listener (P3)
-7. ✅ **Performance optimization** - useMemo prevents unnecessary re-renders (P3)
-8. ✅ **Loading state** - Sword emoji spinner during 1-3 second iframe load (P3)
-9. ✅ **Security hardening** - Input sanitization + CSP headers + reduced fingerprinting (P2)
-
-**Technical Achievements:**
-- 🎯 6-agent code review identified 10 issues (1 P1, 3 P2, 6 P3)
-- ⚡ 3-wave resolution: Wave 1 (4 parallel), Wave 2 (1 refactor), Wave 3 (3 parallel)
-- 📊 6 files changed, 139 additions, 67 deletions
-- ✅ 8/8 tests passing, build successful, TypeScript clean
-- ⏱️ 45 minutes actual vs 71 minutes estimated (parallel efficiency)
+**Migrations in PR #17:**
+- `011b_pattern_a_structure.sql` - 35 curated characters with context words
+- `011c_dictionary_multi_pronunciations.sql` - 101 auto-generated characters
+- `011d_pronunciation_rpc.sql` - RPC performance optimization
 
 **Previous Sessions:**
-- **Session 13 (Nov 15):** Demo mode + Changelog + 8 code quality improvements (PR #11)
-- **Session 12 (Nov 14):** Ninjago theme + Code quality sprint (11 improvements, PR #10)
+- **Session 14 (Nov 16):** Feedback Tab + 8 code quality improvements (PR #12)
+- **Session 13 (Nov 15):** Demo mode + 8 code quality improvements (PR #11)
+- **Session 12 (Nov 14):** Ninjago theme + 11 improvements (PR #10)
 - **Session 11 (Nov 12):** Pattern A structure unification + pronunciation modal fix
-- **Session 10 (Nov 12):** Epic 8 Phase 1 research complete (35 deployed + 1 deferred)
 
-**Next Priority:** Awaiting user feedback on Feedback tab → prioritize Epic 7 (Mobile polish) or Epic 8 (Dictionary completion)
+**Next Priority:** Merge PR #17 → Monitor production → Epic 7 (Mobile polish) or Epic 8 Phase 3 (Dictionary expansion)
 
 ### **Epic Status Overview**
 - Epic 1-6: ✅ COMPLETE (V1 production deployed)
 - Epic 7: ☐ PENDING (Mobile polish - 7 pts, optional)
-- Epic 8: ☐ PLANNED (Dictionary completion - 20 pts, 139 chars, phased over 2-3 weeks)
+- Epic 8 Phase 1-2: ✅ COMPLETE (136 multi-pronunciation chars, PR #17 ready to merge)
+- Epic 8 Phase 3: ☐ PLANNED (Expand to 250+ chars, optional enhancement)
 
 **Detailed epic breakdown:** `docs/PROJECT_PLAN.md`  
 **Session history:** `SESSION_LOG.md`

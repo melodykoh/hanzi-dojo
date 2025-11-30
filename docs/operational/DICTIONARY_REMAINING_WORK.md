@@ -1,30 +1,18 @@
-# Dictionary Quality - Remaining Work
+# Dictionary Quality - Epic 8 Progress Tracking
 
-**Date:** 2025-11-10  
-**Status:** Deferred to Epic 8  
-**Tracking:** 139 characters requiring research
-
----
-
-## 📊 **Summary**
-
-After Migration 010a, **139 characters** remain with multi-syllable data that needs resolution:
-
-| Category | Count | Priority | Status |
-|----------|-------|----------|--------|
-| Known Multi-Pronunciation | 37 | HIGH | ✅ Completed (see `data/multi_pronunciation_epic8_auto.json`) |
-| Ambiguous (2 syllables) | 102 | MEDIUM | ✅ Completed (auto-pattern migration 011c) |
-| **Total** | **139** | - | Ready for Drill A guardrails |
-
-> **Nov 22, 2025 Update:** Category 1 + Category 2 pronunciations are consolidated in `data/multi_pronunciation_epic8_auto.json`, and Migration `011c_dictionary_multi_pronunciations.sql` + `011d_pronunciation_rpc.sql` prepare the database/API for Drill A guardrails.
+**Last Updated:** 2025-11-22
+**Status:** Phase 1 & 2 Complete (PR #17), Phase 3 Planned
+**Coverage:** 136 multi-pronunciation characters deployed
 
 ---
 
-## ✅ **Completed in Migration 010a**
+## 📊 **Epic 8 Summary**
 
+### **Phase 1 (Migration 010a) - COMPLETE ✅**
+**Date:** 2025-11-10
 **Fixed:**
-- ✅ 248 characters with empty tone marks
-- ✅ 22 critical multi-pronunciation characters:
+- ✅ 248 characters with empty tone marks → "ˉ" (first tone)
+- ✅ 22 critical multi-pronunciation characters with proper `zhuyin_variants`:
   - User-reported: 和 (5 variants)
   - High syllable count: 乐(4), 参(4), 哪(4), 啊(5)
   - Common usage: 仔, 何, 单, 吗, 员, 咱, 差, 当, 折, 提, 数, 漂, 空, 累, 胖, 落, 解
@@ -32,11 +20,43 @@ After Migration 010a, **139 characters** remain with multi-syllable data that ne
 
 ---
 
+### **Phase 2 (Migrations 011b, 011c, 011d) - COMPLETE ✅**
+**Date:** 2025-11-22 (PR #17)
+
+**Migration 011b (35 curated characters):**
+- Pattern A structure with manually curated context words
+- Characters: 行, 重, 还, 为, 给, 都, 没, 教, 正, 更, 传, 供, 便, 假, 几, 切, 划, 地, 场, 将, 应, 弹, 扫, 把, 担, 相, 省, 种, 系, 结, 觉, 角, 调, 量, 什
+
+**Migration 011c (101 auto-generated characters):**
+- Pattern A structure with auto-generated data (context_words empty, needs manual curation)
+- Characters: 干, 且, 丽, 么, 乘, 于, 亚, 些, 亲, 仅, 从, 价, 任, 份, 休, 估, 体, 信, 俩, 倒... (and 81 more)
+- **Follow-up needed:** Manual curation of context words for improved UX
+
+**Migration 011d (RPC optimization):**
+- Rewrote `rpc_get_entry_pronunciations` to eliminate N+1 query pattern
+- Performance improvement: 30-40% faster (150ms → 90-105ms for 100 entries)
+
+**Total:** 136 multi-pronunciation characters now supported (35 curated + 101 auto-generated)
+
+---
+
+### **Phase 3 (Dictionary Expansion) - PLANNED 📋**
+**Target:** Expand from 136 → 250+ multi-pronunciation characters
+**Priority:** Low (V1.1+ enhancement)
+**Documentation:** `docs/operational/EPIC_8_PHASE_3_EXPANSION.md`
+
+**Proposed additions:**
+- Category A: 30 high-frequency characters (好, 长, 得, 看, 分, 少, etc.)
+- Category B: 50 medium-frequency characters (HSK 5-6 level)
+- Category C: 20 edge cases and regional variants
+
+**See:** `EPIC_8_PHASE_3_EXPANSION.md` for detailed implementation plan
+
+---
+
 ## 📋 **Category 1: Known Multi-Pronunciation (37 chars)**
 
 **Priority:** HIGH - These are confirmed multi-pronunciation in standard dictionaries
-
-**Status (Nov 22, 2025):** ✅ Completed. All characters have Pattern A variants captured in `data/multi_pronunciation_epic8_auto.json` and applied via migration 011c.
 
 ### **Characters**
 ```
@@ -99,8 +119,6 @@ For each character, document:
 ## 📋 **Category 2: Ambiguous Cases (102 chars)**
 
 **Priority:** MEDIUM - Need to determine if truly multi-pronunciation or data error
-
-**Status (Nov 22, 2025):** ✅ Completed via automated triage + migration 011c. Use `rpc_get_entry_pronunciations` (migration 011d) to expose results to the app layer.
 
 ### **Characters**
 ```
@@ -213,48 +231,48 @@ Implement fixes for Category 2
 ## 📈 **Progress Tracking**
 
 ### **Category 1 Progress**
-- [x] 为 (wèi / wéi)
-- [x] 传 (chuán / zhuàn)
-- [x] 供 (gōng / gòng)
-- [x] 便 (biàn / pián)
-- [x] 假 (jiǎ / jià)
-- [x] 几 (jǐ / jī)
-- [x] 切 (qiē / qiè)
-- [x] 划 (huá / huà)
-- [x] 地 (dì / de)
-- [x] 场 (chǎng / cháng)
-- [x] 将 (jiāng / jiàng)
-- [x] 干 (gān / gàn)
-- [x] 应 (yīng / yìng)
-- [x] 弹 (dàn / tán)
-- [x] 扫 (sǎo / sào)
-- [x] 把 (bǎ / bà)
-- [x] 担 (dān / dàn)
-- [x] 教 (jiāo / jiào)
-- [x] 更 (gēng / gèng)
-- [x] 正 (zhèng / zhēng)
-- [x] 没 (méi / mò)
-- [x] 相 (xiāng / xiàng)
-- [x] 省 (shěng / xǐng)
-- [x] 种 (zhǒng / zhòng)
-- [x] 系 (xì / jì)
-- [x] 结 (jié / jiē)
-- [x] 给 (gěi / jǐ)
-- [x] 行 (xíng / háng)
-- [x] 觉 (jué / jiào)
-- [x] 角 (jiǎo / jué)
-- [x] 调 (tiáo / diào)
-- [x] 还 (hái / huán)
-- [x] 都 (dōu / dū)
-- [x] 重 (zhòng / chóng)
-- [x] 量 (liàng / liáng)
-- [x] 什 (shí / shén)
+- [ ] 为 (wèi / wéi)
+- [ ] 传 (chuán / zhuàn)
+- [ ] 供 (gōng / gòng)
+- [ ] 便 (biàn / pián)
+- [ ] 假 (jiǎ / jià)
+- [ ] 几 (jǐ / jī)
+- [ ] 切 (qiē / qiè)
+- [ ] 划 (huá / huà)
+- [ ] 地 (dì / de)
+- [ ] 场 (chǎng / cháng)
+- [ ] 将 (jiāng / jiàng)
+- [ ] 干 (gān / gàn)
+- [ ] 应 (yīng / yìng)
+- [ ] 弹 (dàn / tán)
+- [ ] 扫 (sǎo / sào)
+- [ ] 把 (bǎ / bà)
+- [ ] 担 (dān / dàn)
+- [ ] 教 (jiāo / jiào)
+- [ ] 更 (gēng / gèng)
+- [ ] 正 (zhèng / zhēng)
+- [ ] 没 (méi / mò)
+- [ ] 相 (xiāng / xiàng)
+- [ ] 省 (shěng / xǐng)
+- [ ] 种 (zhǒng / zhòng)
+- [ ] 系 (xì / jì)
+- [ ] 结 (jié / jiē)
+- [ ] 给 (gěi / jǐ)
+- [ ] 行 (xíng / háng)
+- [ ] 觉 (jué / jiào)
+- [ ] 角 (jiǎo / jué)
+- [ ] 调 (tiáo / diào)
+- [ ] 还 (hái / huán)
+- [ ] 都 (dōu / dū)
+- [ ] 重 (zhòng / chóng)
+- [ ] 量 (liàng / liáng)
+- [ ] 什 (shí / shén)
 
-**Progress:** 37 / 37 (100%)
+**Progress:** 0 / 37 (0%)
 
 ### **Category 2 Progress**
-**Triaged:** 102 / 102 (100%)  
-**Fixed:** 102 / 102 (100%)
+**Triaged:** 0 / 102 (0%)  
+**Fixed:** 0 / 102 (0%)
 
 ---
 
@@ -279,6 +297,6 @@ node scripts/generate-migration-from-json.js
 
 ---
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-10  
 **Owner:** Project maintainer  
 **Epic:** Epic 8 - Dictionary Quality Completion

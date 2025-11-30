@@ -4122,3 +4122,81 @@ Used `/compounding-engineering:triage` command to process findings one-by-one:
 ---
 
 **Session 14 Final Summary:** ✅ COMPLETE - Implemented Feature 1 (Feedback Tab) with Tally.so integration. Conducted comprehensive 6-agent parallel code review identifying 10 findings. Triaged and created 8 actionable todos. Resolved all 8 using 3-wave parallel execution: Wave 1 (foundation fixes), Wave 2 (architecture refactor), Wave 3 (performance + security). Merged to main with 8/8 tests passing, build successful, no TypeScript errors. Production deployment verified. Ready for user feedback and next feature prioritization.
+
+---
+
+## Session 16: PR #17 Deployment - Epic 8 Multi-Pronunciation Characters
+
+**Date:** 2025-11-30
+**Status:** ✅ Complete
+**Epic:** Epic 8 - Dictionary Quality Completion (Phase 1 & 2)
+
+### 🎯 Session Objectives
+1. Review PR #17 pre-merge checklist and verify all blocking items
+2. Test Vercel preview for multi-pronunciation flow and Drill A guardrails
+3. Merge PR #17 to production
+4. Update documentation
+
+### 📋 Pre-Merge Verification
+
+**Database Migration Verification:**
+- ✅ Migration 011b: 35 unique curated characters (verified via `grep -oE | sort -u`)
+- ✅ Migration 011c: 101 unique auto-generated characters
+- ✅ No character overlap between 011b and 011c (exclusion check passed)
+- ✅ Total: 136 multi-pronunciation characters
+
+**Investigation: Migration Count Discrepancy**
+Initial grep counts showed 70/202 occurrences, causing concern about documentation accuracy. Investigation revealed:
+- Each character appears **twice** in migration files:
+  1. Safety check `DO $$` block: `WHERE simp IN ('行', '重', ...)` - verifies characters exist before update
+  2. UPDATE statement: `WHERE simp = '行'` - applies the change
+- Unique character counts (35/101) match documentation exactly
+- Checklist numbers are correct; grep was counting occurrences, not unique chars
+
+**Vercel Preview Testing:**
+- ✅ Multi-pronunciation selection: "⚠️ Multiple Pronunciations Detected" appears for 为, 行, 重, etc.
+- ✅ Context words displayed for curated characters
+- ✅ Drill A guardrails: Valid alternate pronunciations excluded from distractors
+- ✅ No console errors or crashes
+
+**PR Status:**
+- Branch: `feature/issue16-epic8`
+- Merge state: CLEAN, MERGEABLE
+- Vercel checks: All passing
+
+### 📁 PR #17 Contents (Sessions 11-15)
+
+**Migrations:**
+- `011b_pattern_a_structure.sql` - 35 curated characters with context words
+- `011c_dictionary_multi_pronunciations.sql` - 101 auto-generated characters
+- `011d_pronunciation_rpc.sql` - RPC optimization (30-40% faster)
+
+**Code Quality Improvements (from Session 15):**
+- Data corruption prevention: Script excludes 35 overlapping characters
+- Type safety: `ConfusionData` interface replaces `any` types
+- Code deduplication: `serializePronunciation` extracted to `zhuyinUtils.ts`
+- RPC performance: N+1 query pattern eliminated
+- Input validation: `validateZhuyinSyllable()`, `validatePronunciation()`
+- Test coverage: +28 new tests (53 total, all passing)
+
+### ✅ Session 16 Complete
+
+**Deliverables:**
+- ✅ PR #17 verification complete - all blocking items resolved
+- ✅ Vercel preview tested and verified
+- ✅ Documentation updated (SESSION_LOG.md, CLAUDE.md)
+
+**Production Impact (after merge):**
+- 136 multi-pronunciation characters now supported
+- Drill A excludes valid alternate pronunciations from distractors
+- Entry catalog loads 30-40% faster
+- Input validation prevents crashes from malformed data
+
+**Next Steps:**
+- Merge PR #17 via GitHub
+- Monitor production for any issues
+- Await user feedback for next priority (Epic 7 mobile polish or Epic 8 Phase 3 expansion)
+
+---
+
+**Session 16 Summary:** ✅ COMPLETE - Verified PR #17 pre-merge checklist. Investigated and resolved migration count discrepancy (grep occurrences vs unique characters). Confirmed Vercel preview testing passed for multi-pronunciation selection and Drill A guardrails. Documentation updated. Ready to merge Epic 8 Phase 1 & 2 to production (136 multi-pronunciation characters).
