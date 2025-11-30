@@ -416,6 +416,7 @@ For significant changes (>50 lines or >3 files):
 - **`docs/operational/QA_MANUAL_ONLY.md`** - Manual test scenarios
 - **`docs/operational/DICTIONARY_MIGRATION_GUIDE.md`** - Database safety protocol
 - **`docs/operational/DICTIONARY_REMAINING_WORK.md`** - Epic 8 tracking (139 chars)
+- **`docs/operational/EPIC_8_PHASE_3_EXPANSION.md`** - Future dictionary expansion (250+ chars)
 
 ### Development Resources
 - **`docs/DEVELOPMENT_AND_DEPLOYMENT.md`** - Setup guide, testing, deployment
