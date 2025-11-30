@@ -85,29 +85,28 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
       if (result.found && result.entry) {
         // Auto-fill from dictionary
         const isSingleCharacter = result.entry.simp.length === 1
-        const hasDictionaryVariants = !!(result.entry.zhuyin_variants && result.entry.zhuyin_variants.length > 0)
-        const hasMultipleBaseZhuyin = result.entry.zhuyin.length > 1
+        const dictionaryVariants = result.entry.zhuyin_variants ?? []
+        const fallbackVariants: ZhuyinVariant[] = []
 
-        // Fallback: some legacy entries still store multiple pronunciations directly in zhuyin
-        let fallbackVariants: ZhuyinVariant[] = []
-        let primaryVariant: ZhuyinVariant = {
-          zhuyin: result.entry.zhuyin,
-          pinyin: result.entry.pinyin ?? undefined,
-          meanings: result.entry.meanings ?? undefined,
-          context_words: undefined
+        if (dictionaryVariants.length === 0 && isSingleCharacter && result.entry.zhuyin.length > 1) {
+          const [, ...otherPronunciations] = result.entry.zhuyin
+          fallbackVariants.push(
+            ...otherPronunciations.map(syllable => ({ zhuyin: [syllable] }))
+          )
         }
 
-        if (!hasDictionaryVariants && isSingleCharacter && hasMultipleBaseZhuyin) {
-          const [firstPronunciation, ...otherPronunciations] = result.entry.zhuyin
-          primaryVariant = {
-            zhuyin: [firstPronunciation]
-          }
-          fallbackVariants = otherPronunciations.map(syllable => ({
-            zhuyin: [syllable]
-          }))
-        }
+        const variantsToUse = dictionaryVariants.length > 0 ? dictionaryVariants : fallbackVariants
 
-        const variantsToUse = hasDictionaryVariants ? result.entry.zhuyin_variants! : fallbackVariants
+        const primaryVariant: ZhuyinVariant = dictionaryVariants.length > 0
+          ? dictionaryVariants[0]
+          : {
+              zhuyin: result.entry.zhuyin.length > 0
+                ? [result.entry.zhuyin[0]]
+                : [],
+              pinyin: result.entry.pinyin ?? undefined,
+              meanings: result.entry.meanings ?? undefined,
+              context_words: undefined
+            }
 
         setFormData({
           simplified: result.entry.simp,
