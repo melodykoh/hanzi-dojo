@@ -1,7 +1,200 @@
+# Epic 8 Phases 3-4: Dictionary Quality & Expansion
+
+**Date Created:** 2025-11-22
+**Last Updated:** 2025-12-06
+**Status:** Phase 4 HIGH PRIORITY, Phase 3 Low Priority
+**Story Points:** Phase 4: 5 pts, Phase 3: 15 pts
+
+---
+
+## 📋 **Phase Summary**
+
+| Phase | Scope | Priority | Status |
+|-------|-------|----------|--------|
+| **Phase 4** | Fix 43+ malformed dictionary entries (Migration 009 bug) | 🔴 HIGH | Ready to start |
+| **Phase 3** | Expand multi-pronunciation to 250+ chars | 🟢 Low | Planned |
+
+---
+
+# Epic 8 Phase 4: Fix Malformed Dictionary Data (Migration 009)
+
+**Date Added:** 2025-12-06
+**Status:** Ready to implement
+**Priority:** HIGH (blocking user experience)
+**Story Points:** 5 pts
+**GitHub Issue:** #20
+
+---
+
+## 🐛 **Problem Statement**
+
+Migration 009 (`009_expand_dictionary_hsk1-4.sql`) incorrectly stores multi-pronunciation characters with ALL pronunciations merged into the main `zhuyin` array instead of using `zhuyin_variants`.
+
+**Result:** Users who add these characters see merged options in Drill A (e.g., "ㄓ ㄓˇ" instead of single "ㄓˉ").
+
+### Example of Malformed Data
+
+```sql
+-- WRONG (current state - 43+ characters):
+('只', '隻', '[["ㄓ","","ˉ"],["ㄓ","","ˇ"]]'::jsonb, 1265)
+--            ^--- Two pronunciations crammed into main array
+
+-- CORRECT (Pattern A structure):
+zhuyin: '[["ㄓ","","ˉ"]]'::jsonb,  -- Primary pronunciation only
+zhuyin_variants: '[
+  {"pinyin":"zhī","zhuyin":[["ㄓ","","ˉ"]],"context_words":["一只猫"]},
+  {"pinyin":"zhǐ","zhuyin":[["ㄓ","","ˇ"]],"context_words":["只是","只有"]}
+]'::jsonb
+```
+
+---
+
+## 📊 **Affected Characters (43+ identified)**
+
+### Confirmed Malformed (from diagnostic script)
+```
+同, 号, 呢, 旁, 洗, 冒, 乘, 难, 价, 饮, 丽, 队, 降, 期, 间, 且, 只,
+干, 阿, 鲜, 几, 刷, 可, 拉, 系, 调, 都, 重, 量, 觉, 角, 还, 行,
+结, 给, 相, 省, 种, 没, 正, 更, 教, 担
+```
+
+### User-Impacted Characters (confirmed via readings table)
+| Character | User Selected | Correct Primary |
+|-----------|---------------|-----------------|
+| 几 | (merged) | jǐ (ㄐㄧˇ) |
+| 刷 | (merged) | shuā (ㄕㄨㄚˉ) |
+| 只 | (merged) | zhī (ㄓˉ) |
+| 可 | (merged) | kě (ㄎㄜˇ) |
+| 拉 | (merged) | lā (ㄌㄚˉ) |
+
+---
+
+## 🛠️ **Implementation Plan**
+
+### Task 4.1: Research & Document (2 pts)
+
+**For each of the 43+ characters, determine:**
+1. Primary (default) pronunciation
+2. Context words for primary (2-3 examples)
+3. Alternate pronunciation(s)
+4. Context words for alternates (2-3 each)
+5. English meanings for each variant
+
+**Research Sources:**
+- MDBG: https://www.mdbg.net/chinese/dictionary
+- Taiwan MOE: https://dict.revised.moe.edu.tw/
+- Existing Migration 011b patterns (35 curated chars as reference)
+
+**Output:** `data/malformed_chars_phase4.json`
+
+**Format:**
+```json
+{
+  "char": "只",
+  "simp": "只",
+  "trad": "隻",
+  "default": {
+    "pinyin": "zhī",
+    "zhuyin": [["ㄓ", "", "ˉ"]],
+    "context_words": ["一只猫", "两只手"],
+    "meanings": ["measure word (animals, objects)"]
+  },
+  "variants": [
+    {
+      "pinyin": "zhǐ",
+      "zhuyin": [["ㄓ", "", "ˇ"]],
+      "context_words": ["只是", "只有", "只能"],
+      "meanings": ["only", "merely", "just"]
+    }
+  ]
+}
+```
+
+---
+
+### Task 4.2: Generate Migration (1 pt)
+
+**File:** `supabase/migrations/011e_fix_malformed_zhuyin.sql`
+
+**Migration Pattern:**
+```sql
+-- Fix malformed character: 只
+UPDATE dictionary_entries
+SET
+  zhuyin = '[["ㄓ","","ˉ"]]'::jsonb,  -- Primary only
+  zhuyin_variants = '[
+    {"pinyin":"zhī","zhuyin":[["ㄓ","","ˉ"]],"context_words":["一只猫","两只手"],"meanings":["measure word"]},
+    {"pinyin":"zhǐ","zhuyin":[["ㄓ","","ˇ"]],"context_words":["只是","只有"],"meanings":["only","merely"]}
+  ]'::jsonb
+WHERE simp = '只';
+```
+
+**Validation Query (post-migration):**
+```sql
+-- Verify no single-char entries have multi-syllable zhuyin
+SELECT simp, jsonb_array_length(zhuyin) as syllable_count
+FROM dictionary_entries
+WHERE length(simp) = 1
+  AND jsonb_array_length(zhuyin) > 1;
+-- Expected: 0 rows
+```
+
+---
+
+### Task 4.3: Test & Deploy (2 pts)
+
+1. Run migration on staging
+2. Verify affected characters show correct behavior in Add Item flow
+3. Test Drill A option generation (no merged readings)
+4. **Auto-fix existing user readings** (see SQL below)
+5. Deploy to production
+
+**Auto-fix User Readings (include in migration):**
+```sql
+-- After fixing dictionary, update existing user readings to match
+-- This eliminates need for users to delete/re-add affected characters
+UPDATE readings r
+SET zhuyin = d.zhuyin
+FROM entries e, dictionary_entries d
+WHERE r.entry_id = e.id
+  AND e.simp = d.simp
+  AND e.simp IN ('只', '几', '刷', '可', '拉');
+```
+
+**Success Criteria:**
+- [ ] All 43+ characters have single-syllable `zhuyin` array
+- [ ] `zhuyin_variants` populated with Pattern A structure
+- [ ] Add Item shows "Multiple Pronunciations Detected" for these chars
+- [ ] Drill A displays single pronunciation per button
+- [ ] Existing user entries auto-updated (no manual re-add needed)
+
+---
+
+## 📅 **Timeline**
+
+| Task | Effort | Dependencies |
+|------|--------|--------------|
+| Task 4.1: Research | 4-6 hours | None |
+| Task 4.2: Migration | 1 hour | Task 4.1 |
+| Task 4.3: Test/Deploy | 2 hours | Task 4.2 |
+| **Total** | **7-9 hours** | |
+
+---
+
+## 🔗 **References**
+
+- **Bug Report:** GitHub Issue #20
+- **Bug Fix (code):** `plans/fix-double-pronunciation-bug.md`
+- **Diagnostic Script:** `scripts/check-affected-readings.cjs`
+- **Pattern A Reference:** Migration 011b (35 curated chars)
+- **Source of Bug:** Migration 009 (`009_expand_dictionary_hsk1-4.sql`)
+
+---
+
 # Epic 8 Phase 3: Dictionary Expansion Beyond 136 Characters
 
 **Date Created:** 2025-11-22
-**Status:** Planned (Post-PR #17)
+**Status:** Planned (after Phase 4)
 **Priority:** Low (V1.1+ enhancement)
 **Story Points:** 15 pts (research-intensive)
 
