@@ -1,13 +1,12 @@
 // Practice Card - Drill display with attempt tracking
 
 import { useState, useEffect } from 'react'
-import type { PracticeDrill, ZhuyinSyllable } from '../types'
+import type { PracticeDrill } from '../types'
 import { DRILLS } from '../types'
 import type { QueueEntry } from '../lib/practiceQueueService'
 import type { DrillAOption, DrillBOption } from '../lib/drillBuilders'
 import { buildDrillAOptions, buildDrillBOptions, validateDrillOptions } from '../lib/drillBuilders'
 import { recordFirstAttempt, recordSecondAttempt } from '../lib/practiceStateService'
-import { supabase } from '../lib/supabase'
 
 // =============================================================================
 // TYPES
@@ -51,20 +50,8 @@ export function PracticeCard({
     async function generateOptions() {
       try {
         if (drill === DRILLS.ZHUYIN) {
-          // Fetch all readings for this entry to get all valid pronunciations
-          const { data: allReadings, error: readingsError } = await supabase
-            .from('readings')
-            .select('zhuyin')
-            .eq('entry_id', queueEntry.entry.id)
-
-          if (readingsError) {
-            console.error('Failed to fetch readings for multi-pronunciation check:', readingsError)
-          }
-
-          // Extract all valid pronunciations (all readings for this entry)
-          const allValidPronunciations: ZhuyinSyllable[][] = allReadings
-            ? allReadings.map(r => r.zhuyin)
-            : [queueEntry.reading.zhuyin] // Fallback to just current reading if query fails
+          // Use allPronunciations from queue entry (includes dictionary variants)
+          const allValidPronunciations = queueEntry.allPronunciations || [queueEntry.reading.zhuyin]
 
           const drillAOptions = buildDrillAOptions(
             queueEntry.reading.zhuyin,
