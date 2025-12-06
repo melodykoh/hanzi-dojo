@@ -30,6 +30,7 @@ export interface QueueEntry {
 
 interface PronunciationRow {
   entry_id: string
+  simp: string
   dictionary_zhuyin: ZhuyinSyllable[] | null
   dictionary_variants: ZhuyinVariant[] | null
   manual_readings: ZhuyinSyllable[][] | null
@@ -123,8 +124,26 @@ function buildPronunciationList(
   }
 
   // Validate dictionary zhuyin
+  // DEFENSIVE: Detect Migration 009 malformed data where multiple pronunciations
+  // were merged as syllables instead of stored in zhuyin_variants
   if (row?.dictionary_zhuyin) {
-    if (validatePronunciation(row.dictionary_zhuyin)) {
+    const charCount = row.simp ? [...row.simp].length : 1
+    const syllableCount = row.dictionary_zhuyin.length
+
+    // Malformed data: single character with multiple "syllables" = merged pronunciations
+    if (charCount === 1 && syllableCount > 1) {
+      console.warn('[practiceQueueService] Detected malformed Migration 009 data - splitting merged pronunciations:', {
+        simp: row.simp,
+        entryId: row.entry_id,
+        syllableCount
+      })
+      // Treat each syllable as a separate single-syllable pronunciation
+      for (const syllable of row.dictionary_zhuyin) {
+        if (validateZhuyinSyllable(syllable)) {
+          collected.push([syllable])
+        }
+      }
+    } else if (validatePronunciation(row.dictionary_zhuyin)) {
       collected.push(row.dictionary_zhuyin)
     } else {
       console.error('[practiceQueueService] Invalid dictionary zhuyin:', {
