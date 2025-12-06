@@ -68,7 +68,6 @@ export function PracticeCard({
 
           const drillAOptions = buildDrillAOptions(
             queueEntry.reading.zhuyin,
-            undefined, // confusionData
             allValidPronunciations
           )
           const validation = validateDrillOptions(drillAOptions)
