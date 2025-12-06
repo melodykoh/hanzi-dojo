@@ -4,6 +4,34 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## December 6, 2025 - Session 17
+
+### 🐛 Bug Fixes
+- **Character 处 (chǔ/chù)**: Fixed Drill A incorrectly marking the 4th tone as wrong. Both pronunciations now accepted:
+  - chǔ (3rd tone): "to deal with, get along" as in 相处, 处理
+  - chù (4th tone): "place, location" as in 办事处, 好处, 到处
+
+---
+
+## November 22, 2025 - Sessions 15-16
+
+### ✨ New Features
+- **136 Multi-Pronunciation Characters**: Characters with multiple valid pronunciations now show all readings with example words. Includes common characters like:
+  - 行 (xíng "to walk" / háng "row, profession")
+  - 重 (zhòng "heavy" / chóng "again")
+  - 还 (hái "still" / huán "to return")
+  - 为 (wèi "for" / wéi "to be")
+  - And 132 more!
+
+### 🎨 Improvements
+- **Smarter Drill A**: When practicing characters with multiple pronunciations, alternate valid readings won't appear as wrong answer choices
+- **Faster Loading**: Character catalog now loads 30-40% faster
+
+### 🐛 Bug Fixes
+- **Input Validation**: App no longer crashes when encountering malformed pronunciation data
+
+---
+
 ## November 15, 2025 - Session 14
 
 ### ✨ New Features
