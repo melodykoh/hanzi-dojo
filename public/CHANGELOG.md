@@ -4,6 +4,15 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## December 6, 2025 - Session 17
+
+### 🐛 Bug Fixes
+- **Character 处 (chǔ/chù)**: Fixed Drill A incorrectly marking the 4th tone as wrong. Both pronunciations now accepted:
+  - chǔ (3rd tone): "to deal with, get along" as in 相处, 处理
+  - chù (4th tone): "place, location" as in 办事处, 好处, 到处
+
+---
+
 ## November 15, 2025 - Session 14
 
 ### ✨ New Features
