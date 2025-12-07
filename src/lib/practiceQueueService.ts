@@ -12,6 +12,7 @@ import type {
 import { DRILLS } from '../types'
 import { isDrillKnown, computeFamiliarity } from './practiceStateService'
 import { serializePronunciation } from './zhuyinUtils'
+import { logValidationError, logMalformedDataDetection } from './errors'
 
 // =============================================================================
 // TYPES
@@ -101,11 +102,12 @@ function buildPronunciationList(
   if (primary && validatePronunciation(primary)) {
     collected.push(primary)
   } else if (primary) {
-    console.error('[practiceQueueService] Invalid primary pronunciation:', {
+    logValidationError(
+      'primary',
       primary,
-      entryId: row?.entry_id,
-      reason: 'Failed validation - malformed syllable structure or invalid tone marker'
-    })
+      row?.entry_id,
+      'Failed validation - malformed syllable structure or invalid tone marker'
+    )
   }
 
   // Validate manual readings
@@ -114,11 +116,12 @@ function buildPronunciationList(
       if (validatePronunciation(manual)) {
         collected.push(manual)
       } else {
-        console.error('[practiceQueueService] Invalid manual reading:', {
+        logValidationError(
+          'manual',
           manual,
-          entryId: row.entry_id,
-          reason: 'Failed validation - malformed syllable structure or invalid tone marker'
-        })
+          row.entry_id,
+          'Failed validation - malformed syllable structure or invalid tone marker'
+        )
       }
     }
   }
@@ -127,33 +130,37 @@ function buildPronunciationList(
   // DEFENSIVE: Detect Migration 009 malformed data where multiple pronunciations
   // were merged as syllables instead of stored in zhuyin_variants
   if (row?.dictionary_zhuyin) {
-    const charCount = row.simp ? [...row.simp].length : 1
-    const syllableCount = row.dictionary_zhuyin.length
-
-    // HEURISTIC: In standard Mandarin, a single character (charCount === 1) maps to
-    // exactly one syllable. If we see multiple syllables, this indicates Migration 009
-    // incorrectly merged multiple pronunciations into the zhuyin array instead of
-    // storing them separately in zhuyin_variants.
-    if (charCount === 1 && syllableCount > 1) {
-      console.warn('[practiceQueueService] Detected malformed Migration 009 data - splitting merged pronunciations:', {
-        simp: row.simp,
-        entryId: row.entry_id,
-        syllableCount
-      })
-      // Treat each syllable as a separate single-syllable pronunciation
-      for (const syllable of row.dictionary_zhuyin) {
-        if (validateZhuyinSyllable(syllable)) {
-          collected.push([syllable])
-        }
+    // Cannot determine character count without simp - use standard validation
+    if (!row.simp) {
+      if (validatePronunciation(row.dictionary_zhuyin)) {
+        collected.push(row.dictionary_zhuyin)
       }
-    } else if (validatePronunciation(row.dictionary_zhuyin)) {
-      collected.push(row.dictionary_zhuyin)
     } else {
-      console.error('[practiceQueueService] Invalid dictionary zhuyin:', {
-        dictionary_zhuyin: row.dictionary_zhuyin,
-        entryId: row.entry_id,
-        reason: 'Failed validation - malformed syllable structure or invalid tone marker'
-      })
+      const charCount = [...row.simp].length
+      const syllableCount = row.dictionary_zhuyin.length
+
+      // HEURISTIC: In standard Mandarin, a single character (charCount === 1) maps to
+      // exactly one syllable. If we see multiple syllables, this indicates Migration 009
+      // incorrectly merged multiple pronunciations into the zhuyin array instead of
+      // storing them separately in zhuyin_variants.
+      if (charCount === 1 && syllableCount > 1) {
+        logMalformedDataDetection(row.simp, row.entry_id, syllableCount)
+        // Treat each syllable as a separate single-syllable pronunciation
+        for (const syllable of row.dictionary_zhuyin) {
+          if (validateZhuyinSyllable(syllable)) {
+            collected.push([syllable])
+          }
+        }
+      } else if (validatePronunciation(row.dictionary_zhuyin)) {
+        collected.push(row.dictionary_zhuyin)
+      } else {
+        logValidationError(
+          'dictionary',
+          row.dictionary_zhuyin,
+          row.entry_id,
+          'Failed validation - malformed syllable structure or invalid tone marker'
+        )
+      }
     }
   }
 
@@ -163,11 +170,12 @@ function buildPronunciationList(
       if (variant.zhuyin && validatePronunciation(variant.zhuyin)) {
         collected.push(variant.zhuyin)
       } else if (variant.zhuyin) {
-        console.error('[practiceQueueService] Invalid dictionary variant:', {
+        logValidationError(
+          'variant',
           variant,
-          entryId: row.entry_id,
-          reason: 'Failed validation - malformed syllable structure or invalid tone marker'
-        })
+          row.entry_id,
+          'Failed validation - malformed syllable structure or invalid tone marker'
+        )
       }
     }
   }
