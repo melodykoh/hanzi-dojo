@@ -1,0 +1,408 @@
+{
+  "metadata": {
+    "generated": "2025-12-06",
+    "issue": "#23",
+    "context_words_format": "Traditional Chinese",
+    "source": "MDBG + Taiwan MOE"
+  },
+  "category2": {
+    "description": "Has empty-context 011c variants - fix zhuyin + add context words",
+    "count": 33,
+    "chars": [
+      {
+        "simp": "同",
+        "trad": "同",
+        "primary_zhuyin": [["ㄊ", "ㄨㄥ", "ˊ"]],
+        "variants": [
+          {"pinyin": "tóng", "zhuyin": [["ㄊ", "ㄨㄥ", "ˊ"]], "context_words": ["同學", "同事", "相同"], "meanings": ["same", "together", "with"]},
+          {"pinyin": "tòng", "zhuyin": [["ㄊ", "ㄨㄥ", "ˋ"]], "context_words": ["胡同"], "meanings": ["alley (in 胡同)"]}
+        ]
+      },
+      {
+        "simp": "号",
+        "trad": "號",
+        "primary_zhuyin": [["ㄏ", "ㄠ", "ˋ"]],
+        "variants": [
+          {"pinyin": "hào", "zhuyin": [["ㄏ", "ㄠ", "ˋ"]], "context_words": ["號碼", "幾號", "電話號碼"], "meanings": ["number", "date"]},
+          {"pinyin": "háo", "zhuyin": [["ㄏ", "ㄠ", "ˊ"]], "context_words": ["號叫", "哀號"], "meanings": ["to cry out", "to wail"]}
+        ]
+      },
+      {
+        "simp": "呢",
+        "trad": "呢",
+        "primary_zhuyin": [["ㄋ", "ㄜ", "˙"]],
+        "variants": [
+          {"pinyin": "ne", "zhuyin": [["ㄋ", "ㄜ", "˙"]], "context_words": ["你呢", "怎麼呢"], "meanings": ["question particle", "how about"]},
+          {"pinyin": "ní", "zhuyin": [["ㄋ", "ㄧ", "ˊ"]], "context_words": ["呢子", "呢絨"], "meanings": ["wool fabric"]}
+        ]
+      },
+      {
+        "simp": "旁",
+        "trad": "旁",
+        "primary_zhuyin": [["ㄆ", "ㄤ", "ˊ"]],
+        "variants": [
+          {"pinyin": "páng", "zhuyin": [["ㄆ", "ㄤ", "ˊ"]], "context_words": ["旁邊", "路旁", "一旁"], "meanings": ["side", "beside"]},
+          {"pinyin": "bàng", "zhuyin": [["ㄅ", "ㄤ", "ˋ"]], "context_words": ["旁門"], "meanings": ["side door (literary)"]}
+        ]
+      },
+      {
+        "simp": "洗",
+        "trad": "洗",
+        "primary_zhuyin": [["ㄒ", "ㄧ", "ˇ"]],
+        "variants": [
+          {"pinyin": "xǐ", "zhuyin": [["ㄒ", "ㄧ", "ˇ"]], "context_words": ["洗手", "洗澡", "洗衣服"], "meanings": ["to wash"]},
+          {"pinyin": "xiǎn", "zhuyin": [["ㄒ", "ㄧㄢ", "ˇ"]], "context_words": ["洗馬"], "meanings": ["historical title (rare)"]}
+        ]
+      },
+      {
+        "simp": "冒",
+        "trad": "冒",
+        "primary_zhuyin": [["ㄇ", "ㄠ", "ˋ"]],
+        "variants": [
+          {"pinyin": "mào", "zhuyin": [["ㄇ", "ㄠ", "ˋ"]], "context_words": ["感冒", "冒險", "冒犯"], "meanings": ["to emit", "to brave", "risk"]},
+          {"pinyin": "mò", "zhuyin": [["ㄇ", "ㄛ", "ˋ"]], "context_words": ["冒頓"], "meanings": ["historical name (Modu Chanyu)"]}
+        ]
+      },
+      {
+        "simp": "乘",
+        "trad": "乘",
+        "primary_zhuyin": [["ㄔ", "ㄥ", "ˊ"]],
+        "variants": [
+          {"pinyin": "chéng", "zhuyin": [["ㄔ", "ㄥ", "ˊ"]], "context_words": ["乘客", "乘車", "乘坐"], "meanings": ["to ride", "to travel by"]},
+          {"pinyin": "shèng", "zhuyin": [["ㄕ", "ㄥ", "ˋ"]], "context_words": ["千乘之國", "史記"], "meanings": ["historical unit (chariot team)"]}
+        ]
+      },
+      {
+        "simp": "价",
+        "trad": "價",
+        "primary_zhuyin": [["ㄐ", "ㄧㄚ", "ˋ"]],
+        "variants": [
+          {"pinyin": "jià", "zhuyin": [["ㄐ", "ㄧㄚ", "ˋ"]], "context_words": ["價格", "價錢", "價值"], "meanings": ["price", "value"]},
+          {"pinyin": "jie", "zhuyin": [["ㄐ", "ㄧㄝ", "˙"]], "context_words": ["這麼個價兒"], "meanings": ["colloquial suffix"]}
+        ]
+      },
+      {
+        "simp": "丽",
+        "trad": "麗",
+        "primary_zhuyin": [["ㄌ", "ㄧ", "ˋ"]],
+        "variants": [
+          {"pinyin": "lì", "zhuyin": [["ㄌ", "ㄧ", "ˋ"]], "context_words": ["美麗", "華麗", "壯麗"], "meanings": ["beautiful", "gorgeous"]},
+          {"pinyin": "lí", "zhuyin": [["ㄌ", "ㄧ", "ˊ"]], "context_words": ["高麗"], "meanings": ["Korea (historical)"]}
+        ]
+      },
+      {
+        "simp": "且",
+        "trad": "且",
+        "primary_zhuyin": [["ㄑ", "ㄧㄝ", "ˇ"]],
+        "variants": [
+          {"pinyin": "qiě", "zhuyin": [["ㄑ", "ㄧㄝ", "ˇ"]], "context_words": ["而且", "並且", "暫且"], "meanings": ["and", "moreover", "for now"]},
+          {"pinyin": "jū", "zhuyin": [["ㄐ", "ㄩ", "ˉ"]], "context_words": ["且慢"], "meanings": ["wait a moment (literary)"]}
+        ]
+      },
+      {
+        "simp": "干",
+        "trad": "干",
+        "primary_zhuyin": [["ㄍ", "ㄢ", "ˉ"]],
+        "variants": [
+          {"pinyin": "gān", "zhuyin": [["ㄍ", "ㄢ", "ˉ"]], "context_words": ["乾淨", "乾燥", "乾杯"], "meanings": ["dry", "clean"]},
+          {"pinyin": "gàn", "zhuyin": [["ㄍ", "ㄢ", "ˋ"]], "context_words": ["幹活", "能幹", "幹部"], "meanings": ["to do", "capable", "cadre"]}
+        ]
+      },
+      {
+        "simp": "于",
+        "trad": "於",
+        "primary_zhuyin": [["", "ㄩ", "ˊ"]],
+        "variants": [
+          {"pinyin": "yú", "zhuyin": [["", "ㄩ", "ˊ"]], "context_words": ["關於", "對於", "至於"], "meanings": ["at", "in", "regarding"]},
+          {"pinyin": "wū", "zhuyin": [["", "ㄨ", "ˉ"]], "context_words": ["烏乎"], "meanings": ["alas (archaic)"]}
+        ]
+      },
+      {
+        "simp": "亚",
+        "trad": "亞",
+        "primary_zhuyin": [["", "ㄧㄚ", "ˋ"]],
+        "variants": [
+          {"pinyin": "yà", "zhuyin": [["", "ㄧㄚ", "ˋ"]], "context_words": ["亞洲", "東南亞", "亞軍"], "meanings": ["Asia", "second place"]},
+          {"pinyin": "yā", "zhuyin": [["", "ㄧㄚ", "ˉ"]], "context_words": ["亞父"], "meanings": ["step-father (archaic)"]}
+        ]
+      },
+      {
+        "simp": "些",
+        "trad": "些",
+        "primary_zhuyin": [["ㄒ", "ㄧㄝ", "ˉ"]],
+        "variants": [
+          {"pinyin": "xiē", "zhuyin": [["ㄒ", "ㄧㄝ", "ˉ"]], "context_words": ["一些", "這些", "有些"], "meanings": ["some", "a few"]},
+          {"pinyin": "suò", "zhuyin": [["ㄙ", "ㄨㄛ", "ˋ"]], "context_words": ["些些"], "meanings": ["a little (dialectal)"]}
+        ]
+      },
+      {
+        "simp": "亲",
+        "trad": "親",
+        "primary_zhuyin": [["ㄑ", "ㄧㄣ", "ˉ"]],
+        "variants": [
+          {"pinyin": "qīn", "zhuyin": [["ㄑ", "ㄧㄣ", "ˉ"]], "context_words": ["父親", "母親", "親愛"], "meanings": ["parent", "relative", "dear"]},
+          {"pinyin": "qìng", "zhuyin": [["ㄑ", "ㄧㄥ", "ˋ"]], "context_words": ["親家"], "meanings": ["parents-in-law of one's child"]}
+        ]
+      },
+      {
+        "simp": "仅",
+        "trad": "僅",
+        "primary_zhuyin": [["ㄐ", "ㄧㄣ", "ˇ"]],
+        "variants": [
+          {"pinyin": "jǐn", "zhuyin": [["ㄐ", "ㄧㄣ", "ˇ"]], "context_words": ["僅僅", "不僅", "僅有"], "meanings": ["only", "merely", "barely"]},
+          {"pinyin": "jìn", "zhuyin": [["ㄐ", "ㄧㄣ", "ˋ"]], "context_words": ["僅此"], "meanings": ["only this (variant)"]}
+        ]
+      },
+      {
+        "simp": "从",
+        "trad": "從",
+        "primary_zhuyin": [["ㄘ", "ㄨㄥ", "ˊ"]],
+        "variants": [
+          {"pinyin": "cóng", "zhuyin": [["ㄘ", "ㄨㄥ", "ˊ"]], "context_words": ["從來", "從前", "從此"], "meanings": ["from", "since", "follow"]},
+          {"pinyin": "zòng", "zhuyin": [["ㄗ", "ㄨㄥ", "ˋ"]], "context_words": ["從容"], "meanings": ["calm (when second char in 從容)"]}
+        ]
+      },
+      {
+        "simp": "任",
+        "trad": "任",
+        "primary_zhuyin": [["ㄖ", "ㄣ", "ˋ"]],
+        "variants": [
+          {"pinyin": "rèn", "zhuyin": [["ㄖ", "ㄣ", "ˋ"]], "context_words": ["任務", "任何", "擔任"], "meanings": ["duty", "task", "any"]},
+          {"pinyin": "rén", "zhuyin": [["ㄖ", "ㄣ", "ˊ"]], "context_words": ["任性"], "meanings": ["surname Ren"]}
+        ]
+      },
+      {
+        "simp": "份",
+        "trad": "份",
+        "primary_zhuyin": [["ㄈ", "ㄣ", "ˋ"]],
+        "variants": [
+          {"pinyin": "fèn", "zhuyin": [["ㄈ", "ㄣ", "ˋ"]], "context_words": ["一份", "身份", "份量"], "meanings": ["portion", "share", "identity"]},
+          {"pinyin": "bīn", "zhuyin": [["ㄅ", "ㄧㄣ", "ˉ"]], "context_words": ["彬彬"], "meanings": ["refined manner (archaic variant)"]}
+        ]
+      },
+      {
+        "simp": "休",
+        "trad": "休",
+        "primary_zhuyin": [["ㄒ", "ㄧㄡ", "ˉ"]],
+        "variants": [
+          {"pinyin": "xiū", "zhuyin": [["ㄒ", "ㄧㄡ", "ˉ"]], "context_words": ["休息", "休假", "休閒"], "meanings": ["to rest", "vacation", "leisure"]},
+          {"pinyin": "xǔ", "zhuyin": [["ㄒ", "ㄩ", "ˇ"]], "context_words": ["休養"], "meanings": ["variant pronunciation (rare)"]}
+        ]
+      },
+      {
+        "simp": "估",
+        "trad": "估",
+        "primary_zhuyin": [["ㄍ", "ㄨ", "ˉ"]],
+        "variants": [
+          {"pinyin": "gū", "zhuyin": [["ㄍ", "ㄨ", "ˉ"]], "context_words": ["估計", "估價", "評估"], "meanings": ["to estimate", "to reckon"]},
+          {"pinyin": "gù", "zhuyin": [["ㄍ", "ㄨ", "ˋ"]], "context_words": ["估衣"], "meanings": ["secondhand clothing"]}
+        ]
+      },
+      {
+        "simp": "体",
+        "trad": "體",
+        "primary_zhuyin": [["ㄊ", "ㄧ", "ˇ"]],
+        "variants": [
+          {"pinyin": "tǐ", "zhuyin": [["ㄊ", "ㄧ", "ˇ"]], "context_words": ["身體", "體育", "體驗"], "meanings": ["body", "form", "sports"]},
+          {"pinyin": "tī", "zhuyin": [["ㄊ", "ㄧ", "ˉ"]], "context_words": ["體己"], "meanings": ["intimate (variant)"]}
+        ]
+      },
+      {
+        "simp": "信",
+        "trad": "信",
+        "primary_zhuyin": [["ㄒ", "ㄧㄣ", "ˋ"]],
+        "variants": [
+          {"pinyin": "xìn", "zhuyin": [["ㄒ", "ㄧㄣ", "ˋ"]], "context_words": ["相信", "信任", "信用"], "meanings": ["to believe", "letter", "trust"]},
+          {"pinyin": "shēn", "zhuyin": [["ㄕ", "ㄣ", "ˉ"]], "context_words": ["信宿"], "meanings": ["two nights (classical)"]}
+        ]
+      },
+      {
+        "simp": "俩",
+        "trad": "倆",
+        "primary_zhuyin": [["ㄌ", "ㄧㄚ", "ˇ"]],
+        "variants": [
+          {"pinyin": "liǎ", "zhuyin": [["ㄌ", "ㄧㄚ", "ˇ"]], "context_words": ["我們倆", "咱倆", "哥倆"], "meanings": ["two (colloquial)"]},
+          {"pinyin": "liǎng", "zhuyin": [["ㄌ", "ㄧㄤ", "ˇ"]], "context_words": ["伎倆"], "meanings": ["trick (in 伎倆)"]}
+        ]
+      },
+      {
+        "simp": "倒",
+        "trad": "倒",
+        "primary_zhuyin": [["ㄉ", "ㄠ", "ˇ"]],
+        "variants": [
+          {"pinyin": "dǎo", "zhuyin": [["ㄉ", "ㄠ", "ˇ"]], "context_words": ["打倒", "跌倒", "倒閉"], "meanings": ["to fall", "to collapse", "to fail"]},
+          {"pinyin": "dào", "zhuyin": [["ㄉ", "ㄠ", "ˋ"]], "context_words": ["倒水", "倒車", "倒是"], "meanings": ["to pour", "reverse", "actually"]}
+        ]
+      },
+      {
+        "simp": "共",
+        "trad": "共",
+        "primary_zhuyin": [["ㄍ", "ㄨㄥ", "ˋ"]],
+        "variants": [
+          {"pinyin": "gòng", "zhuyin": [["ㄍ", "ㄨㄥ", "ˋ"]], "context_words": ["一共", "共同", "公共"], "meanings": ["altogether", "common", "public"]},
+          {"pinyin": "gōng", "zhuyin": [["ㄍ", "ㄨㄥ", "ˉ"]], "context_words": ["共工"], "meanings": ["mythological figure"]}
+        ]
+      },
+      {
+        "simp": "其",
+        "trad": "其",
+        "primary_zhuyin": [["ㄑ", "ㄧ", "ˊ"]],
+        "variants": [
+          {"pinyin": "qí", "zhuyin": [["ㄑ", "ㄧ", "ˊ"]], "context_words": ["其他", "其實", "尤其"], "meanings": ["its", "his", "especially"]},
+          {"pinyin": "jī", "zhuyin": [["ㄐ", "ㄧ", "ˉ"]], "context_words": ["鄭其"], "meanings": ["variant in names"]}
+        ]
+      },
+      {
+        "simp": "净",
+        "trad": "淨",
+        "primary_zhuyin": [["ㄐ", "ㄧㄥ", "ˋ"]],
+        "variants": [
+          {"pinyin": "jìng", "zhuyin": [["ㄐ", "ㄧㄥ", "ˋ"]], "context_words": ["乾淨", "淨化", "純淨"], "meanings": ["clean", "pure", "net"]},
+          {"pinyin": "chēng", "zhuyin": [["ㄔ", "ㄥ", "ˉ"]], "context_words": ["淨角"], "meanings": ["painted face role in opera"]}
+        ]
+      },
+      {
+        "simp": "凉",
+        "trad": "涼",
+        "primary_zhuyin": [["ㄌ", "ㄧㄤ", "ˊ"]],
+        "variants": [
+          {"pinyin": "liáng", "zhuyin": [["ㄌ", "ㄧㄤ", "ˊ"]], "context_words": ["涼快", "涼水", "涼爽"], "meanings": ["cool", "cold"]},
+          {"pinyin": "liàng", "zhuyin": [["ㄌ", "ㄧㄤ", "ˋ"]], "context_words": ["涼一涼"], "meanings": ["to let cool"]}
+        ]
+      },
+      {
+        "simp": "据",
+        "trad": "據",
+        "primary_zhuyin": [["ㄐ", "ㄩ", "ˋ"]],
+        "variants": [
+          {"pinyin": "jù", "zhuyin": [["ㄐ", "ㄩ", "ˋ"]], "context_words": ["根據", "據說", "證據"], "meanings": ["according to", "evidence"]},
+          {"pinyin": "jū", "zhuyin": [["ㄐ", "ㄩ", "ˉ"]], "context_words": ["拮据"], "meanings": ["hard up (in 拮据)"]}
+        ]
+      },
+      {
+        "simp": "别",
+        "trad": "別",
+        "primary_zhuyin": [["ㄅ", "ㄧㄝ", "ˊ"]],
+        "variants": [
+          {"pinyin": "bié", "zhuyin": [["ㄅ", "ㄧㄝ", "ˊ"]], "context_words": ["別人", "告別", "區別"], "meanings": ["other", "don't", "farewell"]},
+          {"pinyin": "biè", "zhuyin": [["ㄅ", "ㄧㄝ", "ˋ"]], "context_words": ["彆扭"], "meanings": ["awkward (in 彆扭)"]}
+        ]
+      },
+      {
+        "simp": "刷",
+        "trad": "刷",
+        "primary_zhuyin": [["ㄕ", "ㄨㄚ", "ˉ"]],
+        "variants": [
+          {"pinyin": "shuā", "zhuyin": [["ㄕ", "ㄨㄚ", "ˉ"]], "context_words": ["刷牙", "刷卡", "牙刷"], "meanings": ["to brush", "to swipe"]},
+          {"pinyin": "shuà", "zhuyin": [["ㄕ", "ㄨㄚ", "ˋ"]], "context_words": ["刷白"], "meanings": ["very white"]}
+        ]
+      },
+      {
+        "simp": "助",
+        "trad": "助",
+        "primary_zhuyin": [["ㄓ", "ㄨ", "ˋ"]],
+        "variants": [
+          {"pinyin": "zhù", "zhuyin": [["ㄓ", "ㄨ", "ˋ"]], "context_words": ["幫助", "助手", "幫助"], "meanings": ["to help", "assistant"]},
+          {"pinyin": "chú", "zhuyin": [["ㄔ", "ㄨ", "ˊ"]], "context_words": ["助胥"], "meanings": ["historical term (rare)"]}
+        ]
+      }
+    ]
+  },
+  "category3": {
+    "description": "No variants at all - create full Pattern A structure",
+    "count": 10,
+    "chars": [
+      {
+        "simp": "难",
+        "trad": "難",
+        "primary_zhuyin": [["ㄋ", "ㄢ", "ˊ"]],
+        "variants": [
+          {"pinyin": "nán", "zhuyin": [["ㄋ", "ㄢ", "ˊ"]], "context_words": ["困難", "難過", "難道"], "meanings": ["difficult", "hard"]},
+          {"pinyin": "nàn", "zhuyin": [["ㄋ", "ㄢ", "ˋ"]], "context_words": ["災難", "難民", "遇難"], "meanings": ["disaster", "calamity"]},
+          {"pinyin": "nuó", "zhuyin": [["ㄋ", "ㄨㄛ", "ˊ"]], "context_words": ["儺舞"], "meanings": ["exorcism dance (archaic)"]}
+        ]
+      },
+      {
+        "simp": "饮",
+        "trad": "飲",
+        "primary_zhuyin": [["", "ㄧㄣ", "ˇ"]],
+        "variants": [
+          {"pinyin": "yǐn", "zhuyin": [["", "ㄧㄣ", "ˇ"]], "context_words": ["飲料", "飲食", "飲水"], "meanings": ["to drink", "beverage"]},
+          {"pinyin": "yìn", "zhuyin": [["", "ㄧㄣ", "ˋ"]], "context_words": ["飲馬"], "meanings": ["to water horses"]}
+        ]
+      },
+      {
+        "simp": "队",
+        "trad": "隊",
+        "primary_zhuyin": [["ㄉ", "ㄨㄟ", "ˋ"]],
+        "variants": [
+          {"pinyin": "duì", "zhuyin": [["ㄉ", "ㄨㄟ", "ˋ"]], "context_words": ["隊伍", "排隊", "球隊"], "meanings": ["team", "line", "group"]},
+          {"pinyin": "zhuì", "zhuyin": [["ㄓ", "ㄨㄟ", "ˋ"]], "context_words": ["隊仗"], "meanings": ["guard of honor (archaic)"]}
+        ]
+      },
+      {
+        "simp": "降",
+        "trad": "降",
+        "primary_zhuyin": [["ㄐ", "ㄧㄤ", "ˋ"]],
+        "variants": [
+          {"pinyin": "jiàng", "zhuyin": [["ㄐ", "ㄧㄤ", "ˋ"]], "context_words": ["降低", "下降", "降落"], "meanings": ["to descend", "to drop"]},
+          {"pinyin": "xiáng", "zhuyin": [["ㄒ", "ㄧㄤ", "ˊ"]], "context_words": ["投降", "降服", "降龍"], "meanings": ["to surrender", "to subdue"]}
+        ]
+      },
+      {
+        "simp": "期",
+        "trad": "期",
+        "primary_zhuyin": [["ㄑ", "ㄧ", "ˉ"]],
+        "variants": [
+          {"pinyin": "qī", "zhuyin": [["ㄑ", "ㄧ", "ˉ"]], "context_words": ["期待", "日期", "學期"], "meanings": ["period", "expect", "term"]},
+          {"pinyin": "jī", "zhuyin": [["ㄐ", "ㄧ", "ˉ"]], "context_words": ["期年"], "meanings": ["full year (classical)"]}
+        ]
+      },
+      {
+        "simp": "间",
+        "trad": "間",
+        "primary_zhuyin": [["ㄐ", "ㄧㄢ", "ˉ"]],
+        "variants": [
+          {"pinyin": "jiān", "zhuyin": [["ㄐ", "ㄧㄢ", "ˉ"]], "context_words": ["房間", "時間", "中間"], "meanings": ["room", "between", "space"]},
+          {"pinyin": "jiàn", "zhuyin": [["ㄐ", "ㄧㄢ", "ˋ"]], "context_words": ["間隔", "離間", "間諜"], "meanings": ["gap", "spy", "to separate"]}
+        ]
+      },
+      {
+        "simp": "只",
+        "trad": "隻",
+        "primary_zhuyin": [["ㄓ", "", "ˉ"]],
+        "variants": [
+          {"pinyin": "zhī", "zhuyin": [["ㄓ", "", "ˉ"]], "context_words": ["一隻貓", "兩隻手", "一隻鳥"], "meanings": ["classifier for animals, body parts"]},
+          {"pinyin": "zhǐ", "zhuyin": [["ㄓ", "", "ˇ"]], "context_words": ["只是", "只有", "只好"], "meanings": ["only", "merely"]}
+        ]
+      },
+      {
+        "simp": "阿",
+        "trad": "阿",
+        "primary_zhuyin": [["", "ㄚ", "ˉ"]],
+        "variants": [
+          {"pinyin": "ā", "zhuyin": [["", "ㄚ", "ˉ"]], "context_words": ["阿姨", "阿公", "阿媽"], "meanings": ["prefix for names", "aunt"]},
+          {"pinyin": "ē", "zhuyin": [["", "ㄜ", "ˉ"]], "context_words": ["阿彌陀佛", "阿諛"], "meanings": ["Buddhist term", "flatter"]}
+        ]
+      },
+      {
+        "simp": "鲜",
+        "trad": "鮮",
+        "primary_zhuyin": [["ㄒ", "ㄧㄢ", "ˉ"]],
+        "variants": [
+          {"pinyin": "xiān", "zhuyin": [["ㄒ", "ㄧㄢ", "ˉ"]], "context_words": ["新鮮", "鮮豔", "鮮花"], "meanings": ["fresh", "bright"]},
+          {"pinyin": "xiǎn", "zhuyin": [["ㄒ", "ㄧㄢ", "ˇ"]], "context_words": ["鮮有", "鮮少"], "meanings": ["seldom", "rarely"]}
+        ]
+      },
+      {
+        "simp": "拉",
+        "trad": "拉",
+        "primary_zhuyin": [["ㄌ", "ㄚ", "ˉ"]],
+        "variants": [
+          {"pinyin": "lā", "zhuyin": [["ㄌ", "ㄚ", "ˉ"]], "context_words": ["拉手", "拉門", "拉車"], "meanings": ["to pull", "to drag"]},
+          {"pinyin": "lá", "zhuyin": [["ㄌ", "ㄚ", "ˊ"]], "context_words": ["拉拉蛄"], "meanings": ["mole cricket"]}
+        ]
+      }
+    ]
+  }
+}
