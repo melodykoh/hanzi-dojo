@@ -130,7 +130,10 @@ function buildPronunciationList(
     const charCount = row.simp ? [...row.simp].length : 1
     const syllableCount = row.dictionary_zhuyin.length
 
-    // Malformed data: single character with multiple "syllables" = merged pronunciations
+    // HEURISTIC: In standard Mandarin, a single character (charCount === 1) maps to
+    // exactly one syllable. If we see multiple syllables, this indicates Migration 009
+    // incorrectly merged multiple pronunciations into the zhuyin array instead of
+    // storing them separately in zhuyin_variants.
     if (charCount === 1 && syllableCount > 1) {
       console.warn('[practiceQueueService] Detected malformed Migration 009 data - splitting merged pronunciations:', {
         simp: row.simp,
