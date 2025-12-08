@@ -1,0 +1,639 @@
+{
+  "description": "Context words research for 47 characters needing MDBG lookup",
+  "date": "2025-12-08",
+  "source": "MDBG Chinese Dictionary + Taiwan MOE",
+  "characters": {
+    "见": {
+      "pronunciations": {
+        "jiàn": {
+          "context_words": ["看見", "見面", "意見", "見識"],
+          "meaning": "to see, to meet"
+        },
+        "xiàn": {
+          "context_words": ["出現", "發現", "現在"],
+          "meaning": "to appear (archaic, now written as 現)"
+        }
+      }
+    },
+    "六": {
+      "pronunciations": {
+        "liù": {
+          "context_words": ["六月", "星期六", "六個"],
+          "meaning": "six"
+        },
+        "lù": {
+          "context_words": ["六安"],
+          "meaning": "place name pronunciation"
+        }
+      }
+    },
+    "上": {
+      "pronunciations": {
+        "shàng": {
+          "context_words": ["上面", "上班", "上學", "晚上"],
+          "meaning": "up, above, to go up"
+        },
+        "shǎng": {
+          "context_words": ["上聲"],
+          "meaning": "third tone (tone name)"
+        }
+      }
+    },
+    "不": {
+      "pronunciations": {
+        "bù": {
+          "context_words": ["不是", "不要", "不好", "不行"],
+          "meaning": "not, no"
+        },
+        "fǒu": {
+          "context_words": ["臧否"],
+          "meaning": "classical negative (rare)"
+        }
+      }
+    },
+    "她": {
+      "pronunciations": {
+        "tā": {
+          "context_words": ["她的", "她們"],
+          "meaning": "she, her"
+        },
+        "jiě": {
+          "context_words": ["姐姐"],
+          "meaning": "archaic variant (rare)"
+        }
+      }
+    },
+    "了": {
+      "pronunciations": {
+        "le": {
+          "context_words": ["好了", "完了", "走了"],
+          "meaning": "completed action particle"
+        },
+        "liǎo": {
+          "context_words": ["了解", "了不起", "受不了"],
+          "meaning": "to finish, to understand"
+        }
+      }
+    },
+    "有": {
+      "pronunciations": {
+        "yǒu": {
+          "context_words": ["有人", "沒有", "有時候"],
+          "meaning": "to have, there is"
+        },
+        "yòu": {
+          "context_words": ["有無"],
+          "meaning": "variant in literary contexts"
+        }
+      }
+    },
+    "这": {
+      "pronunciations": {
+        "zhè": {
+          "context_words": ["這個", "這裡", "這樣"],
+          "meaning": "this"
+        },
+        "zhèi": {
+          "context_words": ["這兒"],
+          "meaning": "this (colloquial contraction)"
+        }
+      }
+    },
+    "那": {
+      "pronunciations": {
+        "nà": {
+          "context_words": ["那個", "那裡", "那樣"],
+          "meaning": "that"
+        },
+        "nǎ": {
+          "context_words": ["那裡", "那邊"],
+          "meaning": "which (dialectal)"
+        },
+        "nèi": {
+          "context_words": ["那兒"],
+          "meaning": "that (colloquial)"
+        },
+        "nā": {
+          "context_words": [],
+          "meaning": "rare variant"
+        }
+      }
+    },
+    "个": {
+      "pronunciations": {
+        "gè": {
+          "context_words": ["一個", "這個", "那個", "幾個"],
+          "meaning": "general measure word"
+        },
+        "gě": {
+          "context_words": ["自個兒"],
+          "meaning": "dialectal variant"
+        }
+      }
+    },
+    "读": {
+      "pronunciations": {
+        "dú": {
+          "context_words": ["讀書", "閱讀", "朗讀"],
+          "meaning": "to read"
+        },
+        "dòu": {
+          "context_words": ["句讀"],
+          "meaning": "pause in reading (classical)"
+        }
+      }
+    },
+    "弟": {
+      "pronunciations": {
+        "dì": {
+          "context_words": ["弟弟", "兄弟", "小弟"],
+          "meaning": "younger brother"
+        },
+        "tì": {
+          "context_words": ["悌"],
+          "meaning": "variant (rare)"
+        },
+        "tuí": {
+          "context_words": [],
+          "meaning": "archaic variant"
+        }
+      }
+    },
+    "儿": {
+      "pronunciations": {
+        "ér": {
+          "context_words": ["兒子", "女兒", "孩兒"],
+          "meaning": "son, child"
+        },
+        "er": {
+          "context_words": ["這兒", "那兒", "哪兒"],
+          "meaning": "noun suffix (erhua)"
+        }
+      }
+    },
+    "女": {
+      "pronunciations": {
+        "nǚ": {
+          "context_words": ["女人", "女孩", "女兒"],
+          "meaning": "female, woman"
+        },
+        "rǔ": {
+          "context_words": ["汝"],
+          "meaning": "you (archaic, variant)"
+        }
+      }
+    },
+    "好": {
+      "pronunciations": {
+        "hǎo": {
+          "context_words": ["好人", "你好", "很好"],
+          "meaning": "good, well"
+        },
+        "hào": {
+          "context_words": ["愛好", "好奇", "好學"],
+          "meaning": "to like, fond of"
+        }
+      }
+    },
+    "少": {
+      "pronunciations": {
+        "shǎo": {
+          "context_words": ["多少", "很少", "少量"],
+          "meaning": "few, little"
+        },
+        "shào": {
+          "context_words": ["少年", "少女", "少數"],
+          "meaning": "young"
+        }
+      }
+    },
+    "长": {
+      "pronunciations": {
+        "cháng": {
+          "context_words": ["長度", "很長", "長城"],
+          "meaning": "long, length"
+        },
+        "zhǎng": {
+          "context_words": ["長大", "校長", "生長"],
+          "meaning": "to grow, chief"
+        }
+      }
+    },
+    "南": {
+      "pronunciations": {
+        "nán": {
+          "context_words": ["南方", "南邊", "南北"],
+          "meaning": "south"
+        },
+        "nā": {
+          "context_words": ["南無"],
+          "meaning": "Buddhist term (namo)"
+        }
+      }
+    },
+    "北": {
+      "pronunciations": {
+        "běi": {
+          "context_words": ["北方", "北邊", "北京"],
+          "meaning": "north"
+        },
+        "bèi": {
+          "context_words": ["敗北"],
+          "meaning": "to be defeated (literary)"
+        }
+      }
+    },
+    "头": {
+      "pronunciations": {
+        "tóu": {
+          "context_words": ["頭髮", "點頭", "開頭"],
+          "meaning": "head, beginning"
+        },
+        "tou": {
+          "context_words": ["木頭", "石頭", "念頭"],
+          "meaning": "noun suffix"
+        }
+      }
+    },
+    "家": {
+      "pronunciations": {
+        "jiā": {
+          "context_words": ["家人", "國家", "回家"],
+          "meaning": "home, family"
+        },
+        "jia": {
+          "context_words": ["大家", "姑娘家"],
+          "meaning": "suffix"
+        }
+      }
+    },
+    "羊": {
+      "pronunciations": {
+        "yáng": {
+          "context_words": ["羊肉", "小羊", "綿羊"],
+          "meaning": "sheep, goat"
+        },
+        "xiáng": {
+          "context_words": ["吉羊"],
+          "meaning": "auspicious (archaic, now written 祥)"
+        }
+      }
+    },
+    "猫": {
+      "pronunciations": {
+        "māo": {
+          "context_words": ["小貓", "熊貓", "貓咪"],
+          "meaning": "cat"
+        },
+        "máo": {
+          "context_words": ["貓腰"],
+          "meaning": "to bend over (dialectal)"
+        }
+      }
+    },
+    "雨": {
+      "pronunciations": {
+        "yǔ": {
+          "context_words": ["下雨", "雨天", "大雨"],
+          "meaning": "rain"
+        },
+        "yù": {
+          "context_words": ["雨雪"],
+          "meaning": "to rain (literary verb form)"
+        }
+      }
+    },
+    "风": {
+      "pronunciations": {
+        "fēng": {
+          "context_words": ["風景", "颳風", "大風"],
+          "meaning": "wind"
+        },
+        "fěng": {
+          "context_words": ["風刺"],
+          "meaning": "to satirize (now written 諷)"
+        }
+      }
+    },
+    "知": {
+      "pronunciations": {
+        "zhī": {
+          "context_words": ["知道", "了解", "知識"],
+          "meaning": "to know"
+        },
+        "zhì": {
+          "context_words": ["智慧"],
+          "meaning": "wisdom (archaic, now written 智)"
+        }
+      }
+    },
+    "能": {
+      "pronunciations": {
+        "néng": {
+          "context_words": ["能夠", "可能", "能力"],
+          "meaning": "can, able to"
+        },
+        "nài": {
+          "context_words": ["無奈"],
+          "meaning": "archaic variant (rare)"
+        }
+      }
+    },
+    "要": {
+      "pronunciations": {
+        "yào": {
+          "context_words": ["要是", "需要", "重要"],
+          "meaning": "to want, will, must"
+        },
+        "yāo": {
+          "context_words": ["要求", "要挾"],
+          "meaning": "to demand, to request"
+        }
+      }
+    },
+    "吗": {
+      "pronunciations": {
+        "ma": {
+          "context_words": ["你好嗎", "是嗎", "對嗎"],
+          "meaning": "question particle"
+        },
+        "má": {
+          "context_words": ["嗎啡"],
+          "meaning": "transliteration (morphine)"
+        },
+        "mǎ": {
+          "context_words": [],
+          "meaning": "variant reading"
+        }
+      }
+    },
+    "哪": {
+      "pronunciations": {
+        "nǎ": {
+          "context_words": ["哪裡", "哪個", "哪邊"],
+          "meaning": "which, where"
+        },
+        "na": {
+          "context_words": ["哪怕"],
+          "meaning": "even if"
+        },
+        "něi": {
+          "context_words": ["哪兒"],
+          "meaning": "which (colloquial)"
+        }
+      }
+    },
+    "漂": {
+      "pronunciations": {
+        "piāo": {
+          "context_words": ["漂流", "漂浮"],
+          "meaning": "to float, to drift"
+        },
+        "piào": {
+          "context_words": ["漂亮"],
+          "meaning": "beautiful, pretty"
+        },
+        "piǎo": {
+          "context_words": ["漂白"],
+          "meaning": "to bleach"
+        }
+      }
+    },
+    "乐": {
+      "pronunciations": {
+        "lè": {
+          "context_words": ["快樂", "歡樂", "樂趣"],
+          "meaning": "happy, joy"
+        },
+        "yuè": {
+          "context_words": ["音樂", "樂器", "樂曲"],
+          "meaning": "music"
+        }
+      }
+    },
+    "员": {
+      "pronunciations": {
+        "yuán": {
+          "context_words": ["會員", "演員", "人員"],
+          "meaning": "member, personnel"
+        },
+        "yún": {
+          "context_words": ["員外"],
+          "meaning": "official title (historical)"
+        },
+        "yùn": {
+          "context_words": [],
+          "meaning": "rare variant"
+        }
+      }
+    },
+    "远": {
+      "pronunciations": {
+        "yuǎn": {
+          "context_words": ["遠方", "很遠", "遠近"],
+          "meaning": "far, distant"
+        },
+        "yuàn": {
+          "context_words": ["遠離"],
+          "meaning": "to distance oneself (literary)"
+        }
+      }
+    },
+    "铅": {
+      "pronunciations": {
+        "qiān": {
+          "context_words": ["鉛筆", "鉛板"],
+          "meaning": "lead (metal)"
+        },
+        "yán": {
+          "context_words": ["鉛山"],
+          "meaning": "place name"
+        }
+      }
+    },
+    "万": {
+      "pronunciations": {
+        "wàn": {
+          "context_words": ["一萬", "萬歲", "萬一"],
+          "meaning": "ten thousand"
+        },
+        "mò": {
+          "context_words": ["萬俟"],
+          "meaning": "surname (rare)"
+        }
+      }
+    },
+    "参": {
+      "pronunciations": {
+        "cān": {
+          "context_words": ["參加", "參觀", "參與"],
+          "meaning": "to participate, to join"
+        },
+        "shēn": {
+          "context_words": ["人參", "海參"],
+          "meaning": "ginseng, sea cucumber"
+        },
+        "cēn": {
+          "context_words": ["參差"],
+          "meaning": "uneven (cēncī)"
+        },
+        "sān": {
+          "context_words": ["參星"],
+          "meaning": "constellation (archaic)"
+        }
+      }
+    },
+    "啊": {
+      "pronunciations": {
+        "ā": {
+          "context_words": ["啊呀"],
+          "meaning": "exclamation"
+        },
+        "á": {
+          "context_words": ["啊？"],
+          "meaning": "what?"
+        },
+        "ǎ": {
+          "context_words": ["啊？"],
+          "meaning": "expressing doubt"
+        },
+        "à": {
+          "context_words": ["啊！"],
+          "meaning": "exclamation of understanding"
+        },
+        "a": {
+          "context_words": ["好啊", "是啊"],
+          "meaning": "modal particle"
+        }
+      }
+    },
+    "坏": {
+      "pronunciations": {
+        "huài": {
+          "context_words": ["壞人", "破壞", "壞掉"],
+          "meaning": "bad, broken"
+        },
+        "pēi": {
+          "context_words": ["坯子"],
+          "meaning": "embryo (variant of 胚)"
+        },
+        "pī": {
+          "context_words": [],
+          "meaning": "rare variant"
+        },
+        "péi": {
+          "context_words": [],
+          "meaning": "rare variant"
+        }
+      }
+    },
+    "何": {
+      "pronunciations": {
+        "hé": {
+          "context_words": ["如何", "何時", "為何"],
+          "meaning": "what, how"
+        },
+        "hē": {
+          "context_words": [],
+          "meaning": "rare variant"
+        },
+        "hè": {
+          "context_words": ["何潤東"],
+          "meaning": "surname reading"
+        }
+      }
+    },
+    "内": {
+      "pronunciations": {
+        "nèi": {
+          "context_words": ["內部", "室內", "國內"],
+          "meaning": "inside, internal"
+        },
+        "nà": {
+          "context_words": ["內人"],
+          "meaning": "wife (humble, archaic)"
+        }
+      }
+    },
+    "咱": {
+      "pronunciations": {
+        "zán": {
+          "context_words": ["咱們", "咱倆"],
+          "meaning": "we (inclusive)"
+        },
+        "zá": {
+          "context_words": [],
+          "meaning": "dialectal variant"
+        },
+        "za": {
+          "context_words": [],
+          "meaning": "neutral tone variant"
+        }
+      }
+    },
+    "并": {
+      "pronunciations": {
+        "bìng": {
+          "context_words": ["並且", "合併", "並排"],
+          "meaning": "and, moreover, to merge"
+        },
+        "bīng": {
+          "context_words": ["并州"],
+          "meaning": "place name (historical)"
+        }
+      }
+    },
+    "广": {
+      "pronunciations": {
+        "guǎng": {
+          "context_words": ["廣大", "廣告", "廣東"],
+          "meaning": "wide, vast"
+        },
+        "ān": {
+          "context_words": ["广庵"],
+          "meaning": "name element (rare)"
+        }
+      }
+    },
+    "术": {
+      "pronunciations": {
+        "shù": {
+          "context_words": ["技術", "藝術", "手術"],
+          "meaning": "art, technique"
+        },
+        "shú": {
+          "context_words": [],
+          "meaning": "archaic variant"
+        },
+        "zhú": {
+          "context_words": ["蒼朮", "白朮"],
+          "meaning": "type of herb (Atractylodes)"
+        }
+      }
+    },
+    "许": {
+      "pronunciations": {
+        "xǔ": {
+          "context_words": ["許多", "允許", "也許"],
+          "meaning": "to allow, perhaps"
+        },
+        "hǔ": {
+          "context_words": ["許許多多"],
+          "meaning": "onomatopoeia (variant)"
+        }
+      }
+    },
+    "详": {
+      "pronunciations": {
+        "xiáng": {
+          "context_words": ["詳細", "詳情", "詳盡"],
+          "meaning": "detailed"
+        },
+        "yáng": {
+          "context_words": [],
+          "meaning": "archaic variant of 佯 (to feign)"
+        }
+      }
+    }
+  }
+}

@@ -4,6 +4,19 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## December 8, 2025 - Session 18
+
+### ✨ Comprehensive Multi-Pronunciation Coverage
+- **162 Characters Enhanced**: Added context words and alternate pronunciations for characters that were missing them
+- **94 New Multi-Pronunciation Characters**: Characters like 长 (cháng "long" / zhǎng "to grow"), 少 (shǎo "few" / shào "young"), and 好 (hǎo "good" / hào "to like") now have complete pronunciation data
+- **68 Context Word Updates**: Filled in example words for characters already marked as multi-pronunciation but missing context, like 禁 (jìn "forbid" / jīn "to restrain oneself"), 散 (sàn "to scatter" / sǎn "loose"), and 咖 (kā "coffee" / gā "curry")
+- **Taiwan MOE Cross-Reference**: Used official Taiwan Ministry of Education polyphone list to ensure comprehensive coverage
+
+### 🎨 Improvements
+- **Better Drill A Options**: With complete pronunciation data, Drill A now correctly excludes valid alternate readings from wrong answer choices across all 162 characters
+
+---
+
 ## December 6, 2025 - Session 17
 
 ### 🐛 Bug Fixes

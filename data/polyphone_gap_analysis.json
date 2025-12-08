@@ -1,0 +1,2258 @@
+{
+  "timestamp": "2025-12-08T18:29:40.630Z",
+  "summary": {
+    "totalDictionaryChars": 1067,
+    "polyphonesInDictionary": 230,
+    "alreadyHandled": 136,
+    "needVariants": 94
+  },
+  "needsWork": [
+    {
+      "char": "着",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "zhe": [
+          [],
+          [],
+          []
+        ],
+        "zhuó": [
+          [
+            "着落",
+            "着重",
+            "着手",
+            "着力",
+            "着装",
+            "着笔",
+            "着实",
+            "着想",
+            "着眼",
+            "着意",
+            "着陆"
+          ],
+          [],
+          []
+        ],
+        "zháo": [
+          [
+            "着急",
+            "着迷",
+            "着凉",
+            "着忙",
+            "着魔",
+            "着三不着两"
+          ],
+          [],
+          []
+        ],
+        "zhāo": [
+          [
+            "着数"
+          ],
+          [],
+          [
+            "失着",
+            "高着"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "见",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "六",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "大",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "dà": [
+          [
+            "大夫"
+          ],
+          [],
+          []
+        ],
+        "dài": [
+          [
+            "大夫"
+          ],
+          [
+            "山大王"
+          ],
+          []
+        ],
+        "tài": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "上",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "中",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "zhòng": [
+          [
+            "中奖",
+            "中靶",
+            "中选"
+          ],
+          [],
+          [
+            "看中"
+          ]
+        ],
+        "zhōng": [
+          [
+            "中国"
+          ],
+          [],
+          [
+            "人中"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "不",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "她",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "的",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "de": [
+          [],
+          [],
+          []
+        ],
+        "dì": [
+          [],
+          [
+            "有的放矢"
+          ],
+          [
+            "目的",
+            "中的"
+          ]
+        ],
+        "dí": [
+          [
+            "的当",
+            "的确",
+            "的证"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "了",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "有",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "这",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "那",
+      "pronunciations": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "个",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "看",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "kàn": [
+          [
+            "看待",
+            "看茶"
+          ],
+          [],
+          []
+        ],
+        "kān": [
+          [
+            "看守",
+            "看管"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "说",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "shuì": [
+          [
+            "说客"
+          ],
+          [],
+          [
+            "游说"
+          ]
+        ],
+        "shuō": [
+          [
+            "说话",
+            "说辞"
+          ],
+          [],
+          []
+        ],
+        "yuè": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "读",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "喝",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "he": [
+          [],
+          [],
+          []
+        ],
+        "hè": [
+          [
+            "喝采",
+            "喝令"
+          ],
+          [],
+          []
+        ],
+        "hē": [
+          [
+            "喝水"
+          ],
+          [],
+          []
+        ],
+        "kài": [
+          [],
+          [],
+          []
+        ],
+        "yè": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "跑",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "bó": [
+          [],
+          [],
+          []
+        ],
+        "páo": [
+          [],
+          [
+            "虎跑泉"
+          ],
+          []
+        ],
+        "pǎo": [
+          [
+            "跑步"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "弟",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "儿",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "女",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "好",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "分",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "bàn": [
+          [],
+          [],
+          []
+        ],
+        "fen": [
+          [],
+          [],
+          []
+        ],
+        "fèn": [
+          [
+            "分子"
+          ],
+          [],
+          [
+            "身分"
+          ]
+        ],
+        "fén": [
+          [],
+          [],
+          []
+        ],
+        "fēn": [
+          [
+            "分数"
+          ],
+          [],
+          [
+            "区分"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "红",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "gōng": [
+          [],
+          [],
+          [
+            "女红"
+          ]
+        ],
+        "hóng": [
+          [
+            "红色",
+            "红人"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "绿",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "lù": [
+          [
+            "绿林"
+          ],
+          [
+            "鸭绿江"
+          ],
+          []
+        ],
+        "lǜ": [
+          [
+            "绿地",
+            "绿菌"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "少",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "长",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "南",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "北",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "头",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "家",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "车",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "chē": [
+          [
+            "车马",
+            "车辆"
+          ],
+          [],
+          []
+        ],
+        "jū": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "羊",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "猫",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "雨",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "风",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "答",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "dá": [
+          [
+            "答案",
+            "答复",
+            "答卷"
+          ],
+          [],
+          []
+        ],
+        "dā": [
+          [
+            "答理",
+            "答应",
+            "答腔",
+            "答讪",
+            "答言"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "知",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "会",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "huì": [
+          [
+            "会合"
+          ],
+          [],
+          [
+            "都会"
+          ]
+        ],
+        "kuài": [
+          [
+            "会计"
+          ],
+          [],
+          [
+            "财会"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "能",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "要",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "得",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "de": [
+          [
+            "得很"
+          ],
+          [],
+          []
+        ],
+        "dé": [
+          [
+            "得意"
+          ],
+          [],
+          []
+        ],
+        "děi": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "作",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "zuò": [
+          [],
+          [],
+          [
+            "工作",
+            "习作"
+          ]
+        ],
+        "zuó": [
+          [],
+          [],
+          []
+        ],
+        "zuō": [
+          [
+            "作坊"
+          ],
+          [],
+          [
+            "铜器作"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "兴",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "xìng": [
+          [
+            "兴趣",
+            "兴致"
+          ],
+          [],
+          [
+            "豪兴",
+            "助兴",
+            "败兴"
+          ]
+        ],
+        "xīng": [
+          [
+            "兴起",
+            "兴办",
+            "兴修",
+            "兴许",
+            "兴盛",
+            "兴师动众"
+          ],
+          [],
+          [
+            "新兴",
+            "复兴",
+            "不兴"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "吗",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "和",
+      "pronunciations": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "he": [
+          [],
+          [],
+          []
+        ],
+        "huo": [
+          [],
+          [],
+          [
+            "搀和",
+            "搅和"
+          ]
+        ],
+        "huò": [
+          [
+            "和药"
+          ],
+          [],
+          [
+            "两和"
+          ]
+        ],
+        "huó": [
+          [
+            "和面",
+            "和泥"
+          ],
+          [],
+          []
+        ],
+        "hè": [
+          [
+            "和诗"
+          ],
+          [],
+          [
+            "应和"
+          ]
+        ],
+        "hé": [
+          [
+            "和睦",
+            "和谐"
+          ],
+          [],
+          []
+        ],
+        "hú": [
+          [
+            "和了"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "哪",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "漂",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "识",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "shi": [
+          [],
+          [],
+          []
+        ],
+        "shì": [
+          [],
+          [],
+          []
+        ],
+        "shí": [
+          [
+            "识别",
+            "识字"
+          ],
+          [],
+          []
+        ],
+        "zhì": [
+          [],
+          [],
+          [
+            "标识",
+            "强识"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "乐",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "员",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "累",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "liè": [
+          [],
+          [],
+          []
+        ],
+        "lèi": [
+          [],
+          [],
+          [
+            "劳累"
+          ]
+        ],
+        "léi": [
+          [
+            "累赘",
+            "累赘",
+            "累累如丧家之犬"
+          ],
+          [
+            "果实累累"
+          ],
+          []
+        ],
+        "lěi": [
+          [
+            "累进",
+            "累卵",
+            "累年"
+          ],
+          [
+            "连篇累牍",
+            "罪行累累"
+          ],
+          [
+            "牵累",
+            "连累"
+          ]
+        ],
+        "lǜ": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "色",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "shǎi": [
+          [],
+          [
+            "落色，颜色"
+          ],
+          []
+        ],
+        "sè": [
+          [
+            "色彩",
+            "色泽"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "过",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "guo": [
+          [],
+          [],
+          []
+        ],
+        "guò": [
+          [],
+          [],
+          [
+            "经过"
+          ]
+        ],
+        "guō": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "远",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "铅",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "万",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "单",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "chán": [
+          [
+            "单于"
+          ],
+          [],
+          []
+        ],
+        "dān": [
+          [],
+          [],
+          []
+        ],
+        "shàn": [
+          [
+            "单县"
+          ],
+          [],
+          [
+            "姓单"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "参",
+      "pronunciations": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "发",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "fa": [
+          [],
+          [],
+          []
+        ],
+        "fà": [
+          [
+            "发型"
+          ],
+          [
+            "令人发指"
+          ],
+          [
+            "理发",
+            "结发"
+          ]
+        ],
+        "fā": [
+          [
+            "发表",
+            "发端",
+            "发窘",
+            "发掘"
+          ],
+          [],
+          [
+            "打发"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "啊",
+      "pronunciations": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "坏",
+      "pronunciations": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "差",
+      "pronunciations": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "chà": [
+          [
+            "差点儿",
+            "差劲"
+          ],
+          [],
+          []
+        ],
+        "chài": [
+          [],
+          [],
+          []
+        ],
+        "chā": [
+          [
+            "差错",
+            "差池差可告慰",
+            "差强人意",
+            "差之毫厘",
+            "差别",
+            "差价",
+            "差异",
+            "差失",
+            "差误"
+          ],
+          [],
+          [
+            "偏差"
+          ]
+        ],
+        "chāi": [
+          [
+            "差遣",
+            "差使差役"
+          ],
+          [],
+          [
+            "出差",
+            "听差"
+          ]
+        ],
+        "cuō": [
+          [],
+          [],
+          []
+        ],
+        "cī": [
+          [],
+          [],
+          [
+            "参差"
+          ]
+        ],
+        "jiē": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "当",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "dang": [
+          [],
+          [],
+          []
+        ],
+        "dàng": [
+          [
+            "当日",
+            "当年",
+            "当真",
+            "当铺"
+          ],
+          [
+            "一人当两人用",
+            "安步当车"
+          ],
+          [
+            "得当",
+            "恰当",
+            "妥当",
+            "典当",
+            "上当"
+          ]
+        ],
+        "dāng": [
+          [
+            "当场",
+            "当今",
+            "当时",
+            "当年",
+            "当日",
+            "当面"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "提",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "chí": [
+          [],
+          [],
+          []
+        ],
+        "dī": [
+          [
+            "提防",
+            "提溜"
+          ],
+          [],
+          []
+        ],
+        "dǐ": [
+          [],
+          [],
+          []
+        ],
+        "shí": [
+          [],
+          [],
+          []
+        ],
+        "tí": [
+          [
+            "提高",
+            "提取"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "数",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "shu": [
+          [],
+          [],
+          []
+        ],
+        "shuò": [
+          [
+            "数见不鲜"
+          ],
+          [],
+          []
+        ],
+        "shù": [
+          [
+            "数字",
+            "数目"
+          ],
+          [],
+          []
+        ],
+        "shǔ": [
+          [
+            "数落",
+            "数数"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "空",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "kòng": [
+          [
+            "空白",
+            "空闲",
+            "空额",
+            "空隙",
+            "空暇",
+            "空缺",
+            "空房",
+            "空地"
+          ],
+          [],
+          []
+        ],
+        "kōng": [
+          [
+            "空洞",
+            "空想",
+            "空忙"
+          ],
+          [],
+          [
+            "领空"
+          ]
+        ],
+        "kǒng": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "胖",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "pàn": [
+          [],
+          [],
+          []
+        ],
+        "pàng": [
+          [],
+          [],
+          [
+            "肥胖"
+          ]
+        ],
+        "pán": [
+          [],
+          [],
+          [
+            "心广体胖"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "脚",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "jiǎo": [
+          [
+            "脚本"
+          ],
+          [],
+          [
+            "根脚"
+          ]
+        ],
+        "jué": [
+          [
+            "脚儿"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "节",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "jié": [
+          [
+            "节操",
+            "节俭",
+            "节制"
+          ],
+          [],
+          [
+            "高风亮节"
+          ]
+        ],
+        "jiē": [
+          [
+            "节骨眼儿"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "解",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "jiè": [
+          [
+            "解元",
+            "解送"
+          ],
+          [],
+          [
+            "押解",
+            "起解"
+          ]
+        ],
+        "jiě": [
+          [
+            "解除",
+            "解渴",
+            "解嘲",
+            "解剖"
+          ],
+          [],
+          [
+            "瓦解"
+          ]
+        ],
+        "xiè": [
+          [
+            "解县",
+            "解不开"
+          ],
+          [
+            "浑身解数"
+          ],
+          [
+            "姓解"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "与",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "yù": [
+          [
+            "与会",
+            "与闻"
+          ],
+          [],
+          [
+            "参与"
+          ]
+        ],
+        "yú": [
+          [],
+          [],
+          []
+        ],
+        "yǔ": [
+          [
+            "与其",
+            "与人",
+            "与日"
+          ],
+          [],
+          [
+            "给与"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "仔",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "zī": [
+          [
+            "仔肩"
+          ],
+          [],
+          []
+        ],
+        "zǎi": [
+          [],
+          [],
+          [
+            "打工仔",
+            "华仔",
+            "胖仔"
+          ]
+        ],
+        "zǐ": [
+          [
+            "仔细",
+            "仔密",
+            "仔鸡",
+            "仔猪",
+            "仔兽"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "何",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "内",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "叶",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "xié": [
+          [
+            "叶韵"
+          ],
+          [],
+          []
+        ],
+        "yè": [
+          [
+            "叶落",
+            "叶公"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "咱",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "处",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "chu": [
+          [],
+          [],
+          []
+        ],
+        "chù": [
+          [
+            "处所",
+            "处所",
+            "处长"
+          ],
+          [],
+          [
+            "妙处",
+            "住处",
+            "长处",
+            "大处",
+            "总务处"
+          ]
+        ],
+        "chǔ": [
+          [
+            "处罚",
+            "处置",
+            "处境",
+            "处方",
+            "处罚",
+            "处置",
+            "处于",
+            "处治",
+            "处事",
+            "处世",
+            "处分",
+            "处心积虑",
+            "处决"
+          ],
+          [
+            "设身处地"
+          ],
+          []
+        ]
+      }
+    },
+    {
+      "char": "尽",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "jìn": [
+          [
+            "尽心",
+            "尽力",
+            "尽职尽责",
+            "尽人皆知"
+          ],
+          [
+            "人尽其才"
+          ],
+          [
+            "不尽",
+            "想尽"
+          ]
+        ],
+        "jǐn": [
+          [
+            "尽早",
+            "尽可能",
+            "尽着三天办事",
+            "尽前边"
+          ],
+          [],
+          [
+            "先尽"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "并",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "广",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "折",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "shé": [
+          [
+            "折本"
+          ],
+          [],
+          []
+        ],
+        "tí": [
+          [],
+          [],
+          []
+        ],
+        "zhé": [
+          [
+            "折合"
+          ],
+          [],
+          []
+        ],
+        "zhē": [
+          [
+            "折腾"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "术",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "熟",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "shóu": [
+          [],
+          [
+            "庄稼熟了",
+            "饭熟了"
+          ],
+          []
+        ],
+        "shú": [
+          [
+            "熟悉",
+            "熟谙",
+            "熟稔",
+            "熟思",
+            "熟习"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "纪",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "jì": [
+          [
+            "纪念",
+            "纪律"
+          ],
+          [],
+          []
+        ],
+        "jǐ": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "脏",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "zàng": [
+          [
+            "脏腑"
+          ],
+          [],
+          [
+            "心脏",
+            "内脏"
+          ]
+        ],
+        "zāng": [
+          [],
+          [],
+          [
+            "肮脏"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "膊",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "bo": [
+          [],
+          [],
+          []
+        ],
+        "bó": [
+          [],
+          [],
+          [
+            "赤膊"
+          ]
+        ],
+        "liè": [
+          [],
+          [],
+          []
+        ],
+        "pò": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "落",
+      "pronunciations": [
+        "0",
+        "1",
+        "2"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "luò": [
+          [
+            "落魄"
+          ],
+          [],
+          [
+            "着落"
+          ]
+        ],
+        "luō": [
+          [],
+          [],
+          []
+        ],
+        "là": [
+          [
+            "落下"
+          ],
+          [
+            "丢三落四"
+          ],
+          []
+        ],
+        "lào": [
+          [
+            "落枕",
+            "落色"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "许",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "详",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": false,
+      "contextData": null
+    },
+    {
+      "char": "转",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "zhuàn": [
+          [
+            "转动",
+            "转速",
+            "转悠"
+          ],
+          [],
+          []
+        ],
+        "zhuǎi": [
+          [],
+          [],
+          []
+        ],
+        "zhuǎn": [
+          [
+            "转运",
+            "转折",
+            "转圜",
+            "转身"
+          ],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "char": "通",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "tòng": [
+          [],
+          [],
+          [
+            "一通"
+          ]
+        ],
+        "tōng": [
+          [
+            "通知",
+            "通过"
+          ],
+          [],
+          [
+            "交通"
+          ]
+        ]
+      }
+    },
+    {
+      "char": "钥",
+      "pronunciations": [
+        "0",
+        "1"
+      ],
+      "hasContextAvailable": true,
+      "contextData": {
+        "yuè": [
+          [],
+          [],
+          [
+            "锁钥"
+          ]
+        ],
+        "yào": [
+          [
+            "钥匙"
+          ],
+          [],
+          []
+        ]
+      }
+    }
+  ],
+  "alreadyHandled": [
+    "么",
+    "些",
+    "什",
+    "几",
+    "号",
+    "同",
+    "呢",
+    "打",
+    "服",
+    "期",
+    "校",
+    "椅",
+    "没",
+    "系",
+    "苹",
+    "觉",
+    "语",
+    "都",
+    "为",
+    "从",
+    "休",
+    "体",
+    "便",
+    "共",
+    "别",
+    "助",
+    "可",
+    "吧",
+    "咖",
+    "场",
+    "夫",
+    "妻",
+    "思",
+    "教",
+    "旁",
+    "条",
+    "正",
+    "洗",
+    "给",
+    "跳",
+    "还",
+    "间",
+    "且",
+    "信",
+    "假",
+    "其",
+    "冒",
+    "净",
+    "刷",
+    "化",
+    "卡",
+    "句",
+    "只",
+    "地",
+    "奇",
+    "干",
+    "应",
+    "戏",
+    "扫",
+    "把",
+    "担",
+    "择",
+    "据",
+    "更",
+    "查",
+    "片",
+    "相",
+    "种",
+    "结",
+    "行",
+    "被",
+    "角",
+    "调",
+    "趣",
+    "重",
+    "阿",
+    "难",
+    "鲜",
+    "丽",
+    "乘",
+    "亲",
+    "仅",
+    "价",
+    "任",
+    "份",
+    "传",
+    "估",
+    "供",
+    "俩",
+    "倒",
+    "凉",
+    "切",
+    "划",
+    "匙",
+    "区",
+    "占",
+    "压",
+    "台",
+    "各",
+    "合",
+    "否",
+    "呀",
+    "咳",
+    "填",
+    "孙",
+    "将",
+    "底",
+    "度",
+    "弄",
+    "弹",
+    "愉",
+    "拉",
+    "拾",
+    "排",
+    "散",
+    "景",
+    "汗",
+    "汤",
+    "沙",
+    "济",
+    "父",
+    "甚",
+    "疑",
+    "省",
+    "研",
+    "禁",
+    "稍",
+    "约",
+    "肚",
+    "胳",
+    "膏",
+    "观",
+    "论",
+    "趟",
+    "量",
+    "钢"
+  ]
+}
