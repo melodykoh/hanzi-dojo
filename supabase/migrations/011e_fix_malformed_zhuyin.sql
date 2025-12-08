@@ -22,6 +22,44 @@
 BEGIN;
 
 -- ============================================================================
+-- STEP 0: Pre-Migration Safety Check - Verify backups exist
+-- ============================================================================
+-- CRITICAL: This migration modifies dictionary data and user readings.
+-- Backups MUST exist before proceeding. If backups are missing, run:
+--   CREATE TABLE dictionary_entries_backup_011e AS SELECT * FROM dictionary_entries;
+--   CREATE TABLE readings_backup_011e AS SELECT * FROM readings;
+DO $$
+DECLARE
+  dict_backup_exists BOOLEAN;
+  readings_backup_exists BOOLEAN;
+BEGIN
+  -- Check if dictionary backup table exists
+  SELECT EXISTS (
+    SELECT FROM information_schema.tables
+    WHERE table_schema = 'public'
+    AND table_name = 'dictionary_entries_backup_011e'
+  ) INTO dict_backup_exists;
+
+  -- Check if readings backup table exists
+  SELECT EXISTS (
+    SELECT FROM information_schema.tables
+    WHERE table_schema = 'public'
+    AND table_name = 'readings_backup_011e'
+  ) INTO readings_backup_exists;
+
+  -- Abort if either backup is missing
+  IF NOT dict_backup_exists THEN
+    RAISE EXCEPTION 'SAFETY CHECK FAILED: dictionary_entries_backup_011e table does not exist. Create backup before running this migration.';
+  END IF;
+
+  IF NOT readings_backup_exists THEN
+    RAISE EXCEPTION 'SAFETY CHECK FAILED: readings_backup_011e table does not exist. Create backup before running this migration.';
+  END IF;
+
+  RAISE NOTICE 'SAFETY CHECK PASSED: Both backup tables exist';
+END $$;
+
+-- ============================================================================
 -- STEP 1: Safety check - count affected characters before fix
 -- ============================================================================
 DO $$
@@ -311,10 +349,12 @@ WHERE simp = '拉';
 -- ============================================================================
 
 -- List of all 43 fixed characters
+-- CRITICAL: JOIN on BOTH simp AND trad to prevent matching wrong character variant
+-- Example: User has 干(乾) but simp='干' could match both 乾 and 幹 dictionary entries
 UPDATE readings r
 SET zhuyin = d.zhuyin
 FROM entries e
-JOIN dictionary_entries d ON e.simp = d.simp
+JOIN dictionary_entries d ON e.simp = d.simp AND e.trad = d.trad
 WHERE r.entry_id = e.id
   AND e.simp IN (
     -- Category 2 (33 chars)
@@ -325,13 +365,22 @@ WHERE r.entry_id = e.id
     '难', '饮', '队', '降', '期', '间', '只', '阿', '鲜', '拉'
   );
 
+-- CRITICAL: GET DIAGNOSTICS must be IMMEDIATELY after UPDATE in same scope
+-- to capture correct row count. Using DO block to wrap both statements.
+DO $$
+DECLARE
+  readings_updated INT;
+BEGIN
+  GET DIAGNOSTICS readings_updated = ROW_COUNT;
+  RAISE NOTICE 'Updated % user readings to use new primary pronunciations', readings_updated;
+END $$;
+
 -- ============================================================================
 -- STEP 3: Verification - ensure no malformed entries remain
 -- ============================================================================
 DO $$
 DECLARE
   remaining_malformed INT;
-  readings_updated INT;
 BEGIN
   -- Count any remaining malformed entries
   SELECT COUNT(*) INTO remaining_malformed
@@ -344,10 +393,6 @@ BEGIN
   ELSE
     RAISE NOTICE 'SUCCESS: All malformed entries fixed - 0 remaining';
   END IF;
-
-  -- Count updated readings
-  GET DIAGNOSTICS readings_updated = ROW_COUNT;
-  RAISE NOTICE 'Updated % user readings to use new primary pronunciations', readings_updated;
 END $$;
 
 COMMIT;
