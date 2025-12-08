@@ -82,7 +82,8 @@ export function PracticeCard({
     }
 
     generateOptions()
-  }, [queueEntry, drill, onError])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- onError is intentionally excluded to prevent re-shuffle on parent re-render
+  }, [queueEntry, drill])
   
   // Handle option selection
   const handleOptionClick = async (index: number) => {
