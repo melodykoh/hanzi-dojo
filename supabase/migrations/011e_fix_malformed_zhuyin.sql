@@ -166,7 +166,7 @@ WHERE simp = '些';
 -- 亲 (qīn/qìng)
 UPDATE dictionary_entries SET
   zhuyin = '[["ㄑ","ㄧㄣ","ˉ"]]'::jsonb,
-  zhuyin_variants = '[{"pinyin":"qīn","zhuyin":[["ㄑ","ㄧㄣ","ˉ"]],"context_words":["父親","母親","親愛"],"meanings":["parent","relative","dear"]},{"pinyin":"qìng","zhuyin":[["ㄑ","ㄧㄥ","ˋ"]],"context_words":["親家"],"meanings":["parents-in-law of one'\''s child"]}]'::jsonb
+  zhuyin_variants = '[{"pinyin":"qīn","zhuyin":[["ㄑ","ㄧㄣ","ˉ"]],"context_words":["父親","母親","親愛"],"meanings":["parent","relative","dear"]},{"pinyin":"qìng","zhuyin":[["ㄑ","ㄧㄥ","ˋ"]],"context_words":["親家"],"meanings":["parents-in-law of ones child"]}]'::jsonb
 WHERE simp = '亲';
 
 -- 仅 (jǐn/jìn)
@@ -262,7 +262,7 @@ WHERE simp = '据';
 -- 别 (bié/biè)
 UPDATE dictionary_entries SET
   zhuyin = '[["ㄅ","ㄧㄝ","ˊ"]]'::jsonb,
-  zhuyin_variants = '[{"pinyin":"bié","zhuyin":[["ㄅ","ㄧㄝ","ˊ"]],"context_words":["別人","告別","區別"],"meanings":["other","don'\''t","farewell"]},{"pinyin":"biè","zhuyin":[["ㄅ","ㄧㄝ","ˋ"]],"context_words":["彆扭"],"meanings":["awkward (in 彆扭)"]}]'::jsonb
+  zhuyin_variants = '[{"pinyin":"bié","zhuyin":[["ㄅ","ㄧㄝ","ˊ"]],"context_words":["別人","告別","區別"],"meanings":["other","do not","farewell"]},{"pinyin":"biè","zhuyin":[["ㄅ","ㄧㄝ","ˋ"]],"context_words":["彆扭"],"meanings":["awkward (in 彆扭)"]}]'::jsonb
 WHERE simp = '别';
 
 -- 刷 (shuā/shuà)
