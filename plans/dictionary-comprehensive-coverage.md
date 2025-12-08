@@ -80,104 +80,112 @@ This requires:
 - Available as ODS spreadsheet: [Ian Ho's reproduction](https://sites.google.com/site/ianho7979/roctwmoepolyphone_unofficial_third-party_reproduction)
 
 **Action:**
-```bash
-# Download the spreadsheet
-# Extract simplified characters with multiple pronunciations
-# Save as data/moe_multi_pronunciation_list.json
-```
+1. Download the ODS spreadsheet
+2. Convert to CSV (using LibreOffice or `ssconvert`)
+3. Extract characters with multiple pronunciations
+4. Load into Supabase temp table for cross-reference
 
-#### Step 1.2: Cross-reference with our dictionary
+#### Step 1.2: Cross-reference with our dictionary (via SQL)
+
+Run directly in Supabase SQL Editor:
 
 ```sql
--- Get all single-character entries from our dictionary
-SELECT simp FROM dictionary_entries WHERE length(simp) = 1;
--- Returns 1,067 characters (approximately)
+-- Step 1: Create temp table with our dictionary chars
+CREATE TEMP TABLE our_chars AS
+SELECT DISTINCT simp FROM dictionary_entries WHERE length(simp) = 1;
+
+-- Step 2: Load MOE list into temp table (after CSV conversion)
+CREATE TEMP TABLE moe_multi_pronunciation (char TEXT);
+COPY moe_multi_pronunciation FROM '/path/to/moe_list.csv';
+-- OR insert manually if small enough
+
+-- Step 3: Get summary counts
+SELECT
+  (SELECT COUNT(*) FROM our_chars) as total_chars,
+  (SELECT COUNT(*) FROM our_chars
+   WHERE simp IN (SELECT char FROM moe_multi_pronunciation)) as moe_multi_in_dict,
+  (SELECT COUNT(*) FROM dictionary_entries
+   WHERE zhuyin_variants IS NOT NULL AND length(simp) = 1) as already_have_variants;
+
+-- Step 4: Get the actual list of chars needing work
+SELECT simp
+FROM our_chars
+WHERE simp IN (SELECT char FROM moe_multi_pronunciation)
+  AND simp NOT IN (
+    SELECT simp FROM dictionary_entries WHERE zhuyin_variants IS NOT NULL
+  )
+ORDER BY simp;
 ```
 
-**Cross-reference logic:**
-```javascript
-const moeMultiPronunciation = loadMOEList();  // From Step 1.1
-const ourDictionary = loadOurCharacters();     // 1,067 chars
-const alreadyHaveVariants = loadCharsWithVariants(); // 136 chars
+#### Step 1.3: Document exact scope
 
-const needsVariants = ourDictionary.filter(char =>
-  moeMultiPronunciation.includes(char) &&
-  !alreadyHaveVariants.includes(char)
-);
-
-console.log(`Missing zhuyin_variants: ${needsVariants.length}`);
-// This gives us the ACTUAL number, not an estimate
+**Output:** Console log or simple JSON with exact counts:
+```
+Total dictionary chars: 1,067
+MOE multi-pronunciation in our dictionary: 215
+Already have zhuyin_variants: 136
+Missing zhuyin_variants: 79
+Malformed (to fix): 22
+Empty context_words (to fix): 23
 ```
 
-#### Step 1.3: Output exact scope
-
-**Deliverable:** `data/phase1_discovery_results.json`
-```json
-{
-  "total_dictionary_chars": 1067,
-  "moe_multi_pronunciation_in_dictionary": 215,
-  "already_have_variants": 136,
-  "missing_variants": 79,
-  "malformed_variants": 22,
-  "empty_context_words": 23,
-  "chars_needing_work": ["干", "长", "好", "看", ...]
-}
-```
-
-**This tells us exactly what to fix.**
+**This tells us exactly what to fix and how long Phase 2 will take.**
 
 ---
 
 ### Phase 2: Fix Everything (Time depends on Phase 1 results)
 
-**Objective:** Add correct `zhuyin_variants` to ALL characters identified in Phase 1.
+**Objective:** Add correct `zhuyin_variants` to ALL characters identified in Phase 1, plus fix existing issues.
 
 #### Step 2.1: Research each character
 
-For each character in `chars_needing_work`:
-
-1. Look up in Taiwan MOE dictionary (canonical)
-2. Cross-reference with MDBG (context words)
+For each character needing work:
+1. Look up in Taiwan MOE dictionary (canonical for pronunciation)
+2. Cross-reference with MDBG (for context words)
 3. Document all pronunciations
 
 **Research template:**
 ```json
 {
   "char": "长",
-  "sources": ["MOE", "MDBG"],
-  "default_pronunciation": "cháng",
-  "pronunciations": [
-    {
-      "pinyin": "cháng",
-      "zhuyin": [["ㄔ", "ㄤ", "ˊ"]],
-      "context_words": ["長度", "很長", "長短"],
-      "meanings": ["long", "length"]
-    },
-    {
-      "pinyin": "zhǎng",
-      "zhuyin": [["ㄓ", "ㄤ", "ˇ"]],
-      "context_words": ["長大", "校長", "成長"],
-      "meanings": ["to grow", "chief", "elder"]
-    }
+  "default": "cháng",
+  "variants": [
+    { "pinyin": "cháng", "zhuyin": [["ㄔ","ㄤ","ˊ"]], "context": ["長度","很長"], "meanings": ["long"] },
+    { "pinyin": "zhǎng", "zhuyin": [["ㄓ","ㄤ","ˇ"]], "context": ["長大","校長"], "meanings": ["grow","chief"] }
   ]
 }
 ```
+
+**Conflict Resolution (when MOE and MDBG disagree):**
+
+| Conflict Type | Resolution |
+|---------------|------------|
+| MOE has pronunciation MDBG doesn't | **Trust MOE** - government standard |
+| MDBG has pronunciation MOE doesn't | **Skip it** - stick to canonical set |
+| Context words differ | **Prefer MDBG** - better learner examples |
+| Default pronunciation differs | **Prefer MOE** - aligns with Taiwan education |
 
 **Time estimate:** ~10 minutes per character
 - If Phase 1 finds 80 chars: ~13 hours research
 - If Phase 1 finds 50 chars: ~8 hours research
 - If Phase 1 finds 120 chars: ~20 hours research
 
-#### Step 2.2: Generate migration
+#### Step 2.2: Generate migration (in batches)
 
-Create `supabase/migrations/011f_comprehensive_multi_pronunciation.sql`:
+Split into manageable migrations for easier review:
 
+```
+supabase/migrations/011f_multi_pronunciation_batch1.sql  (25-30 chars)
+supabase/migrations/011f_multi_pronunciation_batch2.sql  (25-30 chars)
+supabase/migrations/011f_multi_pronunciation_batch3.sql  (remaining chars)
+```
+
+**Migration template:**
 ```sql
 BEGIN;
 
 -- =============================================
--- Fix ALL multi-pronunciation characters
--- Based on Phase 1 Discovery results
+-- Batch 1: High-frequency characters (HSK 1-2)
 -- =============================================
 
 -- Example: 长 (cháng/zhǎng)
@@ -189,16 +197,17 @@ UPDATE dictionary_entries SET
   ]'::jsonb
 WHERE simp = '长';
 
--- (repeat for ALL characters from Phase 1)
+-- (repeat for all characters in this batch)
 
 -- =============================================
--- Self-verification (auto-rollback on failure)
+-- Self-verification (count-based)
 -- =============================================
 
 DO $$
 DECLARE
   malformed_count INT;
-  missing_variants_count INT;
+  total_with_variants INT;
+  expected_variants INT := 215; -- Update based on Phase 1 results
 BEGIN
   -- Check no malformed zhuyin remains
   SELECT COUNT(*) INTO malformed_count
@@ -209,18 +218,13 @@ BEGIN
     RAISE EXCEPTION 'FAILED: % characters still have malformed zhuyin', malformed_count;
   END IF;
 
-  -- Check all MOE multi-pronunciation chars have variants
-  -- (This list comes from Phase 1 discovery)
-  SELECT COUNT(*) INTO missing_variants_count
+  -- Check total count of chars with variants matches expected
+  SELECT COUNT(*) INTO total_with_variants
   FROM dictionary_entries
-  WHERE simp IN ('长','干','好','看', ...) -- All chars from Phase 1
-    AND zhuyin_variants IS NULL;
+  WHERE length(simp) = 1 AND zhuyin_variants IS NOT NULL;
 
-  IF missing_variants_count > 0 THEN
-    RAISE EXCEPTION 'FAILED: % characters still missing zhuyin_variants', missing_variants_count;
-  END IF;
-
-  RAISE NOTICE 'SUCCESS: All multi-pronunciation characters fixed';
+  RAISE NOTICE 'Characters with zhuyin_variants: % (expected: %)',
+    total_with_variants, expected_variants;
 END $$;
 
 COMMIT;
@@ -229,17 +233,12 @@ COMMIT;
 #### Step 2.3: Apply and verify
 
 ```sql
--- Create backup
+-- Use existing backup from 011e (created earlier today)
+-- OR create new backup if 011e backup is stale:
 CREATE TABLE dictionary_entries_backup_011f AS
 SELECT * FROM dictionary_entries;
 
--- Verify backup succeeded
-SELECT
-  (SELECT COUNT(*) FROM dictionary_entries) as original,
-  (SELECT COUNT(*) FROM dictionary_entries_backup_011f) as backup;
--- Must match
-
--- Apply migration (paste 011f contents)
+-- Apply each batch migration
 -- Self-verifying: will ROLLBACK automatically on failure
 ```
 
@@ -252,6 +251,55 @@ Test sample characters in the app:
 | 长 | Add Item modal | Shows "cháng (長度)" and "zhǎng (長大)" options |
 | 干 | Add Item modal | Shows "gān (乾淨)" and "gàn (幹活)" options |
 | 还 | Drill A | Distractors exclude ㄏㄨㄢˊ if answer is ㄏㄞˊ |
+
+#### Step 2.5: Manual spot checks (quality assurance)
+
+**Objective:** Verify data quality beyond automated structure checks.
+
+**Sample 10 random characters:**
+```sql
+SELECT simp, zhuyin, zhuyin_variants
+FROM dictionary_entries
+WHERE zhuyin_variants IS NOT NULL AND length(simp) = 1
+ORDER BY RANDOM()
+LIMIT 10;
+```
+
+**For each character, verify:**
+1. Default pronunciation matches MDBG primary listing
+2. All variants are real (check MDBG/MOE)
+3. Context words use Traditional characters
+4. Context words clearly demonstrate this pronunciation (not ambiguous)
+
+**Red flags:**
+- Context word uses simplified instead of traditional
+- Context word is obscure (not common usage)
+- Context word could apply to multiple pronunciations
+
+#### Step 2.6: Fill empty context words
+
+**Objective:** Fix 23 characters that have `zhuyin_variants` but empty context_words.
+
+```sql
+-- Find them
+SELECT simp, zhuyin_variants
+FROM dictionary_entries
+WHERE zhuyin_variants IS NOT NULL
+  AND length(simp) = 1
+  AND EXISTS (
+    SELECT 1 FROM jsonb_array_elements(zhuyin_variants) v
+    WHERE v->'context_words' IS NULL
+       OR jsonb_array_length(v->'context_words') = 0
+  );
+```
+
+**For each character:**
+1. Research in MDBG
+2. Add 2-3 context words per pronunciation
+3. Verify Traditional characters
+4. Include in batch migrations
+
+**Time:** ~10 min per character = ~4 hours
 
 ---
 
@@ -271,6 +319,11 @@ A good context word:
 | 长 | zhǎng | 長大, 校長 | Common, clearly "grow/leader" meaning |
 | 还 | hái | 還有, 還是 | HSK 1-2, adverb usage |
 | 还 | huán | 還錢, 歸還 | Clear "return" meaning |
+
+**Handling rare pronunciations:**
+- If MOE lists >3 pronunciations, prioritize by usage frequency
+- Only add pronunciations with common (HSK 1-6) context words available
+- Example: 了 → Add le/liǎo (common), defer liào/la (rare literary)
 
 ---
 
@@ -298,6 +351,7 @@ SELECT COUNT(*) FROM dictionary_entries;
 - [ ] Zero characters with malformed multi-syllable zhuyin
 - [ ] All MOE-listed multi-pronunciation chars have `zhuyin_variants`
 - [ ] All `zhuyin_variants` have non-empty `context_words`
+- [ ] Manual spot check passes (10 random chars verified)
 
 **Functional:**
 - [ ] Add Item modal shows all pronunciation options for multi-pronunciation chars
@@ -313,21 +367,23 @@ SELECT COUNT(*) FROM dictionary_entries;
 | Phase | Task | Hours |
 |-------|------|-------|
 | 1 | Discovery (MOE cross-reference) | 2-3 |
-| 2 | Research (depends on Phase 1 results) | 8-20 |
-| 2 | Migration + Testing | 2-3 |
-| **Total** | | **12-26** |
+| 2.1-2.2 | Research + Generate migrations | 8-20 |
+| 2.3-2.4 | Apply + Functional test | 2-3 |
+| 2.5 | Manual spot checks | 1-2 |
+| 2.6 | Fill empty context words | 3-4 |
+| **Total** | | **16-32** |
 
-**Note:** Effort for Phase 2 research depends entirely on Phase 1 results. Could be 50 chars or 120 chars - we don't know until we do discovery.
+**Note:** Research time depends on Phase 1 results. Could be 50 chars or 120 chars.
 
 ---
 
 ## Files
 
 **To Create:**
-- `data/moe_multi_pronunciation_list.json` - Canonical MOE reference
-- `data/phase1_discovery_results.json` - Cross-reference results
-- `data/phase2_research.json` - Researched pronunciation data
-- `supabase/migrations/011f_comprehensive_multi_pronunciation.sql` - The fix
+- `data/moe_multi_pronunciation_list.csv` - Canonical MOE reference (from ODS)
+- `supabase/migrations/011f_multi_pronunciation_batch1.sql`
+- `supabase/migrations/011f_multi_pronunciation_batch2.sql`
+- `supabase/migrations/011f_multi_pronunciation_batch3.sql`
 
 **Existing:**
 - `dictionary_entries_backup_011e` - Backup from earlier today
@@ -346,4 +402,4 @@ SELECT COUNT(*) FROM dictionary_entries;
 
 - [x] Migration 011e applied (Dec 8, 2025) - Fixed 81 malformed characters
 - [x] Escaping fix committed (b871342)
-- [x] Plan reviewed twice, revised with user context
+- [x] Plan reviewed 3 times, revised with user context and reviewer feedback
