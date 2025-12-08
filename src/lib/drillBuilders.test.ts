@@ -361,4 +361,78 @@ describe('drillBuilders', () => {
       expect(unique.size).toBe(4)
     })
   })
+
+  describe('Regression: Issue #20 - Merged Zhuyin Bug', () => {
+    it('should display single readings per button, not merged pronunciations', () => {
+      // Bug: Characters like 只 were showing "ㄓ ㄓˇ" merged options
+      // Root cause: Parameter ordering passed allValidPronunciations to wrong position
+      const baseReading = [['ㄓ', '', 'ˇ']] // zhǐ - 只 (only)
+      const alternateReading = [['ㄓ', '', 'ˉ']] // zhī - 只 (classifier)
+
+      const options = buildZhuyinOptions({ zhuyin: baseReading }, [alternateReading])
+
+      // Each option should have exactly one pronunciation (not merged)
+      options.forEach(opt => {
+        // Display should not contain multiple space-separated readings
+        expect(opt.display).not.toMatch(/\s+/)
+        // Zhuyin array should have consistent structure
+        expect(opt.zhuyin).toHaveLength(1)
+        expect(opt.zhuyin[0]).toHaveLength(3)
+      })
+    })
+
+    it('should not show alternate valid pronunciations as wrong distractors', () => {
+      // For 只 (zhǐ/zhī), if user is practicing zhǐ, zhī should NOT appear as wrong answer
+      const baseReading = [['ㄓ', '', 'ˇ']] // zhǐ
+      const alternateReading = [['ㄓ', '', 'ˉ']] // zhī (valid alternate)
+
+      const options = buildZhuyinOptions({ zhuyin: baseReading }, [alternateReading])
+
+      // The alternate pronunciation should not appear as a distractor
+      const distractors = options.filter(opt => !opt.isCorrect)
+      const hasAlternateAsDistractor = distractors.some(opt =>
+        JSON.stringify(opt.zhuyin) === JSON.stringify(alternateReading)
+      )
+
+      expect(hasAlternateAsDistractor).toBe(false)
+    })
+
+    it('should correctly handle 可 with multiple valid pronunciations', () => {
+      // 可 has pronunciations kě (ㄎㄜˇ) and kè (ㄎㄜˋ)
+      const baseReading = [['ㄎ', 'ㄜ', 'ˇ']] // kě
+      const alternateReading = [['ㄎ', 'ㄜ', 'ˋ']] // kè
+
+      const options = buildZhuyinOptions({ zhuyin: baseReading }, [alternateReading])
+
+      expect(options).toHaveLength(4)
+      expect(options.filter(opt => opt.isCorrect)).toHaveLength(1)
+
+      // Neither the correct nor alternate should appear as distractors
+      const distractors = options.filter(opt => !opt.isCorrect)
+      distractors.forEach(d => {
+        expect(JSON.stringify(d.zhuyin)).not.toBe(JSON.stringify(baseReading))
+        expect(JSON.stringify(d.zhuyin)).not.toBe(JSON.stringify(alternateReading))
+      })
+    })
+
+    it('should handle 几 with tone variants correctly', () => {
+      // 几 has pronunciations jǐ (ㄐㄧˇ) and jī (ㄐㄧˉ)
+      const baseReading = [['ㄐ', 'ㄧ', 'ˇ']] // jǐ (how many)
+      const alternateReading = [['ㄐ', 'ㄧ', 'ˉ']] // jī (small table)
+
+      const options = buildZhuyinOptions({ zhuyin: baseReading }, [alternateReading])
+
+      // Should generate 4 unique options
+      expect(options).toHaveLength(4)
+      const uniqueDisplays = new Set(options.map(opt => opt.display))
+      expect(uniqueDisplays.size).toBe(4)
+
+      // Alternate reading should not be a distractor
+      const alternateKey = JSON.stringify(alternateReading)
+      const hasAlternate = options.some(opt =>
+        !opt.isCorrect && JSON.stringify(opt.zhuyin) === alternateKey
+      )
+      expect(hasAlternate).toBe(false)
+    })
+  })
 })
