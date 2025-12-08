@@ -97,7 +97,7 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
-## January 8, 2025 - Sessions 5-7
+## November 9, 2025 - Sessions 5-7
 
 ### 🎉 Major Milestone: V1 Production Launch
 Hanzi Dojo is now live at https://hanzi-dojo.vercel.app!
@@ -127,11 +127,11 @@ Hanzi Dojo is now live at https://hanzi-dojo.vercel.app!
 
 We're continuously improving Hanzi Dojo based on your feedback! Upcoming features:
 
-- **User Feedback System**: Report bugs and request features directly in the app
-- **Rolling Changelog**: See what's new when you log in
-- **Dictionary Completion**: Filling in remaining 139 characters with proper pronunciations
+- **Dictionary Expansion**: Adding more multi-pronunciation characters and context words
+- **UI Cleanup**: Unifying the design theme across all parts of the app
+- **Words & Word Drills**: Introducing the concept of words and word-related drills
 
-Have ideas or found a bug? We'd love to hear from you!
+Have ideas or found a bug? Use the Feedback tab to let us know!
 
 ---
 
