@@ -13,6 +13,7 @@ import { DRILLS } from '../types'
 import { isDrillKnown, computeFamiliarity } from './practiceStateService'
 import { serializePronunciation } from './zhuyinUtils'
 import { logValidationError, logMalformedDataDetection } from './errors'
+import { validateZhuyinSyllable, validatePronunciation } from './validation'
 
 // =============================================================================
 // TYPES
@@ -35,42 +36,6 @@ interface PronunciationRow {
   dictionary_zhuyin: ZhuyinSyllable[] | null
   dictionary_variants: ZhuyinVariant[] | null
   manual_readings: ZhuyinSyllable[][] | null
-}
-
-// =============================================================================
-// VALIDATION FUNCTIONS
-// =============================================================================
-
-/**
- * Validate Zhuyin syllable structure.
- * Each syllable must be [initial, final, tone] with valid tone marker.
- *
- * @param syllable - The syllable to validate
- * @returns true if syllable is valid ZhuyinSyllable structure
- */
-function validateZhuyinSyllable(syllable: any): syllable is ZhuyinSyllable {
-  return (
-    Array.isArray(syllable) &&
-    syllable.length === 3 &&
-    typeof syllable[0] === 'string' &&  // initial (can be empty)
-    typeof syllable[1] === 'string' &&  // final
-    typeof syllable[2] === 'string' &&  // tone
-    ['ˉ', 'ˊ', 'ˇ', 'ˋ', '˙', ''].includes(syllable[2]) // valid tones
-  )
-}
-
-/**
- * Validate complete pronunciation (array of syllables).
- *
- * @param pronunciation - The pronunciation to validate
- * @returns true if pronunciation is valid array of ZhuyinSyllables
- */
-function validatePronunciation(pronunciation: any): pronunciation is ZhuyinSyllable[] {
-  return (
-    Array.isArray(pronunciation) &&
-    pronunciation.length > 0 &&
-    pronunciation.every(validateZhuyinSyllable)
-  )
 }
 
 // =============================================================================
@@ -254,6 +219,8 @@ export async function fetchPracticeQueue(
   drill: PracticeDrill,
   limit?: number
 ): Promise<QueueEntry[]> {
+  const startTime = import.meta.env.DEV ? performance.now() : 0
+
   // Fetch all entries that support this drill
   const { data: entries, error: entriesError } = await supabase
     .from('entries')
@@ -345,13 +312,20 @@ export async function fetchPracticeQueue(
   
   // Sort by priority (lower number = higher priority)
   queue.sort((a, b) => a.priority - b.priority)
-  
+
   // Apply limit if specified
-  if (limit) {
-    return queue.slice(0, limit)
+  const result = limit ? queue.slice(0, limit) : queue
+
+  // Performance monitoring (development only)
+  if (import.meta.env.DEV) {
+    const duration = performance.now() - startTime
+    console.debug(`[perf] fetchPracticeQueue: ${duration.toFixed(1)}ms for ${result.length} entries`)
+    if (duration > 200) {
+      console.warn(`[perf] fetchPracticeQueue approaching budget: ${duration.toFixed(1)}ms`)
+    }
   }
-  
-  return queue
+
+  return result
 }
 
 /**

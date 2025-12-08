@@ -3,30 +3,12 @@
 
 import { describe, it, expect, vi } from 'vitest'
 import type { ZhuyinSyllable } from '../types'
+import { validateZhuyinSyllable, validatePronunciation } from './validation'
 
 // Mock the internal buildPronunciationList function behavior
 // Since it's not exported, we simulate what it does with validation
 
 describe('practiceQueueService - buildPronunciationList Integration', () => {
-  // Simulate the validation logic that buildPronunciationList uses
-  function validateZhuyinSyllable(syllable: any): syllable is ZhuyinSyllable {
-    return (
-      Array.isArray(syllable) &&
-      syllable.length === 3 &&
-      typeof syllable[0] === 'string' &&
-      typeof syllable[1] === 'string' &&
-      typeof syllable[2] === 'string' &&
-      ['ˉ', 'ˊ', 'ˇ', 'ˋ', '˙', ''].includes(syllable[2])
-    )
-  }
-
-  function validatePronunciation(pronunciation: any): pronunciation is ZhuyinSyllable[] {
-    return (
-      Array.isArray(pronunciation) &&
-      pronunciation.length > 0 &&
-      pronunciation.every(validateZhuyinSyllable)
-    )
-  }
 
   // Simulate buildPronunciationList behavior
   function simulateBuildPronunciationList(
