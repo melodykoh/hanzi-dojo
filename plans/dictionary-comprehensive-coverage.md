@@ -3,239 +3,224 @@
 **Date:** 2025-12-08
 **Status:** Ready for Implementation
 **Priority:** HIGH
-**Type:** Data Quality + Enhancement
+**Type:** Data Quality (Critical)
+
+---
+
+## User Context (Why This Matters)
+
+> "My son uses the app on his own and I don't sit next to him to supervise. The challenge for not handling multi-pronunciation in a comprehensive way is that there is no exclusion logic for characters that actually have multi-pronunciations, and he will mistakenly select what is today deemed to be the wrong pronunciation even though this is technically a right pronunciation in a different context.
+>
+> It's less about him getting penalized for that selection, but more that he is implicitly learning that there might be additional pronunciation that is technically correct, but he thought it is wrong because the app tells him that it's wrong. And I want to have a mechanism for knowing that without sitting next to him and looking at the options."
+
+**The Real Problem: Silent Miseducation**
+
+When a character is missing `zhuyin_variants`:
+1. Drill A generates distractors from the pronunciation pool
+2. A **valid alternate pronunciation** appears as a "wrong" answer
+3. Child selects it (correctly, in another context)
+4. App marks it wrong
+5. **Child learns that a correct pronunciation is "wrong"**
+
+This is worse than a crash. It's a bug that **actively teaches wrong information** while appearing to work correctly.
+
+**Why "Fix As Reported" Fails:**
+- The child doesn't know a valid alternate was marked wrong
+- The child trusts the app
+- The parent has no visibility into these silent failures
+- No one reports the bug because no one knows it happened
+
+**The Only Solution:** Ensure ALL multi-pronunciation characters have proper `zhuyin_variants` so the drill guardrails can exclude valid alternates from distractors.
 
 ---
 
 ## Problem Statement
 
-The Hanzi Dojo dictionary has **incomplete multi-pronunciation coverage**:
+The dictionary has three categories of issues:
 
-| Issue | Count | Impact |
-|-------|-------|--------|
-| Malformed zhuyin | **22** | Drill A crashes or shows merged pronunciations |
-| Empty context_words | **23** | Modal can't help parent distinguish pronunciations |
-| Missing zhuyin_variants | **~77** | Characters SHOULD have variants but don't |
-| **Total gaps** | **~122** | Incomplete learning experience |
+| Category | Count | Status | Risk |
+|----------|-------|--------|------|
+| Malformed zhuyin | 22 | **Known** | High - visibly broken |
+| Empty context_words | 23 | **Known** | Medium - works but no context for parent |
+| Missing zhuyin_variants | **?** | **Unknown** | **Critical - silent miseducation** |
 
-**Why ~77 missing?**
-- Research shows ~20% of Chinese characters are multi-pronunciation (多音字)
-- 20% of 1,067 dictionary characters = ~213 should have variants
-- Currently only 136 have zhuyin_variants
-- Gap: 213 - 136 = **~77 characters silently incomplete**
+**We don't know how many characters are missing `zhuyin_variants`.**
 
-**Root Cause:** No systematic cross-reference against canonical multi-pronunciation list.
+The ~77 estimate (from earlier) was rough math:
+- ~20% of Chinese characters are multi-pronunciation
+- 20% × 1,067 = ~213 should have variants
+- Currently 136 have variants
+- Gap: ~77
+
+**This estimate could be wildly off.** We need actual data.
 
 ---
 
 ## Goal
 
-Ensure **comprehensive multi-pronunciation coverage** for all 1,067 dictionary characters by:
+**Guarantee** that Drill A never uses a valid alternate pronunciation as a "wrong" distractor.
 
-1. Fixing known malformed/incomplete data (22 + 23 = 45 chars)
-2. Identifying and adding missing zhuyin_variants (~77 chars)
-3. Validating existing 136 zhuyin_variants for accuracy
-
-**Success Metric:** Zero characters in HSK 1-4 missing multi-pronunciation support where applicable.
-
----
-
-## Current State (Dec 8, 2025)
-
-```
-Total dictionary entries:           1,067
-Characters with zhuyin_variants:      136  (12.7%)
-  - Fully curated (Pattern A):         81  ✅
-  - Empty context_words:               23  ⚠️
-  - Needs validation:                  32  ?
-Malformed multi-syllable zhuyin:       22  🔴
-Missing zhuyin_variants (estimated):  ~77  ❓
-```
-
-**Verification queries run after 011e applied:**
-- Malformed: `SELECT COUNT(*) ... jsonb_array_length(zhuyin) > 1` → 22
-- Empty context: `SELECT COUNT(DISTINCT simp) ... context_words IS NULL` → 23
-
----
-
-## Canonical Reference Source
-
-**Taiwan MOE "一字多音審訂表"** (Review Table of Multiple Pronunciations)
-
-| Attribute | Value |
-|-----------|-------|
-| Authority | Official Taiwan government standard |
-| Coverage | 6,600+ characters with pronunciation data |
-| Format | ODS spreadsheet (LibreOffice Calc) |
-| Access | [Ian Ho's reproduction](https://sites.google.com/site/ianho7979/roctwmoepolyphone_unofficial_third-party_reproduction) |
-| Relevance | Hanzi Dojo uses Taiwan Zhuyin - this is THE canonical source |
-
-**Secondary sources for context words:**
-- [MDBG Dictionary](https://www.mdbg.net/chinese/dictionary) - Quick lookups, example compounds
-- [CC-CEDICT](https://cc-cedict.org/wiki/) - Open-source dictionary data
+This requires:
+1. **Knowing** which characters have multiple pronunciations (canonical list)
+2. **Having** `zhuyin_variants` for all of them (so guardrails work)
 
 ---
 
 ## Implementation Plan
 
-### Phase 1: Discovery & Audit (2-3 hours)
+### Phase 1: Discovery (2-3 hours)
 
-**Objective:** Identify exactly which characters need work.
+**Objective:** Determine the exact scope of work.
 
-#### Step 1.1: Get canonical multi-pronunciation list
+#### Step 1.1: Get Taiwan MOE multi-pronunciation list
 
+**Source:** Taiwan MOE "一字多音審訂表" (Review Table of Multiple Pronunciations)
+- Official Taiwan government standard
+- Covers 6,600+ characters with pronunciation data
+- Available as ODS spreadsheet: [Ian Ho's reproduction](https://sites.google.com/site/ianho7979/roctwmoepolyphone_unofficial_third-party_reproduction)
+
+**Action:**
 ```bash
-# Download Taiwan MOE spreadsheet
-# Extract list of multi-pronunciation characters
-# Cross-reference against our 1,067 characters
+# Download the spreadsheet
+# Extract simplified characters with multiple pronunciations
+# Save as data/moe_multi_pronunciation_list.json
 ```
 
-**Output:** `data/moe_multi_pronunciation_chars.json`
+#### Step 1.2: Cross-reference with our dictionary
+
+```sql
+-- Get all single-character entries from our dictionary
+SELECT simp FROM dictionary_entries WHERE length(simp) = 1;
+-- Returns 1,067 characters (approximately)
+```
+
+**Cross-reference logic:**
+```javascript
+const moeMultiPronunciation = loadMOEList();  // From Step 1.1
+const ourDictionary = loadOurCharacters();     // 1,067 chars
+const alreadyHaveVariants = loadCharsWithVariants(); // 136 chars
+
+const needsVariants = ourDictionary.filter(char =>
+  moeMultiPronunciation.includes(char) &&
+  !alreadyHaveVariants.includes(char)
+);
+
+console.log(`Missing zhuyin_variants: ${needsVariants.length}`);
+// This gives us the ACTUAL number, not an estimate
+```
+
+#### Step 1.3: Output exact scope
+
+**Deliverable:** `data/phase1_discovery_results.json`
 ```json
 {
-  "total_moe_chars": 600,
-  "in_our_dictionary": 213,
+  "total_dictionary_chars": 1067,
+  "moe_multi_pronunciation_in_dictionary": 215,
   "already_have_variants": 136,
-  "missing_variants": 77,
-  "chars": ["干", "长", "好", "看", ...]
+  "missing_variants": 79,
+  "malformed_variants": 22,
+  "empty_context_words": 23,
+  "chars_needing_work": ["干", "长", "好", "看", ...]
 }
 ```
 
-#### Step 1.2: Categorize all gaps
-
-```sql
--- Full audit query
-WITH audit AS (
-  SELECT
-    simp,
-    CASE
-      WHEN jsonb_array_length(zhuyin) > 1 THEN 'malformed'
-      WHEN zhuyin_variants IS NOT NULL
-           AND EXISTS (
-             SELECT 1 FROM jsonb_array_elements(zhuyin_variants) v
-             WHERE v->'context_words' IS NULL
-                OR jsonb_array_length(v->'context_words') = 0
-           ) THEN 'empty_context'
-      WHEN zhuyin_variants IS NOT NULL THEN 'complete'
-      ELSE 'single_pronunciation'
-    END as status
-  FROM dictionary_entries
-  WHERE length(simp) = 1
-)
-SELECT status, COUNT(*), array_agg(simp ORDER BY simp) as chars
-FROM audit
-GROUP BY status;
-```
-
-**Output:** Exact character lists for each category.
-
-#### Step 1.3: Prioritize by HSK level
-
-| Priority | HSK Level | Est. Multi-Pronunciation Chars | Effort |
-|----------|-----------|-------------------------------|--------|
-| P1 | HSK 1-2 | ~40 chars | 4-6 hours |
-| P2 | HSK 3-4 | ~80 chars | 8-12 hours |
-| P3 | HSK 5-6 | ~90 chars | Deferred |
+**This tells us exactly what to fix.**
 
 ---
 
-### Phase 2: Fix Known Issues (4-6 hours)
+### Phase 2: Fix Everything (Time depends on Phase 1 results)
 
-**Objective:** Fix the 22 malformed + 23 empty context characters.
+**Objective:** Add correct `zhuyin_variants` to ALL characters identified in Phase 1.
 
 #### Step 2.1: Research each character
 
-For each of the 45 characters:
-1. Look up in Taiwan MOE dictionary
-2. Cross-reference with MDBG
-3. Document all pronunciations with pinyin + zhuyin
-4. Find 2-3 Traditional Chinese context words per pronunciation
+For each character in `chars_needing_work`:
+
+1. Look up in Taiwan MOE dictionary (canonical)
+2. Cross-reference with MDBG (context words)
+3. Document all pronunciations
 
 **Research template:**
 ```json
 {
-  "char": "干",
+  "char": "长",
   "sources": ["MOE", "MDBG"],
+  "default_pronunciation": "cháng",
   "pronunciations": [
     {
-      "pinyin": "gān",
-      "zhuyin": [["ㄍ", "ㄢ", "ˉ"]],
-      "context_words": ["乾淨", "乾燥", "干涉"],
-      "meanings": ["dry", "clean", "to interfere"]
+      "pinyin": "cháng",
+      "zhuyin": [["ㄔ", "ㄤ", "ˊ"]],
+      "context_words": ["長度", "很長", "長短"],
+      "meanings": ["long", "length"]
     },
     {
-      "pinyin": "gàn",
-      "zhuyin": [["ㄍ", "ㄢ", "ˋ"]],
-      "context_words": ["幹活", "幹部", "樹幹"],
-      "meanings": ["to do", "cadre", "trunk"]
+      "pinyin": "zhǎng",
+      "zhuyin": [["ㄓ", "ㄤ", "ˇ"]],
+      "context_words": ["長大", "校長", "成長"],
+      "meanings": ["to grow", "chief", "elder"]
     }
   ]
 }
 ```
 
+**Time estimate:** ~10 minutes per character
+- If Phase 1 finds 80 chars: ~13 hours research
+- If Phase 1 finds 50 chars: ~8 hours research
+- If Phase 1 finds 120 chars: ~20 hours research
+
 #### Step 2.2: Generate migration
 
-Create `supabase/migrations/011f_complete_multi_pronunciation_fixes.sql`:
+Create `supabase/migrations/011f_comprehensive_multi_pronunciation.sql`:
 
 ```sql
 BEGIN;
 
--- ============================================
--- Part 1: Fix 22 malformed zhuyin characters
--- ============================================
+-- =============================================
+-- Fix ALL multi-pronunciation characters
+-- Based on Phase 1 Discovery results
+-- =============================================
 
+-- Example: 长 (cháng/zhǎng)
 UPDATE dictionary_entries SET
-  zhuyin = '[["ㄍ","ㄢ","ˉ"]]'::jsonb,
+  zhuyin = '[["ㄔ","ㄤ","ˊ"]]'::jsonb,
   zhuyin_variants = '[
-    {"pinyin":"gān","zhuyin":[["ㄍ","ㄢ","ˉ"]],"context_words":["乾淨","乾燥"],"meanings":["dry","clean"]},
-    {"pinyin":"gàn","zhuyin":[["ㄍ","ㄢ","ˋ"]],"context_words":["幹活","幹部"],"meanings":["to do","cadre"]}
+    {"pinyin":"cháng","zhuyin":[["ㄔ","ㄤ","ˊ"]],"context_words":["長度","很長"],"meanings":["long","length"]},
+    {"pinyin":"zhǎng","zhuyin":[["ㄓ","ㄤ","ˇ"]],"context_words":["長大","校長"],"meanings":["to grow","chief"]}
   ]'::jsonb
-WHERE simp = '干';
+WHERE simp = '长';
 
--- (repeat for all 22 malformed)
+-- (repeat for ALL characters from Phase 1)
 
--- ============================================
--- Part 2: Add context words to 23 empty chars
--- ============================================
-
-UPDATE dictionary_entries SET
-  zhuyin_variants = jsonb_set(
-    zhuyin_variants,
-    '{0,context_words}',
-    '["context1","context2"]'::jsonb
-  )
-WHERE simp = '...';
-
--- (repeat for all 23 empty context)
-
--- ============================================
--- Part 3: Self-verification (auto-rollback on fail)
--- ============================================
+-- =============================================
+-- Self-verification (auto-rollback on failure)
+-- =============================================
 
 DO $$
 DECLARE
   malformed_count INT;
-  empty_context_count INT;
+  missing_variants_count INT;
 BEGIN
+  -- Check no malformed zhuyin remains
   SELECT COUNT(*) INTO malformed_count
   FROM dictionary_entries
   WHERE length(simp) = 1 AND jsonb_array_length(zhuyin) > 1;
 
   IF malformed_count > 0 THEN
-    RAISE EXCEPTION 'FAILED: % characters still malformed', malformed_count;
+    RAISE EXCEPTION 'FAILED: % characters still have malformed zhuyin', malformed_count;
   END IF;
 
-  SELECT COUNT(DISTINCT de.simp) INTO empty_context_count
-  FROM dictionary_entries de,
-       jsonb_array_elements(de.zhuyin_variants) AS v
-  WHERE length(de.simp) = 1
-    AND (v->'context_words' IS NULL OR jsonb_array_length(v->'context_words') = 0);
+  -- Check all MOE multi-pronunciation chars have variants
+  -- (This list comes from Phase 1 discovery)
+  SELECT COUNT(*) INTO missing_variants_count
+  FROM dictionary_entries
+  WHERE simp IN ('长','干','好','看', ...) -- All chars from Phase 1
+    AND zhuyin_variants IS NULL;
 
-  IF empty_context_count > 0 THEN
-    RAISE EXCEPTION 'FAILED: % characters have empty context_words', empty_context_count;
+  IF missing_variants_count > 0 THEN
+    RAISE EXCEPTION 'FAILED: % characters still missing zhuyin_variants', missing_variants_count;
   END IF;
 
-  RAISE NOTICE 'SUCCESS: All 45 characters fixed';
+  RAISE NOTICE 'SUCCESS: All multi-pronunciation characters fixed';
 END $$;
 
 COMMIT;
@@ -248,91 +233,25 @@ COMMIT;
 CREATE TABLE dictionary_entries_backup_011f AS
 SELECT * FROM dictionary_entries;
 
--- Verify backup
+-- Verify backup succeeded
 SELECT
   (SELECT COUNT(*) FROM dictionary_entries) as original,
   (SELECT COUNT(*) FROM dictionary_entries_backup_011f) as backup;
+-- Must match
 
--- Apply migration (self-verifying, auto-rollback on failure)
--- Paste 011f contents into Supabase SQL Editor
+-- Apply migration (paste 011f contents)
+-- Self-verifying: will ROLLBACK automatically on failure
 ```
 
----
+#### Step 2.4: Functional test
 
-### Phase 3: Add Missing Variants (8-12 hours)
-
-**Objective:** Add zhuyin_variants for ~77 characters missing them.
-
-#### Step 3.1: Cross-reference with MOE list
-
-After Phase 1 discovery, we'll have exact list of characters that:
-- Are in our dictionary (1,067)
-- Are in MOE multi-pronunciation list
-- Don't have zhuyin_variants
-
-#### Step 3.2: Prioritize HSK 1-2 first
-
-**Tier 1 (Must Have):** HSK 1-2 multi-pronunciation chars (~40)
-- These are highest-frequency, most impactful
-- Complete research + migration in one session
-
-**Tier 2 (Should Have):** HSK 3-4 multi-pronunciation chars (~40)
-- Medium frequency, important for progression
-- Can be phased over 2-3 sessions
-
-**Tier 3 (Nice to Have):** Remaining chars (~37)
-- Lower frequency or edge cases
-- Address based on user feedback
-
-#### Step 3.3: Generate migration for each tier
-
-```sql
--- supabase/migrations/011g_add_missing_variants_tier1.sql
--- supabase/migrations/011h_add_missing_variants_tier2.sql
--- etc.
-```
-
----
-
-### Phase 4: Validation (2-3 hours)
-
-**Objective:** Verify all 213+ multi-pronunciation characters are correct.
-
-#### Step 4.1: Automated validation
-
-```sql
--- Check Pattern A compliance (default = first in variants)
-SELECT simp
-FROM dictionary_entries
-WHERE zhuyin_variants IS NOT NULL
-  AND zhuyin != (zhuyin_variants->0->'zhuyin');
--- Should return 0 rows
-
--- Check all variants have context_words
-SELECT simp
-FROM dictionary_entries de,
-     jsonb_array_elements(de.zhuyin_variants) AS v
-WHERE v->'context_words' IS NULL
-   OR jsonb_array_length(v->'context_words') = 0;
--- Should return 0 rows
-
--- Check pronunciation count matches expectations
-SELECT simp, jsonb_array_length(zhuyin_variants) as variant_count
-FROM dictionary_entries
-WHERE zhuyin_variants IS NOT NULL
-ORDER BY variant_count DESC;
--- Review any with 4+ variants
-```
-
-#### Step 4.2: Functional testing
-
-For sample characters from each category:
+Test sample characters in the app:
 
 | Character | Test | Expected |
 |-----------|------|----------|
-| 干 | Add Item modal | Shows "gān (乾淨)" and "gàn (幹活)" |
-| 同 | Drill A | Distractors exclude valid alternate ㄊㄨㄥˋ |
-| 长 | Add Item modal | Shows "cháng (長度)" and "zhǎng (長大)" |
+| 长 | Add Item modal | Shows "cháng (長度)" and "zhǎng (長大)" options |
+| 干 | Add Item modal | Shows "gān (乾淨)" and "gàn (幹活)" options |
+| 还 | Drill A | Distractors exclude ㄏㄨㄢˊ if answer is ㄏㄞˊ |
 
 ---
 
@@ -341,9 +260,8 @@ For sample characters from each category:
 A good context word:
 - Uses **Traditional Chinese** characters
 - Is a **common 2-3 character** word/phrase
-- Clearly demonstrates **this specific pronunciation** (not ambiguous)
+- **Clearly demonstrates this specific pronunciation** (not ambiguous)
 - Ideally **HSK 1-4 level** (familiar to learners)
-- **Not a proper noun** unless commonly known
 
 **Examples:**
 
@@ -351,7 +269,7 @@ A good context word:
 |-----------|---------------|--------------|-----|
 | 长 | cháng | 長度, 很長 | Common, clearly "long" meaning |
 | 长 | zhǎng | 長大, 校長 | Common, clearly "grow/leader" meaning |
-| 还 | hái | 還有, 還是 | HSK 1-2, common usage |
+| 还 | hái | 還有, 還是 | HSK 1-2, adverb usage |
 | 还 | huán | 還錢, 歸還 | Clear "return" meaning |
 
 ---
@@ -359,89 +277,73 @@ A good context word:
 ## Rollback Procedure
 
 **If migration fails mid-execution:**
-```sql
--- Transaction auto-rolls back (BEGIN/COMMIT wrapper)
--- No action needed
-```
+- Transaction auto-rolls back (BEGIN/COMMIT wrapper)
+- No action needed
 
 **If migration succeeds but app behaves wrong:**
 ```sql
--- Identify affected characters
-SELECT simp FROM dictionary_entries
-WHERE simp IN ('干','长','好',...);
-
 -- Restore from backup
-DELETE FROM dictionary_entries WHERE simp IN (...);
-INSERT INTO dictionary_entries
-SELECT * FROM dictionary_entries_backup_011f
-WHERE simp IN (...);
+DROP TABLE dictionary_entries;
+ALTER TABLE dictionary_entries_backup_011f RENAME TO dictionary_entries;
 
 -- Verify restoration
-SELECT simp, zhuyin, zhuyin_variants
-FROM dictionary_entries
-WHERE simp IN (...);
+SELECT COUNT(*) FROM dictionary_entries;
 ```
 
 ---
 
 ## Success Criteria
 
-**Data Quality (Automated Checks):**
-- [ ] `SELECT COUNT(*) ... jsonb_array_length(zhuyin) > 1` returns **0**
-- [ ] All zhuyin_variants have non-empty context_words
-- [ ] Pattern A compliance: default = first variant for all chars
+**Data Quality:**
+- [ ] Zero characters with malformed multi-syllable zhuyin
+- [ ] All MOE-listed multi-pronunciation chars have `zhuyin_variants`
+- [ ] All `zhuyin_variants` have non-empty `context_words`
 
-**Functional Testing:**
-- [ ] Add character '干' → modal shows both gān and gàn options with context
-- [ ] Add character '长' → modal shows cháng and zhǎng options
-- [ ] Drill A with '同' → distractors don't include valid alternate ㄊㄨㄥˋ
-- [ ] Entry Catalog shows correct pronunciation for multi-pronunciation chars
+**Functional:**
+- [ ] Add Item modal shows all pronunciation options for multi-pronunciation chars
+- [ ] Drill A never uses a valid alternate pronunciation as a "wrong" distractor
 
-**Coverage:**
-- [ ] All HSK 1-2 multi-pronunciation chars have zhuyin_variants (Tier 1)
-- [ ] All HSK 3-4 multi-pronunciation chars have zhuyin_variants (Tier 2)
+**User Outcome:**
+- [ ] Child cannot be silently miseducated by seeing correct pronunciations marked wrong
+
+---
+
+## Effort Estimate
+
+| Phase | Task | Hours |
+|-------|------|-------|
+| 1 | Discovery (MOE cross-reference) | 2-3 |
+| 2 | Research (depends on Phase 1 results) | 8-20 |
+| 2 | Migration + Testing | 2-3 |
+| **Total** | | **12-26** |
+
+**Note:** Effort for Phase 2 research depends entirely on Phase 1 results. Could be 50 chars or 120 chars - we don't know until we do discovery.
 
 ---
 
 ## Files
 
 **To Create:**
-- `data/moe_multi_pronunciation_chars.json` - Canonical reference list
-- `data/phase2_research_45_chars.json` - Research for 22 malformed + 23 empty
-- `data/phase3_research_77_chars.json` - Research for missing variants
-- `supabase/migrations/011f_complete_multi_pronunciation_fixes.sql` - Phase 2 migration
-- `supabase/migrations/011g_add_missing_variants_tier1.sql` - Phase 3 Tier 1
-- `supabase/migrations/011h_add_missing_variants_tier2.sql` - Phase 3 Tier 2
+- `data/moe_multi_pronunciation_list.json` - Canonical MOE reference
+- `data/phase1_discovery_results.json` - Cross-reference results
+- `data/phase2_research.json` - Researched pronunciation data
+- `supabase/migrations/011f_comprehensive_multi_pronunciation.sql` - The fix
 
 **Existing:**
-- `dictionary_entries_backup_011e` - Backup from today's session
-
----
-
-## Effort Estimate
-
-| Phase | Task | Hours | Story Points |
-|-------|------|-------|--------------|
-| 1 | Discovery & Audit | 2-3 | 1 |
-| 2 | Fix 45 known issues | 4-6 | 3 |
-| 3 | Add ~77 missing (Tier 1+2) | 8-12 | 5 |
-| 4 | Validation | 2-3 | 1 |
-| **Total** | | **16-24** | **10** |
+- `dictionary_entries_backup_011e` - Backup from earlier today
 
 ---
 
 ## References
 
-- **PR #24:** Migration 011e (applied this session)
 - **Taiwan MOE:** [一字多音審訂表](https://sites.google.com/site/ianho7979/roctwmoepolyphone_unofficial_third-party_reproduction)
 - **MDBG:** [Chinese Dictionary](https://www.mdbg.net/chinese/dictionary)
-- **Existing docs:** `docs/operational/DICTIONARY_MIGRATION_GUIDE.md`
+- **Migration Guide:** `docs/operational/DICTIONARY_MIGRATION_GUIDE.md`
 
 ---
 
 ## Completed Work
 
-- [x] Migration 011e applied (Dec 8, 2025) - Fixed 81 characters
+- [x] Migration 011e applied (Dec 8, 2025) - Fixed 81 malformed characters
 - [x] Escaping fix committed (b871342)
-- [x] Plan reviewed by DHH/Kieran/Simplicity reviewers
-- [x] Plan revised with comprehensive coverage goal
+- [x] Plan reviewed twice, revised with user context
