@@ -38,8 +38,9 @@
 - **practice_events**: immutable per-attempt log
   - `drill practice_drill`, `attempt_index int in (1,2)`, `is_correct bool`, `points_awarded numeric(3,1)`
   - `chosen_option jsonb`, `created_at timestamptz`
-- **dictionary_entries**: canonical mappings used for auto-fill & drills
+- **dictionary_entries**: canonical mappings used for auto-fill & drills (1,067 characters)
   - `simp text`, `trad text`, `zhuyin jsonb`, optional `pinyin`, `frequency_rank int`
+  - `zhuyin_variants jsonb` — for multi-pronunciation characters (see Pattern A below)
 - **dictionary_confusions**: curated distractor data per entry/drill
   - `entry_id uuid`, `drill practice_drill`, `confusions jsonb`
 - **dictionary_missing**: log of parent submissions with no dictionary match
@@ -54,6 +55,48 @@
 - `entries(owner_id, created_at desc)`
 - `practice_state(kid_id, entry_id, drill)`
 - `practice_events(kid_id, created_at desc)`
+
+---
+
+## 🗣️ Multi-Pronunciation Characters (Pattern A Structure)
+
+**Coverage:** 136 characters with multiple valid pronunciations (e.g., 行, 重, 还, 着, 了)
+
+### Pattern A Structure
+All multi-pronunciation characters use `zhuyin_variants` with the **default pronunciation as the FIRST element**:
+
+```json
+{
+  "simp": "什",
+  "trad": "什",
+  "zhuyin": [["ㄕ", "ㄣˊ"]],
+  "zhuyin_variants": [
+    {
+      "zhuyin": [["ㄕ", "ㄣˊ"]],
+      "pinyin": "shén",
+      "context_words": ["什么", "什麼"]
+    },
+    {
+      "zhuyin": [["ㄕ", "ˊ"]],
+      "pinyin": "shí",
+      "context_words": ["什锦", "什物"]
+    }
+  ]
+}
+```
+
+### Add Item Flow for Multi-Pronunciation
+1. Dictionary lookup detects `zhuyin_variants` array
+2. UI shows "Multiple Pronunciations Detected" modal
+3. Parent selects context word matching their curriculum
+4. Selected pronunciation stored in `locked_reading_id`
+5. Drill A uses locked pronunciation; alternates excluded from distractors
+
+### Drill A Guardrails
+When generating Zhuyin drill options:
+- Valid alternate pronunciations are **excluded** from distractor pool
+- Prevents marking a correct alternate as "wrong"
+- Example: For 行 (xíng), the option háng won't appear as a wrong answer
 
 ---
 
@@ -273,3 +316,5 @@ VITE_SUPABASE_ANON_KEY=...
 - Known status is computed dynamically from practice_state counters and reflects demotions after two consecutive misses
 - Catalog alt sort **Least familiar** uses the updated familiarity formula
 - RLS enforced for every table, including dictionary metadata
+- Multi-pronunciation characters show selection modal with context words
+- Drill A excludes valid alternate pronunciations from distractor options

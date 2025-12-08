@@ -79,7 +79,8 @@ Output will be in `/dist` directory.
 
 ✅ Character-first Zhuyin recognition drills with tone accuracy
 ✅ Simplified → Traditional character mapping practice
-✅ Dictionary-assisted entry with auto-fill
+✅ Dictionary-assisted entry with auto-fill (1,067 characters)
+✅ Multi-pronunciation support with context-aware selection
 ✅ Familiarity scoring (+1.0 first try, +0.5 second try)
 ✅ Belt progression system (White → Black)
 ✅ Full-screen landscape training mode for kids
@@ -88,10 +89,18 @@ Output will be in `/dist` directory.
 
 ## Current Status
 
-**Version:** V1 (Epic 6 - QA & Release Readiness)
-**Progress:** 119 of 145 story points complete (82%)
+🎉 **V1 DEPLOYED** — [hanzi-dojo.vercel.app](https://hanzi-dojo.vercel.app)
 
-See [`CLAUDE.md`](Claude.md) for detailed status and next steps.
+**Completed:**
+- ✅ Epics 1-6: Core features, auth, training mode, dashboard
+- ✅ Epic 7: Mobile polish & Ninjago theme
+- ✅ Epic 8 Phases 1-2: Multi-pronunciation support (136 characters)
+
+**Dictionary Coverage:**
+- 1,067 characters (HSK 1-4)
+- 136 multi-pronunciation characters with context-aware selection
+
+See [`CLAUDE.md`](CLAUDE.md) for detailed status and next steps.
 
 ## Testing
 
