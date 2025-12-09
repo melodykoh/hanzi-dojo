@@ -11,14 +11,28 @@
 
 const fs = require('fs');
 const path = require('path');
+const { loadDictionaries } = require('./lib/dictionaryLoader.cjs');
 
 // Load data files
 const dataDir = path.join(__dirname, '..', 'data');
 const migrationsDir = path.join(__dirname, '..', 'supabase', 'migrations');
 
-// Our dictionary (from expansion file)
-const dictionaryV2 = JSON.parse(fs.readFileSync(path.join(dataDir, 'dictionary_expansion_v2.json'), 'utf-8'));
-const dictionaryV1 = JSON.parse(fs.readFileSync(path.join(dataDir, 'dictionary_seed_v1.json'), 'utf-8'));
+// Validate required files exist
+const REQUIRED_FILES = [
+  'polyphone_reference.json',
+  'polyphone_context_reference.json'
+];
+
+REQUIRED_FILES.forEach(file => {
+  const filePath = path.join(dataDir, file);
+  if (!fs.existsSync(filePath)) {
+    console.error(`ERROR: Required file not found: ${filePath}`);
+    process.exit(1);
+  }
+});
+
+// Load dictionaries using shared utility
+const { v1: dictionaryV1, v2: dictionaryV2 } = loadDictionaries();
 
 // Polyphone references
 const polyphoneBasicArray = JSON.parse(fs.readFileSync(path.join(dataDir, 'polyphone_reference.json'), 'utf-8'));

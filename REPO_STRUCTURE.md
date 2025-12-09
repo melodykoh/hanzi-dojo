@@ -148,6 +148,61 @@ This document defines the canonical file organization for Hanzi Dojo. **All cont
 
 ---
 
+## 🔧 `/scripts` — Build & Migration Tooling
+
+```
+/scripts
+├── /lib                           # Shared utilities and modules
+│   ├── pinyinToZhuyinMapping.cjs  # Pinyin→Zhuyin conversion table
+│   ├── sqlUtils.cjs               # SQL escaping and formatting
+│   ├── dictionaryLoader.cjs       # Common dictionary loading logic
+│   └── validation.cjs             # Shared validation logic
+├── analyze-*.cjs                  # Analysis scripts (read-only)
+├── compile-*.cjs                  # Data compilation scripts
+└── generate-migration-*.cjs       # SQL migration generators
+```
+
+### Scripts Guidelines
+- **Shared code**: Extract to `/scripts/lib` when function used in 2+ files
+- **Naming**: `{verb}-{noun}.cjs` (e.g., `analyze-polyphone-gap.cjs`)
+- **Single responsibility**: Each script does one thing well
+- **Read-only analysis**: `analyze-*` scripts never modify database or source files
+- **Compilation**: `compile-*` scripts generate derived data files (e.g., confusion maps)
+- **Migration generation**: `generate-migration-*` scripts create SQL files in `/supabase/migrations`
+- **CommonJS format**: Use `.cjs` extension for Node scripts (enables direct execution)
+
+### Script Categories
+
+**Analysis Scripts** (Read-only diagnostics)
+- Inspect dictionary coverage, detect patterns, identify gaps
+- Example: `analyze-polyphone-gap.cjs` finds multi-pronunciation characters
+- Output: Console reports, JSON data files for review
+
+**Compilation Scripts** (Data generation)
+- Transform source data into application-ready formats
+- Example: `compile-confusion-map.cjs` builds distractor relationships
+- Output: JSON files in `/data` directory
+
+**Migration Generators** (SQL builders)
+- Programmatically create migration files with validation
+- Example: `generate-migration-011b.cjs` builds pattern A structure
+- Output: Timestamped SQL files in `/supabase/migrations`
+
+### Library Modules (`/scripts/lib`)
+
+**When to extract:**
+- Function used in 2+ scripts → Move to `/scripts/lib`
+- Shared configuration data → Centralize in module
+- Common validation logic → Single source of truth
+
+**Current modules:**
+- `pinyinToZhuyinMapping.cjs`: Pinyin→Zhuyin syllable conversion table
+- `sqlUtils.cjs`: SQL escaping, UPDATE statement builders, PostgreSQL array formatting
+- `dictionaryLoader.cjs`: Consistent CSV/JSON loading, validation, error handling
+- `validation.cjs`: Shared validation logic for dictionary entries and pronunciations
+
+---
+
 ## 🧪 Testing Strategy
 
 ### Test File Locations
@@ -242,6 +297,6 @@ This structure prioritizes:
 
 ---
 
-**Last Updated**: 2025-11-04 (Session 5)
+**Last Updated**: 2025-12-08 (Session 17, Todo #043)
 **Maintained By**: Claude + Project Owner
 **Review Frequency**: Every session start + whenever new directories are proposed
