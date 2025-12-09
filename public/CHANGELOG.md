@@ -4,6 +4,18 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## December 9, 2025 - Session 19
+
+### 🐛 Bug Fixes
+- **Correct Meanings for Multi-Pronunciation Characters**: Fixed 160 characters where all pronunciations incorrectly showed the same meaning. Now each pronunciation displays its distinct definition:
+  - 长 cháng: "long, length" vs zhǎng: "to grow, chief"
+  - 好 hǎo: "good, well" vs hào: "to like, be fond of"
+  - 少 shǎo: "few, little" vs shào: "young"
+  - And 157 more characters with correct pronunciation-specific meanings!
+- **Grammatical Particles**: Added meanings for 着 (zhe/zhuó/zháo/zhāo) and 了 (le/liǎo) which were previously blank
+
+---
+
 ## December 8, 2025 - Session 18
 
 ### ✨ Comprehensive Multi-Pronunciation Coverage
