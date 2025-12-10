@@ -13,6 +13,7 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
   - 少 shǎo: "few, little" vs shào: "young"
   - And 157 more characters with correct pronunciation-specific meanings!
 - **Grammatical Particles**: Added meanings for 着 (zhe/zhuó/zháo/zhāo) and 了 (le/liǎo) which were previously blank
+- **Consistent Traditional Context Words**: Unified all 73 characters with mixed simplified/traditional example words to use Traditional Chinese consistently (為了, 沒有, 還是, etc.)
 
 ---
 
