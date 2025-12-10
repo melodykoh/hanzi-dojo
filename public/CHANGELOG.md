@@ -4,6 +4,19 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## December 10, 2025 - Session 20
+
+### 🎨 Design Consistency
+- **Unified Ninjago Theme**: All screens now use the consistent fire-element color palette
+  - Sign-in/sign-up page: Fire gradient background and styled buttons
+  - Training mode: Consistent fire gradients and ninja-styled buttons
+  - Offline modal: Themed "Retry Connection" button
+  - Delete confirmations: Ninja-styled danger buttons
+- **Better Input Focus**: Form inputs now highlight in blue when focused (matches elemental lightning theme)
+- **Removed Legacy Styles**: Eliminated outdated `dojo-button-*` and generic red classes in favor of the Ninjago design system
+
+---
+
 ## December 9, 2025 - Session 19
 
 ### 🐛 Bug Fixes

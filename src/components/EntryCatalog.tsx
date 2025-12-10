@@ -721,7 +721,7 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
               </button>
               <button
                 onClick={() => handleDelete(deleteTarget)}
-                className="flex-1 px-6 py-3 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition-colors"
+                className="flex-1 ninja-button ninja-button-fire"
               >
                 Delete
               </button>

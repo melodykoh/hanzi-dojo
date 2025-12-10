@@ -89,12 +89,12 @@ export function AuthScreen() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-800 to-red-600 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-ninja-red-dark via-ninja-red to-ninja-orange flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full">
         {/* Logo and Title */}
         <div className="text-center mb-8">
           <div className="text-6xl mb-4">🥋</div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-heading font-bold text-gray-900 mb-2">
             Hanzi Dojo
           </h1>
           <p className="text-lg text-gray-600">
@@ -118,7 +118,7 @@ export function AuthScreen() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none text-lg"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-ninja-blue focus:outline-none text-lg"
               placeholder="you@example.com"
               disabled={loading}
             />
@@ -136,7 +136,7 @@ export function AuthScreen() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-red-500 focus:outline-none text-lg"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-ninja-blue focus:outline-none text-lg"
               placeholder="••••••••"
               disabled={loading}
             />
@@ -165,7 +165,7 @@ export function AuthScreen() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-6 py-4 bg-red-600 text-white font-bold text-lg rounded-lg hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            className="w-full ninja-button ninja-button-fire text-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <span>Loading...</span>
@@ -188,7 +188,7 @@ export function AuthScreen() {
                     setError(null)
                     setSuccessMessage(null)
                   }}
-                  className="text-red-600 font-semibold hover:text-red-700"
+                  className="text-ninja-red font-semibold hover:text-ninja-red-dark"
                   disabled={loading}
                 >
                   Sign up
@@ -204,7 +204,7 @@ export function AuthScreen() {
                     setError(null)
                     setSuccessMessage(null)
                   }}
-                  className="text-red-600 font-semibold hover:text-red-700"
+                  className="text-ninja-red font-semibold hover:text-ninja-red-dark"
                   disabled={loading}
                 >
                   Log in

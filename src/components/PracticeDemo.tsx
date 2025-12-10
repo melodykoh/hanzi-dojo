@@ -228,7 +228,7 @@ export function PracticeDemo() {
           <div className="flex flex-wrap gap-2 sm:gap-4 justify-center sm:justify-end">
             <button
               onClick={endSession}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 whitespace-nowrap"
+              className="ninja-button ninja-button-fire whitespace-nowrap"
             >
               End Training
             </button>

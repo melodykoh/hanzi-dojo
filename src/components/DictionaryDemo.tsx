@@ -50,12 +50,12 @@ export function DictionaryDemo() {
             onChange={(e) => setSearchChar(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleLookup()}
             placeholder="Enter character (e.g., 太)"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-dojo-red"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-ninja-blue"
           />
           <button
             onClick={handleLookup}
             disabled={loading}
-            className="dojo-button-primary disabled:opacity-50 whitespace-nowrap"
+            className="ninja-button ninja-button-lightning disabled:opacity-50 whitespace-nowrap"
           >
             {loading ? 'Looking up...' : 'Lookup'}
           </button>

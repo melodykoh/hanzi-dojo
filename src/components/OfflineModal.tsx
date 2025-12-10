@@ -56,7 +56,7 @@ export function OfflineModal({ show, onRetry }: OfflineModalProps) {
         <button
           onClick={handleRetry}
           disabled={isRechecking}
-          className="w-full px-8 py-4 bg-red-600 text-white text-xl font-bold rounded-xl hover:bg-red-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="w-full ninja-button ninja-button-fire text-xl disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isRechecking ? (
             <span className="flex items-center justify-center gap-3">
