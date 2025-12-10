@@ -1,0 +1,415 @@
+{
+  "description": "Context words for 68 characters in 011c that still have empty context_words",
+  "date": "2025-12-08",
+  "source": "MDBG Chinese Dictionary",
+  "characters": {
+    "么": {
+      "pronunciations": {
+        "me": { "context_words": ["什麼", "怎麼", "那麼"] },
+        "mó": { "context_words": ["幺麼"] }
+      }
+    },
+    "化": {
+      "pronunciations": {
+        "huà": { "context_words": ["變化", "文化", "化學"] },
+        "huā": { "context_words": ["化子"] }
+      }
+    },
+    "匙": {
+      "pronunciations": {
+        "chí": { "context_words": ["鑰匙", "湯匙"] },
+        "shi": { "context_words": ["鑰匙"] }
+      }
+    },
+    "区": {
+      "pronunciations": {
+        "qū": { "context_words": ["地區", "區別", "區域"] },
+        "ōu": { "context_words": ["姓氏"] }
+      }
+    },
+    "占": {
+      "pronunciations": {
+        "zhàn": { "context_words": ["佔領", "佔用", "佔據"] },
+        "zhān": { "context_words": ["占卜", "占卦"] }
+      }
+    },
+    "卡": {
+      "pronunciations": {
+        "kǎ": { "context_words": ["卡片", "信用卡", "卡車"] },
+        "qiǎ": { "context_words": ["關卡", "卡住", "卡脖子"] }
+      }
+    },
+    "压": {
+      "pronunciations": {
+        "yā": { "context_words": ["壓力", "壓迫", "血壓"] },
+        "yà": { "context_words": ["壓根兒"] }
+      }
+    },
+    "句": {
+      "pronunciations": {
+        "jù": { "context_words": ["句子", "造句", "一句話"] },
+        "gōu": { "context_words": ["高句麗"] }
+      }
+    },
+    "可": {
+      "pronunciations": {
+        "kě": { "context_words": ["可以", "可能", "可是"] },
+        "kè": { "context_words": ["可汗"] }
+      }
+    },
+    "台": {
+      "pronunciations": {
+        "tái": { "context_words": ["台灣", "電視台", "舞台"] },
+        "tāi": { "context_words": ["天台山"] }
+      }
+    },
+    "各": {
+      "pronunciations": {
+        "gè": { "context_words": ["各位", "各種", "各自"] },
+        "gě": { "context_words": ["自各兒"] }
+      }
+    },
+    "合": {
+      "pronunciations": {
+        "hé": { "context_words": ["合作", "結合", "合適"] },
+        "gě": { "context_words": ["公合"] }
+      }
+    },
+    "否": {
+      "pronunciations": {
+        "fǒu": { "context_words": ["是否", "否則", "否認"] },
+        "pǐ": { "context_words": ["否極泰來"] }
+      }
+    },
+    "吧": {
+      "pronunciations": {
+        "ba": { "context_words": ["好吧", "走吧", "是吧"] },
+        "bā": { "context_words": ["酒吧", "網吧"] }
+      }
+    },
+    "呀": {
+      "pronunciations": {
+        "ya": { "context_words": ["啊呀", "快呀"] },
+        "yā": { "context_words": ["呀呀學語"] }
+      }
+    },
+    "咖": {
+      "pronunciations": {
+        "kā": { "context_words": ["咖啡"] },
+        "gā": { "context_words": ["咖哩"] }
+      }
+    },
+    "咳": {
+      "pronunciations": {
+        "ké": { "context_words": ["咳嗽"] },
+        "hāi": { "context_words": ["咳聲嘆氣"] }
+      }
+    },
+    "填": {
+      "pronunciations": {
+        "tián": { "context_words": ["填寫", "填空", "填補"] },
+        "zhèn": { "context_words": ["填然"] }
+      }
+    },
+    "夫": {
+      "pronunciations": {
+        "fū": { "context_words": ["丈夫", "大夫", "農夫"] },
+        "fú": { "context_words": ["夫子"] }
+      }
+    },
+    "奇": {
+      "pronunciations": {
+        "qí": { "context_words": ["奇怪", "奇蹟", "好奇"] },
+        "jī": { "context_words": ["奇偶", "奇數"] }
+      }
+    },
+    "妻": {
+      "pronunciations": {
+        "qī": { "context_words": ["妻子", "夫妻"] },
+        "qì": { "context_words": ["妻之"] }
+      }
+    },
+    "孙": {
+      "pronunciations": {
+        "sūn": { "context_words": ["孫子", "外孫", "子孫"] },
+        "xùn": { "context_words": ["孫臏"] }
+      }
+    },
+    "底": {
+      "pronunciations": {
+        "dǐ": { "context_words": ["到底", "底下", "海底"] },
+        "de": { "context_words": ["你是啥底"] }
+      }
+    },
+    "度": {
+      "pronunciations": {
+        "dù": { "context_words": ["溫度", "程度", "速度"] },
+        "duó": { "context_words": ["猜度", "忖度"] }
+      }
+    },
+    "弄": {
+      "pronunciations": {
+        "nòng": { "context_words": ["弄錯", "玩弄", "擺弄"] },
+        "lòng": { "context_words": ["弄堂", "里弄"] }
+      }
+    },
+    "思": {
+      "pronunciations": {
+        "sī": { "context_words": ["思想", "意思", "思考"] },
+        "sāi": { "context_words": ["于思"] }
+      }
+    },
+    "愉": {
+      "pronunciations": {
+        "yú": { "context_words": ["愉快", "愉悅"] },
+        "tōu": { "context_words": ["愉樂"] }
+      }
+    },
+    "戏": {
+      "pronunciations": {
+        "xì": { "context_words": ["遊戲", "戲劇", "唱戲"] },
+        "hū": { "context_words": ["於戲"] }
+      }
+    },
+    "打": {
+      "pronunciations": {
+        "dǎ": { "context_words": ["打電話", "打球", "打開"] },
+        "dá": { "context_words": ["一打"] }
+      }
+    },
+    "择": {
+      "pronunciations": {
+        "zé": { "context_words": ["選擇", "擇業"] },
+        "zhái": { "context_words": ["擇菜", "擇不開"] }
+      }
+    },
+    "拾": {
+      "pronunciations": {
+        "shí": { "context_words": ["拾取", "收拾", "拾荒"] },
+        "shè": { "context_words": ["拾級而上"] }
+      }
+    },
+    "排": {
+      "pronunciations": {
+        "pái": { "context_words": ["排隊", "排列", "安排"] },
+        "pǎi": { "context_words": ["排子車"] }
+      }
+    },
+    "散": {
+      "pronunciations": {
+        "sàn": { "context_words": ["解散", "分散", "散步"] },
+        "sǎn": { "context_words": ["散漫", "鬆散", "散文"] }
+      }
+    },
+    "景": {
+      "pronunciations": {
+        "jǐng": { "context_words": ["風景", "景色", "背景"] },
+        "yǐng": { "context_words": ["景從"] }
+      }
+    },
+    "服": {
+      "pronunciations": {
+        "fú": { "context_words": ["衣服", "服務", "舒服"] },
+        "fù": { "context_words": ["服藥"] }
+      }
+    },
+    "条": {
+      "pronunciations": {
+        "tiáo": { "context_words": ["條件", "一條", "條理"] },
+        "tiāo": { "context_words": ["條風"] }
+      }
+    },
+    "查": {
+      "pronunciations": {
+        "chá": { "context_words": ["檢查", "查詢", "調查"] },
+        "zhā": { "context_words": ["山查"] }
+      }
+    },
+    "校": {
+      "pronunciations": {
+        "xiào": { "context_words": ["學校", "校園", "校長"] },
+        "jiào": { "context_words": ["校對", "校訂"] }
+      }
+    },
+    "椅": {
+      "pronunciations": {
+        "yǐ": { "context_words": ["椅子", "輪椅", "座椅"] },
+        "jī": { "context_words": ["椅桐"] }
+      }
+    },
+    "汗": {
+      "pronunciations": {
+        "hàn": { "context_words": ["流汗", "汗水", "出汗"] },
+        "hán": { "context_words": ["可汗"] }
+      }
+    },
+    "汤": {
+      "pronunciations": {
+        "tāng": { "context_words": ["湯麵", "雞湯", "湯匙"] },
+        "shāng": { "context_words": ["湯湯水水"] }
+      }
+    },
+    "沙": {
+      "pronunciations": {
+        "shā": { "context_words": ["沙灘", "沙漠", "沙發"] },
+        "shà": { "context_words": ["沙沙聲"] }
+      }
+    },
+    "济": {
+      "pronunciations": {
+        "jì": { "context_words": ["經濟", "濟南"] },
+        "jǐ": { "context_words": ["濟濟一堂"] }
+      }
+    },
+    "父": {
+      "pronunciations": {
+        "fù": { "context_words": ["父親", "父母", "祖父"] },
+        "fǔ": { "context_words": ["漁父"] }
+      }
+    },
+    "片": {
+      "pronunciations": {
+        "piàn": { "context_words": ["照片", "一片", "影片"] },
+        "piān": { "context_words": ["片子"] }
+      }
+    },
+    "甚": {
+      "pronunciations": {
+        "shèn": { "context_words": ["甚至", "甚麼"] },
+        "shén": { "context_words": ["什麼"] }
+      }
+    },
+    "疑": {
+      "pronunciations": {
+        "yí": { "context_words": ["懷疑", "疑問", "疑惑"] },
+        "nǐ": { "context_words": ["疑似"] }
+      }
+    },
+    "研": {
+      "pronunciations": {
+        "yán": { "context_words": ["研究", "研發", "科研"] },
+        "yàn": { "context_words": ["研磨"] }
+      }
+    },
+    "硕": {
+      "pronunciations": {
+        "shuò": { "context_words": ["碩士", "碩大"] },
+        "shí": { "context_words": ["碩果"] }
+      }
+    },
+    "票": {
+      "pronunciations": {
+        "piào": { "context_words": ["門票", "車票", "機票"] },
+        "piāo": { "context_words": ["票房"] }
+      }
+    },
+    "禁": {
+      "pronunciations": {
+        "jìn": { "context_words": ["禁止", "嚴禁", "禁令"] },
+        "jīn": { "context_words": ["禁不住", "不禁"] }
+      }
+    },
+    "稍": {
+      "pronunciations": {
+        "shāo": { "context_words": ["稍微", "稍等", "稍後"] },
+        "shào": { "context_words": ["稍息"] }
+      }
+    },
+    "约": {
+      "pronunciations": {
+        "yuē": { "context_words": ["約會", "大約", "約定"] },
+        "yāo": { "context_words": ["約量"] }
+      }
+    },
+    "肚": {
+      "pronunciations": {
+        "dù": { "context_words": ["肚子", "肚皮"] },
+        "dǔ": { "context_words": ["牛肚", "肚兒"] }
+      }
+    },
+    "胳": {
+      "pronunciations": {
+        "gē": { "context_words": ["胳膊", "胳臂"] },
+        "gā": { "context_words": ["胳肢窩"] }
+      }
+    },
+    "膏": {
+      "pronunciations": {
+        "gāo": { "context_words": ["牙膏", "膏藥", "藥膏"] },
+        "gào": { "context_words": ["膏肓"] }
+      }
+    },
+    "苹": {
+      "pronunciations": {
+        "píng": { "context_words": ["蘋果", "蘋果手機"] },
+        "pēng": { "context_words": ["蘋蘋"] }
+      }
+    },
+    "被": {
+      "pronunciations": {
+        "bèi": { "context_words": ["被子", "被動", "被迫"] },
+        "pī": { "context_words": ["被服"] }
+      }
+    },
+    "观": {
+      "pronunciations": {
+        "guān": { "context_words": ["觀看", "參觀", "觀點"] },
+        "guàn": { "context_words": ["道觀"] }
+      }
+    },
+    "论": {
+      "pronunciations": {
+        "lùn": { "context_words": ["論文", "討論", "理論"] },
+        "lún": { "context_words": ["論語"] }
+      }
+    },
+    "语": {
+      "pronunciations": {
+        "yǔ": { "context_words": ["語言", "英語", "詞語"] },
+        "yù": { "context_words": ["不以語人"] }
+      }
+    },
+    "谁": {
+      "pronunciations": {
+        "shuí": { "context_words": ["誰的", "是誰", "誰知道"] },
+        "shéi": { "context_words": ["誰都", "誰也"] }
+      }
+    },
+    "责": {
+      "pronunciations": {
+        "zé": { "context_words": ["責任", "負責", "責備"] },
+        "zhài": { "context_words": ["債務"] }
+      }
+    },
+    "赚": {
+      "pronunciations": {
+        "zhuàn": { "context_words": ["賺錢", "賺取"] },
+        "zuàn": { "context_words": ["賺頭"] }
+      }
+    },
+    "趟": {
+      "pronunciations": {
+        "tàng": { "context_words": ["走一趟", "跑一趟"] },
+        "tāng": { "context_words": ["趟水"] }
+      }
+    },
+    "趣": {
+      "pronunciations": {
+        "qù": { "context_words": ["有趣", "興趣", "趣味"] },
+        "cù": { "context_words": ["趣趕"] }
+      }
+    },
+    "跳": {
+      "pronunciations": {
+        "tiào": { "context_words": ["跳舞", "跳躍", "跳高"] },
+        "táo": { "context_words": ["跳脫"] }
+      }
+    },
+    "钢": {
+      "pronunciations": {
+        "gāng": { "context_words": ["鋼鐵", "鋼琴", "鋼筆"] },
+        "gàng": { "context_words": ["鋼鋼"] }
+      }
+    }
+  }
+}

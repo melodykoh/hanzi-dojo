@@ -4,6 +4,32 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## December 9, 2025 - Session 19
+
+### 🐛 Bug Fixes
+- **Correct Meanings for Multi-Pronunciation Characters**: Fixed 160 characters where all pronunciations incorrectly showed the same meaning. Now each pronunciation displays its distinct definition:
+  - 长 cháng: "long, length" vs zhǎng: "to grow, chief"
+  - 好 hǎo: "good, well" vs hào: "to like, be fond of"
+  - 少 shǎo: "few, little" vs shào: "young"
+  - And 157 more characters with correct pronunciation-specific meanings!
+- **Grammatical Particles**: Added meanings for 着 (zhe/zhuó/zháo/zhāo) and 了 (le/liǎo) which were previously blank
+- **Consistent Traditional Context Words**: Unified all 73 characters with mixed simplified/traditional example words to use Traditional Chinese consistently (為了, 沒有, 還是, etc.)
+
+---
+
+## December 8, 2025 - Session 18
+
+### ✨ Comprehensive Multi-Pronunciation Coverage
+- **162 Characters Enhanced**: Added context words and alternate pronunciations for characters that were missing them
+- **94 New Multi-Pronunciation Characters**: Characters like 长 (cháng "long" / zhǎng "to grow"), 少 (shǎo "few" / shào "young"), and 好 (hǎo "good" / hào "to like") now have complete pronunciation data
+- **68 Context Word Updates**: Filled in example words for characters already marked as multi-pronunciation but missing context, like 禁 (jìn "forbid" / jīn "to restrain oneself"), 散 (sàn "to scatter" / sǎn "loose"), and 咖 (kā "coffee" / gā "curry")
+- **Taiwan MOE Cross-Reference**: Used official Taiwan Ministry of Education polyphone list to ensure comprehensive coverage
+
+### 🎨 Improvements
+- **Better Drill A Options**: With complete pronunciation data, Drill A now correctly excludes valid alternate readings from wrong answer choices across all 162 characters
+
+---
+
 ## December 6, 2025 - Session 17
 
 ### 🐛 Bug Fixes

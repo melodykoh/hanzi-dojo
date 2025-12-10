@@ -1,0 +1,362 @@
+{
+  "timestamp": "2025-12-09T19:43:28.956Z",
+  "total_entries_with_variants": 240,
+  "findings": {
+    "todo-placeholders": {
+      "severity": "P1",
+      "count": 0,
+      "items": []
+    },
+    "empty-zhuyin-middle": {
+      "severity": "P1",
+      "count": 20,
+      "items": [
+        {
+          "simp": "提",
+          "trad": "提",
+          "pinyin": "chí"
+        },
+        {
+          "simp": "提",
+          "trad": "提",
+          "pinyin": "shí"
+        },
+        {
+          "simp": "只",
+          "trad": "隻",
+          "pinyin": "zhī"
+        },
+        {
+          "simp": "只",
+          "trad": "隻",
+          "pinyin": "zhǐ"
+        },
+        {
+          "simp": "匙",
+          "trad": "匙",
+          "pinyin": "chí"
+        },
+        {
+          "simp": "匙",
+          "trad": "匙",
+          "pinyin": "shi"
+        },
+        {
+          "simp": "知",
+          "trad": "知",
+          "pinyin": "zhī"
+        },
+        {
+          "simp": "知",
+          "trad": "知",
+          "pinyin": "zhì"
+        },
+        {
+          "simp": "差",
+          "trad": "差",
+          "pinyin": "cī"
+        },
+        {
+          "simp": "识",
+          "trad": "識",
+          "pinyin": "shi"
+        },
+        {
+          "simp": "识",
+          "trad": "識",
+          "pinyin": "shì"
+        },
+        {
+          "simp": "识",
+          "trad": "識",
+          "pinyin": "shí"
+        },
+        {
+          "simp": "识",
+          "trad": "識",
+          "pinyin": "zhì"
+        },
+        {
+          "simp": "仔",
+          "trad": "仔",
+          "pinyin": "zī"
+        },
+        {
+          "simp": "仔",
+          "trad": "仔",
+          "pinyin": "zǐ"
+        },
+        {
+          "simp": "坏",
+          "trad": "壞",
+          "pinyin": "pī"
+        },
+        {
+          "simp": "否",
+          "trad": "否",
+          "pinyin": "pǐ"
+        },
+        {
+          "simp": "思",
+          "trad": "思",
+          "pinyin": "sī"
+        },
+        {
+          "simp": "拾",
+          "trad": "拾",
+          "pinyin": "shí"
+        },
+        {
+          "simp": "被",
+          "trad": "被",
+          "pinyin": "pī"
+        }
+      ]
+    },
+    "duplicate-meanings": {
+      "severity": "P2",
+      "count": 0,
+      "items": []
+    },
+    "empty-meanings": {
+      "severity": "P3",
+      "count": 0,
+      "items": [],
+      "total": 0
+    },
+    "empty-alternate-context": {
+      "severity": "P2",
+      "count": 24,
+      "items": [
+        {
+          "simp": "提",
+          "trad": "提",
+          "pinyin": "dǐ",
+          "position": 3
+        },
+        {
+          "simp": "提",
+          "trad": "提",
+          "pinyin": "shí",
+          "position": 4
+        },
+        {
+          "simp": "累",
+          "trad": "累",
+          "pinyin": "lǜ",
+          "position": 5
+        },
+        {
+          "simp": "喝",
+          "trad": "喝",
+          "pinyin": "kài",
+          "position": 4
+        },
+        {
+          "simp": "喝",
+          "trad": "喝",
+          "pinyin": "yè",
+          "position": 5
+        },
+        {
+          "simp": "分",
+          "trad": "分",
+          "pinyin": "fen",
+          "position": 2
+        },
+        {
+          "simp": "分",
+          "trad": "分",
+          "pinyin": "fén",
+          "position": 4
+        },
+        {
+          "simp": "落",
+          "trad": "落",
+          "pinyin": "luō",
+          "position": 2
+        },
+        {
+          "simp": "差",
+          "trad": "差",
+          "pinyin": "chài",
+          "position": 2
+        },
+        {
+          "simp": "差",
+          "trad": "差",
+          "pinyin": "cuō",
+          "position": 5
+        },
+        {
+          "simp": "差",
+          "trad": "差",
+          "pinyin": "jiē",
+          "position": 7
+        },
+        {
+          "simp": "折",
+          "trad": "折",
+          "pinyin": "tí",
+          "position": 2
+        },
+        {
+          "simp": "与",
+          "trad": "與",
+          "pinyin": "yú",
+          "position": 2
+        },
+        {
+          "simp": "纪",
+          "trad": "紀",
+          "pinyin": "jǐ",
+          "position": 2
+        },
+        {
+          "simp": "坏",
+          "trad": "壞",
+          "pinyin": "pī",
+          "position": 3
+        },
+        {
+          "simp": "坏",
+          "trad": "壞",
+          "pinyin": "péi",
+          "position": 4
+        },
+        {
+          "simp": "何",
+          "trad": "何",
+          "pinyin": "hē",
+          "position": 2
+        },
+        {
+          "simp": "咱",
+          "trad": "咱",
+          "pinyin": "zá",
+          "position": 2
+        },
+        {
+          "simp": "咱",
+          "trad": "咱",
+          "pinyin": "za",
+          "position": 3
+        },
+        {
+          "simp": "术",
+          "trad": "術",
+          "pinyin": "shú",
+          "position": 2
+        },
+        {
+          "simp": "详",
+          "trad": "詳",
+          "pinyin": "yáng",
+          "position": 2
+        },
+        {
+          "simp": "弟",
+          "trad": "弟",
+          "pinyin": "tuí",
+          "position": 3
+        },
+        {
+          "simp": "膊",
+          "trad": "膊",
+          "pinyin": "liè",
+          "position": 3
+        },
+        {
+          "simp": "膊",
+          "trad": "膊",
+          "pinyin": "pò",
+          "position": 4
+        }
+      ]
+    },
+    "variant-distribution": {
+      "severity": "INFO",
+      "distribution": [
+        {
+          "variant_count": 7,
+          "char_count": 2,
+          "sample": [
+            "和",
+            "差"
+          ]
+        },
+        {
+          "variant_count": 5,
+          "char_count": 5,
+          "sample": [
+            "提",
+            "累",
+            "喝",
+            "分",
+            "啊"
+          ]
+        },
+        {
+          "variant_count": 4,
+          "char_count": 9,
+          "sample": [
+            "数",
+            "着",
+            "落",
+            "折",
+            "识",
+            "那",
+            "参",
+            "坏",
+            "膊"
+          ]
+        },
+        {
+          "variant_count": 3,
+          "char_count": 26,
+          "sample": [
+            "当",
+            "难",
+            "的",
+            "发",
+            "哪",
+            "跑",
+            "漂",
+            "处",
+            "解",
+            "大"
+          ]
+        },
+        {
+          "variant_count": 2,
+          "char_count": 197,
+          "sample": [
+            "同",
+            "号",
+            "都",
+            "呢",
+            "为",
+            "没",
+            "教",
+            "旁",
+            "洗",
+            "便"
+          ]
+        },
+        {
+          "variant_count": 1,
+          "char_count": 1,
+          "sample": [
+            "硕"
+          ]
+        }
+      ]
+    }
+  },
+  "summary": {
+    "p1": 20,
+    "p2": 24,
+    "p3": 0,
+    "total": 44
+  }
+}
