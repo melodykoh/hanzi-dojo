@@ -16,7 +16,9 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Comprehensive simplified -> traditional mapping
+// Built from dictionary entries where simp !== trad, plus additional mappings
 const simpToTrad = {
+  // Original mappings
   '着': '著', '听': '聽', '硕': '碩', '为': '為', '与': '與',
   '会': '會', '传': '傳', '关': '關', '兴': '興', '写': '寫',
   '冲': '沖', '决': '決', '况': '況', '净': '淨', '减': '減',
@@ -91,7 +93,15 @@ const simpToTrad = {
   '鸟': '鳥', '鸡': '雞', '鸭': '鴨', '鹅': '鵝', '齐': '齊',
   '龙': '龍', '龟': '龜',
   '确': '確', '亲': '親', '严': '嚴', '弹': '彈',
-  '扫': '掃', '窘': '窘', '实': '實', '仔': '仔'
+  '扫': '掃', '窘': '窘', '实': '實', '仔': '仔',
+  // Additional mappings found in context words (2025-12-10)
+  '区': '區', '两': '兩', '儿': '兒', '参': '參', '开': '開',
+  '话': '話', '辆': '輛', '习': '習', '么': '麼', '书': '書',
+  '单': '單', '于': '於', '闻': '聞', '细': '細', '将': '將',
+  '该': '該', '当': '當', '体': '體', '脚': '腳', '个': '個',
+  '只': '隻', '内': '內', '见': '見', '结': '結', '凉': '涼',
+  '丢': '丟', '尽': '盡', '吗': '嗎', '军': '軍', '县': '縣',
+  '偿': '償'
 };
 
 function convertToTraditional(word) {
