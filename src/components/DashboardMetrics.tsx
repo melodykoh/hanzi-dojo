@@ -241,12 +241,12 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
         {/* All-Time Points - Gold */}
         <div className="bg-gradient-to-br from-ninja-gold to-ninja-gold-dark text-ninja-black shadow-xl p-6 rounded-2xl">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-xs font-bold opacity-80 uppercase tracking-wide">
+            <h3 className="font-heading text-sm opacity-80 tracking-wide">
               Total Points
             </h3>
             <span className="text-2xl">⭐</span>
           </div>
-          <div className="text-4xl font-black">
+          <div className="font-heading text-4xl">
             {allTimeFamiliarity.toFixed(1)}
           </div>
           <div className="text-xs font-bold opacity-70 mt-1">
@@ -257,12 +257,12 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
         {/* Last Practiced - White/Gray */}
         <div className="bg-white border-2 border-gray-200 shadow-md p-6 rounded-2xl">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide">
+            <h3 className="font-heading text-sm text-gray-600 tracking-wide">
               Last Practice
             </h3>
             <span className="text-2xl">📅</span>
           </div>
-          <div className="text-3xl font-black text-gray-900">
+          <div className="font-heading text-3xl text-gray-900">
             {formatLastPracticed(lastPracticedDays)}
           </div>
           <div className="text-xs font-bold text-gray-500 mt-1">
@@ -275,10 +275,10 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
         {/* Accuracy Streak - Red */}
         <div className="bg-gradient-to-br from-ninja-red to-ninja-red-dark text-white shadow-xl p-6 rounded-2xl">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-xs font-bold opacity-80 uppercase tracking-wide">Streak</h3>
+            <h3 className="font-heading text-sm opacity-80 tracking-wide">Streak</h3>
             <span className="text-2xl">🔥</span>
           </div>
-          <div className="text-2xl font-black">
+          <div className="font-heading text-2xl">
             {improvingStreak > 0 && (
               <div>{improvingStreak} improving</div>
             )}
@@ -297,10 +297,10 @@ export function DashboardMetrics({ kidId }: DashboardMetricsProps) {
         {/* Characters Mastered - White/Gray */}
         <div className="bg-white border-2 border-gray-200 shadow-md p-6 rounded-2xl">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-xs font-bold text-gray-600 uppercase tracking-wide">Progress</h3>
+            <h3 className="font-heading text-sm text-gray-600 tracking-wide">Progress</h3>
             <span className="text-2xl">📚</span>
           </div>
-          <div className="text-3xl font-black text-gray-900">
+          <div className="font-heading text-3xl text-gray-900">
             {knownCount}/{totalEntries}
           </div>
           <div className="text-xs font-bold text-gray-500 mt-1">

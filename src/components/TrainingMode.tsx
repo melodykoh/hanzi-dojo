@@ -187,7 +187,7 @@ export function TrainingMode() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="fixed inset-0 bg-gradient-to-br from-red-800 to-red-600 flex items-center justify-center">
+      <div className="fixed inset-0 bg-gradient-to-r from-ninja-red-dark via-ninja-red to-ninja-orange flex items-center justify-center">
         <div className="text-white text-3xl font-bold">Loading practice...</div>
       </div>
     )
@@ -196,16 +196,16 @@ export function TrainingMode() {
   // No data state
   if (currentQueue.length === 0) {
     return (
-      <div className="fixed inset-0 bg-gradient-to-br from-red-800 to-red-600 flex items-center justify-center">
+      <div className="fixed inset-0 bg-gradient-to-r from-ninja-red-dark via-ninja-red to-ninja-orange flex items-center justify-center">
         <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-2xl mx-4 text-center">
           <div className="text-8xl mb-6">📚</div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">No Practice Items</h2>
+          <h2 className="font-heading text-4xl text-gray-900 mb-4">No Practice Items</h2>
           <p className="text-xl text-gray-600 mb-8">
             Ask your parent to add some characters to practice!
           </p>
           <button
             onClick={exitToDashboard}
-            className="px-8 py-4 bg-red-600 text-white text-xl font-bold rounded-xl hover:bg-red-700 transition-colors"
+            className="ninja-button ninja-button-fire"
           >
             Return to Dashboard
           </button>
@@ -216,7 +216,7 @@ export function TrainingMode() {
 
   return (
     <OfflineGuard>
-      <div className="fixed inset-0 bg-gradient-to-br from-red-800 to-red-600 overflow-auto">
+      <div className="fixed inset-0 bg-gradient-to-r from-ninja-red-dark via-ninja-red to-ninja-orange overflow-auto">
       {/* Top Bar - Fixed position for Exit button and stats */}
       <div className="fixed top-0 left-0 right-0 bg-black bg-opacity-20 backdrop-blur-sm z-10">
         <div className="w-full mx-auto px-3 py-3">
@@ -240,7 +240,7 @@ export function TrainingMode() {
                 className={`px-3 py-2 rounded-lg font-bold transition-colors text-sm sm:text-base ${
                   currentDrill === DRILLS.ZHUYIN
                     ? 'bg-white text-red-700 shadow-lg'
-                    : 'bg-red-700 text-white hover:bg-red-800'
+                    : 'bg-ninja-red text-white hover:bg-ninja-red-dark'
                 }`}
               >
                 Drill A
@@ -253,7 +253,7 @@ export function TrainingMode() {
                 className={`px-3 py-2 rounded-lg font-bold transition-colors text-sm sm:text-base ${
                   currentDrill === DRILLS.TRAD
                     ? 'bg-white text-red-700 shadow-lg'
-                    : 'bg-red-700 text-white hover:bg-red-800'
+                    : 'bg-ninja-red text-white hover:bg-ninja-red-dark'
                 }`}
               >
                 Drill B
@@ -306,7 +306,7 @@ export function TrainingMode() {
           <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-2xl mx-4">
             <div className="text-center">
               <div className="text-8xl mb-6">🎉</div>
-              <h2 className="text-5xl font-bold mb-3">Amazing Work!</h2>
+              <h2 className="font-heading text-5xl mb-3">Amazing Work!</h2>
               <p className="text-2xl text-gray-600 mb-8">
                 Sensei is proud of your training today.
               </p>
@@ -337,7 +337,7 @@ export function TrainingMode() {
                 </button>
                 <button
                   onClick={exitToDashboard}
-                  className="flex-1 px-8 py-4 bg-red-600 text-white text-xl font-bold rounded-xl hover:bg-red-700 transition-colors"
+                  className="flex-1 ninja-button ninja-button-fire"
                 >
                   Exit to Dashboard
                 </button>

@@ -4,6 +4,20 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## December 12, 2025 - Session 20
+
+### 🎨 Design System Unification
+- **Consistent Typography**: All section headers now use the Bungee font (Ninjago theme) across the entire app. Dashboard metrics, Practice Demo, My Characters, Dictionary, and Missing tabs all share the same visual style
+- **Fire Theme Login**: Sign-in screen now matches the app's fire gradient theme with improved focus states (blue highlight on form inputs)
+- **Button Consistency**: Standardized button styles throughout:
+  - Fire buttons (red) for primary actions like Delete, End Training, Exit
+  - Lightning buttons (blue) for secondary actions like Dictionary Lookup
+  - Gray utility buttons for Reset and Toggle controls
+- **Unified Backgrounds**: Training mode and auth screens use the same dynamic fire gradient
+- **Design System Documentation**: Created internal style guide for maintaining visual consistency in future updates
+
+---
+
 ## December 9, 2025 - Session 19
 
 ### 🐛 Bug Fixes

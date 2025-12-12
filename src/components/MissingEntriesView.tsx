@@ -45,7 +45,7 @@ export function MissingEntriesView() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold">Missing Dictionary Entries</h3>
+        <h3 className="font-heading text-xl">Missing Dictionary Entries</h3>
         <button
           onClick={loadMissingEntries}
           className="text-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded"

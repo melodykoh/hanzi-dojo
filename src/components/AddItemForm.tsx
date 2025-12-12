@@ -465,7 +465,7 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">➕ Add Practice Item</h2>
+      <h2 className="font-heading text-2xl text-gray-900 mb-6">➕ Add Practice Item</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Input Field */}
