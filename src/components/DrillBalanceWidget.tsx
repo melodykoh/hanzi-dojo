@@ -32,7 +32,7 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
   if (loading) {
     return (
       <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">📊 Drill Proficiency</h3>
+        <h3 className="font-heading text-lg text-gray-900 mb-4">📊 Drill Proficiency</h3>
         <p className="text-sm text-gray-500">Loading...</p>
       </div>
     )
@@ -118,7 +118,7 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
 
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h3 className="text-lg font-bold text-gray-900 mb-4">📊 Drill Proficiency Overview</h3>
+      <h3 className="font-heading text-lg text-gray-900 mb-4">📊 Drill Proficiency Overview</h3>
 
       <div className="space-y-0">
         {renderDrillRow('Drill A', 'Zhuyin Recognition', drillA, 'ㄅ')}

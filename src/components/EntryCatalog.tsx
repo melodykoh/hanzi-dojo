@@ -379,7 +379,7 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
     <div className="max-w-6xl mx-auto px-6 py-8">
       {/* Header with count */}
       <div ref={headerRef} className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">My Characters</h2>
+        <h2 className="font-heading text-2xl text-gray-900 mb-2">My Characters</h2>
         <p className="text-gray-600">{items.length} character{items.length !== 1 ? 's' : ''} added</p>
       </div>
 
@@ -721,7 +721,7 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
               </button>
               <button
                 onClick={() => handleDelete(deleteTarget)}
-                className="flex-1 px-6 py-3 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition-colors"
+                className="flex-1 ninja-button ninja-button-fire"
               >
                 Delete
               </button>

@@ -176,7 +176,7 @@ export function PracticeDemo() {
     <div className="min-h-screen bg-gray-50 p-8">
       {/* Header */}
       <div className="max-w-4xl mx-auto mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Practice Demo</h1>
+        <h1 className="font-heading text-3xl text-gray-900 mb-4">Practice Demo</h1>
         
         {/* Session Stats */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
@@ -228,19 +228,19 @@ export function PracticeDemo() {
           <div className="flex flex-wrap gap-2 sm:gap-4 justify-center sm:justify-end">
             <button
               onClick={endSession}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 whitespace-nowrap"
+              className="px-4 py-2 bg-red-500 text-white font-semibold rounded hover:bg-red-600 transition-colors whitespace-nowrap"
             >
               End Training
             </button>
             <button
               onClick={resetSession}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 whitespace-nowrap"
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors whitespace-nowrap"
             >
               Reset Session
             </button>
             <button
               onClick={() => setUseMockData(!useMockData)}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 whitespace-nowrap"
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors whitespace-nowrap"
             >
               {useMockData ? 'Use Real Data' : 'Use Mock Data'}
             </button>
