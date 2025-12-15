@@ -291,10 +291,108 @@ ORDER BY reading_count;
 -- Shows: how many chars have 1, 2, 3+ pronunciations
 ```
 
+## Migration Best Practices
+
+### Backup Table Creation
+
+**Use `CREATE TABLE` (NOT `IF NOT EXISTS`) for backup tables:**
+
+Migrations should run exactly once. Re-running indicates an error that should fail loudly, not silently skip. Using `IF NOT EXISTS` masks problems - the backup would contain already-fixed data, making rollback impossible.
+
+```sql
+-- ❌ Wrong: Silently succeeds on re-run (backup contains fixed data)
+CREATE TABLE IF NOT EXISTS backup_016 AS SELECT * FROM ...;
+
+-- ✅ Correct: Fails on re-run, alerting you to the problem
+CREATE TABLE backup_016 AS SELECT * FROM ...;
+```
+
+### JOIN Filter Optimization
+
+When cascading updates to related tables (e.g., updating readings based on dictionary changes), filter BOTH sides of the JOIN for better performance:
+
+```sql
+-- ✅ Optimized: Filter both sides reduces scan candidates by ~40%
+UPDATE readings r
+SET zhuyin = d.zhuyin
+FROM entries e
+JOIN dictionary_entries d ON e.simp = d.simp AND e.trad = d.trad
+WHERE r.entry_id = e.id
+  AND char_length(e.simp) = 1     -- Filter on entries
+  AND char_length(d.simp) = 1;    -- Filter on dictionary (ADD THIS)
+```
+
+This reduces join candidates from ~1000 to ~600 rows for single-character operations.
+
+### Batch Migrations with Many Rows
+
+For migrations updating >20 rows with similar structure, use generation scripts:
+
+1. Create data file: `/data/migration_NNN_data.json` with structured pronunciation data
+2. Create script: `scripts/generate-migration-NNN.cjs` following existing patterns
+3. Reference: See `scripts/generate-migration-011c.cjs`, `scripts/generate-migration-011f.cjs`
+
+Benefits:
+- DRY: Single source of truth for data
+- Auditable: JSON file documents decisions with sources
+- Testable: Can validate data programmatically before SQL generation
+
+## Rollback Procedures
+
+### Migration 016 Rollback (68 malformed zhuyin characters)
+
+**When to use:** If pronunciation choices prove incorrect or data corruption occurs.
+
+**Prerequisites:** Backup tables exist: `dictionary_entries_backup_016`, `readings_backup_016`
+
+```sql
+-- 1. Drop the constraint first
+ALTER TABLE dictionary_entries DROP CONSTRAINT IF EXISTS single_char_single_pronunciation;
+
+-- 2. Restore dictionary entries from backup
+DELETE FROM dictionary_entries WHERE simp IN (SELECT simp FROM dictionary_entries_backup_016);
+INSERT INTO dictionary_entries SELECT * FROM dictionary_entries_backup_016;
+
+-- 3. Restore readings from backup
+UPDATE readings r
+SET zhuyin = b.zhuyin
+FROM readings_backup_016 b
+WHERE r.id = b.id;
+
+-- 4. Verify rollback
+SELECT COUNT(*) FROM dictionary_entries WHERE char_length(simp) = 1 AND jsonb_array_length(zhuyin) > 1;
+-- Expected: 68 (original malformed count)
+```
+
+### General Rollback Template
+
+For future migrations with backup tables:
+
+```sql
+-- Pattern: DROP constraint → DELETE new → INSERT backup → UPDATE related tables → VERIFY
+BEGIN;
+
+-- Step 1: Remove any constraints added by migration
+ALTER TABLE [table] DROP CONSTRAINT IF EXISTS [constraint_name];
+
+-- Step 2: Restore from backup
+DELETE FROM [table] WHERE [key] IN (SELECT [key] FROM [backup_table]);
+INSERT INTO [table] SELECT * FROM [backup_table];
+
+-- Step 3: Cascade restore to related tables
+UPDATE [related_table] r SET [column] = b.[column]
+FROM [related_backup] b WHERE r.id = b.id;
+
+-- Step 4: Verify restoration
+SELECT COUNT(*) FROM [table] WHERE [original_condition];
+
+COMMIT;
+```
+
 ## Future Improvements
 
 1. **Automated validation:** Add pre-migration checks to CI/CD
-2. **Rollback strategy:** Document how to revert if migration fails
+2. ~~**Rollback strategy:** Document how to revert if migration fails~~ ✅ Done (see above)
 3. **Incremental updates:** Support adding only new characters without re-processing existing
 4. **Pronunciation context:** Store which words use which reading (for better drill generation)
 5. **Frequency data:** Enhance with actual usage frequency, not just HSK rank
