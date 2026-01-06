@@ -194,8 +194,8 @@ export function PracticeCard({
           </div>
         </div>
         
-        {/* Options */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        {/* Options - 2x2 grid on all screen sizes to fit iPhone viewport without scrolling */}
+        <div className="grid grid-cols-2 gap-4 mb-6">
           {drillAOptions.map((option, index) => {
             const isDisabled = disabledOptions.has(index)
             const isSelected = selectedOption === index
