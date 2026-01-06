@@ -4200,3 +4200,47 @@ Initial grep counts showed 70/202 occurrences, causing concern about documentati
 ---
 
 **Session 16 Summary:** ✅ COMPLETE - Verified PR #17 pre-merge checklist. Investigated and resolved migration count discrepancy (grep occurrences vs unique characters). Confirmed Vercel preview testing passed for multi-pronunciation selection and Drill A guardrails. Documentation updated. Ready to merge Epic 8 Phase 1 & 2 to production (136 multi-pronunciation characters).
+
+
+---
+
+## Session 21: Drill A Mobile Layout Fix
+
+**Date:** 2026-01-06
+**Status:** ✅ Complete
+**PR:** #31
+
+### 🎯 Session Objective
+Fix accidental pull-to-refresh on iPhone when practicing Drill A.
+
+### 📋 Problem
+On iPhone 15 (393×852px viewport), Drill A stacked 4 Zhuyin options vertically (1 column), requiring scrolling. When the child scrolled down to see all options, it triggered iOS Safari's pull-to-refresh gesture, causing page reload and lost progress.
+
+### ✅ Solution
+Changed Drill A grid from `grid-cols-1 sm:grid-cols-2` to `grid-cols-2` to match Drill B's layout (which already worked correctly).
+
+**File Changed:** `src/components/PracticeCard.tsx` (line 198)
+**Lines Changed:** 2
+
+### 🔍 Review Process
+1. Used `/workflows:plan` to research and create implementation plan
+2. Ran `/plan_review` with 3 parallel reviewers (DHH, Kieran, Simplicity)
+3. Simplified plan based on consensus feedback
+4. Implemented with `/workflows:work`
+5. Playwright QA at iPhone 15 dimensions (393×852px)
+6. `/workflows:review` on PR #31 - all reviewers approved
+
+### 📸 Testing
+- ✅ Playwright browser testing at iPhone 15 viewport
+- ✅ Verified 2×2 grid layout displays correctly
+- ✅ Verified feedback and Next button visible without scrolling
+- ✅ Existing tests pass (139/161 - pre-existing failures unrelated)
+
+### 📁 Deliverables
+- PR #31 merged to main
+- `public/CHANGELOG.md` updated
+- `SESSION_LOG.md` updated
+
+---
+
+**Session 21 Summary:** ✅ COMPLETE - Fixed Drill A mobile layout to prevent accidental pull-to-refresh on iPhone. Single CSS class change (2 lines) unified Drill A and Drill B layouts. Verified with Playwright QA at iPhone 15 dimensions.

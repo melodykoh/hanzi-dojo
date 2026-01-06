@@ -4,6 +4,13 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## January 6, 2026 - Session 21
+
+### 🐛 Bug Fix
+- **Drill A Mobile Layout**: Fixed accidental page refresh on iPhone when practicing. Previously, the 4 Zhuyin options were stacked vertically on mobile, requiring scrolling that triggered iOS Safari's pull-to-refresh gesture. Now options display in a 2×2 grid (matching Drill B), so everything fits on screen without scrolling.
+
+---
+
 ## December 12, 2025 - Session 20
 
 ### 🎨 Design System Unification
