@@ -2,6 +2,8 @@
 // Epic 5.5: UX Refinement - Task 5.5.3
 
 import { supabase } from './supabase'
+import { dictionaryClient } from './dictionaryClient'
+import { formatZhuyinDisplay } from './zhuyin'
 import type { PracticeDrill } from '../types'
 import { DRILLS } from '../types'
 
@@ -15,6 +17,15 @@ export interface DrillProficiency {
   avgAccuracy: number | null  // % correct on first try (last 10 attempts)
   strugglingCount: number      // Items with consecutive_miss_count >= 2
   needsAttention: boolean
+}
+
+export interface StrugglingCharacter {
+  entry_id: string
+  simplified: string
+  traditional: string
+  zhuyin: string
+  consecutive_miss_count: number
+  last_practiced_at: string | null
 }
 
 export interface DrillRecommendation {
@@ -253,4 +264,113 @@ export function getDrillDisplayName(drill: PracticeDrill): string {
  */
 export function getDrillDescription(drill: PracticeDrill): string {
   return drill === DRILLS.ZHUYIN ? 'Zhuyin Recognition' : 'Traditional Form'
+}
+
+// =============================================================================
+// STRUGGLING CHARACTERS
+// =============================================================================
+
+/**
+ * Get detailed list of struggling characters for a drill
+ * Struggling = consecutive_miss_count >= 2
+ */
+export async function getStrugglingCharacters(
+  kidId: string,
+  drill: PracticeDrill
+): Promise<StrugglingCharacter[]> {
+  const { data, error } = await supabase
+    .from('practice_state')
+    .select(`
+      entry_id,
+      consecutive_miss_count,
+      last_attempt_at,
+      entries!inner (
+        simp,
+        trad
+      )
+    `)
+    .eq('kid_id', kidId)
+    .eq('drill', drill)
+    .gte('consecutive_miss_count', 2)
+    .order('consecutive_miss_count', { ascending: false })
+    .limit(50)
+
+  if (error) {
+    console.error('[drillBalanceService] Failed to fetch struggling characters:', error)
+    return []
+  }
+
+  if (!data || data.length === 0) {
+    return []
+  }
+
+  // Type for the joined entry data from Supabase
+  type EntryData = { simp: string; trad: string }
+
+  // Fetch zhuyin from dictionary for each character using dictionaryClient
+  const simplifiedChars = data.map(d => {
+    const entry = d.entries as unknown as EntryData
+    return entry.simp
+  })
+
+  // Use dictionaryClient for consistent lookup with caching
+  const dictResults = await dictionaryClient.batchLookup(simplifiedChars)
+  const zhuyinMap = new Map<string, string>()
+  simplifiedChars.forEach((char, index) => {
+    const result = dictResults[index]
+    if (result.found && result.entry?.zhuyin) {
+      zhuyinMap.set(char, formatZhuyinDisplay(result.entry.zhuyin))
+    }
+  })
+
+  return data.map(item => {
+    const entry = item.entries as unknown as EntryData
+    return {
+      entry_id: item.entry_id,
+      simplified: entry.simp,
+      traditional: entry.trad,
+      zhuyin: zhuyinMap.get(entry.simp) || '',
+      consecutive_miss_count: item.consecutive_miss_count,
+      last_practiced_at: item.last_attempt_at
+    }
+  })
+}
+
+// =============================================================================
+// TIME-BASED ACCURACY
+// =============================================================================
+
+/**
+ * Calculate accuracy for a specific time window
+ * @param days - Number of days to look back (7 for "Last Week", 60 for "Last 60 Days")
+ * @returns Accuracy percentage or null if no events in timeframe
+ */
+export async function getAccuracyForTimeframe(
+  kidId: string,
+  drill: PracticeDrill,
+  days: number
+): Promise<number | null> {
+  const cutoffDate = new Date()
+  cutoffDate.setDate(cutoffDate.getDate() - days)
+
+  const { data, error } = await supabase
+    .from('practice_events')
+    .select('is_correct')
+    .eq('kid_id', kidId)
+    .eq('drill', drill)
+    .eq('attempt_index', 1) // First tries only
+    .gte('created_at', cutoffDate.toISOString())
+
+  if (error) {
+    console.error(`[drillBalanceService] Failed to fetch accuracy for ${drill}:`, error)
+    return null
+  }
+
+  // Return null for "N/A" display when no events in timeframe
+  if (!data || data.length === 0) {
+    return null
+  }
+
+  const correct = data.filter(e => e.is_correct).length
+  return Math.round((correct / data.length) * 100)
 }
