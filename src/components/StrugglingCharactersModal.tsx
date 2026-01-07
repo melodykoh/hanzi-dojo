@@ -2,15 +2,7 @@
 // Displays characters that need attention (consecutive_miss_count >= 2)
 
 import { useEffect, useRef, useCallback } from 'react'
-
-export interface StrugglingCharacter {
-  entry_id: string
-  simplified: string
-  traditional: string
-  zhuyin: string
-  consecutive_miss_count: number
-  last_practiced_at: string | null
-}
+import type { StrugglingCharacter } from '../lib/drillBalanceService'
 
 interface Props {
   isOpen: boolean
@@ -18,6 +10,7 @@ interface Props {
   drill: 'drill_a' | 'drill_b'
   characters: StrugglingCharacter[]
   isLoading?: boolean
+  error?: string | null
 }
 
 export function StrugglingCharactersModal({
@@ -25,7 +18,8 @@ export function StrugglingCharactersModal({
   onClose,
   drill,
   characters,
-  isLoading = false
+  isLoading = false,
+  error = null
 }: Props) {
   const modalRef = useRef<HTMLDivElement>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
@@ -158,6 +152,8 @@ export function StrugglingCharactersModal({
         <div className="flex-1 overflow-y-auto p-3 sm:p-4 bg-gradient-to-b from-ninja-white to-gray-50">
           {isLoading ? (
             <LoadingState />
+          ) : error ? (
+            <ErrorState message={error} />
           ) : characters.length === 0 ? (
             <EmptyState />
           ) : (
@@ -322,6 +318,25 @@ function EmptyState() {
       </h3>
       <p className="mt-2 text-sm text-gray-600 max-w-xs">
         No struggling characters. Your training is going well!
+      </p>
+    </div>
+  )
+}
+
+function ErrorState({ message }: { message: string }) {
+  return (
+    <div className="flex flex-col items-center justify-center py-12 text-center px-4">
+      <div
+        className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4"
+        aria-hidden="true"
+      >
+        <span className="text-3xl">!</span>
+      </div>
+      <h3 className="font-heading text-lg text-red-600 tracking-wide">
+        Unable to Load
+      </h3>
+      <p className="mt-2 text-sm text-gray-600 max-w-xs">
+        {message}
       </p>
     </div>
   )

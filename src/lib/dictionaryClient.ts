@@ -64,20 +64,83 @@ class DictionaryClient {
 
   /**
    * Look up multiple characters at once
-   * Uses individual lookups with caching (more efficient than batch RPC due to caching)
+   * Uses cache for hits, then batch RPC for all misses in a single request
    */
   async batchLookup(simps: string[]): Promise<DictionaryLookupResult[]> {
     console.log(`[Dictionary] Batch lookup for ${simps.length} characters...`)
-    
-    // Use Promise.all for parallel lookups (cache will make this fast)
-    const results = await Promise.all(
-      simps.map(simp => this.lookup(simp))
-    )
 
-    const foundCount = results.filter(r => r.found).length
-    console.log(`[Dictionary] Batch lookup complete: ${foundCount}/${simps.length} found`)
+    // Separate cached vs uncached characters
+    const results: Map<string, DictionaryLookupResult> = new Map()
+    const uncachedChars: string[] = []
 
-    return results
+    for (const simp of simps) {
+      if (this.cache.has(simp)) {
+        this.hitCount++
+        results.set(simp, this.cache.get(simp)!)
+      } else {
+        uncachedChars.push(simp)
+      }
+    }
+
+    console.log(`[Dictionary] Cache: ${simps.length - uncachedChars.length} hits, ${uncachedChars.length} misses`)
+
+    // Fetch all uncached characters in a single RPC call
+    if (uncachedChars.length > 0) {
+      this.missCount += uncachedChars.length
+
+      try {
+        const { data, error } = await supabase.rpc('batch_lookup_dictionary_entries', {
+          search_chars: uncachedChars
+        })
+
+        if (error) {
+          console.error('[Dictionary] Batch RPC error:', error)
+          // Return not found for all uncached characters on error
+          for (const char of uncachedChars) {
+            const notFoundResult: DictionaryLookupResult = {
+              found: false,
+              entry: undefined,
+              confusions: undefined
+            }
+            results.set(char, notFoundResult)
+            this.cache.set(char, notFoundResult)
+          }
+        } else {
+          // Map RPC results back to characters
+          const rpcResults = (data?.results || []) as DictionaryLookupResult[]
+
+          for (let i = 0; i < uncachedChars.length; i++) {
+            const char = uncachedChars[i]
+            const result = rpcResults[i] || {
+              found: false,
+              entry: undefined,
+              confusions: undefined
+            }
+            results.set(char, result)
+            this.cache.set(char, result)
+          }
+        }
+      } catch (err) {
+        console.error('[Dictionary] Batch lookup error:', err)
+        // Return not found for all uncached characters on error
+        for (const char of uncachedChars) {
+          const notFoundResult: DictionaryLookupResult = {
+            found: false,
+            entry: undefined,
+            confusions: undefined
+          }
+          results.set(char, notFoundResult)
+        }
+      }
+    }
+
+    // Return results in the original order
+    const orderedResults = simps.map(simp => results.get(simp)!)
+
+    const foundCount = orderedResults.filter(r => r.found).length
+    console.log(`[Dictionary] Batch lookup complete: ${foundCount}/${simps.length} found (${this.getHitRate()}% hit rate)`)
+
+    return orderedResults
   }
 
   /**
