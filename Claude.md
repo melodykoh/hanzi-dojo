@@ -279,28 +279,23 @@ For significant changes (>50 lines or >3 files):
 - Dictionary: 1,067 characters (HSK 1-4), 86% properly structured
 - All core features complete: Drills A/B, familiarity scoring, entry management, training mode
 
-### **Session 16 Complete (Nov 30, 2025)** ✅
-**Status:** PR #17 verified and ready to merge - Epic 8 Phase 1 & 2 complete
+### **Session 22 Complete (Jan 7, 2026)** ✅
+**Status:** PR #32 merged - Drill Proficiency Widget with clickable struggling count
 
-**PR #17 - Epic 8 Multi-Pronunciation Characters:**
-- ✅ **136 multi-pronunciation characters** now supported (35 curated + 101 auto-generated)
-- ✅ **Drill A guardrails** - Valid alternate pronunciations excluded from distractors
-- ✅ **RPC optimization** - Entry catalog loads 30-40% faster
-- ✅ **Input validation** - Prevents crashes from malformed pronunciation data
-- ✅ **Code quality** - Type safety, deduplication, +28 tests (53 total passing)
-
-**Migrations in PR #17:**
-- `011b_pattern_a_structure.sql` - 35 curated characters with context words
-- `011c_dictionary_multi_pronunciations.sql` - 101 auto-generated characters
-- `011d_pronunciation_rpc.sql` - RPC performance optimization
+**PR #32 - Drill Proficiency Widget:**
+- ✅ **Accuracy timeframe toggle** - "Last Week" vs "Last 60 Days" per drill
+- ✅ **Clickable struggling count** - Opens modal showing which characters need practice
+- ✅ **StrugglingCharactersModal** - Drill-specific layouts (Drill A: Zhuyin prominent, Drill B: Traditional prominent)
+- ✅ **9 code review fixes** - Performance (3x faster), timezone consistency, error handling
+- ✅ **Migration 018** - Composite index for accuracy queries
 
 **Previous Sessions:**
-- **Session 14 (Nov 16):** Feedback Tab + 8 code quality improvements (PR #12)
-- **Session 13 (Nov 15):** Demo mode + 8 code quality improvements (PR #11)
-- **Session 12 (Nov 14):** Ninjago theme + 11 improvements (PR #10)
-- **Session 11 (Nov 12):** Pattern A structure unification + pronunciation modal fix
+- **Session 21 (Jan 6):** Drill A mobile layout fix - 2x2 grid prevents pull-to-refresh (PR #31)
+- **Session 20 (Dec 12):** Ninjago design system unification
+- **Session 19 (Dec 9):** Multi-pronunciation meanings fix (160 chars)
+- **Session 18 (Dec 8):** Comprehensive multi-pronunciation coverage (162 chars)
 
-**Next Priority:** Merge PR #17 → Monitor production → Epic 7 (Mobile polish) or Epic 8 Phase 3 (Dictionary expansion)
+**Next Priority:** Monitor production → Epic 7 (Mobile polish) or Epic 8 Phase 3 (Dictionary expansion)
 
 ### **Epic Status Overview**
 - Epic 1-6: ✅ COMPLETE (V1 production deployed)

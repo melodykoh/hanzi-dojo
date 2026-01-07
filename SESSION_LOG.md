@@ -4244,3 +4244,73 @@ Changed Drill A grid from `grid-cols-1 sm:grid-cols-2` to `grid-cols-2` to match
 ---
 
 **Session 21 Summary:** ✅ COMPLETE - Fixed Drill A mobile layout to prevent accidental pull-to-refresh on iPhone. Single CSS class change (2 lines) unified Drill A and Drill B layouts. Verified with Playwright QA at iPhone 15 dimensions.
+
+
+---
+
+## Session 22: Drill Proficiency Widget - Clickable Struggling + Timeframe Toggle
+
+**Date:** 2026-01-07
+**Status:** ✅ Complete
+**PR:** #32
+
+### 🎯 Session Objective
+Add Drill Proficiency widget to dashboard with clickable struggling count and accuracy timeframe toggle.
+
+### ✨ Features Implemented
+
+**DrillBalanceWidget:**
+- Timeframe toggle: "Last Week" vs "Last 60 Days" for accuracy percentage
+- Per-drill accuracy bars with color-coded thresholds (red < 70%, yellow 70-80%, green > 80%)
+- Clickable struggling count opens detail modal
+
+**StrugglingCharactersModal:**
+- Ninjago fire theme with accessible focus trap
+- Drill-specific layouts:
+  - Drill A: Large simplified + zhuyin (answer), smaller traditional
+  - Drill B: Large simplified + traditional (answer), smaller zhuyin
+- Loading, empty, and error states
+- Mobile-optimized (375px viewport)
+
+### 🔧 Code Review Fixes (9 findings resolved in parallel)
+
+Ran `/workflows:review` which spawned 7 specialized review agents. Created 10 todo files from findings, triaged with `/triage`, then resolved 9 in parallel with `/resolve_todo_parallel`:
+
+| # | Priority | Fix |
+|---|----------|-----|
+| 049 | P1 | Defensive null filter for Supabase join safety |
+| 050 | P2 | Removed duplicate StrugglingCharacter type |
+| 052 | P2 | Sequential queries → Promise.all (3x faster) |
+| 053 | P2 | Created composite index migration (018) |
+| 054 | P2 | Batch RPC for dictionary lookups (50→1 request) |
+| 055 | P2 | Fixed useEffect redundancy with refs |
+| 056 | P2 | UTC-based date calculation (timezone fix) |
+| 057 | P3 | Extracted magic numbers to constants |
+| 058 | P3 | Added error states and UI display |
+
+### 🐛 UX Fix
+User noticed struggling count didn't change with timeframe toggle. Clarified this is by design (accuracy = timeframe-filtered, struggling = current state). Added "currently" to struggling label for clarity.
+
+### 📁 Files Changed
+- `src/components/DrillBalanceWidget.tsx` (new, 356 lines)
+- `src/components/StrugglingCharactersModal.tsx` (new, 343 lines)
+- `src/lib/drillBalanceService.ts` (+216 lines - new functions)
+- `src/lib/dictionaryClient.ts` (+81 lines - batch RPC)
+- `supabase/migrations/018_accuracy_query_index.sql` (new)
+
+### 📋 Migrations
+- **018_accuracy_query_index.sql**: Composite index for accuracy timeframe queries
+
+### 🎓 Key Decisions
+1. **Struggling vs Accuracy scope**: Accuracy is timeframe-filtered, struggling shows current cumulative state
+2. **UX solution**: Added "currently" label rather than making struggling timeframe-aware (simpler, matches original intent)
+3. **Performance**: Parallel queries + batch RPC reduced widget load time significantly
+
+### 📸 Testing
+- ✅ TypeScript compilation passing
+- ✅ Playwright visual QA at multiple viewports
+- ✅ Vercel preview testing with production account
+
+---
+
+**Session 22 Summary:** ✅ COMPLETE - Added Drill Proficiency widget with clickable struggling count, timeframe toggle for accuracy, and StrugglingCharactersModal. Resolved 9 code review findings in parallel. Fixed UX confusion with "currently struggling" label. PR #32 merged.

@@ -4,6 +4,25 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## January 7, 2026 - Session 22
+
+### ✨ New Features
+- **Drill Proficiency Widget**: New dashboard section showing accuracy and struggling characters per drill
+  - Toggle between "Last Week" and "Last 60 Days" to see recent vs. long-term accuracy trends
+  - Click on struggling count to see which specific characters need more practice
+  - Drill-specific layouts: Drill A shows Zhuyin prominently, Drill B shows Traditional prominently
+
+### 🎨 Improvements
+- **Faster Widget Loading**: Drill proficiency data loads 3x faster with parallel database queries
+- **Smarter Dictionary Lookups**: Batch lookups now use a single request instead of 50 separate calls
+- **Clearer Labels**: "Currently struggling" text clarifies that struggling count reflects present state (not filtered by timeframe)
+
+### 🐛 Bug Fixes
+- **Timezone Consistency**: Accuracy calculations now use UTC consistently, fixing off-by-one day errors for users in different timezones
+- **Error Handling**: Widget and modal now display helpful error messages instead of showing stale data when API calls fail
+
+---
+
 ## January 6, 2026 - Session 21
 
 ### 🐛 Bug Fix
