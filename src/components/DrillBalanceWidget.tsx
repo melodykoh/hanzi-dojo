@@ -281,12 +281,12 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
             <button
               onClick={() => handleStrugglingClick(drill)}
               className="text-orange-600 font-medium hover:text-orange-700 hover:underline focus:outline-none focus:underline transition-colors"
-              aria-label={`View ${proficiency.strugglingCount} struggling characters for ${name}`}
+              aria-label={`View ${proficiency.strugglingCount} currently struggling characters for ${name}`}
             >
-              ⚠️ {proficiency.strugglingCount} struggling
+              ⚠️ {proficiency.strugglingCount} currently struggling
             </button>
           ) : (
-            <span className="text-gray-400">0 struggling</span>
+            <span className="text-gray-400">0 currently struggling</span>
           )}
           {!hasData && proficiency.queueDepth > 0 && (
             <div className="text-blue-600">Not practiced yet</div>
