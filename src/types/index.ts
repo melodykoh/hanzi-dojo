@@ -5,6 +5,7 @@ export type EntryType = 'char' | 'word'
 export const DRILLS = {
   ZHUYIN: 'zhuyin',
   TRAD: 'trad',
+  WORD_MATCH: 'word_match',
 } as const
 
 export type PracticeDrill = typeof DRILLS[keyof typeof DRILLS]
@@ -122,4 +123,36 @@ export interface DictionaryLookupResult {
     zhuyin?: unknown
     trad?: unknown
   }
+}
+
+// Word Pairs (Drill C: Word Match)
+export interface WordPair {
+  id: string
+  word: string
+  char1: string
+  char2: string
+  category?: string
+  created_at: string
+}
+
+export interface WordPairWithZhuyin {
+  id: string
+  word: string
+  char1: string
+  char1_zhuyin: ZhuyinSyllable[]
+  char2: string
+  char2_zhuyin: ZhuyinSyllable[]
+  category: string | null
+}
+
+export interface WordMatchRoundData {
+  leftColumn: WordMatchCard[]
+  rightColumn: WordMatchCard[]
+  pairs: WordPairWithZhuyin[]
+}
+
+export interface WordMatchCard {
+  pairId: string
+  char: string
+  zhuyin: ZhuyinSyllable[]
 }

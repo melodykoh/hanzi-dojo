@@ -1,5 +1,6 @@
 // Drill Selection Modal - Pre-Training drill choice with recommendations
 // Epic 5.5: UX Refinement - Tasks 5.5.2 & 5.5.4
+// Epic: Drill C (Word Match) integration
 
 import { useState, useEffect } from 'react'
 import {
@@ -7,6 +8,7 @@ import {
   getRecommendationMessage,
   type DrillRecommendation
 } from '../lib/drillBalanceService'
+import { canPlayWordMatch, getEligiblePairCount } from '../lib/wordPairService'
 import type { PracticeDrill } from '../types'
 import { DRILLS } from '../types'
 
@@ -22,6 +24,7 @@ interface DrillInfo {
   displayName: string
   description: string
   emoji: string
+  disabledReason?: string
 }
 
 export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSelectionModalProps) {
@@ -38,7 +41,12 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
     setLoading(true)
     try {
       // Get proficiency-based recommendation (Epic 5.5 Task 5.5.4)
-      const rec = await recommendDrill(kidId)
+      // and Drill C eligibility in parallel
+      const [rec, wordMatchEligible, wordPairCount] = await Promise.all([
+        recommendDrill(kidId),
+        canPlayWordMatch(kidId),
+        getEligiblePairCount(kidId)
+      ])
       setRecommendation(rec)
 
       // Build drill info from recommendation data
@@ -56,6 +64,14 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
           displayName: 'Drill B',
           description: 'Traditional Form',
           emoji: '🈚'
+        },
+        {
+          drill: DRILLS.WORD_MATCH,
+          queueDepth: wordMatchEligible ? wordPairCount : 0,
+          displayName: 'Drill C',
+          description: 'Word Match',
+          emoji: '🧩',
+          disabledReason: wordMatchEligible ? undefined : `Need ${5 - wordPairCount} more word pairs`
         }
       ]
 
@@ -94,6 +110,8 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
 
   const getProficiencyInfo = (drill: PracticeDrill) => {
     if (!recommendation) return null
+    // Drill C (word_match) doesn't have proficiency data in the recommendation
+    if (drill === DRILLS.WORD_MATCH) return null
     const proficiency = drill === DRILLS.ZHUYIN ? recommendation.drillA : recommendation.drillB
     return proficiency
   }
@@ -104,8 +122,8 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
         <h2 className="text-2xl font-bold text-gray-900 mb-2">🎯 Choose Your Practice Drill</h2>
         <p className="text-sm text-gray-600 mb-6">Select which drill to practice today</p>
 
-        {/* Recommendation Chip */}
-        {recommendation && recommendation.recommendedDrill && (
+        {/* Recommendation Chip - only for Drills A/B (character-based drills) */}
+        {recommendation && recommendation.recommendedDrill && recommendation.recommendedDrill !== DRILLS.WORD_MATCH && (
           <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
             <div className="flex items-start gap-2">
               <span className="text-lg">💡</span>
@@ -180,10 +198,13 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
                 {/* Proficiency Metrics */}
                 <div className={`text-sm space-y-1 ${isDisabled ? 'text-gray-400' : 'text-gray-600'}`}>
                   {info.queueDepth === 0 ? (
-                    <div>No items available</div>
+                    <div>{info.disabledReason || 'No items available'}</div>
                   ) : (
                     <>
-                      <div>📝 {info.queueDepth} item{info.queueDepth !== 1 ? 's' : ''} ready</div>
+                      {/* Drill C shows "word pairs", others show "items" */}
+                      <div>
+                        📝 {info.queueDepth} {info.drill === DRILLS.WORD_MATCH ? 'word pair' : 'item'}{info.queueDepth !== 1 ? 's' : ''} ready
+                      </div>
                       {proficiency && proficiency.avgAccuracy !== null && (
                         <div className={proficiency.avgAccuracy < 70 ? 'text-orange-600 font-medium' : ''}>
                           ✓ Avg accuracy: {proficiency.avgAccuracy}%
