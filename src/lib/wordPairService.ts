@@ -9,6 +9,12 @@ import type {
 } from '../types'
 
 // =============================================================================
+// CONSTANTS
+// =============================================================================
+
+export const MIN_PAIRS_FOR_ROUND = 5
+
+// =============================================================================
 // ERROR TYPES
 // =============================================================================
 
@@ -41,12 +47,12 @@ function shuffle<T>(array: T[]): T[] {
 
 /**
  * Check if a kid can play Drill C (Word Match)
- * Requires at least 5 eligible word pairs
+ * Requires at least MIN_PAIRS_FOR_ROUND eligible word pairs
  */
 export async function canPlayWordMatch(kidId: string): Promise<boolean> {
   try {
     const pairs = await fetchEligibleWordPairs(kidId)
-    return pairs.length >= 5
+    return pairs.length >= MIN_PAIRS_FOR_ROUND
   } catch (error) {
     console.error('[wordPairService] canPlayWordMatch error:', error)
     return false
@@ -112,13 +118,13 @@ export async function fetchEligibleWordPairs(kidId: string): Promise<WordPairWit
 // =============================================================================
 
 /**
- * Generate a round of 5 word pairs with unique starting characters
+ * Generate a round of MIN_PAIRS_FOR_ROUND word pairs with unique starting characters
  * @throws InsufficientPairsError if not enough unique pairs available
  */
 export function generateRound(eligiblePairs: WordPairWithZhuyin[]): WordPairWithZhuyin[] {
   const shuffled = shuffle([...eligiblePairs])
 
-  // Find 5 pairs with unique char1 (no duplicate starting chars)
+  // Find MIN_PAIRS_FOR_ROUND pairs with unique char1 (no duplicate starting chars)
   const selected: WordPairWithZhuyin[] = []
   const usedChar1 = new Set<string>()
 
@@ -126,15 +132,15 @@ export function generateRound(eligiblePairs: WordPairWithZhuyin[]): WordPairWith
     if (!usedChar1.has(pair.char1)) {
       usedChar1.add(pair.char1)
       selected.push(pair)
-      if (selected.length === 5) break
+      if (selected.length === MIN_PAIRS_FOR_ROUND) break
     }
   }
 
   // Error handling: not enough unique pairs
-  if (selected.length < 5) {
+  if (selected.length < MIN_PAIRS_FOR_ROUND) {
     throw new InsufficientPairsError(
       `Only found ${selected.length} pairs with unique starting characters. ` +
-      `Need at least 5. Kid may need to add more characters.`
+      `Need at least ${MIN_PAIRS_FOR_ROUND}. Kid may need to add more characters.`
     )
   }
 
@@ -211,10 +217,10 @@ export async function recordWordMatchAttempt(
 export async function fetchAndGenerateRound(kidId: string): Promise<WordMatchRoundData> {
   const eligiblePairs = await fetchEligibleWordPairs(kidId)
 
-  if (eligiblePairs.length < 5) {
+  if (eligiblePairs.length < MIN_PAIRS_FOR_ROUND) {
     throw new InsufficientPairsError(
       `Only ${eligiblePairs.length} eligible word pairs found. ` +
-      `Need at least 5 to play Word Match.`
+      `Need at least ${MIN_PAIRS_FOR_ROUND} to play Word Match.`
     )
   }
 

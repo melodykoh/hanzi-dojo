@@ -8,7 +8,7 @@ import {
   getRecommendationMessage,
   type DrillRecommendation
 } from '../lib/drillBalanceService'
-import { canPlayWordMatch, getEligiblePairCount } from '../lib/wordPairService'
+import { fetchEligibleWordPairs, MIN_PAIRS_FOR_ROUND } from '../lib/wordPairService'
 import type { PracticeDrill } from '../types'
 import { DRILLS } from '../types'
 
@@ -34,59 +34,61 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    async function loadDrillInfo() {
+      setLoading(true)
+      try {
+        // Get proficiency-based recommendation (Epic 5.5 Task 5.5.4)
+        // and Drill C eligibility in parallel
+        // Note: Fetch word pairs once and derive both values to avoid duplicate RPC calls
+        const [rec, eligiblePairs] = await Promise.all([
+          recommendDrill(kidId),
+          fetchEligibleWordPairs(kidId)
+        ])
+        const wordMatchEligible = eligiblePairs.length >= MIN_PAIRS_FOR_ROUND
+        const wordPairCount = eligiblePairs.length
+        setRecommendation(rec)
+
+        // Build drill info from recommendation data
+        const info: DrillInfo[] = [
+          {
+            drill: DRILLS.ZHUYIN,
+            queueDepth: rec.drillA.queueDepth,
+            displayName: 'Drill A',
+            description: 'Zhuyin Recognition',
+            emoji: 'ㄅ'
+          },
+          {
+            drill: DRILLS.TRAD,
+            queueDepth: rec.drillB.queueDepth,
+            displayName: 'Drill B',
+            description: 'Traditional Form',
+            emoji: '🈚'
+          },
+          {
+            drill: DRILLS.WORD_MATCH,
+            queueDepth: wordMatchEligible ? wordPairCount : 0,
+            displayName: 'Drill C',
+            description: 'Word Match',
+            emoji: '🧩',
+            disabledReason: wordMatchEligible ? undefined : `Need ${5 - wordPairCount} more word pairs`
+          }
+        ]
+
+        setDrillsInfo(info)
+
+        // Auto-select recommended drill if available
+        if (rec.recommendedDrill) {
+          setSelectedDrill(rec.recommendedDrill)
+        }
+      } catch (error) {
+        console.error('[DrillSelectionModal] Failed to load drill info:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
     loadDrillInfo()
   }, [kidId])
-
-  async function loadDrillInfo() {
-    setLoading(true)
-    try {
-      // Get proficiency-based recommendation (Epic 5.5 Task 5.5.4)
-      // and Drill C eligibility in parallel
-      const [rec, wordMatchEligible, wordPairCount] = await Promise.all([
-        recommendDrill(kidId),
-        canPlayWordMatch(kidId),
-        getEligiblePairCount(kidId)
-      ])
-      setRecommendation(rec)
-
-      // Build drill info from recommendation data
-      const info: DrillInfo[] = [
-        {
-          drill: DRILLS.ZHUYIN,
-          queueDepth: rec.drillA.queueDepth,
-          displayName: 'Drill A',
-          description: 'Zhuyin Recognition',
-          emoji: 'ㄅ'
-        },
-        {
-          drill: DRILLS.TRAD,
-          queueDepth: rec.drillB.queueDepth,
-          displayName: 'Drill B',
-          description: 'Traditional Form',
-          emoji: '🈚'
-        },
-        {
-          drill: DRILLS.WORD_MATCH,
-          queueDepth: wordMatchEligible ? wordPairCount : 0,
-          displayName: 'Drill C',
-          description: 'Word Match',
-          emoji: '🧩',
-          disabledReason: wordMatchEligible ? undefined : `Need ${5 - wordPairCount} more word pairs`
-        }
-      ]
-
-      setDrillsInfo(info)
-
-      // Auto-select recommended drill if available
-      if (rec.recommendedDrill) {
-        setSelectedDrill(rec.recommendedDrill)
-      }
-    } catch (error) {
-      console.error('[DrillSelectionModal] Failed to load drill info:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
 
 

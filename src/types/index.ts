@@ -68,7 +68,7 @@ export interface PracticeState {
 export interface PracticeEvent {
   id: string
   kid_id: string
-  entry_id: string
+  entry_id: string | null
   drill: PracticeDrill
   attempt_index: 1 | 2
   is_correct: boolean

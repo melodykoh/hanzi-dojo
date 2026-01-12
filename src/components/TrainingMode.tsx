@@ -149,7 +149,7 @@ export function TrainingMode() {
 
   // Update drill if URL param changes (Epic 5.5)
   useEffect(() => {
-    if (drillParam && drillParam !== currentDrill) {
+    if (drillParam) {
       setCurrentDrill(drillParam)
     }
   }, [drillParam])
@@ -301,12 +301,19 @@ export function TrainingMode() {
               </div>
               <div className="text-xs opacity-90">Accuracy</div>
             </div>
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl font-bold">
-                {currentIndex + 1}/{currentQueue.length}
+            {currentDrill !== DRILLS.WORD_MATCH ? (
+              <div className="text-center">
+                <div className="text-xl sm:text-2xl font-bold">
+                  {currentIndex + 1}/{currentQueue.length}
+                </div>
+                <div className="text-xs opacity-90">Progress</div>
               </div>
-              <div className="text-xs opacity-90">Progress</div>
-            </div>
+            ) : (
+              <div className="text-center">
+                <div className="text-xl sm:text-2xl font-bold">--</div>
+                <div className="text-xs opacity-90">Progress</div>
+              </div>
+            )}
           </div>
         </div>
       </div>

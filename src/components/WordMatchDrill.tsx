@@ -1,14 +1,27 @@
 // Word Match Drill (Drill C: 配對高手)
 // Match character pairs to form 2-character words
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import type { WordMatchRoundData, WordMatchCard } from '../types'
 import {
   fetchAndGenerateRound,
   recordWordMatchAttempt,
-  InsufficientPairsError
+  InsufficientPairsError,
+  MIN_PAIRS_FOR_ROUND
 } from '../lib/wordPairService'
 import { formatZhuyinDisplay } from '../lib/zhuyin'
+
+// =============================================================================
+// CONSTANTS
+// =============================================================================
+
+const PAIRS_PER_ROUND = MIN_PAIRS_FOR_ROUND
+const ANIMATION_DELAYS = {
+  ROUND_TRANSITION: 1000,
+  WRONG_SHAKE: 400,
+  REVEAL_CORRECT: 1000,
+  POST_REVEAL_TRANSITION: 500,
+} as const
 
 // =============================================================================
 // TYPES
@@ -63,6 +76,22 @@ export function WordMatchDrill({
   const [wrongCardId, setWrongCardId] = useState<string | null>(null)
   const [revealCorrectId, setRevealCorrectId] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
+
+  // Timeout tracking for cleanup on unmount
+  const timeoutRefs = useRef<ReturnType<typeof setTimeout>[]>([])
+
+  const setTrackedTimeout = (callback: () => void, delay: number) => {
+    const timeoutId = setTimeout(callback, delay)
+    timeoutRefs.current.push(timeoutId)
+    return timeoutId
+  }
+
+  // Cleanup timeouts on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      timeoutRefs.current.forEach(clearTimeout)
+    }
+  }, [])
 
   // Load round data
   const loadRound = useCallback(async () => {
@@ -184,15 +213,17 @@ export function WordMatchDrill({
       // Notify parent
       onComplete(points)
 
-      // Check if round complete
-      const newMatchedCount = matchedCount + 1
-      if (newMatchedCount >= 5) {
+      // Check if round complete - derive count from matchStates (authoritative source)
+      // to avoid stale closure issues with matchedCount state
+      const currentMatchedCount = Array.from(matchStates.values())
+        .filter(s => s.isMatched).length + 1 // +1 for this match
+      if (currentMatchedCount >= PAIRS_PER_ROUND) {
         // Auto-advance to next round after delay
-        setTimeout(() => {
+        setTrackedTimeout(() => {
           setRoundNumber(prev => prev + 1)
           setCompletedWords([])
           loadRound()
-        }, 1000)
+        }, ANIMATION_DELAYS.ROUND_TRANSITION)
       }
     } else {
       // Wrong match
@@ -210,10 +241,10 @@ export function WordMatchDrill({
         })
 
         // Clear wrong indicator after animation
-        setTimeout(() => {
+        setTrackedTimeout(() => {
           setWrongCardId(null)
           setIsProcessing(false)
-        }, 400)
+        }, ANIMATION_DELAYS.WRONG_SHAKE)
         return // Don't complete processing yet
       } else {
         // Second wrong: reveal correct, award 0 points
@@ -243,21 +274,23 @@ export function WordMatchDrill({
         onComplete(0)
 
         // Clear after delay
-        setTimeout(() => {
+        setTrackedTimeout(() => {
           setWrongCardId(null)
           setRevealCorrectId(null)
           setSelectedLeftId(null)
 
-          // Check if round complete
-          const newMatchedCount = matchedCount + 1
-          if (newMatchedCount >= 5) {
-            setTimeout(() => {
+          // Check if round complete - derive count from matchStates (authoritative source)
+          // to avoid stale closure issues with matchedCount state
+          const currentMatchedCount = Array.from(matchStates.values())
+            .filter(s => s.isMatched).length + 1 // +1 for this match
+          if (currentMatchedCount >= PAIRS_PER_ROUND) {
+            setTrackedTimeout(() => {
               setRoundNumber(prev => prev + 1)
               setCompletedWords([])
               loadRound()
-            }, 500)
+            }, ANIMATION_DELAYS.POST_REVEAL_TRANSITION)
           }
-        }, 1000)
+        }, ANIMATION_DELAYS.REVEAL_CORRECT)
         return
       }
     }
@@ -322,7 +355,7 @@ export function WordMatchDrill({
         <div className="text-6xl">📚</div>
         <div className="text-xl text-gray-700">Not enough word pairs</div>
         <p className="text-gray-500 text-center max-w-md">
-          Add more characters to unlock Word Match. Need at least 5 word pairs.
+          Add more characters to unlock Word Match. Need at least {MIN_PAIRS_FOR_ROUND} word pairs.
         </p>
         {onExit && (
           <button
@@ -353,7 +386,7 @@ export function WordMatchDrill({
           className="text-white font-bold"
           data-testid="match-progress"
         >
-          {matchedCount}/5 matched
+          {matchedCount}/{PAIRS_PER_ROUND} matched
         </div>
         <div
           className="text-white font-bold"
