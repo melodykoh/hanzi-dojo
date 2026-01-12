@@ -4314,3 +4314,109 @@ User noticed struggling count didn't change with timeframe toggle. Clarified thi
 ---
 
 **Session 22 Summary:** ✅ COMPLETE - Added Drill Proficiency widget with clickable struggling count, timeframe toggle for accuracy, and StrugglingCharactersModal. Resolved 9 code review findings in parallel. Fixed UX confusion with "currently struggling" label. PR #32 merged.
+
+
+---
+
+## Session 23: Drill C (Word Match) - Complete Feature Implementation
+
+**Date:** 2026-01-12
+**Status:** ✅ Complete
+**PR:** #33
+
+### 🎯 Session Objective
+Implement Drill C (Word Match) - a new practice drill where kids match character pairs to form 2-character Chinese words.
+
+### ✨ Features Implemented
+
+**Core Drill Mechanics:**
+- Two-column matching interface (left = char1, right = char2)
+- Flexible selection (can click either column first)
+- Same scoring as Drills A/B: +1.0 first try, +0.5 second try, 0 wrong twice
+- 5 pairs per round, auto-advances to next round on completion
+- SVG connecting lines between matched pairs (tablet/desktop only)
+
+**Data Foundation:**
+- `word_pairs` table with 500+ validated pairs from CCCC vocabulary
+- `get_eligible_word_pairs` RPC with pronunciation filtering
+- Eligibility check: at least one character must be from kid's learned set
+
+**Integration:**
+- Added to DrillSelectionModal with 5-pair minimum requirement
+- Integrated with TrainingMode drill switching
+- Added to DrillBalanceWidget proficiency tracking
+
+### 🐛 Bugs Fixed During Development
+
+| Bug | Root Cause | Fix |
+|-----|------------|-----|
+| Cards reshuffling mid-round | `onError` in useCallback deps caused re-fetch | Added `isRoundActiveRef` guard + stabilized callback with ref |
+| Missing connecting lines | Feature not implemented | Added SVG line rendering with coordinate calculation |
+| All cards green | CSS class logic error | Fixed default state to white/gray, green only on match |
+| Column width inconsistent | No min-width constraint | Added `min-w-[88px]` to card classes |
+| "No items" flash on drill switch | Loading state race condition | Set `isLoading(true)` immediately in button handlers |
+| SVG lines wrong on mobile | Coordinate calculation issues | Hidden lines on mobile (`hidden sm:block`) |
+| Drill C missing from proficiency | `getProficiencyInfo` returned null | Added `recommendation.drillC` support |
+
+### 🔍 Key Learnings (Documented)
+
+**Playwright MCP Testing Gaps:**
+- Cannot catch state stability (options staying in place)
+- Cannot verify visual design consistency
+- Cannot detect transient flash states
+- Cannot test mobile-specific rendering issues
+
+**Data Model Gaps:**
+- Ambiguous word pairs: char like 太 could match multiple right-column options (太陽, 太長)
+- Multi-pronunciation context: should show word-specific pronunciation, not default
+
+**Action Items Created:**
+- GitHub Issue #34: Prevent ambiguous word pairs in same round
+- New documentation: `docs/solutions/process-learnings/drill-c-session-learnings-20260112.md`
+- Updated CLAUDE.md with mandatory QA checklist for drill features
+- Updated CLAUDE.md with Chinese language feature questions
+
+### 📁 Files Created/Modified
+
+**New Files:**
+- `src/components/WordMatchDrill.tsx` (658 lines)
+- `src/lib/wordPairService.ts` (229 lines)
+- `src/lib/wordPairService.test.ts` (370 lines)
+- `docs/DRILL_C_WORD_MATCH_SPEC.md` (1385 lines)
+- `data/word_pairs_cccc_usable.json` (13858 lines)
+- `scripts/seed-word-pairs.cjs` (141 lines)
+- `docs/solutions/process-learnings/drill-c-session-learnings-20260112.md`
+- `docs/operational/DRILL_FEATURE_QA_CHECKLIST.md`
+
+**Migrations:**
+- `20260110000001_drill_c_enum.sql` - Add word_match to practice_drill enum
+- `20260110000002_drill_c_word_match.sql` - Create word_pairs table + RPC
+- `20260111000001_word_pairs_coverage_expansion.sql` - Seed 500+ pairs
+- `20260111000003_add_rpc_auth_check.sql` - Security fix for RPC
+- `20260111000004_add_word_pairs_unique.sql` - Unique constraint
+
+**Modified Files:**
+- `src/components/TrainingMode.tsx` - Drill C integration + flash fix
+- `src/components/DrillSelectionModal.tsx` - Drill C option + proficiency display
+- `src/components/DrillBalanceWidget.tsx` - Drill C row
+- `src/lib/drillBalanceService.ts` - calculateDrillCProficiency function
+- `src/index.css` - angular-stripe-earth pattern
+- `src/types/index.ts` - WordMatch types
+- `CLAUDE.md` - QA checklist + Chinese language questions
+
+### 📋 Documentation Updates
+- `public/CHANGELOG.md` - Session 23 entry
+- `SESSION_LOG.md` - This entry
+- `docs/PROJECT_PLAN.md` - Epic 9 Phase 1 marked complete
+- `CLAUDE.md` - New mandatory checklists added
+
+### 🎓 Process Improvements Adopted
+
+Added to CLAUDE.md for future sessions:
+1. **Chinese Language Feature Questions** - Multi-pronunciation, matching logic, round generation
+2. **QA Protocol for Drill Features** - Manual tests for what Playwright can't catch
+3. **Code Review Checklist** - useEffect deps, render stability, design system
+
+---
+
+**Session 23 Summary:** ✅ COMPLETE - Implemented Drill C (Word Match) with full feature set. Fixed 7 bugs discovered during user testing. Documented session learnings about Playwright MCP gaps and data model considerations. Created GitHub Issue #34 for ambiguous word pair prevention. Updated CLAUDE.md with mandatory checklists for future drill features.

@@ -4,6 +4,33 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## January 12, 2026 - Session 23
+
+### ✨ New Feature: Drill C (Word Match)
+- **New Practice Drill!** Match character pairs to form 2-character Chinese words
+  - Left column shows first characters, right column shows second characters
+  - Tap one character, then tap its pair to form a word (e.g., 太 + 陽 = 太陽)
+  - Same scoring as other drills: +1.0 first try, +0.5 second try, 0 for two wrong guesses
+  - Zhuyin (pronunciation) shown under each character to help sound out unfamiliar ones
+- **Available when ready**: Drill C appears in selection modal when you have at least 5 eligible word pairs
+- **Visual feedback**: Matched pairs turn green with connecting lines (on tablet/desktop)
+
+### 🎨 Improvements
+- **Drill Proficiency for Drill C**: Dashboard widget now shows accuracy stats for all three drills
+- **Drill Selection Modal**: Drill C now displays accuracy percentage and item count (matching Drills A & B)
+- **Consistent Design**: Drill C uses the same Ninjago design system as other drills (white cards, green energy theme, badge indicator)
+
+### 🐛 Bug Fixes
+- **Mobile Display**: Fixed connecting lines that were rendering incorrectly on phones (hidden on mobile, visible on tablets)
+- **Drill Switching**: Fixed brief "No practice items" flash when switching between drills mid-session
+- **Card Colors**: Fixed cards to show white/gray by default, green only after successful match
+
+### 📚 Documentation
+- Added comprehensive QA checklist for drill features based on session learnings
+- Added Chinese language feature requirements checklist to catch multi-pronunciation and matching logic issues earlier
+
+---
+
 ## January 7, 2026 - Session 22
 
 ### ✨ New Features

@@ -447,4 +447,89 @@ Epic 8 Phases 1-2 addressed the 139 characters identified in the Nov 2025 audit 
 
 ---
 
-> Check off subtasks as they’re completed; when all subtasks in a task are done, mark the task, then the epic. Update SESSION_LOG.md after each session to reflect progress and new findings from test runs.
+> Check off subtasks as they're completed; when all subtasks in a task are done, mark the task, then the epic. Update SESSION_LOG.md after each session to reflect progress and new findings from test runs.
+
+---
+
+## Epic 9 — Word-Level Drills ☑ PHASE 1 COMPLETE
+- **Goal:** Introduce word-based practice to reinforce character knowledge in vocabulary context
+- **Status:** Phase 1 (Drill C) complete, Phase 2 (Drill D) deferred
+- **Completed:** 2026-01-12 (Session 23)
+- **Priority:** HIGH (user-requested feature)
+- **Total Points:** 17 pts (Phase 1) + TBD (Phase 2)
+- **Spec Document:** `docs/DRILL_C_WORD_MATCH_SPEC.md`
+
+### Background
+**User Testing (Jan 2026):** Interactive prototypes tested with target user (7yo):
+- **Drill C (Word Match):** ⭐ FAVORITE - "More interesting than Drill A, easier than sentences"
+- **Drill D (Word Hunt):** Fun but timer causes anxiety - defer with relaxed mode
+- **Drill E (Sentence Ninja):** Too difficult for current level - defer
+
+**Data Foundation:**
+- CCCC Vocabulary (Taiwan MOE): 1,227 words across 3 levels
+- Coverage analysis: 500 word pairs immediately usable (79% of 2-char words)
+- Constraint: At least one character in each pair must be from kid's learned set
+
+### Phase 1: Drill C — Word Match (配對高手) — 17 pts ☑ COMPLETE
+
+**Concept:** Match character pairs across two columns to form valid 2-character words.
+
+#### Task 9.1 — Data Foundation (3 pts) ☑
+- Subtask 9.1.1 (1 pt) — Create `word_pairs` table migration with indexes ☑
+- Subtask 9.1.2 (1 pt) — Extend `practice_drill` enum with `word_match` ☑
+- Subtask 9.1.3 (1 pt) — Generate seed data from CCCC analysis (500 pairs) ☑
+
+#### Task 9.2 — Validation Pipeline (2 pts) ☑
+- Subtask 9.2.1 (1 pt) — Create `scripts/seed-word-pairs.cjs` with validation ☑
+- Subtask 9.2.2 (1 pt) — Generate migration SQL and validation report ☑
+
+#### Task 9.3 — Core Service Layer (4 pts) ☑
+- Subtask 9.3.1 (2 pts) — `wordPairService.ts` - fetch eligible pairs, generate rounds ☑
+- Subtask 9.3.2 (1 pt) — Update `practiceStateService.ts` for word_match scoring ☑
+- Subtask 9.3.3 (1 pt) — Add `word_match` to drill selection logic + minimum pairs check ☑
+
+#### Task 9.4 — UI Components (5 pts) ☑
+- Subtask 9.4.1 (3 pts) — `WordMatchDrill.tsx` - main drill component with card matching ☑
+- Subtask 9.4.2 (1 pt) — Animation states (selected, matched, wrong shake) ☑
+- Subtask 9.4.3 (1 pt) — Completed words badge display ☑
+
+#### Task 9.5 — Integration & Testing (3 pts) ☑
+- Subtask 9.5.1 (1 pt) — Add to `DrillSelectionModal.tsx` with enable condition ☑
+- Subtask 9.5.2 (1 pt) — Integrate with `TrainingMode.tsx` and session summary ☑
+- Subtask 9.5.3 (1 pt) — Unit tests for word pair selection and scoring ☑
+
+### Phase 2: Drill D — Word Hunt (詞語獵人) — TBD pts ☐ DEFERRED
+
+**User Feedback:** Game is fun but timer causes anxiety.
+
+**Concept:** Grid of characters - find hidden 2-character words by tapping pairs.
+
+**Planned Changes from Prototype:**
+- Remove timer OR make optional "relaxed mode"
+- Use same `word_pairs` table as Drill C
+- Different UI: grid search vs column matching
+
+**Status:** Deferred until Drill C is complete. Will revisit based on user feedback.
+
+### Success Criteria (Phase 1) ☑ ALL MET
+- [x] Kid can match 5 character pairs to form words
+- [x] Scoring: +1.0 first try, +0.5 second try, 0 wrong twice
+- [x] At least one character per pair from kid's learned set
+- [x] Both characters display Zhuyin
+- [x] Drill C in selection modal (disabled if <5 eligible pairs)
+- [x] Validation pipeline runs autonomously (no manual review needed)
+- [x] 500+ validated word pairs seeded
+
+### Known Issues (Filed for Future)
+- **Issue #34:** Ambiguous word pairs possible in same round (e.g., 太 could match 陽 or 長)
+- **Pending:** Multi-pronunciation context - should show word-specific pronunciation, not default
+
+### Key Design Decisions
+1. **Anchor character requirement:** At least one char must be learned; other can be from dictionary
+2. **No familiarity tracking:** Word-based drill, familiarity stays character-based
+3. **Scoring matches Drill A/B:** +1.0/+0.5/0 per pair
+4. **Fixed column positions:** Left = char1, Right = char2 (not mixed)
+5. **Zhuyin always visible:** Helps kid sound out unfamiliar characters
+6. **Pre-defined table (Option A):** Validation at build time, not runtime
+
+---
