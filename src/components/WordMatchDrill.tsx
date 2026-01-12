@@ -47,6 +47,39 @@ interface CompletedWord {
   pairId: string
 }
 
+interface SelectedCard {
+  pairId: string
+  side: 'left' | 'right'
+}
+
+interface LineCoords {
+  x1: number
+  y1: number
+  x2: number
+  y2: number
+}
+
+// =============================================================================
+// HELPER FUNCTIONS
+// =============================================================================
+
+function calculateLineCoords(
+  leftCard: HTMLButtonElement,
+  rightCard: HTMLButtonElement,
+  container: HTMLDivElement
+): LineCoords {
+  const containerRect = container.getBoundingClientRect()
+  const leftRect = leftCard.getBoundingClientRect()
+  const rightRect = rightCard.getBoundingClientRect()
+
+  return {
+    x1: leftRect.right - containerRect.left,
+    y1: leftRect.top + leftRect.height / 2 - containerRect.top,
+    x2: rightRect.left - containerRect.left,
+    y2: rightRect.top + rightRect.height / 2 - containerRect.top,
+  }
+}
+
 // =============================================================================
 // COMPONENT
 // =============================================================================
@@ -63,10 +96,13 @@ export function WordMatchDrill({
   const [isLoading, setIsLoading] = useState(true)
   const [roundNumber, setRoundNumber] = useState(1)
 
-  // Selection state
-  const [selectedLeftId, setSelectedLeftId] = useState<string | null>(null)
+  // Selection state - now supports either column being selected first
+  const [selectedCard, setSelectedCard] = useState<SelectedCard | null>(null)
   const [matchStates, setMatchStates] = useState<Map<string, MatchState>>(new Map())
   const [completedWords, setCompletedWords] = useState<CompletedWord[]>([])
+
+  // Connected pairs for drawing lines
+  const [connectedPairs, setConnectedPairs] = useState<string[]>([])
 
   // Session state
   const [sessionPoints, setSessionPoints] = useState(0)
@@ -77,8 +113,25 @@ export function WordMatchDrill({
   const [revealCorrectId, setRevealCorrectId] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
 
+  // Refs for SVG line drawing
+  const containerRef = useRef<HTMLDivElement>(null)
+  const leftCardRefs = useRef<Map<string, HTMLButtonElement>>(new Map())
+  const rightCardRefs = useRef<Map<string, HTMLButtonElement>>(new Map())
+
   // Timeout tracking for cleanup on unmount
   const timeoutRefs = useRef<ReturnType<typeof setTimeout>[]>([])
+
+  // Ref to prevent mid-round reloading (fixes shuffle bug)
+  const isRoundActiveRef = useRef(false)
+
+  // Ref to stabilize onError callback (prevents useCallback dep changes)
+  const onErrorRef = useRef(onError)
+  useEffect(() => {
+    onErrorRef.current = onError
+  }, [onError])
+
+  // Force re-render for SVG lines when cards change position
+  const [, forceUpdate] = useState({})
 
   const setTrackedTimeout = (callback: () => void, delay: number) => {
     const timeoutId = setTimeout(callback, delay)
@@ -95,6 +148,11 @@ export function WordMatchDrill({
 
   // Load round data
   const loadRound = useCallback(async () => {
+    // Prevent mid-round reloading (fixes shuffle bug)
+    if (isRoundActiveRef.current) {
+      return
+    }
+
     setIsLoading(true)
     try {
       const data = await fetchAndGenerateRound(kidId)
@@ -112,49 +170,68 @@ export function WordMatchDrill({
       })
       setMatchStates(states)
       setMatchedCount(0)
+      setConnectedPairs([])
+      setSelectedCard(null)
+
+      // Mark round as active to prevent reloading
+      isRoundActiveRef.current = true
     } catch (error) {
       if (error instanceof InsufficientPairsError) {
         console.warn('[WordMatchDrill] Insufficient pairs:', error.message)
       } else {
         console.error('[WordMatchDrill] Load error:', error)
       }
-      if (onError) onError(error as Error)
+      // Use ref to call onError without adding it to dependencies
+      if (onErrorRef.current) onErrorRef.current(error as Error)
     } finally {
       setIsLoading(false)
     }
-  }, [kidId, onError])
+  }, [kidId]) // Removed onError from deps - using ref instead
 
   useEffect(() => {
     loadRound()
   }, [loadRound])
 
-  // Handle left card click
-  const handleLeftClick = (card: WordMatchCard) => {
+  // Update SVG lines when layout changes
+  useEffect(() => {
+    if (connectedPairs.length > 0) {
+      // Small delay to ensure DOM has updated
+      const timeoutId = setTimeout(() => forceUpdate({}), 50)
+      return () => clearTimeout(timeoutId)
+    }
+  }, [connectedPairs, matchedCount])
+
+  // Handle card click - unified handler for both columns
+  const handleCardClick = (card: WordMatchCard, side: 'left' | 'right') => {
     if (isProcessing) return
 
     const state = matchStates.get(card.pairId)
     if (state?.isMatched) return // Already matched
 
-    // Toggle or select
-    if (selectedLeftId === card.pairId) {
-      setSelectedLeftId(null) // Deselect
+    if (!selectedCard) {
+      // First selection - can be either column
+      setSelectedCard({ pairId: card.pairId, side })
+    } else if (selectedCard.pairId === card.pairId && selectedCard.side === side) {
+      // Clicking same card - deselect
+      setSelectedCard(null)
+    } else if (selectedCard.side === side) {
+      // Same column - switch selection
+      setSelectedCard({ pairId: card.pairId, side })
     } else {
-      setSelectedLeftId(card.pairId) // Select new
+      // Different columns - check for match
+      checkMatch(selectedCard.pairId, card.pairId, card)
     }
   }
 
-  // Handle right card click
-  const handleRightClick = async (card: WordMatchCard) => {
-    if (isProcessing) return
-    if (!selectedLeftId) return // Must select left first
-
-    const leftState = matchStates.get(selectedLeftId)
-    if (!leftState || leftState.isMatched) return
+  // Check if two cards match
+  const checkMatch = async (firstPairId: string, secondPairId: string, clickedCard: WordMatchCard) => {
+    const firstState = matchStates.get(firstPairId)
+    if (!firstState || firstState.isMatched) return
 
     setIsProcessing(true)
 
-    const isCorrect = card.pairId === selectedLeftId
-    const attemptIndex = (leftState.attemptCount + 1) as 1 | 2
+    const isCorrect = firstPairId === secondPairId
+    const attemptIndex = (firstState.attemptCount + 1) as 1 | 2
 
     // Determine points
     let points: 0 | 0.5 | 1.0 = 0
@@ -164,14 +241,14 @@ export function WordMatchDrill({
 
     // Record attempt (unless mock mode)
     if (!mockMode) {
-      const pair = roundData?.pairs.find(p => p.id === selectedLeftId)
+      const pair = roundData?.pairs.find(p => p.id === firstPairId)
       if (pair) {
         try {
           await recordWordMatchAttempt(
             kidId,
-            selectedLeftId,
+            firstPairId,
             pair.word,
-            card.char,
+            clickedCard.char,
             attemptIndex,
             isCorrect,
             points
@@ -184,13 +261,13 @@ export function WordMatchDrill({
 
     if (isCorrect) {
       // Correct match
-      const pair = roundData?.pairs.find(p => p.id === selectedLeftId)
+      const pair = roundData?.pairs.find(p => p.id === firstPairId)
 
       // Update match state
       setMatchStates(prev => {
         const newMap = new Map(prev)
-        newMap.set(selectedLeftId, {
-          ...leftState,
+        newMap.set(firstPairId, {
+          ...firstState,
           attemptCount: attemptIndex,
           isMatched: true,
           points
@@ -202,19 +279,21 @@ export function WordMatchDrill({
       setSessionPoints(prev => prev + points)
       setMatchedCount(prev => prev + 1)
 
+      // Add to connected pairs (for drawing lines)
+      setConnectedPairs(prev => [...prev, firstPairId])
+
       // Add to completed words
       if (pair) {
         setCompletedWords(prev => [...prev, { word: pair.word, pairId: pair.id }])
       }
 
       // Clear selection
-      setSelectedLeftId(null)
+      setSelectedCard(null)
 
       // Notify parent
       onComplete(points)
 
       // Check if round complete - derive count from matchStates (authoritative source)
-      // to avoid stale closure issues with matchedCount state
       const currentMatchedCount = Array.from(matchStates.values())
         .filter(s => s.isMatched).length + 1 // +1 for this match
       if (currentMatchedCount >= PAIRS_PER_ROUND) {
@@ -222,19 +301,24 @@ export function WordMatchDrill({
         setTrackedTimeout(() => {
           setRoundNumber(prev => prev + 1)
           setCompletedWords([])
+          setConnectedPairs([])
+          // Reset the flag to allow loading next round
+          isRoundActiveRef.current = false
           loadRound()
         }, ANIMATION_DELAYS.ROUND_TRANSITION)
       }
+
+      setIsProcessing(false)
     } else {
       // Wrong match
-      setWrongCardId(card.pairId)
+      setWrongCardId(secondPairId)
 
       if (attemptIndex === 1) {
         // First wrong: allow retry
         setMatchStates(prev => {
           const newMap = new Map(prev)
-          newMap.set(selectedLeftId, {
-            ...leftState,
+          newMap.set(firstPairId, {
+            ...firstState,
             attemptCount: 1
           })
           return newMap
@@ -245,16 +329,15 @@ export function WordMatchDrill({
           setWrongCardId(null)
           setIsProcessing(false)
         }, ANIMATION_DELAYS.WRONG_SHAKE)
-        return // Don't complete processing yet
       } else {
         // Second wrong: reveal correct, award 0 points
-        setRevealCorrectId(selectedLeftId)
+        setRevealCorrectId(firstPairId)
 
         // Update state as matched (with 0 points)
         setMatchStates(prev => {
           const newMap = new Map(prev)
-          newMap.set(selectedLeftId, {
-            ...leftState,
+          newMap.set(firstPairId, {
+            ...firstState,
             attemptCount: 2,
             isMatched: true,
             points: 0
@@ -264,8 +347,11 @@ export function WordMatchDrill({
 
         setMatchedCount(prev => prev + 1)
 
+        // Add to connected pairs (for drawing lines)
+        setConnectedPairs(prev => [...prev, firstPairId])
+
         // Add to completed words
-        const pair = roundData?.pairs.find(p => p.id === selectedLeftId)
+        const pair = roundData?.pairs.find(p => p.id === firstPairId)
         if (pair) {
           setCompletedWords(prev => [...prev, { word: pair.word, pairId: pair.id }])
         }
@@ -277,60 +363,105 @@ export function WordMatchDrill({
         setTrackedTimeout(() => {
           setWrongCardId(null)
           setRevealCorrectId(null)
-          setSelectedLeftId(null)
+          setSelectedCard(null)
 
-          // Check if round complete - derive count from matchStates (authoritative source)
-          // to avoid stale closure issues with matchedCount state
+          // Check if round complete
           const currentMatchedCount = Array.from(matchStates.values())
             .filter(s => s.isMatched).length + 1 // +1 for this match
           if (currentMatchedCount >= PAIRS_PER_ROUND) {
             setTrackedTimeout(() => {
               setRoundNumber(prev => prev + 1)
               setCompletedWords([])
+              setConnectedPairs([])
+              // Reset the flag to allow loading next round
+              isRoundActiveRef.current = false
               loadRound()
             }, ANIMATION_DELAYS.POST_REVEAL_TRANSITION)
+          } else {
+            setIsProcessing(false)
           }
         }, ANIMATION_DELAYS.REVEAL_CORRECT)
-        return
       }
     }
-
-    setIsProcessing(false)
   }
 
   // Get card class based on state
-  const getCardClass = (card: WordMatchCard, isLeftColumn: boolean) => {
+  const getCardClass = (card: WordMatchCard, side: 'left' | 'right') => {
     const state = matchStates.get(card.pairId)
+    const isSelected = selectedCard?.pairId === card.pairId && selectedCard?.side === side
+
     const classes: string[] = [
       'flex flex-col items-center justify-center',
       'p-3 sm:p-4 rounded-xl border-2 cursor-pointer',
-      'transition-all duration-200'
+      'transition-all duration-200',
+      'relative z-10' // Ensure cards are above SVG lines
     ]
 
     if (state?.isMatched) {
-      classes.push('bg-green-100 border-green-500 opacity-60 cursor-default matched')
+      classes.push('bg-green-500 border-green-600 text-white cursor-default matched')
       return classes.join(' ')
     }
 
-    if (isLeftColumn && selectedLeftId === card.pairId) {
+    if (isSelected) {
       classes.push('bg-yellow-100 border-yellow-500 ring-2 ring-yellow-400 selected')
       return classes.join(' ')
     }
 
-    if (!isLeftColumn && wrongCardId === card.pairId) {
+    if (wrongCardId === card.pairId) {
       classes.push('bg-red-100 border-red-500 animate-shake wrong')
       return classes.join(' ')
     }
 
-    if (!isLeftColumn && revealCorrectId === card.pairId) {
+    if (revealCorrectId === card.pairId) {
       classes.push('bg-green-200 border-green-600 ring-2 ring-green-500 reveal-correct')
       return classes.join(' ')
     }
 
-    // Default state
-    classes.push('bg-white border-gray-300 hover:border-blue-400 hover:bg-blue-50')
+    // Default state - blue cards like in the demo
+    classes.push('bg-blue-500 border-blue-600 text-white hover:bg-blue-400')
 
     return classes.join(' ')
+  }
+
+  // Get text color for zhuyin based on card state
+  const getZhuyinClass = (card: WordMatchCard) => {
+    const state = matchStates.get(card.pairId)
+    if (state?.isMatched) {
+      return 'text-green-100'
+    }
+    return 'text-blue-100'
+  }
+
+  // Render SVG lines connecting matched pairs
+  const renderConnectingLines = () => {
+    if (!containerRef.current || connectedPairs.length === 0) return null
+
+    return (
+      <svg
+        className="absolute inset-0 pointer-events-none"
+        style={{ zIndex: 5 }}
+      >
+        {connectedPairs.map(pairId => {
+          const leftCard = leftCardRefs.current.get(pairId)
+          const rightCard = rightCardRefs.current.get(pairId)
+          if (!leftCard || !rightCard || !containerRef.current) return null
+
+          const coords = calculateLineCoords(leftCard, rightCard, containerRef.current)
+          return (
+            <line
+              key={pairId}
+              x1={coords.x1}
+              y1={coords.y1}
+              x2={coords.x2}
+              y2={coords.y2}
+              stroke="#22c55e"
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
+          )
+        })}
+      </svg>
+    )
   }
 
   // Loading state
@@ -380,24 +511,35 @@ export function WordMatchDrill({
           className="text-white font-bold"
           data-testid="round-indicator"
         >
-          Round {roundNumber}
+          回合 {roundNumber}
         </div>
         <div
           className="text-white font-bold"
           data-testid="match-progress"
         >
-          {matchedCount}/{PAIRS_PER_ROUND} matched
+          配對: {matchedCount}/{PAIRS_PER_ROUND}
         </div>
         <div
           className="text-white font-bold"
           data-testid="session-points"
         >
-          {sessionPoints.toFixed(1)} pts
+          {sessionPoints.toFixed(1)} 分
         </div>
       </div>
 
+      {/* Instruction */}
+      <div className="text-center text-white py-2 text-sm sm:text-base">
+        點一個字，再點另一個字來配對！
+      </div>
+
       {/* Main matching area */}
-      <div className="flex-1 flex items-center justify-center gap-4 sm:gap-8 px-4 py-6">
+      <div
+        ref={containerRef}
+        className="flex-1 flex items-center justify-center gap-6 sm:gap-12 px-4 py-4 relative"
+      >
+        {/* SVG lines connecting matched pairs */}
+        {renderConnectingLines()}
+
         {/* Left Column */}
         <div
           className="flex flex-col gap-3"
@@ -406,28 +548,26 @@ export function WordMatchDrill({
           {roundData.leftColumn.map(card => (
             <button
               key={card.pairId}
+              ref={el => {
+                if (el) leftCardRefs.current.set(card.pairId, el)
+              }}
               data-testid="char-card"
               data-pair-id={card.pairId}
-              className={getCardClass(card, true)}
-              onClick={() => handleLeftClick(card)}
+              className={getCardClass(card, 'left')}
+              onClick={() => handleCardClick(card, 'left')}
               disabled={matchStates.get(card.pairId)?.isMatched || isProcessing}
               aria-label={`Character ${card.char}, pronunciation ${formatZhuyinDisplay(card.zhuyin)}`}
               role="button"
             >
               <div className="text-4xl sm:text-5xl font-serif">{card.char}</div>
               <div
-                className="text-sm sm:text-base text-gray-600 mt-1"
+                className={`text-sm sm:text-base mt-1 ${getZhuyinClass(card)}`}
                 data-testid="zhuyin"
               >
                 {formatZhuyinDisplay(card.zhuyin)}
               </div>
             </button>
           ))}
-        </div>
-
-        {/* Connection indicator */}
-        <div className="flex flex-col items-center justify-center text-2xl text-white opacity-50">
-          {selectedLeftId ? '→' : '•'}
         </div>
 
         {/* Right Column */}
@@ -438,17 +578,20 @@ export function WordMatchDrill({
           {roundData.rightColumn.map(card => (
             <button
               key={card.pairId}
+              ref={el => {
+                if (el) rightCardRefs.current.set(card.pairId, el)
+              }}
               data-testid="char-card"
               data-pair-id={card.pairId}
-              className={getCardClass(card, false)}
-              onClick={() => handleRightClick(card)}
+              className={getCardClass(card, 'right')}
+              onClick={() => handleCardClick(card, 'right')}
               disabled={matchStates.get(card.pairId)?.isMatched || isProcessing}
               aria-label={`Character ${card.char}, pronunciation ${formatZhuyinDisplay(card.zhuyin)}`}
               role="button"
             >
               <div className="text-4xl sm:text-5xl font-serif">{card.char}</div>
               <div
-                className="text-sm sm:text-base text-gray-600 mt-1"
+                className={`text-sm sm:text-base mt-1 ${getZhuyinClass(card)}`}
                 data-testid="zhuyin"
               >
                 {formatZhuyinDisplay(card.zhuyin)}
@@ -465,7 +608,7 @@ export function WordMatchDrill({
       >
         <div className="flex flex-wrap gap-2 justify-center">
           {completedWords.length === 0 ? (
-            <span className="text-white opacity-50">Match characters to form words</span>
+            <span className="text-white opacity-50">配對字卡組成詞語</span>
           ) : (
             completedWords.map(({ word, pairId }) => (
               <span
