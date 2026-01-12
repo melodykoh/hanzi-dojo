@@ -390,19 +390,24 @@ export function WordMatchDrill({
     const state = matchStates.get(card.pairId)
     const isSelected = selectedCard?.pairId === card.pairId && selectedCard?.side === side
 
+    // Base classes with fixed width to ensure consistent column widths
+    // min-w-[88px] accommodates 3 Zhuyin characters + padding
     const classes: string[] = [
       'flex flex-col items-center justify-center',
       'p-3 sm:p-4 rounded-xl border-2 cursor-pointer',
       'transition-all duration-200',
-      'relative z-10' // Ensure cards are above SVG lines
+      'relative z-10', // Ensure cards are above SVG lines
+      'min-w-[88px] sm:min-w-[100px]' // Fixed minimum width for consistent columns
     ]
 
     if (state?.isMatched) {
+      // Matched pairs turn green - clear visual feedback
       classes.push('bg-ninja-green border-ninja-green-dark text-white cursor-default matched')
       return classes.join(' ')
     }
 
     if (isSelected) {
+      // Selected card shows yellow highlight
       classes.push('bg-yellow-100 border-yellow-500 ring-2 ring-yellow-400 selected text-gray-900')
       return classes.join(' ')
     }
@@ -417,8 +422,8 @@ export function WordMatchDrill({
       return classes.join(' ')
     }
 
-    // Default state - green-themed cards to match Drill C design
-    classes.push('bg-ninja-green border-ninja-green-dark text-white hover:bg-ninja-green-dark')
+    // Default state - white cards with gray border (like Drill A/B)
+    classes.push('bg-white border-gray-300 text-gray-900 hover:border-gray-400 hover:bg-gray-50 active:bg-gray-100')
 
     return classes.join(' ')
   }
@@ -426,15 +431,12 @@ export function WordMatchDrill({
   // Get text color for zhuyin based on card state
   const getZhuyinClass = (card: WordMatchCard) => {
     const state = matchStates.get(card.pairId)
-    const isSelected = selectedCard?.pairId === card.pairId
 
     if (state?.isMatched) {
-      return 'text-green-100'
+      return 'text-green-100' // Light text on green background
     }
-    if (isSelected || wrongCardId === card.pairId || revealCorrectId === card.pairId) {
-      return 'text-gray-600'
-    }
-    return 'text-green-100'
+    // All other states use gray text on light backgrounds
+    return 'text-gray-500'
   }
 
   // Render SVG lines connecting matched pairs

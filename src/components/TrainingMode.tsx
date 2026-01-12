@@ -249,6 +249,9 @@ export function TrainingMode() {
             <div className="flex gap-2">
               <button
                 onClick={() => {
+                  if (currentDrill !== DRILLS.ZHUYIN) {
+                    setIsLoading(true) // Show loading immediately to prevent flash
+                  }
                   setCurrentDrill(DRILLS.ZHUYIN)
                   setCurrentIndex(0)
                 }}
@@ -262,6 +265,9 @@ export function TrainingMode() {
               </button>
               <button
                 onClick={() => {
+                  if (currentDrill !== DRILLS.TRAD) {
+                    setIsLoading(true) // Show loading immediately to prevent flash
+                  }
                   setCurrentDrill(DRILLS.TRAD)
                   setCurrentIndex(0)
                 }}
@@ -275,6 +281,9 @@ export function TrainingMode() {
               </button>
               <button
                 onClick={() => {
+                  if (currentDrill !== DRILLS.WORD_MATCH) {
+                    setIsLoading(true) // Show loading immediately to prevent flash
+                  }
                   setCurrentDrill(DRILLS.WORD_MATCH)
                   setCurrentIndex(0)
                 }}
