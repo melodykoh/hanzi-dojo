@@ -49,7 +49,7 @@
 
 ### Enums
 - `entry_type`: `word` | `char`
-- `practice_drill`: `zhuyin` | `trad` | (future drills extend this enum)
+- `practice_drill`: `zhuyin` | `trad` | `word_match`
 
 ### Indexing (recommended)
 - `entries(owner_id, created_at desc)`
@@ -269,6 +269,60 @@ function buildDrillBOptions(simp: string, tradCorrect: string, dict: Dict) {
   return shuffle([...set]);
 }
 ```
+
+---
+
+## 🔗 Drill C — Word Match (2-character vocabulary)
+
+### Overview
+Match character cards to form 2-character words. Reinforces character recognition in vocabulary context.
+
+### Data Model
+- **word_pairs** table: `(id, word, char1, char2, category)`
+- **get_eligible_word_pairs** RPC: Returns pairs where at least one character is in kid's learned set
+
+### Round Generation
+1. Fetch eligible pairs via RPC (minimum 5 required)
+2. Select 5 pairs with **unique starting characters** (no duplicate char1)
+3. Display left column (char1) and right column (char2), both shuffled
+4. Child taps char1, then char2 to form word
+
+### Pronunciation Filtering (Hero-Centric Model)
+
+For multi-pronunciation characters, word pairs are filtered based on the **hero character's** locked pronunciation.
+
+**Core Principles:**
+1. **Hero character drives filtering** — Only the target character's pronunciation matters
+2. **Non-hero is irrelevant** — Second character's saved pronunciation doesn't affect eligibility
+3. **Per-entry filtering** — Each saved character independently contributes word pairs
+4. **Conflicts are OK** — Word pair might use "wrong" pronunciation for non-hero character
+
+**Example:**
+```
+著 saved with "zhù" (著名, 著作) → 著名 eligible via 著
+著 saved with "zhe" (看著, 跑著) → 著名 NOT eligible via 著
+
+If 名 is also saved (single pronunciation):
+  著名 still eligible via 名 (hero=名, no pronunciation filter)
+```
+
+**SQL Filter Logic:**
+```sql
+WHERE EXISTS (
+  SELECT 1 FROM entries e
+  LEFT JOIN readings r ON r.id = e.locked_reading_id
+  WHERE e.kid_id = p_kid_id
+  AND (e.trad = wp.char1 OR e.trad = wp.char2)
+  AND (
+    e.locked_reading_id IS NULL      -- No lock = accept all
+    OR r.context_words IS NULL       -- No context = accept all
+    OR wp.word = ANY(r.context_words) -- Match pronunciation
+  )
+)
+```
+
+### Scoring
+Same as Drill A/B: +1.0 first try, +0.5 second try, 0 for two misses.
 
 ---
 

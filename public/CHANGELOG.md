@@ -4,6 +4,20 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## January 12, 2026 - Session 24
+
+### ✨ Enhancement: Smarter Word Pairs for Multi-Pronunciation Characters
+- **Pronunciation-aware filtering**: Drill C now only shows word pairs that match the pronunciation you selected when adding a character
+  - Example: If you saved 著 with the "zhe" pronunciation (as in 看著 "looking at"), you'll only see word pairs using that pronunciation
+  - Previously, you might see 著名 (famous, uses "zhù") even though you're learning the particle form
+- **Better learning experience**: Children won't be confused by words using pronunciations they haven't learned yet
+
+### 🔧 Technical
+- Added authorization check to word pairs API for improved security
+- Fixed duplicate word pairs issue in database
+
+---
+
 ## January 12, 2026 - Session 23
 
 ### ✨ New Feature: Drill C (Word Match)
