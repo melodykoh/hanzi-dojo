@@ -112,10 +112,17 @@ export function DrillSelectionModal({ kidId, onSelectDrill, onCancel }: DrillSel
 
   const getProficiencyInfo = (drill: PracticeDrill) => {
     if (!recommendation) return null
-    // Drill C (word_match) doesn't have proficiency data in the recommendation
-    if (drill === DRILLS.WORD_MATCH) return null
-    const proficiency = drill === DRILLS.ZHUYIN ? recommendation.drillA : recommendation.drillB
-    return proficiency
+    // Return proficiency data for all drills (A, B, and C)
+    switch (drill) {
+      case DRILLS.ZHUYIN:
+        return recommendation.drillA
+      case DRILLS.TRAD:
+        return recommendation.drillB
+      case DRILLS.WORD_MATCH:
+        return recommendation.drillC
+      default:
+        return null
+    }
   }
 
   return (

@@ -440,12 +440,13 @@ export function WordMatchDrill({
   }
 
   // Render SVG lines connecting matched pairs
+  // Hidden on mobile (< 640px) where line positioning can be unreliable
   const renderConnectingLines = () => {
     if (!containerRef.current || connectedPairs.length === 0) return null
 
     return (
       <svg
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none hidden sm:block"
         style={{ zIndex: 5 }}
       >
         {connectedPairs.map(pairId => {
