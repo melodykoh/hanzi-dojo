@@ -1,9 +1,11 @@
 // Training Mode - Full-screen landscape-optimized practice for kids
 // Epic 4: Training Mode UX & Guardrails
+// Epic: Drill C (Word Match) integration
 
 import { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PracticeCard } from './PracticeCard'
+import { WordMatchDrill } from './WordMatchDrill'
 import { FeedbackToast } from './FeedbackToast'
 import { OfflineGuard } from './OfflineModal'
 import type { QueueEntry } from '../lib/practiceQueueService'
@@ -94,7 +96,8 @@ export function TrainingMode() {
   const [kidId, setKidId] = useState<string | null>(null)
   const [showSummary, setShowSummary] = useState(false)
 
-  // Fetch practice queue from Supabase
+  // Fetch practice queue from Supabase (for Drills A/B only)
+  // Drill C (Word Match) manages its own data loading via WordMatchDrill component
   useEffect(() => {
     async function loadData() {
       try {
@@ -123,7 +126,14 @@ export function TrainingMode() {
         const kid = kids[0]
         setKidId(kid.id)
 
-        // Fetch practice queue (20 items for longer sessions)
+        // Drill C (Word Match) manages its own queue internally
+        if (currentDrill === DRILLS.WORD_MATCH) {
+          setCurrentQueue([]) // Empty queue signals WordMatchDrill to handle its own data
+          setIsLoading(false)
+          return
+        }
+
+        // Fetch practice queue (20 items for longer sessions) for Drills A/B
         const queue = await fetchPracticeQueue(kid.id, currentDrill, 20)
 
         setCurrentQueue(queue)
@@ -139,13 +149,18 @@ export function TrainingMode() {
 
   // Update drill if URL param changes (Epic 5.5)
   useEffect(() => {
-    if (drillParam && drillParam !== currentDrill) {
+    if (drillParam) {
       setCurrentDrill(drillParam)
     }
   }, [drillParam])
 
   const handleCardComplete = (points: number) => {
     handleCardCompleteBase(points, () => {
+      // Drill C (Word Match) manages its own rounds internally - don't show summary here
+      if (currentDrill === DRILLS.WORD_MATCH) {
+        return // WordMatchDrill handles round progression
+      }
+
       // Move to next question immediately (CSS animations are independent of React state)
       if (currentIndex + 1 < currentQueue.length) {
         setCurrentIndex(prev => prev + 1)
@@ -193,8 +208,8 @@ export function TrainingMode() {
     )
   }
 
-  // No data state
-  if (currentQueue.length === 0) {
+  // No data state (only for Drills A/B - Drill C handles its own empty state)
+  if (currentQueue.length === 0 && currentDrill !== DRILLS.WORD_MATCH) {
     return (
       <div className="fixed inset-0 bg-gradient-to-r from-ninja-red-dark via-ninja-red to-ninja-orange flex items-center justify-center">
         <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-2xl mx-4 text-center">
@@ -234,6 +249,9 @@ export function TrainingMode() {
             <div className="flex gap-2">
               <button
                 onClick={() => {
+                  if (currentDrill !== DRILLS.ZHUYIN) {
+                    setIsLoading(true) // Show loading immediately to prevent flash
+                  }
                   setCurrentDrill(DRILLS.ZHUYIN)
                   setCurrentIndex(0)
                 }}
@@ -247,6 +265,9 @@ export function TrainingMode() {
               </button>
               <button
                 onClick={() => {
+                  if (currentDrill !== DRILLS.TRAD) {
+                    setIsLoading(true) // Show loading immediately to prevent flash
+                  }
                   setCurrentDrill(DRILLS.TRAD)
                   setCurrentIndex(0)
                 }}
@@ -257,6 +278,22 @@ export function TrainingMode() {
                 }`}
               >
                 Drill B
+              </button>
+              <button
+                onClick={() => {
+                  if (currentDrill !== DRILLS.WORD_MATCH) {
+                    setIsLoading(true) // Show loading immediately to prevent flash
+                  }
+                  setCurrentDrill(DRILLS.WORD_MATCH)
+                  setCurrentIndex(0)
+                }}
+                className={`px-3 py-2 rounded-lg font-bold transition-colors text-sm sm:text-base ${
+                  currentDrill === DRILLS.WORD_MATCH
+                    ? 'bg-white text-red-700 shadow-lg'
+                    : 'bg-ninja-red text-white hover:bg-ninja-red-dark'
+                }`}
+              >
+                Drill C
               </button>
             </div>
           </div>
@@ -273,19 +310,37 @@ export function TrainingMode() {
               </div>
               <div className="text-xs opacity-90">Accuracy</div>
             </div>
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl font-bold">
-                {currentIndex + 1}/{currentQueue.length}
+            {currentDrill !== DRILLS.WORD_MATCH ? (
+              <div className="text-center">
+                <div className="text-xl sm:text-2xl font-bold">
+                  {currentIndex + 1}/{currentQueue.length}
+                </div>
+                <div className="text-xs opacity-90">Progress</div>
               </div>
-              <div className="text-xs opacity-90">Progress</div>
-            </div>
+            ) : (
+              <div className="text-center">
+                <div className="text-xl sm:text-2xl font-bold">--</div>
+                <div className="text-xs opacity-90">Progress</div>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* Main Practice Area - Centered vertically and horizontally */}
       <div className="min-h-screen flex items-center justify-center pt-24 pb-8 px-4 sm:px-6 lg:px-8">
-        {!showSummary && currentEntry ? (
+        {!showSummary && currentDrill === DRILLS.WORD_MATCH && kidId ? (
+          // Drill C: Word Match - Self-managed component
+          <div className="w-full max-w-4xl h-[70vh]">
+            <WordMatchDrill
+              kidId={kidId}
+              onComplete={handleCardComplete}
+              onError={handleError}
+              onExit={exitTraining}
+            />
+          </div>
+        ) : !showSummary && currentEntry ? (
+          // Drills A/B: Character-based practice
           <div className="w-full max-w-6xl lg:max-w-7xl">
             <PracticeCard
               key={`${currentEntry.entry.id}-${currentIndex}-${currentDrill}`}

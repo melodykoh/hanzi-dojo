@@ -4,6 +4,7 @@
 import { supabase } from './supabase'
 import { dictionaryClient } from './dictionaryClient'
 import { formatZhuyinDisplay } from './zhuyin'
+import { getEligiblePairCount } from './wordPairService'
 import type { PracticeDrill } from '../types'
 import { DRILLS } from '../types'
 
@@ -49,6 +50,7 @@ export interface DrillRecommendation {
   reason: 'proficiency_gap' | 'struggling_items' | 'never_practiced' | 'balanced' | 'both_empty'
   drillA: DrillProficiency
   drillB: DrillProficiency
+  drillC: DrillProficiency
 }
 
 // =============================================================================
@@ -126,6 +128,62 @@ export async function calculateDrillProficiency(
   }
 }
 
+/**
+ * Calculate proficiency metrics for Drill C (Word Match)
+ *
+ * Different from Drill A/B:
+ * - Queue depth from word_pairs (eligible pairs) not entries
+ * - No struggling count (word_match doesn't track per-entry state)
+ */
+export async function calculateDrillCProficiency(
+  kidId: string
+): Promise<DrillProficiency> {
+  // Run queries in parallel
+  const [queueDepth, eventsResult] = await Promise.all([
+    // Query 1: Get eligible word pair count
+    getEligiblePairCount(kidId),
+
+    // Query 2: Get recent practice events for accuracy calculation
+    supabase
+      .from('practice_events')
+      .select('is_correct')
+      .eq('kid_id', kidId)
+      .eq('drill', DRILLS.WORD_MATCH)
+      .eq('attempt_index', 1)  // First try only
+      .order('created_at', { ascending: false })
+      .limit(RECENT_EVENTS_LIMIT)
+  ])
+
+  const { data: recentEvents, error: eventsError } = eventsResult
+
+  // Early return if no eligible pairs
+  if (!queueDepth || queueDepth === 0) {
+    return {
+      drill: DRILLS.WORD_MATCH,
+      queueDepth: 0,
+      avgAccuracy: null,
+      strugglingCount: 0,  // N/A for word_match
+      needsAttention: false
+    }
+  }
+
+  if (eventsError) {
+    console.error('[drillBalanceService] Failed to fetch events for word_match:', eventsError)
+  }
+
+  const avgAccuracy = recentEvents && recentEvents.length > 0
+    ? Math.round((recentEvents.filter(e => e.is_correct).length / recentEvents.length) * 100)
+    : null
+
+  return {
+    drill: DRILLS.WORD_MATCH,
+    queueDepth,
+    avgAccuracy,
+    strugglingCount: 0,  // Word match doesn't track individual struggling characters
+    needsAttention: false
+  }
+}
+
 // =============================================================================
 // RECOMMENDATION LOGIC
 // =============================================================================
@@ -140,9 +198,12 @@ export async function calculateDrillProficiency(
  * 4. Balanced (no strong recommendation)
  */
 export async function recommendDrill(kidId: string): Promise<DrillRecommendation> {
-  // Calculate proficiency for both drills
-  const drillA = await calculateDrillProficiency(kidId, DRILLS.ZHUYIN)
-  const drillB = await calculateDrillProficiency(kidId, DRILLS.TRAD)
+  // Calculate proficiency for all drills (in parallel)
+  const [drillA, drillB, drillC] = await Promise.all([
+    calculateDrillProficiency(kidId, DRILLS.ZHUYIN),
+    calculateDrillProficiency(kidId, DRILLS.TRAD),
+    calculateDrillCProficiency(kidId)
+  ])
 
   // Edge case: Both drills have no items
   if (drillA.queueDepth === 0 && drillB.queueDepth === 0) {
@@ -150,7 +211,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
       recommendedDrill: null,
       reason: 'both_empty',
       drillA,
-      drillB
+      drillB,
+      drillC
     }
   }
 
@@ -160,7 +222,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
       recommendedDrill: DRILLS.TRAD,
       reason: 'balanced',
       drillA,
-      drillB
+      drillB,
+      drillC
     }
   }
 
@@ -169,7 +232,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
       recommendedDrill: DRILLS.ZHUYIN,
       reason: 'balanced',
       drillA,
-      drillB
+      drillB,
+      drillC
     }
   }
 
@@ -179,7 +243,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
       recommendedDrill: DRILLS.ZHUYIN,
       reason: 'struggling_items',
       drillA: { ...drillA, needsAttention: true },
-      drillB
+      drillB,
+      drillC
     }
   }
 
@@ -188,7 +253,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
       recommendedDrill: DRILLS.TRAD,
       reason: 'struggling_items',
       drillA,
-      drillB: { ...drillB, needsAttention: true }
+      drillB: { ...drillB, needsAttention: true },
+      drillC
     }
   }
 
@@ -198,7 +264,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
       recommendedDrill: DRILLS.ZHUYIN,
       reason: 'never_practiced',
       drillA: { ...drillA, needsAttention: true },
-      drillB
+      drillB,
+      drillC
     }
   }
 
@@ -207,7 +274,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
       recommendedDrill: DRILLS.TRAD,
       reason: 'never_practiced',
       drillA,
-      drillB: { ...drillB, needsAttention: true }
+      drillB: { ...drillB, needsAttention: true },
+      drillC
     }
   }
 
@@ -217,7 +285,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
       recommendedDrill: null,
       reason: 'balanced',
       drillA,
-      drillB
+      drillB,
+      drillC
     }
   }
 
@@ -231,7 +300,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
       recommendedDrill: weakerDrill,
       reason: 'proficiency_gap',
       drillA: { ...drillA, needsAttention: weakerDrill === DRILLS.ZHUYIN },
-      drillB: { ...drillB, needsAttention: weakerDrill === DRILLS.TRAD }
+      drillB: { ...drillB, needsAttention: weakerDrill === DRILLS.TRAD },
+      drillC
     }
   }
 
@@ -240,7 +310,8 @@ export async function recommendDrill(kidId: string): Promise<DrillRecommendation
     recommendedDrill: null,
     reason: 'balanced',
     drillA,
-    drillB
+    drillB,
+    drillC
   }
 }
 
@@ -284,14 +355,24 @@ export function getRecommendationMessage(recommendation: DrillRecommendation): s
  * Get display name for drill
  */
 export function getDrillDisplayName(drill: PracticeDrill): string {
-  return drill === DRILLS.ZHUYIN ? 'Drill A' : 'Drill B'
+  switch (drill) {
+    case DRILLS.ZHUYIN: return 'Drill A'
+    case DRILLS.TRAD: return 'Drill B'
+    case DRILLS.WORD_MATCH: return 'Drill C'
+    default: return drill
+  }
 }
 
 /**
  * Get drill description
  */
 export function getDrillDescription(drill: PracticeDrill): string {
-  return drill === DRILLS.ZHUYIN ? 'Zhuyin Recognition' : 'Traditional Form'
+  switch (drill) {
+    case DRILLS.ZHUYIN: return 'Zhuyin Recognition'
+    case DRILLS.TRAD: return 'Traditional Form'
+    case DRILLS.WORD_MATCH: return 'Word Match'
+    default: return drill
+  }
 }
 
 // =============================================================================

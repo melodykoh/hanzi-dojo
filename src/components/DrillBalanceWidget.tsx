@@ -47,10 +47,12 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
   // Timeframe toggle state (per drill)
   const [drillATimeframe, setDrillATimeframe] = useState<TimeframeOption>('week')
   const [drillBTimeframe, setDrillBTimeframe] = useState<TimeframeOption>('week')
+  const [drillCTimeframe, setDrillCTimeframe] = useState<TimeframeOption>('week')
 
   // Time-based accuracy (separate from the default last-10 accuracy)
   const [drillAAccuracy, setDrillAAccuracy] = useState<number | null>(null)
   const [drillBAccuracy, setDrillBAccuracy] = useState<number | null>(null)
+  const [drillCAccuracy, setDrillCAccuracy] = useState<number | null>(null)
   const [accuracyLoading, setAccuracyLoading] = useState(false)
   const [accuracyError, setAccuracyError] = useState<string | null>(null)
 
@@ -67,12 +69,14 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
   // Track previous timeframe values to detect user-initiated changes
   const prevDrillATimeframe = useRef<TimeframeOption>('week')
   const prevDrillBTimeframe = useRef<TimeframeOption>('week')
+  const prevDrillCTimeframe = useRef<TimeframeOption>('week')
 
   useEffect(() => {
     // Reset initial load flag and refs when kidId changes
     setInitialLoadComplete(false)
     prevDrillATimeframe.current = 'week'
     prevDrillBTimeframe.current = 'week'
+    prevDrillCTimeframe.current = 'week'
     loadBalance()
   }, [kidId])
 
@@ -96,6 +100,15 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
     prevDrillBTimeframe.current = drillBTimeframe
   }, [kidId, drillBTimeframe, initialLoadComplete])
 
+  useEffect(() => {
+    // Fetch if initial load is complete AND timeframe actually changed from previous value
+    const timeframeChanged = prevDrillCTimeframe.current !== drillCTimeframe
+    if (initialLoadComplete && timeframeChanged) {
+      loadAccuracyForDrill(DRILLS.WORD_MATCH, drillCTimeframe, setDrillCAccuracy)
+    }
+    prevDrillCTimeframe.current = drillCTimeframe
+  }, [kidId, drillCTimeframe, initialLoadComplete])
+
   async function loadBalance() {
     setLoading(true)
     setError(null)
@@ -106,6 +119,7 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
       // This provides the initial 'week' timeframe data, avoiding redundant API calls
       setDrillAAccuracy(rec.drillA.avgAccuracy)
       setDrillBAccuracy(rec.drillB.avgAccuracy)
+      setDrillCAccuracy(rec.drillC.avgAccuracy)
       // Mark initial load complete - subsequent timeframe changes will trigger API calls
       setInitialLoadComplete(true)
     } catch (err) {
@@ -182,7 +196,7 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
     return null
   }
 
-  const { drillA, drillB } = recommendation
+  const { drillA, drillB, drillC } = recommendation
 
   const renderDrillRow = (
     name: string,
@@ -192,10 +206,12 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
     drill: PracticeDrill,
     accuracy: number | null,
     timeframe: TimeframeOption,
-    setTimeframe: (tf: TimeframeOption) => void
+    setTimeframe: (tf: TimeframeOption) => void,
+    options?: { hideStruggling?: boolean; itemLabel?: string }
   ) => {
     const displayAccuracy = accuracy !== null ? accuracy : 0
     const hasData = accuracy !== null
+    const itemLabel = options?.itemLabel || 'item'
 
     return (
       <div className="py-3 border-b border-gray-100 last:border-b-0">
@@ -275,18 +291,20 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
         {/* Stats */}
         <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600">
           <div>
-            📝 {proficiency.queueDepth} item{proficiency.queueDepth !== 1 ? 's' : ''}
+            📝 {proficiency.queueDepth} {itemLabel}{proficiency.queueDepth !== 1 ? 's' : ''}
           </div>
-          {proficiency.strugglingCount > 0 ? (
-            <button
-              onClick={() => handleStrugglingClick(drill)}
-              className="text-orange-600 font-medium hover:text-orange-700 hover:underline focus:outline-none focus:underline transition-colors"
-              aria-label={`View ${proficiency.strugglingCount} currently struggling characters for ${name}`}
-            >
-              ⚠️ {proficiency.strugglingCount} currently struggling
-            </button>
-          ) : (
-            <span className="text-gray-400">0 currently struggling</span>
+          {!options?.hideStruggling && (
+            proficiency.strugglingCount > 0 ? (
+              <button
+                onClick={() => handleStrugglingClick(drill)}
+                className="text-orange-600 font-medium hover:text-orange-700 hover:underline focus:outline-none focus:underline transition-colors"
+                aria-label={`View ${proficiency.strugglingCount} currently struggling characters for ${name}`}
+              >
+                ⚠️ {proficiency.strugglingCount} currently struggling
+              </button>
+            ) : (
+              <span className="text-gray-400">0 currently struggling</span>
+            )
           )}
           {!hasData && proficiency.queueDepth > 0 && (
             <div className="text-blue-600">Not practiced yet</div>
@@ -327,6 +345,17 @@ export function DrillBalanceWidget({ kidId }: DrillBalanceWidgetProps) {
             drillBAccuracy,
             drillBTimeframe,
             setDrillBTimeframe
+          )}
+          {drillC.queueDepth > 0 && renderDrillRow(
+            'Drill C',
+            'Word Match',
+            drillC,
+            '🔗',
+            DRILLS.WORD_MATCH,
+            drillCAccuracy,
+            drillCTimeframe,
+            setDrillCTimeframe,
+            { hideStruggling: true, itemLabel: 'word pair' }
           )}
         </div>
 
