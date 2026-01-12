@@ -398,27 +398,27 @@ export function WordMatchDrill({
     ]
 
     if (state?.isMatched) {
-      classes.push('bg-green-500 border-green-600 text-white cursor-default matched')
+      classes.push('bg-ninja-green border-ninja-green-dark text-white cursor-default matched')
       return classes.join(' ')
     }
 
     if (isSelected) {
-      classes.push('bg-yellow-100 border-yellow-500 ring-2 ring-yellow-400 selected')
+      classes.push('bg-yellow-100 border-yellow-500 ring-2 ring-yellow-400 selected text-gray-900')
       return classes.join(' ')
     }
 
     if (wrongCardId === card.pairId) {
-      classes.push('bg-red-100 border-red-500 animate-shake wrong')
+      classes.push('bg-red-100 border-red-500 animate-shake wrong text-gray-900')
       return classes.join(' ')
     }
 
     if (revealCorrectId === card.pairId) {
-      classes.push('bg-green-200 border-green-600 ring-2 ring-green-500 reveal-correct')
+      classes.push('bg-green-200 border-ninja-green ring-2 ring-ninja-green reveal-correct text-gray-900')
       return classes.join(' ')
     }
 
-    // Default state - blue cards like in the demo
-    classes.push('bg-blue-500 border-blue-600 text-white hover:bg-blue-400')
+    // Default state - green-themed cards to match Drill C design
+    classes.push('bg-ninja-green border-ninja-green-dark text-white hover:bg-ninja-green-dark')
 
     return classes.join(' ')
   }
@@ -426,10 +426,15 @@ export function WordMatchDrill({
   // Get text color for zhuyin based on card state
   const getZhuyinClass = (card: WordMatchCard) => {
     const state = matchStates.get(card.pairId)
+    const isSelected = selectedCard?.pairId === card.pairId
+
     if (state?.isMatched) {
       return 'text-green-100'
     }
-    return 'text-blue-100'
+    if (isSelected || wrongCardId === card.pairId || revealCorrectId === card.pairId) {
+      return 'text-gray-600'
+    }
+    return 'text-green-100'
   }
 
   // Render SVG lines connecting matched pairs
@@ -468,10 +473,16 @@ export function WordMatchDrill({
   if (isLoading) {
     return (
       <div
-        className="flex items-center justify-center h-full"
+        className="bg-white shadow-2xl p-8 w-full sm:max-w-4xl mx-auto border-4 border-ninja-green relative overflow-hidden rounded-xl"
         data-testid="word-match-drill"
       >
-        <div className="text-xl text-gray-600">Loading word pairs...</div>
+        <div className="absolute inset-0 angular-stripe-earth opacity-10 pointer-events-none" />
+        <div className="absolute top-4 left-4 bg-ninja-green text-white px-3 py-1 font-bold text-sm shadow-lg rounded z-20">
+          🔗 DRILL C
+        </div>
+        <div className="flex items-center justify-center py-16 relative z-10">
+          <div className="text-xl text-gray-600">Loading word pairs...</div>
+        </div>
       </div>
     )
   }
@@ -480,47 +491,61 @@ export function WordMatchDrill({
   if (!roundData) {
     return (
       <div
-        className="flex flex-col items-center justify-center h-full gap-4"
+        className="bg-white shadow-2xl p-8 w-full sm:max-w-4xl mx-auto border-4 border-ninja-green relative overflow-hidden rounded-xl"
         data-testid="word-match-drill"
       >
-        <div className="text-6xl">📚</div>
-        <div className="text-xl text-gray-700">Not enough word pairs</div>
-        <p className="text-gray-500 text-center max-w-md">
-          Add more characters to unlock Word Match. Need at least {MIN_PAIRS_FOR_ROUND} word pairs.
-        </p>
-        {onExit && (
-          <button
-            onClick={onExit}
-            className="mt-4 px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
-          >
-            Return to Dashboard
-          </button>
-        )}
+        <div className="absolute inset-0 angular-stripe-earth opacity-10 pointer-events-none" />
+        <div className="absolute top-4 left-4 bg-ninja-green text-white px-3 py-1 font-bold text-sm shadow-lg rounded z-20">
+          🔗 DRILL C
+        </div>
+        <div className="flex flex-col items-center justify-center py-12 gap-4 relative z-10">
+          <div className="text-6xl">📚</div>
+          <div className="text-xl text-gray-700 font-semibold">Not enough word pairs</div>
+          <p className="text-gray-500 text-center max-w-md">
+            Add more characters to unlock Word Match. Need at least {MIN_PAIRS_FOR_ROUND} word pairs.
+          </p>
+          {onExit && (
+            <button
+              onClick={onExit}
+              className="mt-4 px-6 py-2 bg-ninja-green text-white font-bold rounded-lg hover:bg-ninja-green-dark transition-colors"
+            >
+              Return to Dashboard
+            </button>
+          )}
+        </div>
       </div>
     )
   }
 
   return (
     <div
-      className="flex flex-col h-full"
+      className="bg-white shadow-2xl p-4 sm:p-6 md:p-8 w-full sm:max-w-4xl mx-auto border-4 border-ninja-green relative overflow-hidden rounded-xl"
       data-testid="word-match-drill"
     >
-      {/* Header - Match progress and round indicator */}
-      <div className="flex items-center justify-between px-4 py-2 bg-black bg-opacity-10">
+      {/* Subtle earth element overlay */}
+      <div className="absolute inset-0 angular-stripe-earth opacity-10 pointer-events-none" />
+
+      {/* Drill indicator badge */}
+      <div className="absolute top-4 left-4 bg-ninja-green text-white px-3 py-1 font-bold text-sm shadow-lg rounded z-20">
+        🔗 DRILL C
+      </div>
+
+      {/* Header stats - positioned in the upper right */}
+      <div className="absolute top-4 right-4 flex gap-4 text-sm font-bold z-20">
         <div
-          className="text-white font-bold"
+          className="text-ninja-green"
           data-testid="round-indicator"
         >
           回合 {roundNumber}
         </div>
         <div
-          className="text-white font-bold"
+          className="text-gray-600"
           data-testid="match-progress"
         >
-          配對: {matchedCount}/{PAIRS_PER_ROUND}
+          {matchedCount}/{PAIRS_PER_ROUND}
         </div>
         <div
-          className="text-white font-bold"
+          className="text-ninja-gold-dark"
           data-testid="session-points"
         >
           {sessionPoints.toFixed(1)} 分
@@ -528,14 +553,14 @@ export function WordMatchDrill({
       </div>
 
       {/* Instruction */}
-      <div className="text-center text-white py-2 text-sm sm:text-base">
-        點一個字，再點另一個字來配對！
+      <div className="text-center text-gray-700 pt-12 pb-4 text-base sm:text-lg font-semibold relative z-10">
+        點一個字，再點另一個字來配對
       </div>
 
       {/* Main matching area */}
       <div
         ref={containerRef}
-        className="flex-1 flex items-center justify-center gap-6 sm:gap-12 px-4 py-4 relative"
+        className="flex items-center justify-center gap-8 sm:gap-16 px-4 py-6 relative z-10"
       >
         {/* SVG lines connecting matched pairs */}
         {renderConnectingLines()}
@@ -603,18 +628,18 @@ export function WordMatchDrill({
 
       {/* Completed words badges */}
       <div
-        className="px-4 py-3 bg-black bg-opacity-10"
+        className="mt-4 pt-4 border-t border-gray-200 relative z-10"
         data-testid="matched-words"
       >
-        <div className="flex flex-wrap gap-2 justify-center">
+        <div className="flex flex-wrap gap-2 justify-center min-h-[40px]">
           {completedWords.length === 0 ? (
-            <span className="text-white opacity-50">配對字卡組成詞語</span>
+            <span className="text-gray-400 text-sm">配對字卡組成詞語</span>
           ) : (
             completedWords.map(({ word, pairId }) => (
               <span
                 key={pairId}
                 data-testid="word-badge"
-                className="px-3 py-1 bg-green-500 text-white rounded-full font-bold text-lg animate-bounce-in"
+                className="px-3 py-1 bg-ninja-green text-white rounded-full font-bold text-lg animate-bounce-in"
               >
                 {word}
               </span>
