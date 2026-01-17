@@ -4,6 +4,16 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## January 17, 2026 - Session 25
+
+### 🎮 Improvement: Easier Word Match for Young Learners
+- **Starting characters are now familiar**: Word Match (Drill C) now only shows word pairs where the first character (left column) is one you've already learned
+  - Previously, word pairs could appear if you knew either character, which meant seeing unfamiliar characters on the left
+  - Now you'll always recognize the starting character, making it easier to figure out the word
+- **Less frustration**: Young learners can focus on learning the second character in context, rather than being confused by unknown starting characters
+
+---
+
 ## January 12, 2026 - Session 24
 
 ### ✨ Enhancement: Smarter Word Pairs for Multi-Pronunciation Characters
