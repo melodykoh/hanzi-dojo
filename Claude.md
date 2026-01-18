@@ -73,7 +73,8 @@ For significant changes (>50 lines or >3 files):
 - [ ] Create PR: `gh pr create --title "..." --body "..." --base main`
 - [ ] Wait for Vercel preview (~2 min), test thoroughly
 - [ ] **CRITICAL: Verify changelog renders correctly at `/changelog`** ⭐
-- [ ] Merge via GitHub UI or `gh pr merge <#>`
+- [ ] ⛔ **STOP: Wait for explicit user approval before merging** ⛔
+- [ ] Merge via GitHub UI or `gh pr merge <#>` **(ONLY after user says "merge" or "approve")**
 - [ ] Update local: `git checkout main && git pull`
 - [ ] Clean up: `git branch -d feature/name`
 - [ ] Verify production at https://hanzi-dojo.vercel.app
@@ -81,6 +82,20 @@ For significant changes (>50 lines or >3 files):
 
 <!-- DO NOT REMOVE: The changelog steps above were accidentally deleted once (Session 16).
      They are critical for keeping the user-facing "What's New" page current. -->
+
+### **Git & PR Protocol**
+
+⛔ **NEVER merge a PR without explicit user permission** ⛔
+
+| Action | Allowed? |
+|--------|----------|
+| Creating branches | ✅ OK |
+| Pushing commits | ✅ OK |
+| Creating PRs | ✅ OK |
+| Running QA/tests | ✅ OK |
+| **Merging PRs** | ⛔ **REQUIRES EXPLICIT USER APPROVAL** |
+
+**Always present QA results and wait for user to explicitly say "merge", "approve", or similar before running `gh pr merge`.**
 
 **Reference:** `docs/DEVELOPMENT_AND_DEPLOYMENT.md` for full workflow
 
@@ -103,6 +118,25 @@ For significant changes (>50 lines or >3 files):
 4. Which entries should be excluded or deferred?
 5. Is accuracy more critical than speed, and what is the tolerance for wrong retries?
 6. How should the system react when the child encounters an unsupported character?
+
+### Chinese Language Feature Questions (MANDATORY for drill/word features)
+> **Lesson Learned (Session 23):** Multi-pronunciation and matching logic caused issues that should have been caught during requirements.
+
+**Multi-Pronunciation (多音字):**
+- [ ] Does this feature display characters with multiple readings?
+- [ ] How will the correct reading be determined? (Use `zhuyin_variants.context_words`)
+- [ ] Should we filter word pairs to match the kid's locked pronunciation?
+
+**Matching/Pairing Features:**
+- [ ] What defines a "correct" match vs. a "valid" match?
+- [ ] Could alternative valid matches exist in the same round?
+- [ ] What uniqueness constraints prevent ambiguity? (Both char1 AND char2 must be unique)
+
+**Round Generation:**
+- [ ] Are BOTH sides of a pair constrained for uniqueness?
+- [ ] Is there validation for ambiguous rounds before presenting?
+
+**Reference:** `docs/solutions/process-learnings/drill-c-session-learnings-20260112.md`
 
 ---
 
@@ -180,6 +214,30 @@ For significant changes (>50 lines or >3 files):
 - [ ] Failures map to specific components with recovery paths
 - [ ] Logic mirrors agreed manual workflow and dojo narrative
 - [ ] User (parent) has reviewed behavior and confirmed acceptance
+
+### QA Protocol for Drill Features (MANDATORY)
+> **Lesson Learned (Session 23):** Playwright MCP tests pass but miss visual/state stability issues.
+
+**What Playwright MCP CANNOT catch (must test manually):**
+- State stability (options staying in place after interactions)
+- Visual design consistency (colors, design tokens, matching existing drills)
+- Mobile-specific rendering (SVG positioning, column widths)
+- Transient states (flash of "no items" during loading)
+- Animation/transition smoothness
+
+**Manual QA Checklist for Drills:**
+- [ ] Complete 3+ sequential correct answers, verify options didn't reshuffle
+- [ ] Compare side-by-side with existing drills for visual consistency
+- [ ] Test on actual mobile device (not just viewport resize)
+- [ ] Switch between drills rapidly, verify no error flashes
+- [ ] Test with React StrictMode enabled (catches unstable effects)
+
+**Code Review Checklist:**
+- [ ] No unstable references in useEffect deps (use refs for prop callbacks)
+- [ ] No Math.random()/Date.now() in render body
+- [ ] Design system classes used (ninja-green, not hardcoded #22c55e)
+
+**Reference:** `docs/solutions/process-learnings/drill-c-session-learnings-20260112.md`
 
 ---
 

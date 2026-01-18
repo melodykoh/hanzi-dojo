@@ -4420,3 +4420,200 @@ Added to CLAUDE.md for future sessions:
 ---
 
 **Session 23 Summary:** ✅ COMPLETE - Implemented Drill C (Word Match) with full feature set. Fixed 7 bugs discovered during user testing. Documented session learnings about Playwright MCP gaps and data model considerations. Created GitHub Issue #34 for ambiguous word pair prevention. Updated CLAUDE.md with mandatory checklists for future drill features.
+
+---
+
+## Session 24: Pronunciation Filtering for Drill C Word Pairs
+
+**Date:** 2026-01-12
+**Status:** ✅ Complete
+**PR:** #35
+
+### 🎯 Session Objective
+Ensure Drill C word pairs respect the pronunciation the child is learning for multi-pronunciation characters.
+
+### ✨ Features Implemented
+
+**Problem Solved:**
+- When a character like 著 has multiple pronunciations (zhù/zhe/zhuó), word pairs could show words using any pronunciation
+- Example: Child learning 著 as "zhe" (着, the particle) might see 著名 (zhùmíng, "famous") which uses a different pronunciation
+- This creates confusion for young learners
+
+**Solution:**
+- Modified `get_eligible_word_pairs` RPC to check `locked_reading_id` and filter by `context_words`
+- If character has locked pronunciation, only show word pairs that appear in that reading's `context_words`
+- Falls back to showing all pairs if no locked pronunciation or no context_words defined
+
+### 📁 Files Modified
+
+**Migration:**
+- `20260112000001_drill_c_pronunciation_filtering.sql` - Updated RPC with pronunciation filtering logic
+
+### 📋 Key Decision
+Filter word pairs by pronunciation context rather than showing all possible pairs. This prevents children from being confused by words using pronunciations they haven't learned yet.
+
+---
+
+**Session 24 Summary:** ✅ COMPLETE - Added pronunciation filtering to Drill C word pairs. Children now only see word pairs matching the pronunciation they're learning for multi-pronunciation characters.
+
+---
+
+## Session 25: Drill C Char1 Learned Character Requirement
+
+**Date:** 2026-01-17
+**Status:** ✅ Complete (with regression introduced)
+**PRs:** #37, #39
+
+### 🎯 Session Objective
+Improve Drill C UX by ensuring the first character (left column) is always one the child has learned.
+
+### ✨ Features Implemented
+
+**Problem Solved (GitHub Issue #37):**
+- Original Drill C filter: "at least one character must be learned" (char1 OR char2)
+- This meant children could see unfamiliar characters in the left (starting) column
+- Young learners would click unknown char1, then try to guess which char2 forms a word
+- This is backwards - they should start with what they know
+
+**Solution:**
+- Changed filter from `(char1 OR char2)` to `char1` only
+- Now the left column always shows learned characters
+- Right column becomes the discovery/learning column
+
+### 📁 Files Modified
+
+**Migration:**
+- `20260117000001_drill_c_char1_required.sql` - Updated RPC to filter on char1 only
+
+### ⚠️ Regression Introduced
+This migration accidentally re-introduced a bug that was previously fixed:
+- Used `WHERE id = p_kid_id` without table alias
+- `RETURNS TABLE (id uuid, ...)` creates an OUT parameter also named `id`
+- PostgreSQL couldn't distinguish between `kids.id` and OUT param `id`
+- Result: RPC threw "column reference 'id' is ambiguous" error
+- This broke ALL drills (not just Drill C) via cascading Promise.all failure
+
+**Note:** The bug was not caught before merging because:
+1. Direct data queries showed 201 eligible pairs (data was fine)
+2. The error only appeared when calling the RPC function
+3. No test coverage for RPC function directly
+
+---
+
+**Session 25 Summary:** ✅ COMPLETE but with critical regression - Implemented char1-only filter for better UX. However, migration re-introduced ambiguous column bug, causing Session 26 hotfix.
+
+---
+
+## Session 26: Fix Ambiguous Column Reference Regression
+
+**Date:** 2026-01-18
+**Status:** ✅ Complete
+**Issue:** #40
+**PR:** #40
+
+### 🎯 Session Objective
+Investigate and fix critical production bug where Drill C disappeared from Dashboard and ALL drills showed "No items available for practice."
+
+### 🔍 Investigation Process
+
+**Symptoms Observed:**
+- Drill C completely missing from Dashboard Drill Proficiency Overview
+- Training modal showed "No items available for practice" for ALL drills (A, B, and C)
+- Dashboard metrics still showed correct counts (159 items Drill A, 42 items Drill B)
+
+**Hypotheses Formulated:**
+1. **Hypothesis A:** Insufficient word pairs - char1-only filter too restrictive
+2. **Hypothesis B:** Cascading error - RPC throwing error breaks entire modal
+
+**User Pushback (Important Learning):**
+User pushed back on immediate hotfix approach, requested validation of hypotheses first:
+> "I don't like the approach of the hotfix because ultimately the goal is to make sure Drill C is not too difficult for my son."
+
+**Diagnostic Queries via Supabase MCP:**
+```sql
+-- Verify learned count
+SELECT COUNT(*) FROM entries WHERE kid_id = 'xxx';
+-- Result: 159 ✓
+
+-- Test char1-only filter
+SELECT COUNT(*) FROM word_pairs wp
+WHERE EXISTS (SELECT 1 FROM entries e WHERE e.trad = wp.char1 AND e.kid_id = 'xxx');
+-- Result: 201 (well above 5 minimum) ✓
+
+-- Test RPC directly
+SELECT * FROM get_eligible_word_pairs('xxx') LIMIT 5;
+-- Result: ERROR 42702: column reference "id" is ambiguous ✗
+```
+
+**Root Cause Confirmed:** Hypothesis B was TRUE
+- Migration `20260117000001` re-introduced bug previously fixed in `20260112000002`
+- `WHERE id = p_kid_id` in auth check was ambiguous with `RETURNS TABLE (id uuid, ...)`
+- Frontend's `Promise.all` in `DrillSelectionModal` caused cascading failure
+
+### ✨ Fix Applied
+
+**Migration:** `20260118000001_fix_rpc_ambiguous_column_again.sql`
+```sql
+-- Before (buggy)
+IF NOT EXISTS (
+  SELECT 1 FROM kids
+  WHERE id = p_kid_id
+  AND owner_id = auth.uid()
+)
+
+-- After (fixed)
+IF NOT EXISTS (
+  SELECT 1 FROM kids k
+  WHERE k.id = p_kid_id
+  AND k.owner_id = auth.uid()
+)
+```
+
+### 📁 Files Created
+
+**Migration:**
+- `supabase/migrations/20260118000001_fix_rpc_ambiguous_column_again.sql`
+
+**Documentation (for future prevention):**
+- `docs/solutions/database-issues/plpgsql-ambiguous-column-reference.md`
+
+**Updated:**
+- `public/CHANGELOG.md` - Session 26 entry
+- `plans/fix-drill-c-dashboard-and-training-regression.md` - Investigation plan with findings
+
+### 🎓 Key Learnings
+
+**Technical:**
+1. PL/pgSQL `RETURNS TABLE` creates OUT parameters that become variables in function scope
+2. Bare column names can conflict with OUT parameters, causing ambiguous reference errors
+3. Always use explicit table aliases (`k.id` not `id`) in SECURITY DEFINER functions
+4. `Promise.all` cascades failures - one RPC error breaks entire modal
+
+**Process:**
+1. **Validate hypotheses before fixing** - User's pushback led to better investigation
+2. **Test RPC functions directly** - Data queries were fine, RPC was broken
+3. **Review entire function when modifying** - The alias pattern was intentional
+4. **Document non-obvious patterns** - Add comments explaining why aliases are required
+
+**Prevention Strategies Added to Documentation:**
+- SQL Migration Checklist for RETURNS TABLE functions
+- Code Review patterns (red flag: bare column names in RPC)
+- Testing protocol: always test RPC with real kid_id
+
+### 📋 Session Retrospective
+
+**What Went Wrong (Session 25):**
+- Modified RPC without reviewing why existing patterns existed
+- Explicit `k.id` alias was not accidental - it was a fix
+- No test coverage for RPC functions directly
+
+**What Went Right (Session 26):**
+- User pushed back on reactive hotfix approach
+- Systematic hypothesis validation found true root cause
+- Supabase MCP enabled quick diagnostic queries
+- Fix applied and verified in production within one session
+- Comprehensive documentation created for future prevention
+
+---
+
+**Session 26 Summary:** ✅ COMPLETE - Fixed critical regression from Session 25. RPC ambiguous column reference caused all drills to fail. Applied explicit table alias fix. Created detailed documentation for future prevention. Key learning: when modifying RPC functions, review why existing patterns exist - they may be intentional fixes.

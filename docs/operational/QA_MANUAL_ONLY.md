@@ -1,10 +1,19 @@
 # Hanzi Dojo — Manual Testing Focus (Automation-Filtered)
-**Version:** Epic 5 Complete (2025-11-04)
+**Version:** Epic 5 Complete + Drill C Learnings (2026-01-12)
 **Purpose:** Manual-only QA items that cannot be easily automated
 
 ---
 
-## 🎯 Testing Philosophy
+## IMPORTANT: Drill Feature Testing
+
+**For drill-type features (like Drills A, B, C), use the specialized checklist:**
+- See: `docs/operational/DRILL_FEATURE_QA_CHECKLIST.md`
+- Covers: State stability, mobile-specific tests, animation, data model validation
+- Lessons from: Drill C (Word Match) development where Playwright MCP testing missed critical bugs
+
+---
+
+## Testing Philosophy
 
 **What's Automated (Skip These):**
 - ✅ TypeScript compilation errors

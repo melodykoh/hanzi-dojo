@@ -25,6 +25,7 @@
 **Focus:** Data durability, motivation, and consistency.
 
 ### Additions
+- **Drill C: Word Match (配對高手):** Match character pairs to form 2-character words. Reinforces character knowledge in vocabulary context. Uses CCCC (Taiwan MOE) vocabulary as word source. [Spec: `docs/DRILL_C_WORD_MATCH_SPEC.md`]
 - **Bulk character upload:** CSV import with validation workflow for batch entry management.
 - Automatic Supabase backups (JSON snapshot) with parent-initiated restore.
 - Expand dictionary seed beyond 1,000 entries guided by `dictionary_missing`.
@@ -32,6 +33,12 @@
 - Daily training streaks and badge indicators.
 - Animated belt transitions and visual polish.
 - Minor UX tuning (faster drill loading, smoother transitions).
+
+### User-Tested Drill Concepts (Jan 2026)
+Prototypes tested with target user (7yo). Results:
+- ⭐ **Word Match:** Favorite - "more interesting than Drill A" → Building in V1.1
+- ⚠️ **Word Hunt:** Fun but timer causes anxiety → Deferred, needs relaxed mode
+- ❌ **Sentence Ninja:** Too difficult → Deferred to V2
 
 ### Goals
 - Reduce friction for parents managing large character lists.

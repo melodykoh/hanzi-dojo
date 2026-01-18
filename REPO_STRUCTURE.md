@@ -50,7 +50,8 @@ This document defines the canonical file organization for Hanzi Dojo. **All cont
 │   ├── QA_CHECKLIST.md          # Quality assurance procedures
 │   ├── QA_MANUAL_ONLY.md        # Manual testing scenarios
 │   ├── TEST_COVERAGE.md         # Testing coverage reports
-│   └── TESTING_README.md        # Testing setup and guidelines
+│   ├── TESTING_README.md        # Testing setup and guidelines
+│   └── DRILL_FEATURE_QA_CHECKLIST.md  # Drill-specific QA (lessons from Drill C)
 │
 └── /architecture               # (FUTURE) Architecture decision records (ADRs)
     └── YYYY-MM-DD-decision-title.md
@@ -297,6 +298,6 @@ This structure prioritizes:
 
 ---
 
-**Last Updated**: 2025-12-08 (Session 17, Todo #043)
+**Last Updated**: 2026-01-12 (Session 23, Drill C learnings)
 **Maintained By**: Claude + Project Owner
 **Review Frequency**: Every session start + whenever new directories are proposed
