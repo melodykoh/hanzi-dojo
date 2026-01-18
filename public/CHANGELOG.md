@@ -12,6 +12,12 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
   - All three drills (A, B, and C) are now working again
 - **Drill C back on dashboard**: Word Match is now visible again in the Drill Proficiency Overview
 
+### 🐛 Bug Fix: Word Pairs Now Appear for Multi-Pronunciation Characters
+- **Fixed missing word pairs**: Word pairs like 到處, 因為, 什麼, 怎麼 were not appearing in Drill C for characters with locked pronunciations
+  - This was caused by a data mismatch: some saved pronunciation data used simplified Chinese (处, 为, 么) while word pairs use traditional (處, 為, 麼)
+  - All 12 affected words have been converted to traditional Chinese
+- **Characters fixed**: 處, 著, 為, 什, 麼, 並 now correctly show their word pairs in Drill C
+
 ---
 
 ## January 17, 2026 - Session 25
