@@ -4617,3 +4617,82 @@ IF NOT EXISTS (
 ---
 
 **Session 26 Summary:** ✅ COMPLETE - Fixed critical regression from Session 25. RPC ambiguous column reference caused all drills to fail. Applied explicit table alias fix. Created detailed documentation for future prevention. Key learning: when modifying RPC functions, review why existing patterns exist - they may be intentional fixes.
+
+
+---
+
+## Session 27: Fix Simplified context_words in readings Table
+**Date:** 2026-01-18
+**Status:** ✅ Complete
+**Issue:** [#36](https://github.com/melodykoh/hanzi-dojo/issues/36)
+**PR:** [#41](https://github.com/melodykoh/hanzi-dojo/pull/41) (merged)
+
+### 🎯 Objectives Accomplished
+1. ✅ Investigated and fixed simplified Chinese context_words causing Drill C word pair filtering failures
+2. ✅ Converted 11 simplified words to traditional in `readings` table
+3. ✅ Found and fixed 1 additional word (`并州→並州`) in `dictionary_entries` via exhaustive audit
+4. ✅ Documented exhaustive verification query for future audits
+
+### 📋 Problem Summary
+
+**Symptom:** Word pairs like 到處, 因為, 什麼 not appearing in Drill C for characters with locked pronunciations.
+
+**Root Cause:** The `readings.context_words` were copied from `dictionary_entries` BEFORE migration 015c converted them to traditional. String comparison failed:
+- `readings.context_words`: 到处 (simplified)
+- `word_pairs.word`: 到處 (traditional)
+- Result: `'到處' = ANY('{到处}')` → false (no match)
+
+### 🔬 Discovery Method Comparison
+
+| Method | Query Pattern | Result |
+|--------|--------------|--------|
+| **Regex-based** (original) | `word ~ '处\|着\|说\|为\|...'` | Found 11 words, missed 1 |
+| **Exhaustive** (corrected) | Join against ALL `simp \!= trad` | Found the missing `并州→並州` |
+
+**Exhaustive Query (use for future audits):**
+```sql
+WITH simplified_chars AS (
+  SELECT simp, trad FROM dictionary_entries WHERE simp \!= trad
+)
+SELECT word FROM [table_with_context_words]
+WHERE EXISTS (
+  SELECT 1 FROM simplified_chars sc 
+  WHERE word LIKE '%' || sc.simp || '%'
+);
+```
+
+### ✨ Fix Applied
+
+**Migration 1:** `20260117000002_fix_readings_context_words_simplified.sql`
+- 11 words: 因为→因為, 为了→為了, 为什么→為什麼, 什么→什麼, 怎么→怎麼, 处所→處所, 办事处→辦事處, 好处→好處, 到处→到處, 跟着→跟著, 看着→看著
+
+**Migration 2:** `20260118000002_fix_dictionary_bingzhou_simplified.sql`
+- 1 word: 并州→並州
+
+### 📁 Files Created
+
+**Migrations:**
+- `supabase/migrations/20260117000002_fix_readings_context_words_simplified.sql`
+- `supabase/migrations/20260118000002_fix_dictionary_bingzhou_simplified.sql`
+
+**Plan:**
+- `plans/fix-context-words-simplified-to-traditional.md`
+
+**Updated:**
+- `public/CHANGELOG.md` - Session 26 (combined entry)
+
+### 🎓 Key Learnings
+
+**Technical:**
+1. Regex-based discovery queries are not exhaustive - they only find characters explicitly listed
+2. Exhaustive verification should JOIN against all `simp \!= trad` entries in dictionary
+3. `readings` table inherits from `dictionary_entries` at add time - fixing dictionary doesn't fix existing user data
+
+**Process:**
+1. Multi-agent plan review (DHH, Kieran, Simplicity) caught over-engineering and recommended hardcoded word mapping
+2. Always verify discovery queries are exhaustive before claiming "fix complete"
+3. Document exhaustive queries in migration files for future use
+
+---
+
+**Session 27 Summary:** ✅ COMPLETE - Fixed issue #36 where simplified context_words caused Drill C word pair filtering failures. Key learning: regex-based discovery is not exhaustive; always use JOIN-based verification against all simp\!=trad characters.
