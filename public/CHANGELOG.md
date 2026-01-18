@@ -4,6 +4,16 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## January 18, 2026 - Session 26
+
+### 🐛 Bug Fix: Training and Drill C Restored
+- **Fixed critical bug**: Training modal was showing "No items available" even when you had characters to practice
+  - This was caused by a database error introduced in yesterday's update
+  - All three drills (A, B, and C) are now working again
+- **Drill C back on dashboard**: Word Match is now visible again in the Drill Proficiency Overview
+
+---
+
 ## January 17, 2026 - Session 25
 
 ### 🎮 Improvement: Easier Word Match for Young Learners
