@@ -198,8 +198,9 @@ For significant changes (>50 lines or >3 files):
 ### Before Each Feature
 1. Confirm requirements with user; list acceptance criteria.
 2. Present 2–3 solution options (especially for new drills or data flows).
-3. Ship minimal end-to-end path (dictionary lookup → drill render → familiarity update) before enhancements.
-4. Test against real characters provided by the user (tones, identical Trad/Simp, multi-reading cases).
+3. **If writing migrations or modifying RPCs:** Check `docs/solutions/database-issues/` for known gotchas.
+4. Ship minimal end-to-end path (dictionary lookup → drill render → familiarity update) before enhancements.
+5. Test against real characters provided by the user (tones, identical Trad/Simp, multi-reading cases).
 
 ### During Development
 - Validate inputs at every boundary (forms, RPC payloads).
@@ -207,6 +208,7 @@ For significant changes (>50 lines or >3 files):
 - Surface confidence context in UI copy (e.g., when manual data is used).
 - Emit actionable errors (what failed, how it impacts parent/kid experience).
 - Exercise offline guard scenarios and training mode transitions.
+- **For RPC functions:** Use explicit table aliases (e.g., `k.id` not `id`) to avoid RETURNS TABLE conflicts.
 
 ### Definition of Done
 - [ ] Feature works end-to-end with production-like data
@@ -479,6 +481,16 @@ For significant changes (>50 lines or >3 files):
 - **`docs/operational/DICTIONARY_MIGRATION_GUIDE.md`** - Database safety protocol
 - **`docs/operational/DICTIONARY_REMAINING_WORK.md`** - Epic 8 tracking (139 chars)
 - **`docs/operational/EPIC_8_PHASE_3_EXPANSION.md`** - Future dictionary expansion (250+ chars)
+- **`docs/operational/DRILL_FEATURE_QA_CHECKLIST.md`** - QA checklist for drill features
+
+### Solutions & Learnings (CHECK BEFORE IMPLEMENTING)
+> **IMPORTANT:** Before writing migrations or modifying RPC functions, check this directory for known issues and prevention patterns.
+
+- **`docs/solutions/database-issues/`** - Database/SQL gotchas and fixes
+  - `plpgsql-ambiguous-column-reference.md` - RETURNS TABLE + bare column names (Issue #40)
+  - `incomplete-data-fix-scope-discovery-20251215.md` - Migration scope discovery
+- **`docs/solutions/process-learnings/`** - Development process insights
+  - `drill-c-session-learnings-20260112.md` - Playwright gaps, data model issues
 
 ### Development Resources
 - **`docs/DEVELOPMENT_AND_DEPLOYMENT.md`** - Setup guide, testing, deployment
