@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Word Match - 配對高手</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif;
+      background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .title {
+      font-size: 28px;
+      color: #ffd700;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .stats-bar {
+      display: flex;
+      gap: 15px;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.1);
+      padding: 6px 14px;
+      border-radius: 15px;
+    }
+
+    .game-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 450px;
+      width: 100%;
+    }
+
+    .instruction {
+      text-align: center;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .match-area {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      position: relative;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      flex: 1;
+    }
+
+    .char-card {
+      background: linear-gradient(145deg, #3498db, #2980b9);
+      border: 3px solid transparent;
+      border-radius: 12px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .char-card:hover {
+      transform: scale(1.05);
+    }
+
+    .char-card:active {
+      transform: scale(0.95);
+    }
+
+    .char-card.selected {
+      border-color: #ffd700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+
+    .char-card.matched {
+      background: linear-gradient(145deg, #2ecc71, #27ae60);
+      pointer-events: none;
+    }
+
+    .char-card.wrong {
+      animation: shake 0.4s;
+      background: linear-gradient(145deg, #e74c3c, #c0392b);
+    }
+
+    .char-card .hanzi {
+      font-size: 36px;
+      color: white;
+      line-height: 1;
+    }
+
+    .char-card .zhuyin {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 5px;
+    }
+
+    .char-card .zhuyin.show {
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* SVG for drawing lines */
+    .lines-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .match-line {
+      stroke: #2ecc71;
+      stroke-width: 3;
+      stroke-linecap: round;
+      fill: none;
+    }
+
+    .temp-line {
+      stroke: #ffd700;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 8 4;
+      fill: none;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+
+    @keyframes celebrate {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2) rotate(5deg); }
+      100% { transform: scale(1); }
+    }
+
+    .word-display {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .word-badge {
+      background: rgba(46, 204, 113, 0.2);
+      border: 2px solid #2ecc71;
+      border-radius: 20px;
+      padding: 8px 16px;
+      color: #2ecc71;
+      font-size: 20px;
+      animation: celebrate 0.5s;
+    }
+
+    .completion-message {
+      display: none;
+      text-align: center;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .completion-message.show {
+      display: block;
+    }
+
+    .completion-message h2 {
+      color: #ffd700;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .completion-message .emoji {
+      font-size: 60px;
+      animation: celebrate 1s infinite;
+    }
+
+    .play-again-btn {
+      margin-top: 20px;
+      background: linear-gradient(145deg, #ffd700, #ffb700);
+      border: none;
+      border-radius: 25px;
+      padding: 12px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .round-indicator {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 class="title">配對高手</h1>
+    <p class="subtitle">Word Match</p>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">配對: <span id="matchCount">0</span>/<span id="totalPairs">5</span></div>
+    <div class="stat">回合: <span id="roundNum">1</span></div>
+  </div>
+
+  <div class="game-container">
+    <div class="instruction">點一個字，再點另一個字來配對！</div>
+
+    <div class="match-area" id="matchArea">
+      <svg class="lines-svg" id="linesSvg"></svg>
+      <div class="column" id="leftColumn"></div>
+      <div class="column" id="rightColumn"></div>
+    </div>
+
+    <div class="word-display" id="wordDisplay"></div>
+
+    <div class="completion-message" id="completionMessage">
+      <div class="emoji">🎊</div>
+      <h2>太棒了！</h2>
+      <p>你配對了所有的詞語！</p>
+      <button class="play-again-btn" onclick="startNewRound()">下一回合</button>
+    </div>
+
+    <div class="round-indicator" id="roundIndicator"></div>
+  </div>
+
+  <script>
+    // Word pairs data
+    const allWordPairs = [
+      // Round 1 - Nature
+      [
+        { left: "月", leftZhuyin: "ㄩㄝˋ", right: "亮", rightZhuyin: "ㄌㄧㄤˋ", word: "月亮" },
+        { left: "太", leftZhuyin: "ㄊㄞˋ", right: "陽", rightZhuyin: "ㄧㄤˊ", word: "太陽" },
+        { left: "花", leftZhuyin: "ㄏㄨㄚ", right: "草", rightZhuyin: "ㄘㄠˇ", word: "花草" },
+        { left: "白", leftZhuyin: "ㄅㄞˊ", right: "天", rightZhuyin: "ㄊㄧㄢ", word: "白天" },
+        { left: "星", leftZhuyin: "ㄒㄧㄥ", right: "星", rightZhuyin: "ㄒㄧㄥ", word: "星星" },
+      ],
+      // Round 2 - Actions/Senses
+      [
+        { left: "看", leftZhuyin: "ㄎㄢˋ", right: "見", rightZhuyin: "ㄐㄧㄢˋ", word: "看見" },
+        { left: "聽", leftZhuyin: "ㄊㄧㄥ", right: "見", rightZhuyin: "ㄐㄧㄢˋ", word: "聽見" },
+        { left: "黑", leftZhuyin: "ㄏㄟ", right: "白", rightZhuyin: "ㄅㄞˊ", word: "黑白" },
+        { left: "光", leftZhuyin: "ㄍㄨㄤ", right: "明", rightZhuyin: "ㄇㄧㄥˊ", word: "光明" },
+        { left: "燈", leftZhuyin: "ㄉㄥ", right: "光", rightZhuyin: "ㄍㄨㄤ", word: "燈光" },
+      ],
+      // Round 3 - Mixed
+      [
+        { left: "大", leftZhuyin: "ㄉㄚˋ", right: "小", rightZhuyin: "ㄒㄧㄠˇ", word: "大小" },
+        { left: "上", leftZhuyin: "ㄕㄤˋ", right: "下", rightZhuyin: "ㄒㄧㄚˋ", word: "上下" },
+        { left: "多", leftZhuyin: "ㄉㄨㄛ", right: "少", rightZhuyin: "ㄕㄠˇ", word: "多少" },
+        { left: "左", leftZhuyin: "ㄗㄨㄛˇ", right: "右", rightZhuyin: "ㄧㄡˋ", word: "左右" },
+        { left: "前", leftZhuyin: "ㄑㄧㄢˊ", right: "後", rightZhuyin: "ㄏㄡˋ", word: "前後" },
+      ],
+    ];
+
+    let currentRound = 0;
+    let selectedCard = null;
+    let matchedPairs = [];
+    let lines = [];
+
+    function shuffle(array) {
+      const newArray = [...array];
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+
+    function renderRound() {
+      const pairs = allWordPairs[currentRound];
+      matchedPairs = [];
+      lines = [];
+      selectedCard = null;
+
+      document.getElementById('matchCount').textContent = '0';
+      document.getElementById('totalPairs').textContent = pairs.length;
+      document.getElementById('roundNum').textContent = currentRound + 1;
+      document.getElementById('wordDisplay').innerHTML = '';
+      document.getElementById('linesSvg').innerHTML = '';
+      document.getElementById('completionMessage').className = 'completion-message';
+
+      // Shuffle left and right columns independently
+      const leftChars = shuffle(pairs.map((p, i) => ({
+        char: p.left,
+        zhuyin: p.leftZhuyin,
+        pairIndex: i,
+        side: 'left'
+      })));
+
+      const rightChars = shuffle(pairs.map((p, i) => ({
+        char: p.right,
+        zhuyin: p.rightZhuyin,
+        pairIndex: i,
+        side: 'right'
+      })));
+
+      const leftColumn = document.getElementById('leftColumn');
+      const rightColumn = document.getElementById('rightColumn');
+
+      leftColumn.innerHTML = leftChars.map((c, i) => `
+        <div class="char-card" data-pair="${c.pairIndex}" data-side="left" data-index="${i}" onclick="selectCard(this)">
+          <span class="hanzi">${c.char}</span>
+          <span class="zhuyin">${c.zhuyin}</span>
+        </div>
+      `).join('');
+
+      rightColumn.innerHTML = rightChars.map((c, i) => `
+        <div class="char-card" data-pair="${c.pairIndex}" data-side="right" data-index="${i}" onclick="selectCard(this)">
+          <span class="hanzi">${c.char}</span>
+          <span class="zhuyin">${c.zhuyin}</span>
+        </div>
+      `).join('');
+
+      updateRoundIndicator();
+    }
+
+    function selectCard(card) {
+      if (card.classList.contains('matched')) return;
+
+      const pairIndex = parseInt(card.dataset.pair);
+      const side = card.dataset.side;
+
+      if (selectedCard === null) {
+        // First selection
+        selectedCard = card;
+        card.classList.add('selected');
+        card.querySelector('.zhuyin').classList.add('show');
+      } else if (selectedCard === card) {
+        // Deselect
+        selectedCard.classList.remove('selected');
+        selectedCard.querySelector('.zhuyin').classList.remove('show');
+        selectedCard = null;
+      } else {
+        // Second selection - check for match
+        const firstPair = parseInt(selectedCard.dataset.pair);
+        const firstSide = selectedCard.dataset.side;
+
+        if (firstSide === side) {
+          // Same column - switch selection
+          selectedCard.classList.remove('selected');
+          selectedCard.querySelector('.zhuyin').classList.remove('show');
+          selectedCard = card;
+          card.classList.add('selected');
+          card.querySelector('.zhuyin').classList.add('show');
+        } else if (firstPair === pairIndex) {
+          // Correct match!
+          selectedCard.classList.remove('selected');
+          selectedCard.classList.add('matched');
+          card.classList.add('matched');
+
+          // Draw line between matched cards
+          drawLine(selectedCard, card);
+
+          // Show the word
+          const pairs = allWordPairs[currentRound];
+          const matchedWord = pairs[pairIndex].word;
+          addWordBadge(matchedWord);
+
+          matchedPairs.push(pairIndex);
+          document.getElementById('matchCount').textContent = matchedPairs.length;
+
+          selectedCard = null;
+
+          // Check for completion
+          if (matchedPairs.length === pairs.length) {
+            setTimeout(showCompletion, 500);
+          }
+        } else {
+          // Wrong match
+          card.classList.add('wrong');
+          selectedCard.classList.add('wrong');
+
+          setTimeout(() => {
+            card.classList.remove('wrong');
+            selectedCard.classList.remove('wrong');
+            selectedCard.classList.remove('selected');
+            selectedCard.querySelector('.zhuyin').classList.remove('show');
+            selectedCard = null;
+          }, 400);
+        }
+      }
+    }
+
+    function drawLine(card1, card2) {
+      const svg = document.getElementById('linesSvg');
+      const container = document.getElementById('matchArea');
+      const containerRect = container.getBoundingClientRect();
+
+      const rect1 = card1.getBoundingClientRect();
+      const rect2 = card2.getBoundingClientRect();
+
+      // Calculate center points relative to container
+      const x1 = rect1.left + rect1.width / 2 - containerRect.left;
+      const y1 = rect1.top + rect1.height / 2 - containerRect.top;
+      const x2 = rect2.left + rect2.width / 2 - containerRect.left;
+      const y2 = rect2.top + rect2.height / 2 - containerRect.top;
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1);
+      line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', y2);
+      line.setAttribute('class', 'match-line');
+
+      svg.appendChild(line);
+    }
+
+    function addWordBadge(word) {
+      const display = document.getElementById('wordDisplay');
+      const badge = document.createElement('div');
+      badge.className = 'word-badge';
+      badge.textContent = word;
+      display.appendChild(badge);
+    }
+
+    function showCompletion() {
+      document.getElementById('completionMessage').className = 'completion-message show';
+    }
+
+    function startNewRound() {
+      currentRound = (currentRound + 1) % allWordPairs.length;
+      renderRound();
+    }
+
+    function updateRoundIndicator() {
+      const themes = ['自然 Nature', '動作 Actions', '方向 Directions'];
+      document.getElementById('roundIndicator').textContent = `主題: ${themes[currentRound]}`;
+    }
+
+    // Start the game
+    renderRound();
+  </script>
+</body>
+</html>

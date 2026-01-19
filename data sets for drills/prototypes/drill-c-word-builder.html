@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Word Builder - 詞語大師</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 28px;
+      color: #ffd700;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .score-bar {
+      display: flex;
+      gap: 20px;
+      color: white;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .score-item {
+      background: rgba(255,255,255,0.1);
+      padding: 8px 16px;
+      border-radius: 20px;
+    }
+
+    .game-area {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .prompt {
+      text-align: center;
+      color: white;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .target-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .target-char {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(145deg, #e63946, #c1121f);
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
+    }
+
+    .target-char .hanzi {
+      font-size: 48px;
+      color: white;
+      line-height: 1;
+    }
+
+    .target-char .zhuyin {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      margin-top: 5px;
+    }
+
+    .blank-slot {
+      width: 100px;
+      height: 100px;
+      border: 4px dashed rgba(255,255,255,0.3);
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 48px;
+      color: rgba(255,255,255,0.3);
+      transition: all 0.3s;
+    }
+
+    .blank-slot.highlight {
+      border-color: #ffd700;
+      background: rgba(255,215,0,0.1);
+    }
+
+    .blank-slot.filled {
+      background: linear-gradient(145deg, #2ecc71, #27ae60);
+      border: none;
+      color: white;
+      box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+    }
+
+    .blank-slot .filled-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .blank-slot .filled-hanzi {
+      font-size: 48px;
+      line-height: 1;
+    }
+
+    .blank-slot .filled-zhuyin {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 5px;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .option {
+      background: linear-gradient(145deg, #3498db, #2980b9);
+      border: none;
+      border-radius: 15px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    }
+
+    .option:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+    }
+
+    .option:active {
+      transform: scale(0.95);
+    }
+
+    .option .hanzi {
+      font-size: 42px;
+      color: white;
+      line-height: 1;
+    }
+
+    .option .zhuyin {
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
+      margin-top: 8px;
+    }
+
+    .option.correct {
+      background: linear-gradient(145deg, #2ecc71, #27ae60);
+      animation: pulse 0.5s;
+    }
+
+    .option.wrong {
+      background: linear-gradient(145deg, #666, #444);
+      animation: shake 0.5s;
+    }
+
+    .option.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    @keyframes spinjitzu {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.2); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    .celebration {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 80px;
+      animation: spinjitzu 0.8s ease-out;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .word-result {
+      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(46, 204, 113, 0.2);
+      border-radius: 10px;
+      color: #2ecc71;
+      font-size: 24px;
+      display: none;
+    }
+
+    .word-result.show {
+      display: block;
+      animation: pulse 0.5s;
+    }
+
+    .next-btn {
+      display: none;
+      margin-top: 20px;
+      background: linear-gradient(145deg, #ffd700, #ffb700);
+      border: none;
+      border-radius: 25px;
+      padding: 15px 40px;
+      font-size: 20px;
+      color: #1a1a2e;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .next-btn.show {
+      display: block;
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .dot.complete {
+      background: #2ecc71;
+    }
+
+    .dot.current {
+      background: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 class="title">詞語大師</h1>
+    <p class="subtitle">Word Builder</p>
+  </div>
+
+  <div class="score-bar">
+    <div class="score-item">✓ <span id="correct">0</span></div>
+    <div class="score-item">✗ <span id="wrong">0</span></div>
+  </div>
+
+  <div class="game-area">
+    <div class="prompt">選一個字來完成詞語！</div>
+
+    <div class="target-area">
+      <div class="target-char">
+        <span class="hanzi" id="targetChar">月</span>
+        <span class="zhuyin" id="targetZhuyin">ㄩㄝˋ</span>
+      </div>
+      <div class="blank-slot" id="blankSlot">?</div>
+    </div>
+
+    <div class="options" id="options">
+      <!-- Options will be inserted here -->
+    </div>
+
+    <div class="word-result" id="wordResult"></div>
+
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">下一題 →</button>
+
+    <div class="progress-dots" id="progressDots">
+      <!-- Dots will be inserted here -->
+    </div>
+  </div>
+
+  <div class="celebration" id="celebration" style="display:none;"></div>
+
+  <script>
+    // Word pairs: [targetChar, targetZhuyin, correctAnswer, correctZhuyin, wordMeaning]
+    // Plus 3 wrong options
+    const questions = [
+      {
+        target: "月", targetZhuyin: "ㄩㄝˋ",
+        correct: "亮", correctZhuyin: "ㄌㄧㄤˋ",
+        word: "月亮", meaning: "moon",
+        wrongs: [
+          { char: "白", zhuyin: "ㄅㄞˊ" },
+          { char: "光", zhuyin: "ㄍㄨㄤ" },
+          { char: "見", zhuyin: "ㄐㄧㄢˋ" }
+        ]
+      },
+      {
+        target: "太", targetZhuyin: "ㄊㄞˋ",
+        correct: "陽", correctZhuyin: "ㄧㄤˊ",
+        word: "太陽", meaning: "sun",
+        wrongs: [
+          { char: "大", zhuyin: "ㄉㄚˋ" },
+          { char: "天", zhuyin: "ㄊㄧㄢ" },
+          { char: "亮", zhuyin: "ㄌㄧㄤˋ" }
+        ]
+      },
+      {
+        target: "看", targetZhuyin: "ㄎㄢˋ",
+        correct: "見", correctZhuyin: "ㄐㄧㄢˋ",
+        word: "看見", meaning: "to see",
+        wrongs: [
+          { char: "書", zhuyin: "ㄕㄨ" },
+          { char: "到", zhuyin: "ㄉㄠˋ" },
+          { char: "我", zhuyin: "ㄨㄛˇ" }
+        ]
+      },
+      {
+        target: "黑", targetZhuyin: "ㄏㄟ",
+        correct: "白", correctZhuyin: "ㄅㄞˊ",
+        word: "黑白", meaning: "black & white",
+        wrongs: [
+          { char: "色", zhuyin: "ㄙㄜˋ" },
+          { char: "夜", zhuyin: "ㄧㄝˋ" },
+          { char: "天", zhuyin: "ㄊㄧㄢ" }
+        ]
+      },
+      {
+        target: "花", targetZhuyin: "ㄏㄨㄚ",
+        correct: "草", correctZhuyin: "ㄘㄠˇ",
+        word: "花草", meaning: "flowers & grass",
+        wrongs: [
+          { char: "園", zhuyin: "ㄩㄢˊ" },
+          { char: "開", zhuyin: "ㄎㄞ" },
+          { char: "紅", zhuyin: "ㄏㄨㄥˊ" }
+        ]
+      },
+      {
+        target: "燈", targetZhuyin: "ㄉㄥ",
+        correct: "光", correctZhuyin: "ㄍㄨㄤ",
+        word: "燈光", meaning: "light",
+        wrongs: [
+          { char: "火", zhuyin: "ㄏㄨㄛˇ" },
+          { char: "亮", zhuyin: "ㄌㄧㄤˋ" },
+          { char: "明", zhuyin: "ㄇㄧㄥˊ" }
+        ]
+      },
+      {
+        target: "光", targetZhuyin: "ㄍㄨㄤ",
+        correct: "明", correctZhuyin: "ㄇㄧㄥˊ",
+        word: "光明", meaning: "bright",
+        wrongs: [
+          { char: "亮", zhuyin: "ㄌㄧㄤˋ" },
+          { char: "線", zhuyin: "ㄒㄧㄢˋ" },
+          { char: "天", zhuyin: "ㄊㄧㄢ" }
+        ]
+      },
+      {
+        target: "白", targetZhuyin: "ㄅㄞˊ",
+        correct: "天", correctZhuyin: "ㄊㄧㄢ",
+        word: "白天", meaning: "daytime",
+        wrongs: [
+          { char: "色", zhuyin: "ㄙㄜˋ" },
+          { char: "雲", zhuyin: "ㄩㄣˊ" },
+          { char: "紙", zhuyin: "ㄓˇ" }
+        ]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+
+      document.getElementById('targetChar').textContent = q.target;
+      document.getElementById('targetZhuyin').textContent = q.targetZhuyin;
+
+      const blankSlot = document.getElementById('blankSlot');
+      blankSlot.innerHTML = '?';
+      blankSlot.className = 'blank-slot';
+
+      document.getElementById('wordResult').className = 'word-result';
+      document.getElementById('nextBtn').className = 'next-btn';
+
+      // Create options array with correct answer and wrong options
+      const options = [
+        { char: q.correct, zhuyin: q.correctZhuyin, isCorrect: true },
+        ...q.wrongs.map(w => ({ ...w, isCorrect: false }))
+      ];
+
+      shuffle(options);
+
+      const optionsContainer = document.getElementById('options');
+      optionsContainer.innerHTML = options.map((opt, i) => `
+        <button class="option" onclick="selectOption(this, ${opt.isCorrect}, '${opt.char}', '${opt.zhuyin}')">
+          <span class="hanzi">${opt.char}</span>
+          <span class="zhuyin">${opt.zhuyin}</span>
+        </button>
+      `).join('');
+
+      // Update progress dots
+      const dotsContainer = document.getElementById('progressDots');
+      dotsContainer.innerHTML = questions.map((_, i) => {
+        let className = 'dot';
+        if (i < currentQuestion) className += ' complete';
+        if (i === currentQuestion) className += ' current';
+        return `<div class="${className}"></div>`;
+      }).join('');
+    }
+
+    function selectOption(element, isCorrect, char, zhuyin) {
+      const allOptions = document.querySelectorAll('.option');
+      allOptions.forEach(opt => opt.classList.add('disabled'));
+
+      const q = questions[currentQuestion];
+      const blankSlot = document.getElementById('blankSlot');
+
+      if (isCorrect) {
+        element.classList.add('correct');
+        correctCount++;
+        document.getElementById('correct').textContent = correctCount;
+
+        // Fill in the blank
+        blankSlot.className = 'blank-slot filled';
+        blankSlot.innerHTML = `
+          <div class="filled-content">
+            <span class="filled-hanzi">${char}</span>
+            <span class="filled-zhuyin">${zhuyin}</span>
+          </div>
+        `;
+
+        // Show celebration
+        const celebration = document.getElementById('celebration');
+        celebration.textContent = ['🎉', '⭐', '🔥', '💪', '🥋'][Math.floor(Math.random() * 5)];
+        celebration.style.display = 'block';
+        setTimeout(() => { celebration.style.display = 'none'; }, 800);
+
+        // Show word result
+        const wordResult = document.getElementById('wordResult');
+        wordResult.innerHTML = `${q.word} = ${q.meaning}`;
+        wordResult.className = 'word-result show';
+
+      } else {
+        element.classList.add('wrong');
+        wrongCount++;
+        document.getElementById('wrong').textContent = wrongCount;
+
+        // Highlight the correct answer
+        setTimeout(() => {
+          allOptions.forEach(opt => {
+            if (opt.querySelector('.hanzi').textContent === q.correct) {
+              opt.classList.remove('disabled');
+              opt.classList.add('correct');
+            }
+          });
+
+          blankSlot.className = 'blank-slot filled';
+          blankSlot.innerHTML = `
+            <div class="filled-content">
+              <span class="filled-hanzi">${q.correct}</span>
+              <span class="filled-zhuyin">${q.correctZhuyin}</span>
+            </div>
+          `;
+
+          const wordResult = document.getElementById('wordResult');
+          wordResult.innerHTML = `${q.word} = ${q.meaning}`;
+          wordResult.className = 'word-result show';
+        }, 500);
+      }
+
+      document.getElementById('nextBtn').className = 'next-btn show';
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion >= questions.length) {
+        // Game complete!
+        document.querySelector('.game-area').innerHTML = `
+          <div style="text-align: center; color: white;">
+            <div style="font-size: 60px; margin-bottom: 20px;">🏆</div>
+            <h2 style="color: #ffd700; margin-bottom: 10px;">完成！</h2>
+            <p style="font-size: 24px;">正確: ${correctCount} / ${questions.length}</p>
+            <button onclick="location.reload()" style="
+              margin-top: 20px;
+              background: linear-gradient(145deg, #ffd700, #ffb700);
+              border: none;
+              border-radius: 25px;
+              padding: 15px 40px;
+              font-size: 20px;
+              cursor: pointer;
+              font-weight: bold;
+            ">再玩一次</button>
+          </div>
+        `;
+      } else {
+        renderQuestion();
+      }
+    }
+
+    // Start the game
+    shuffle(questions);
+    renderQuestion();
+  </script>
+</body>
+</html>

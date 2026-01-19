@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Word Hunt - 詞語獵人</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 26px;
+      color: #ffd700;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    .status-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .status-item {
+      background: rgba(255,255,255,0.1);
+      padding: 6px 12px;
+      border-radius: 15px;
+      color: white;
+      font-size: 14px;
+    }
+
+    .timer {
+      background: linear-gradient(145deg, #e63946, #c1121f);
+    }
+
+    .timer.warning {
+      animation: pulse 0.5s infinite;
+    }
+
+    .game-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 20px;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .target-words {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .target-word {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 6px 14px;
+      color: rgba(255,255,255,0.5);
+      font-size: 18px;
+    }
+
+    .target-word.found {
+      background: rgba(46, 204, 113, 0.3);
+      border-color: #2ecc71;
+      color: #2ecc71;
+      text-decoration: line-through;
+    }
+
+    .target-word.hint {
+      border-color: #ffd700;
+      animation: glow 1s infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 5px #ffd700; }
+      50% { box-shadow: 0 0 20px #ffd700; }
+    }
+
+    .grid-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      max-width: 350px;
+    }
+
+    .grid-cell {
+      width: 60px;
+      height: 70px;
+      background: linear-gradient(145deg, #3498db, #2980b9);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 3px solid transparent;
+    }
+
+    .grid-cell:hover {
+      transform: scale(1.05);
+    }
+
+    .grid-cell:active {
+      transform: scale(0.95);
+    }
+
+    .grid-cell.selected {
+      border-color: #ffd700;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+      background: linear-gradient(145deg, #f39c12, #d68910);
+    }
+
+    .grid-cell.found {
+      background: linear-gradient(145deg, #2ecc71, #27ae60);
+      pointer-events: none;
+    }
+
+    .grid-cell.wrong {
+      animation: shake 0.3s;
+    }
+
+    .grid-cell .hanzi {
+      font-size: 28px;
+      color: white;
+      line-height: 1;
+    }
+
+    .grid-cell .zhuyin {
+      font-size: 10px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 3px;
+    }
+
+    .grid-cell.selected .zhuyin,
+    .grid-cell.found .zhuyin {
+      color: rgba(255,255,255,0.9);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes celebrate {
+      0% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.2) rotate(-5deg); }
+      50% { transform: scale(1.2) rotate(5deg); }
+      75% { transform: scale(1.2) rotate(-5deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .selection-display {
+      text-align: center;
+      min-height: 50px;
+      margin-bottom: 10px;
+    }
+
+    .selected-chars {
+      font-size: 32px;
+      color: #ffd700;
+      letter-spacing: 5px;
+    }
+
+    .hint-btn {
+      background: rgba(255, 215, 0, 0.2);
+      border: 2px solid #ffd700;
+      border-radius: 20px;
+      padding: 8px 20px;
+      color: #ffd700;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .hint-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .celebration-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .celebration-overlay.show {
+      display: flex;
+    }
+
+    .celebration-content {
+      text-align: center;
+      color: white;
+    }
+
+    .celebration-content .emoji {
+      font-size: 80px;
+      animation: celebrate 1s infinite;
+    }
+
+    .celebration-content h2 {
+      color: #ffd700;
+      font-size: 32px;
+      margin: 20px 0 10px;
+    }
+
+    .celebration-content p {
+      font-size: 20px;
+      color: #aaa;
+    }
+
+    .celebration-content .stats {
+      margin: 20px 0;
+      font-size: 18px;
+    }
+
+    .play-again-btn {
+      background: linear-gradient(145deg, #ffd700, #ffb700);
+      border: none;
+      border-radius: 25px;
+      padding: 15px 40px;
+      font-size: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .clear-btn {
+      background: rgba(231, 76, 60, 0.3);
+      border: 2px solid #e74c3c;
+      border-radius: 20px;
+      padding: 8px 20px;
+      color: #e74c3c;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 class="title">詞語獵人</h1>
+    <p class="subtitle">Word Hunt</p>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-item timer" id="timer">⏱️ 60s</div>
+    <div class="status-item">找到: <span id="foundCount">0</span>/<span id="totalWords">6</span></div>
+    <div class="status-item">💡 <span id="hintsLeft">3</span></div>
+  </div>
+
+  <div class="game-container">
+    <div class="target-words" id="targetWords">
+      <!-- Target words will be inserted here -->
+    </div>
+
+    <div class="selection-display">
+      <div class="selected-chars" id="selectedChars"></div>
+    </div>
+
+    <div class="grid-container">
+      <div class="character-grid" id="grid">
+        <!-- Grid cells will be inserted here -->
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="clear-btn" onclick="clearSelection()">清除</button>
+      <button class="hint-btn" id="hintBtn" onclick="giveHint()">提示</button>
+    </div>
+  </div>
+
+  <div class="celebration-overlay" id="celebrationOverlay">
+    <div class="celebration-content">
+      <div class="emoji">🏆</div>
+      <h2 id="celebrationTitle">太棒了！</h2>
+      <p id="celebrationSubtitle">你找到了所有的詞語！</p>
+      <div class="stats" id="celebrationStats"></div>
+      <button class="play-again-btn" onclick="startNewGame()">再玩一次</button>
+    </div>
+  </div>
+
+  <script>
+    // Game data - words hidden in the grid
+    const gameLevels = [
+      {
+        words: ["月亮", "太陽", "星星", "白天", "黑夜", "花草"],
+        grid: [
+          { char: "月", zhuyin: "ㄩㄝˋ" },
+          { char: "太", zhuyin: "ㄊㄞˋ" },
+          { char: "花", zhuyin: "ㄏㄨㄚ" },
+          { char: "黑", zhuyin: "ㄏㄟ" },
+          { char: "看", zhuyin: "ㄎㄢˋ" },
+          { char: "亮", zhuyin: "ㄌㄧㄤˋ" },
+          { char: "陽", zhuyin: "ㄧㄤˊ" },
+          { char: "草", zhuyin: "ㄘㄠˇ" },
+          { char: "夜", zhuyin: "ㄧㄝˋ" },
+          { char: "光", zhuyin: "ㄍㄨㄤ" },
+          { char: "星", zhuyin: "ㄒㄧㄥ" },
+          { char: "地", zhuyin: "ㄉㄧˋ" },
+          { char: "天", zhuyin: "ㄊㄧㄢ" },
+          { char: "明", zhuyin: "ㄇㄧㄥˊ" },
+          { char: "日", zhuyin: "ㄖˋ" },
+          { char: "星", zhuyin: "ㄒㄧㄥ" },
+          { char: "白", zhuyin: "ㄅㄞˊ" },
+          { char: "見", zhuyin: "ㄐㄧㄢˋ" },
+          { char: "雲", zhuyin: "ㄩㄣˊ" },
+          { char: "風", zhuyin: "ㄈㄥ" },
+        ]
+      },
+      {
+        words: ["看見", "聽見", "光明", "燈光", "黑白", "大小"],
+        grid: [
+          { char: "看", zhuyin: "ㄎㄢˋ" },
+          { char: "聽", zhuyin: "ㄊㄧㄥ" },
+          { char: "光", zhuyin: "ㄍㄨㄤ" },
+          { char: "燈", zhuyin: "ㄉㄥ" },
+          { char: "黑", zhuyin: "ㄏㄟ" },
+          { char: "見", zhuyin: "ㄐㄧㄢˋ" },
+          { char: "見", zhuyin: "ㄐㄧㄢˋ" },
+          { char: "明", zhuyin: "ㄇㄧㄥˊ" },
+          { char: "光", zhuyin: "ㄍㄨㄤ" },
+          { char: "白", zhuyin: "ㄅㄞˊ" },
+          { char: "大", zhuyin: "ㄉㄚˋ" },
+          { char: "月", zhuyin: "ㄩㄝˋ" },
+          { char: "亮", zhuyin: "ㄌㄧㄤˋ" },
+          { char: "天", zhuyin: "ㄊㄧㄢ" },
+          { char: "地", zhuyin: "ㄉㄧˋ" },
+          { char: "小", zhuyin: "ㄒㄧㄠˇ" },
+          { char: "上", zhuyin: "ㄕㄤˋ" },
+          { char: "下", zhuyin: "ㄒㄧㄚˋ" },
+          { char: "左", zhuyin: "ㄗㄨㄛˇ" },
+          { char: "右", zhuyin: "ㄧㄡˋ" },
+        ]
+      }
+    ];
+
+    let currentLevel = 0;
+    let selectedCells = [];
+    let foundWords = [];
+    let timeLeft = 60;
+    let timerInterval = null;
+    let hintsLeft = 3;
+
+    function shuffle(array) {
+      const newArray = [...array];
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+
+    function startGame() {
+      const level = gameLevels[currentLevel];
+      foundWords = [];
+      selectedCells = [];
+      hintsLeft = 3;
+      timeLeft = 60;
+
+      document.getElementById('foundCount').textContent = '0';
+      document.getElementById('totalWords').textContent = level.words.length;
+      document.getElementById('hintsLeft').textContent = hintsLeft;
+      document.getElementById('selectedChars').textContent = '';
+      document.getElementById('celebrationOverlay').className = 'celebration-overlay';
+
+      // Render target words
+      const targetWordsContainer = document.getElementById('targetWords');
+      targetWordsContainer.innerHTML = level.words.map(word =>
+        `<div class="target-word" data-word="${word}">${word}</div>`
+      ).join('');
+
+      // Shuffle and render grid
+      const shuffledGrid = shuffle([...level.grid]);
+      const gridContainer = document.getElementById('grid');
+      gridContainer.innerHTML = shuffledGrid.map((cell, i) => `
+        <div class="grid-cell" data-index="${i}" data-char="${cell.char}" onclick="selectCell(this)">
+          <span class="hanzi">${cell.char}</span>
+          <span class="zhuyin">${cell.zhuyin}</span>
+        </div>
+      `).join('');
+
+      // Start timer
+      startTimer();
+    }
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+
+      const timerEl = document.getElementById('timer');
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = `⏱️ ${timeLeft}s`;
+
+        if (timeLeft <= 10) {
+          timerEl.classList.add('warning');
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          endGame(false);
+        }
+      }, 1000);
+    }
+
+    function selectCell(cell) {
+      if (cell.classList.contains('found')) return;
+
+      const index = parseInt(cell.dataset.index);
+
+      // Check if already selected
+      const existingIndex = selectedCells.findIndex(c => c.index === index);
+      if (existingIndex !== -1) {
+        // Deselect
+        selectedCells.splice(existingIndex, 1);
+        cell.classList.remove('selected');
+      } else {
+        // Select (max 2 cells)
+        if (selectedCells.length >= 2) {
+          // Clear first selection
+          const firstCell = document.querySelector(`[data-index="${selectedCells[0].index}"]`);
+          firstCell.classList.remove('selected');
+          selectedCells.shift();
+        }
+
+        selectedCells.push({
+          index: index,
+          char: cell.dataset.char,
+          element: cell
+        });
+        cell.classList.add('selected');
+      }
+
+      // Update display
+      updateSelectionDisplay();
+
+      // Check for word match when 2 cells selected
+      if (selectedCells.length === 2) {
+        checkWord();
+      }
+    }
+
+    function updateSelectionDisplay() {
+      const display = document.getElementById('selectedChars');
+      display.textContent = selectedCells.map(c => c.char).join('');
+    }
+
+    function checkWord() {
+      const word = selectedCells.map(c => c.char).join('');
+      const level = gameLevels[currentLevel];
+
+      if (level.words.includes(word) && !foundWords.includes(word)) {
+        // Found a word!
+        foundWords.push(word);
+
+        // Mark cells as found
+        selectedCells.forEach(c => {
+          c.element.classList.remove('selected');
+          c.element.classList.add('found');
+        });
+
+        // Update target word display
+        const targetWordEl = document.querySelector(`.target-word[data-word="${word}"]`);
+        if (targetWordEl) {
+          targetWordEl.classList.add('found');
+        }
+
+        document.getElementById('foundCount').textContent = foundWords.length;
+
+        // Clear selection
+        selectedCells = [];
+        document.getElementById('selectedChars').textContent = '';
+
+        // Check for win
+        if (foundWords.length === level.words.length) {
+          clearInterval(timerInterval);
+          setTimeout(() => endGame(true), 500);
+        }
+      } else {
+        // Wrong - shake and clear
+        selectedCells.forEach(c => {
+          c.element.classList.add('wrong');
+        });
+
+        setTimeout(() => {
+          selectedCells.forEach(c => {
+            c.element.classList.remove('selected', 'wrong');
+          });
+          selectedCells = [];
+          document.getElementById('selectedChars').textContent = '';
+        }, 300);
+      }
+    }
+
+    function clearSelection() {
+      selectedCells.forEach(c => {
+        c.element.classList.remove('selected');
+      });
+      selectedCells = [];
+      document.getElementById('selectedChars').textContent = '';
+    }
+
+    function giveHint() {
+      if (hintsLeft <= 0) return;
+
+      const level = gameLevels[currentLevel];
+      const remainingWords = level.words.filter(w => !foundWords.includes(w));
+
+      if (remainingWords.length === 0) return;
+
+      // Pick a random remaining word and highlight its first character in target
+      const hintWord = remainingWords[Math.floor(Math.random() * remainingWords.length)];
+      const targetWordEl = document.querySelector(`.target-word[data-word="${hintWord}"]`);
+
+      if (targetWordEl) {
+        targetWordEl.classList.add('hint');
+        setTimeout(() => targetWordEl.classList.remove('hint'), 3000);
+      }
+
+      hintsLeft--;
+      document.getElementById('hintsLeft').textContent = hintsLeft;
+
+      if (hintsLeft <= 0) {
+        document.getElementById('hintBtn').disabled = true;
+      }
+    }
+
+    function endGame(won) {
+      const overlay = document.getElementById('celebrationOverlay');
+      const title = document.getElementById('celebrationTitle');
+      const subtitle = document.getElementById('celebrationSubtitle');
+      const stats = document.getElementById('celebrationStats');
+
+      if (won) {
+        title.textContent = '太棒了！';
+        subtitle.textContent = '你找到了所有的詞語！';
+        stats.innerHTML = `用時: ${60 - timeLeft}秒<br>剩餘提示: ${hintsLeft}`;
+      } else {
+        title.textContent = '時間到！';
+        subtitle.textContent = `你找到了 ${foundWords.length}/${gameLevels[currentLevel].words.length} 個詞語`;
+        stats.innerHTML = `找到的詞語: ${foundWords.join(', ') || '無'}`;
+      }
+
+      overlay.className = 'celebration-overlay show';
+    }
+
+    function startNewGame() {
+      currentLevel = (currentLevel + 1) % gameLevels.length;
+      startGame();
+    }
+
+    // Start the game
+    startGame();
+  </script>
+</body>
+</html>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Sentence Ninja - 句子忍者</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif;
+      background: linear-gradient(135deg, #2d1b4e 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .title {
+      font-size: 28px;
+      color: #ffd700;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .progress-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .progress-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.3s;
+    }
+
+    .progress-dot.complete {
+      background: #2ecc71;
+    }
+
+    .progress-dot.current {
+      background: #ffd700;
+      box-shadow: 0 0 10px #ffd700;
+    }
+
+    .game-container {
+      background: rgba(255,255,255,0.05);
+      border-radius: 25px;
+      padding: 25px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .score-display {
+      text-align: center;
+      color: white;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .sentence-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .sentence-text {
+      font-size: 26px;
+      color: white;
+      line-height: 1.8;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .blank {
+      display: inline-block;
+      min-width: 80px;
+      border-bottom: 3px dashed #ffd700;
+      margin: 0 5px;
+      text-align: center;
+      color: #ffd700;
+      transition: all 0.3s;
+    }
+
+    .blank.filled {
+      border-bottom-style: solid;
+      border-bottom-color: #2ecc71;
+      color: #2ecc71;
+    }
+
+    .blank.wrong {
+      border-bottom-color: #e74c3c;
+      color: #e74c3c;
+    }
+
+    .sentence-zhuyin {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      letter-spacing: 2px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .option-btn {
+      background: linear-gradient(145deg, #9b59b6, #8e44ad);
+      border: 3px solid transparent;
+      border-radius: 15px;
+      padding: 18px 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+    }
+
+    .option-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(155, 89, 182, 0.4);
+    }
+
+    .option-btn:active {
+      transform: scale(0.95);
+    }
+
+    .option-btn .word {
+      font-size: 28px;
+      color: white;
+      line-height: 1;
+    }
+
+    .option-btn .zhuyin {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 8px;
+    }
+
+    .option-btn.correct {
+      background: linear-gradient(145deg, #2ecc71, #27ae60);
+      animation: bounce 0.5s;
+    }
+
+    .option-btn.wrong {
+      background: linear-gradient(145deg, #555, #333);
+      opacity: 0.5;
+    }
+
+    .option-btn.disabled {
+      pointer-events: none;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+
+    .feedback {
+      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 15px;
+      display: none;
+    }
+
+    .feedback.show {
+      display: block;
+      animation: bounce 0.5s;
+    }
+
+    .feedback.correct {
+      background: rgba(46, 204, 113, 0.2);
+      border: 2px solid #2ecc71;
+      color: #2ecc71;
+    }
+
+    .feedback.wrong {
+      background: rgba(231, 76, 60, 0.2);
+      border: 2px solid #e74c3c;
+      color: #e74c3c;
+    }
+
+    .feedback .emoji {
+      font-size: 40px;
+      margin-bottom: 5px;
+    }
+
+    .feedback .message {
+      font-size: 18px;
+    }
+
+    .feedback .translation {
+      font-size: 14px;
+      margin-top: 8px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .next-btn {
+      display: none;
+      margin: 20px auto 0;
+      background: linear-gradient(145deg, #ffd700, #ffb700);
+      border: none;
+      border-radius: 25px;
+      padding: 15px 40px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .next-btn.show {
+      display: block;
+    }
+
+    .completion-screen {
+      display: none;
+      text-align: center;
+      color: white;
+    }
+
+    .completion-screen.show {
+      display: block;
+    }
+
+    .completion-screen .emoji {
+      font-size: 80px;
+      animation: bounce 1s infinite;
+    }
+
+    .completion-screen h2 {
+      color: #ffd700;
+      font-size: 32px;
+      margin: 20px 0 10px;
+    }
+
+    .completion-screen .stats {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+
+    .completion-screen .stars {
+      font-size: 40px;
+      margin: 20px 0;
+    }
+
+    .play-again-btn {
+      background: linear-gradient(145deg, #ffd700, #ffb700);
+      border: none;
+      border-radius: 25px;
+      padding: 15px 40px;
+      font-size: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .ninja-mascot {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 50px;
+      transition: all 0.3s;
+    }
+
+    .ninja-mascot.happy {
+      animation: bounce 0.5s;
+    }
+
+    .ninja-mascot.sad {
+      animation: shake 0.5s;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 class="title">句子忍者</h1>
+    <p class="subtitle">Sentence Ninja</p>
+  </div>
+
+  <div class="progress-bar" id="progressBar">
+    <!-- Progress dots will be inserted here -->
+  </div>
+
+  <div class="game-container" id="gameContainer">
+    <div class="score-display">
+      正確: <span id="correctCount">0</span> | 錯誤: <span id="wrongCount">0</span>
+    </div>
+
+    <div class="sentence-card">
+      <div class="sentence-text" id="sentenceText">
+        <!-- Sentence with blank will be inserted here -->
+      </div>
+      <div class="sentence-zhuyin" id="sentenceZhuyin">
+        <!-- Zhuyin will be inserted here -->
+      </div>
+    </div>
+
+    <div class="options-grid" id="optionsGrid">
+      <!-- Options will be inserted here -->
+    </div>
+
+    <div class="feedback" id="feedback">
+      <div class="emoji" id="feedbackEmoji"></div>
+      <div class="message" id="feedbackMessage"></div>
+      <div class="translation" id="feedbackTranslation"></div>
+    </div>
+
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">下一題 →</button>
+  </div>
+
+  <div class="completion-screen" id="completionScreen">
+    <div class="emoji">🥷</div>
+    <h2>句子忍者大師！</h2>
+    <div class="stats" id="finalStats"></div>
+    <div class="stars" id="starsDisplay"></div>
+    <button class="play-again-btn" onclick="startGame()">再玩一次</button>
+  </div>
+
+  <div class="ninja-mascot" id="ninja">🥷</div>
+
+  <script>
+    const questions = [
+      {
+        sentence: "天上的＿＿好亮！",
+        zhuyin: "ㄊㄧㄢ ㄕㄤˋ ㄉㄜ˙ ？？ ㄏㄠˇ ㄌㄧㄤˋ",
+        answer: "月亮",
+        answerZhuyin: "ㄩㄝˋ ㄌㄧㄤˋ",
+        translation: "The moon in the sky is so bright!",
+        options: [
+          { word: "月亮", zhuyin: "ㄩㄝˋ ㄌㄧㄤˋ" },
+          { word: "太陽", zhuyin: "ㄊㄞˋ ㄧㄤˊ" },
+          { word: "星星", zhuyin: "ㄒㄧㄥ ㄒㄧㄥ" },
+          { word: "白天", zhuyin: "ㄅㄞˊ ㄊㄧㄢ" }
+        ]
+      },
+      {
+        sentence: "我每天早上都能＿＿小鳥。",
+        zhuyin: "ㄨㄛˇ ㄇㄟˇ ㄊㄧㄢ ㄗㄠˇ ㄕㄤˋ ㄉㄡ ㄋㄥˊ ？？ ㄒㄧㄠˇ ㄋㄧㄠˇ",
+        answer: "看見",
+        answerZhuyin: "ㄎㄢˋ ㄐㄧㄢˋ",
+        translation: "I can see the birds every morning.",
+        options: [
+          { word: "看見", zhuyin: "ㄎㄢˋ ㄐㄧㄢˋ" },
+          { word: "聽見", zhuyin: "ㄊㄧㄥ ㄐㄧㄢˋ" },
+          { word: "花草", zhuyin: "ㄏㄨㄚ ㄘㄠˇ" },
+          { word: "黑白", zhuyin: "ㄏㄟ ㄅㄞˊ" }
+        ]
+      },
+      {
+        sentence: "那隻貓是＿＿的。",
+        zhuyin: "ㄋㄚˋ ㄓ ㄇㄠ ㄕˋ ？？ ㄉㄜ˙",
+        answer: "黑白",
+        answerZhuyin: "ㄏㄟ ㄅㄞˊ",
+        translation: "That cat is black and white.",
+        options: [
+          { word: "黑白", zhuyin: "ㄏㄟ ㄅㄞˊ" },
+          { word: "大小", zhuyin: "ㄉㄚˋ ㄒㄧㄠˇ" },
+          { word: "光明", zhuyin: "ㄍㄨㄤ ㄇㄧㄥˊ" },
+          { word: "白天", zhuyin: "ㄅㄞˊ ㄊㄧㄢ" }
+        ]
+      },
+      {
+        sentence: "晚上沒有＿＿，好黑。",
+        zhuyin: "ㄨㄢˇ ㄕㄤˋ ㄇㄟˊ ㄧㄡˇ ？？ ㄏㄠˇ ㄏㄟ",
+        answer: "燈光",
+        answerZhuyin: "ㄉㄥ ㄍㄨㄤ",
+        translation: "There's no light at night, so dark.",
+        options: [
+          { word: "燈光", zhuyin: "ㄉㄥ ㄍㄨㄤ" },
+          { word: "月亮", zhuyin: "ㄩㄝˋ ㄌㄧㄤˋ" },
+          { word: "太陽", zhuyin: "ㄊㄞˋ ㄧㄤˊ" },
+          { word: "星星", zhuyin: "ㄒㄧㄥ ㄒㄧㄥ" }
+        ]
+      },
+      {
+        sentence: "公園裡有很多＿＿。",
+        zhuyin: "ㄍㄨㄥ ㄩㄢˊ ㄌㄧˇ ㄧㄡˇ ㄏㄣˇ ㄉㄨㄛ ？？",
+        answer: "花草",
+        answerZhuyin: "ㄏㄨㄚ ㄘㄠˇ",
+        translation: "There are many flowers and grass in the park.",
+        options: [
+          { word: "花草", zhuyin: "ㄏㄨㄚ ㄘㄠˇ" },
+          { word: "星星", zhuyin: "ㄒㄧㄥ ㄒㄧㄥ" },
+          { word: "燈光", zhuyin: "ㄉㄥ ㄍㄨㄤ" },
+          { word: "黑夜", zhuyin: "ㄏㄟ ㄧㄝˋ" }
+        ]
+      },
+      {
+        sentence: "＿＿的時候，我去上學。",
+        zhuyin: "？？ ㄉㄜ˙ ㄕˊ ㄏㄡˋ ㄨㄛˇ ㄑㄩˋ ㄕㄤˋ ㄒㄩㄝˊ",
+        answer: "白天",
+        answerZhuyin: "ㄅㄞˊ ㄊㄧㄢ",
+        translation: "During the daytime, I go to school.",
+        options: [
+          { word: "白天", zhuyin: "ㄅㄞˊ ㄊㄧㄢ" },
+          { word: "黑夜", zhuyin: "ㄏㄟ ㄧㄝˋ" },
+          { word: "太陽", zhuyin: "ㄊㄞˋ ㄧㄤˊ" },
+          { word: "光明", zhuyin: "ㄍㄨㄤ ㄇㄧㄥˊ" }
+        ]
+      },
+      {
+        sentence: "我＿＿有人在唱歌。",
+        zhuyin: "ㄨㄛˇ ？？ ㄧㄡˇ ㄖㄣˊ ㄗㄞˋ ㄔㄤˋ ㄍㄜ",
+        answer: "聽見",
+        answerZhuyin: "ㄊㄧㄥ ㄐㄧㄢˋ",
+        translation: "I hear someone singing.",
+        options: [
+          { word: "聽見", zhuyin: "ㄊㄧㄥ ㄐㄧㄢˋ" },
+          { word: "看見", zhuyin: "ㄎㄢˋ ㄐㄧㄢˋ" },
+          { word: "大小", zhuyin: "ㄉㄚˋ ㄒㄧㄠˇ" },
+          { word: "上下", zhuyin: "ㄕㄤˋ ㄒㄧㄚˋ" }
+        ]
+      },
+      {
+        sentence: "天空很＿＿，沒有雲。",
+        zhuyin: "ㄊㄧㄢ ㄎㄨㄥ ㄏㄣˇ ？？ ㄇㄟˊ ㄧㄡˇ ㄩㄣˊ",
+        answer: "光明",
+        answerZhuyin: "ㄍㄨㄤ ㄇㄧㄥˊ",
+        translation: "The sky is very bright, with no clouds.",
+        options: [
+          { word: "光明", zhuyin: "ㄍㄨㄤ ㄇㄧㄥˊ" },
+          { word: "黑白", zhuyin: "ㄏㄟ ㄅㄞˊ" },
+          { word: "燈光", zhuyin: "ㄉㄥ ㄍㄨㄤ" },
+          { word: "月亮", zhuyin: "ㄩㄝˋ ㄌㄧㄤˋ" }
+        ]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let shuffledQuestions = [];
+
+    function shuffle(array) {
+      const newArray = [...array];
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+
+    function startGame() {
+      currentQuestion = 0;
+      correctCount = 0;
+      wrongCount = 0;
+      shuffledQuestions = shuffle(questions).slice(0, 6); // Take 6 random questions
+
+      document.getElementById('correctCount').textContent = '0';
+      document.getElementById('wrongCount').textContent = '0';
+      document.getElementById('gameContainer').style.display = 'block';
+      document.getElementById('completionScreen').className = 'completion-screen';
+
+      renderProgressBar();
+      renderQuestion();
+    }
+
+    function renderProgressBar() {
+      const progressBar = document.getElementById('progressBar');
+      progressBar.innerHTML = shuffledQuestions.map((_, i) => {
+        let className = 'progress-dot';
+        if (i < currentQuestion) className += ' complete';
+        if (i === currentQuestion) className += ' current';
+        return `<div class="${className}"></div>`;
+      }).join('');
+    }
+
+    function renderQuestion() {
+      const q = shuffledQuestions[currentQuestion];
+
+      // Render sentence with blank
+      const sentenceText = document.getElementById('sentenceText');
+      sentenceText.innerHTML = q.sentence.replace('＿＿', '<span class="blank" id="blankSlot">？？</span>');
+
+      document.getElementById('sentenceZhuyin').textContent = q.zhuyin;
+
+      // Shuffle options
+      const shuffledOptions = shuffle([...q.options]);
+
+      const optionsGrid = document.getElementById('optionsGrid');
+      optionsGrid.innerHTML = shuffledOptions.map((opt, i) => `
+        <button class="option-btn" onclick="selectAnswer(this, '${opt.word}')">
+          <span class="word">${opt.word}</span>
+          <span class="zhuyin">${opt.zhuyin}</span>
+        </button>
+      `).join('');
+
+      // Hide feedback and next button
+      document.getElementById('feedback').className = 'feedback';
+      document.getElementById('nextBtn').className = 'next-btn';
+
+      renderProgressBar();
+    }
+
+    function selectAnswer(button, selectedWord) {
+      const q = shuffledQuestions[currentQuestion];
+      const allButtons = document.querySelectorAll('.option-btn');
+      const blankSlot = document.getElementById('blankSlot');
+      const feedback = document.getElementById('feedback');
+      const ninja = document.getElementById('ninja');
+
+      // Disable all buttons
+      allButtons.forEach(btn => btn.classList.add('disabled'));
+
+      if (selectedWord === q.answer) {
+        // Correct!
+        correctCount++;
+        document.getElementById('correctCount').textContent = correctCount;
+
+        button.classList.add('correct');
+        blankSlot.textContent = q.answer;
+        blankSlot.classList.add('filled');
+
+        document.getElementById('feedbackEmoji').textContent = '🎉';
+        document.getElementById('feedbackMessage').textContent = '正確！';
+        document.getElementById('feedbackTranslation').textContent = q.translation;
+        feedback.className = 'feedback show correct';
+
+        ninja.classList.remove('sad');
+        ninja.classList.add('happy');
+        setTimeout(() => ninja.classList.remove('happy'), 500);
+      } else {
+        // Wrong
+        wrongCount++;
+        document.getElementById('wrongCount').textContent = wrongCount;
+
+        button.classList.add('wrong');
+        blankSlot.textContent = selectedWord;
+        blankSlot.classList.add('wrong');
+
+        // Highlight correct answer
+        allButtons.forEach(btn => {
+          if (btn.querySelector('.word').textContent === q.answer) {
+            btn.classList.add('correct');
+          }
+        });
+
+        document.getElementById('feedbackEmoji').textContent = '😅';
+        document.getElementById('feedbackMessage').textContent = `答案是：${q.answer}`;
+        document.getElementById('feedbackTranslation').textContent = q.translation;
+        feedback.className = 'feedback show wrong';
+
+        ninja.classList.remove('happy');
+        ninja.classList.add('sad');
+        setTimeout(() => ninja.classList.remove('sad'), 500);
+      }
+
+      document.getElementById('nextBtn').className = 'next-btn show';
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+
+      if (currentQuestion >= shuffledQuestions.length) {
+        showCompletion();
+      } else {
+        renderQuestion();
+      }
+    }
+
+    function showCompletion() {
+      document.getElementById('gameContainer').style.display = 'none';
+
+      const total = shuffledQuestions.length;
+      const percentage = Math.round((correctCount / total) * 100);
+
+      document.getElementById('finalStats').innerHTML =
+        `正確 ${correctCount}/${total} (${percentage}%)`;
+
+      // Calculate stars
+      let stars = '';
+      if (percentage >= 90) stars = '⭐⭐⭐';
+      else if (percentage >= 70) stars = '⭐⭐';
+      else if (percentage >= 50) stars = '⭐';
+      else stars = '繼續加油！';
+
+      document.getElementById('starsDisplay').textContent = stars;
+
+      document.getElementById('completionScreen').className = 'completion-screen show';
+    }
+
+    // Start the game
+    startGame();
+  </script>
+</body>
+</html>
