@@ -4,6 +4,16 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## January 19, 2026 - Session 27
+
+### 🐛 Bug Fix: Drill C No More Unfair Matches
+- **Fixed ambiguous word pairs**: In Word Match (Drill C), it was possible for a character to validly match multiple options in the same round
+  - Example: If both 太陽 (sun) and 太長 (too long) were in the same round, tapping 太 then 長 would be marked wrong even though it's a real word!
+  - Now each character can only match exactly one option per round - no more unfair "wrong" answers
+- **Cleaner rounds**: Both left and right columns are now guaranteed to have unique characters
+
+---
+
 ## January 18, 2026 - Session 26
 
 ### 🐛 Bug Fix: Training and Drill C Restored

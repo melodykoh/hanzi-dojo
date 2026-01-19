@@ -118,29 +118,66 @@ export async function fetchEligibleWordPairs(kidId: string): Promise<WordPairWit
 // =============================================================================
 
 /**
- * Generate a round of MIN_PAIRS_FOR_ROUND word pairs with unique starting characters
- * @throws InsufficientPairsError if not enough unique pairs available
+ * Build lookup Set for O(1) word pair existence checks
+ */
+function buildWordPairLookup(pairs: WordPairWithZhuyin[]): Set<string> {
+  const lookup = new Set<string>()
+  for (const pair of pairs) {
+    lookup.add(`${pair.char1}|${pair.char2}`)
+  }
+  return lookup
+}
+
+/**
+ * Check if adding a pair would create cross-column ambiguity
+ * Returns true if candidate.char1 can form a valid word with any existing.char2
+ * or if any existing.char1 can form a valid word with candidate.char2
+ */
+function hasConflict(
+  candidate: WordPairWithZhuyin,
+  existingPairs: WordPairWithZhuyin[],
+  wordPairLookup: Set<string>
+): boolean {
+  for (const existing of existingPairs) {
+    // Can candidate.char1 form valid word with existing.char2?
+    if (wordPairLookup.has(`${candidate.char1}|${existing.char2}`)) {
+      return true
+    }
+    // Can existing.char1 form valid word with candidate.char2?
+    if (wordPairLookup.has(`${existing.char1}|${candidate.char2}`)) {
+      return true
+    }
+  }
+  return false
+}
+
+/**
+ * Generate a round of MIN_PAIRS_FOR_ROUND word pairs with unique characters and no ambiguity
+ * @throws InsufficientPairsError if not enough non-conflicting pairs available
  */
 export function generateRound(eligiblePairs: WordPairWithZhuyin[]): WordPairWithZhuyin[] {
   const shuffled = shuffle([...eligiblePairs])
-
-  // Find MIN_PAIRS_FOR_ROUND pairs with unique char1 (no duplicate starting chars)
   const selected: WordPairWithZhuyin[] = []
   const usedChar1 = new Set<string>()
+  const usedChar2 = new Set<string>()
+  const wordPairLookup = buildWordPairLookup(eligiblePairs)
 
   for (const pair of shuffled) {
-    if (!usedChar1.has(pair.char1)) {
-      usedChar1.add(pair.char1)
-      selected.push(pair)
-      if (selected.length === MIN_PAIRS_FOR_ROUND) break
-    }
+    // Uniqueness checks: both char1 and char2 must be unique in the round
+    if (usedChar1.has(pair.char1) || usedChar2.has(pair.char2)) continue
+
+    // Cross-column conflict check: no ambiguous matches allowed
+    if (hasConflict(pair, selected, wordPairLookup)) continue
+
+    usedChar1.add(pair.char1)
+    usedChar2.add(pair.char2)
+    selected.push(pair)
+    if (selected.length === MIN_PAIRS_FOR_ROUND) break
   }
 
-  // Error handling: not enough unique pairs
   if (selected.length < MIN_PAIRS_FOR_ROUND) {
     throw new InsufficientPairsError(
-      `Only found ${selected.length} pairs with unique starting characters. ` +
-      `Need at least ${MIN_PAIRS_FOR_ROUND}. Kid may need to add more characters.`
+      `Only found ${selected.length} non-conflicting pairs. Need ${MIN_PAIRS_FOR_ROUND}.`
     )
   }
 

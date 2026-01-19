@@ -61,6 +61,28 @@ const mockPairsInsufficientUnique: WordPairWithZhuyin[] = [
   createMockPair('pair-6', '哥们', '哥', '们'),
 ]
 
+// Pairs with duplicate char2 (for testing char2 uniqueness)
+const mockPairsWithDuplicateChar2: WordPairWithZhuyin[] = [
+  createMockPair('pair-1', '月亮', '月', '亮'),
+  createMockPair('pair-2', '日亮', '日', '亮'),  // Same char2 as pair-1
+  createMockPair('pair-3', '太陽', '太', '陽'),
+  createMockPair('pair-4', '電燈', '電', '燈'),
+  createMockPair('pair-5', '這裡', '這', '裡'),
+  createMockPair('pair-6', '然後', '然', '後'),
+  createMockPair('pair-7', '校園', '校', '園'),
+]
+
+// Pairs with cross-column conflict (太 can match both 陽 and 長)
+const mockPairsWithCrossConflict: WordPairWithZhuyin[] = [
+  createMockPair('pair-1', '太陽', '太', '陽'),
+  createMockPair('pair-2', '日長', '日', '長'),
+  createMockPair('pair-3', '太長', '太', '長'),  // 太 can match both 陽 and 長!
+  createMockPair('pair-4', '電燈', '電', '燈'),
+  createMockPair('pair-5', '這裡', '這', '裡'),
+  createMockPair('pair-6', '然後', '然', '後'),
+  createMockPair('pair-7', '校園', '校', '園'),
+]
+
 // =============================================================================
 // TESTS
 // =============================================================================
@@ -99,7 +121,7 @@ describe('wordPairService', () => {
         expect.fail('Expected InsufficientPairsError to be thrown')
       } catch (error) {
         expect(error).toBeInstanceOf(InsufficientPairsError)
-        expect((error as InsufficientPairsError).message).toContain('unique starting characters')
+        expect((error as InsufficientPairsError).message).toContain('non-conflicting pairs')
       }
     })
 
@@ -135,6 +157,26 @@ describe('wordPairService', () => {
       result.forEach(pair => {
         expect(inputIds.has(pair.id)).toBe(true)
       })
+    })
+
+    it('should enforce unique char2 values', () => {
+      const result = generateRound(mockPairsWithDuplicateChar2)
+      const char2Values = result.map(p => p.char2)
+      expect(new Set(char2Values).size).toBe(MIN_PAIRS_FOR_ROUND)
+    })
+
+    it('should prevent cross-column ambiguity', () => {
+      // Run multiple times due to shuffle randomness
+      for (let i = 0; i < 10; i++) {
+        const result = generateRound(mockPairsWithCrossConflict)
+        const lookup = new Set(mockPairsWithCrossConflict.map(p => `${p.char1}|${p.char2}`))
+
+        // Verify each char1 has exactly one valid char2 in the round
+        for (const pair of result) {
+          const matches = result.filter(p => lookup.has(`${pair.char1}|${p.char2}`))
+          expect(matches.length).toBe(1)
+        }
+      }
     })
   })
 
