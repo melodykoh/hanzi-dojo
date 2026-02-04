@@ -7,6 +7,7 @@ A dojo-themed Mandarin learning companion for children to master Simplified and 
 Hanzi Dojo helps children build consistent progress with:
 - **Drill A (Zhuyin Recognition):** Practice pronunciation with tone accuracy
 - **Drill B (Traditional Mapping):** Recognize Traditional forms for Simplified characters
+- **Drill C (Word Match):** Match character pairs to form 2-character words
 - **Belt Progression:** Earn ranks through focused practice (White → Black)
 - **Parent Console:** Track progress, add characters, monitor analytics
 
@@ -66,7 +67,7 @@ Output will be in `/dist` directory.
 - **Technical Specs:** [`docs/TECH_AND_LOGIC.md`](docs/TECH_AND_LOGIC.md)
 - **Development Setup:** [`docs/DEVELOPMENT_AND_DEPLOYMENT.md`](docs/DEVELOPMENT_AND_DEPLOYMENT.md)
 - **Project Roadmap:** [`docs/ROADMAP.md`](docs/ROADMAP.md)
-- **Current Progress:** [`CLAUDE.md`](Claude.md)
+- **Current Progress:** [`CLAUDE.md`](CLAUDE.md)
 
 ## Tech Stack
 
@@ -77,12 +78,14 @@ Output will be in `/dist` directory.
 
 ## Key Features
 
-✅ Character-first Zhuyin recognition drills with tone accuracy
-✅ Simplified → Traditional character mapping practice
+✅ **Drill A (Zhuyin Recognition):** Character-first pronunciation drills with tone accuracy
+✅ **Drill B (Traditional Mapping):** Simplified → Traditional character recognition
+✅ **Drill C (Word Match):** Match character pairs to form 2-character words
 ✅ Dictionary-assisted entry with auto-fill (1,067 characters)
-✅ Multi-pronunciation support with context-aware selection
+✅ Multi-pronunciation support with context-aware selection (162 characters)
 ✅ Familiarity scoring (+1.0 first try, +0.5 second try)
 ✅ Belt progression system (White → Black)
+✅ **Drill Proficiency Widget:** Track accuracy and struggling characters per drill
 ✅ Full-screen landscape training mode for kids
 ✅ Offline detection with dojo-themed pause modal
 ✅ Parent dashboard with metrics and analytics
@@ -91,14 +94,16 @@ Output will be in `/dist` directory.
 
 🎉 **V1 DEPLOYED** — [hanzi-dojo.vercel.app](https://hanzi-dojo.vercel.app)
 
-**Completed:**
+**Completed (27 sessions, Jan 2026):**
 - ✅ Epics 1-6: Core features, auth, training mode, dashboard
-- ✅ Epic 7: Mobile polish & Ninjago theme
-- ✅ Epic 8 Phases 1-2: Multi-pronunciation support (136 characters)
+- ✅ Epic 7: Mobile polish & Ninjago design system
+- ✅ Epic 8 Phases 1-2: Multi-pronunciation support (162 characters)
+- ✅ Drill C (Word Match): Match character pairs to form words
+- ✅ Drill Proficiency Widget: Track accuracy and struggling characters
 
 **Dictionary Coverage:**
 - 1,067 characters (HSK 1-4)
-- 136 multi-pronunciation characters with context-aware selection
+- 162 multi-pronunciation characters with context-aware selection
 
 See [`CLAUDE.md`](CLAUDE.md) for detailed status and next steps.
 

@@ -1,5 +1,87 @@
 # Hanzi Dojo (漢字道場) - Claude Development Context
 
+## 🔁 **TRY: Ralph Loop for Next Atomic Feature**
+
+> **What:** An autonomous bash loop that implements tasks one-by-one in fresh Claude instances, avoiding context limits. Each iteration picks a task, implements it, runs tests, commits on success, and logs gotchas. You sleep; it ships.
+>
+> **When to use:** When you have a set of **truly atomic tasks** with **clear, machine-verifiable acceptance criteria** (e.g., "change grid from 3-col to 2-col under 768px, verify with screenshot" — NOT "improve mobile layout").
+>
+> **Good candidates from backlog:** Epic 7 (Mobile Polish) — 7 well-defined story points.
+
+### How to Run
+
+1. **Define tasks** in `ralph-loop/prd.json`:
+```json
+{
+  "tasks": [
+    {
+      "id": "1",
+      "description": "Change drill grid from 3-column to 2-column layout on viewports under 768px",
+      "acceptance_criteria": "npm test passes. Grid shows 2 columns on mobile viewport.",
+      "status": "pending"
+    }
+  ]
+}
+```
+
+2. **Create the loop script** `ralph-loop/run.sh`:
+```bash
+#!/bin/bash
+# Ralph Loop — autonomous task implementation
+# Source: Vibe Code Camp (Ryan Carson), Jan 2026
+
+TASKS_FILE="ralph-loop/prd.json"
+PROGRESS_FILE="ralph-loop/progress.txt"
+touch "$PROGRESS_FILE"
+
+while true; do
+  # Pick next pending task (fresh Claude instance each time = no context debt)
+  TASK=$(claude --print "Read $TASKS_FILE. Find the first task with status 'pending'. Return ONLY the task id and description as 'ID: [id] | TASK: [description] | CRITERIA: [acceptance_criteria]'. If no pending tasks, return 'ALL_DONE'.")
+
+  if echo "$TASK" | grep -q "ALL_DONE"; then
+    echo "All tasks complete!"
+    break
+  fi
+
+  echo "Working on: $TASK"
+
+  # Implement (each iteration is a fresh context — progress.txt carries forward learnings)
+  claude --print "You are implementing a task in Hanzi Dojo.
+Read CLAUDE.md for project context.
+Read $PROGRESS_FILE for gotchas from previous tasks.
+
+YOUR TASK: $TASK
+
+Steps:
+1. Implement the change
+2. Run 'npm test' to verify
+3. If tests pass, commit with a descriptive message
+4. Update $TASKS_FILE to mark this task as 'completed'
+5. Write any gotchas or learnings to $PROGRESS_FILE
+6. If tests fail, debug and retry up to 3 times. If still failing, mark task as 'blocked' in $TASKS_FILE and write the failure reason to $PROGRESS_FILE."
+
+  echo "---"
+  sleep 2
+done
+
+echo "Ralph Loop complete. Review changes with: git log --oneline -20"
+```
+
+3. **Run it:** `chmod +x ralph-loop/run.sh && ./ralph-loop/run.sh`
+
+### Three-Tier Memory Model
+- **Long-term:** CLAUDE.md (read every iteration)
+- **Short-term:** progress.txt (gotchas from previous tasks, accumulates during loop)
+- **Task state:** prd.json (tracks pending/completed/blocked)
+
+### Important
+- Tasks MUST be atomic with machine-verifiable acceptance criteria
+- Each iteration spawns a fresh Claude instance (no context degradation)
+- Review the git log and all changes after the loop completes before merging
+- Consider using Agent Browser (`agent-browser`) for UI acceptance criteria
+
+---
+
 ## 📁 **REPOSITORY ORGANIZATION & SESSION PROTOCOL**
 
 ### **MANDATORY: Session Start Organization Check**
