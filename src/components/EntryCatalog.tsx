@@ -286,13 +286,14 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
 
       if (existingReading) {
         // Update existing reading
+        // FIX (Issue #46): Default context_words to [] to prevent NULL in DB
         const { data: updatedReading, error: updateError } = await supabase
           .from('readings')
           .update({
             zhuyin: pronunciationData.zhuyin,
             pinyin: pronunciationData.pinyin,
             sense: pronunciationData.meanings?.join(', '),
-            context_words: pronunciationData.context_words
+            context_words: pronunciationData.context_words ?? []
           })
           .eq('id', existingReading.id)
           .select('id')
@@ -302,6 +303,7 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
         readingId = updatedReading.id
       } else {
         // Create new reading
+        // FIX (Issue #46): Default context_words to [] to prevent NULL in DB
         const { data: newReading, error: insertError } = await supabase
           .from('readings')
           .insert({
@@ -309,7 +311,7 @@ export function EntryCatalog({ kidId, onLaunchTraining, refreshTrigger }: EntryC
             zhuyin: pronunciationData.zhuyin,
             pinyin: pronunciationData.pinyin,
             sense: pronunciationData.meanings?.join(', '),
-            context_words: pronunciationData.context_words
+            context_words: pronunciationData.context_words ?? []
           })
           .select('id')
           .single()
