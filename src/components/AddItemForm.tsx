@@ -395,10 +395,11 @@ export function AddItemForm({ kidId, onSuccess, onCancel }: AddItemFormProps) {
         readingPayload.pinyin = pinyinToUse
       }
 
+      // Always include context_words, defaulting to empty array.
+      // FIX (Issue #46): Previously, empty arrays were omitted → DB stored NULL →
+      // RPC treated NULL as "accept all word pairs" → wrong pronunciation pairs leaked.
       const contextToUse = selectedVariant?.context_words ?? formData.contextWords
-      if (contextToUse && contextToUse.length > 0) {
-        readingPayload.context_words = contextToUse
-      }
+      readingPayload.context_words = contextToUse ?? []
 
       const meaningsToUse = selectedVariant?.meanings ?? formData.meanings
       if (meaningsToUse && meaningsToUse.length > 0) {

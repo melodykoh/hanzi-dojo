@@ -4,6 +4,16 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## February 15, 2026 - Session 28
+
+### 🐛 Bug Fix: Drill C Word Pairs Now Correctly Filter by Pronunciation
+- **Fixed pronunciation filtering**: Multi-pronunciation characters (like 的, 有, 傳) now properly show only word pairs that match the chosen pronunciation
+  - Example: If you saved 的 with the "de" reading, 的確 (which uses the "dí" reading) no longer appears in Drill C
+- **Fixed data pipeline**: 13 characters with missing word-pair data have been restored from the dictionary
+- **Preserved Drill C access**: 49 single-pronunciation characters that were at risk of disappearing from Drill C have been protected
+
+---
+
 ## January 19, 2026 - Session 27
 
 ### 🐛 Bug Fix: Drill C No More Unfair Matches
