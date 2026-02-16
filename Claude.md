@@ -153,7 +153,11 @@ For significant changes (>50 lines or >3 files):
   - Include emoji for visual scanning (✨ feature, 🐛 bug, 🎨 improvement)
 - [ ] Push branch: `git push -u origin feature/name`
 - [ ] Create PR: `gh pr create --title "..." --body "..." --base main`
-- [ ] Wait for Vercel preview (~2 min), test thoroughly
+- [ ] Wait for Vercel preview (~2 min)
+- [ ] **CRITICAL: Reproduce each linked GitHub issue's scenarios on Vercel preview** ⭐
+  - Read issue screenshots, reproduction steps, and user-reported examples
+  - Use Playwright MCP or Agent Browser to step through each scenario
+  - If ANY scenario still fails → PR does NOT fix that issue (remove from PR scope)
 - [ ] **CRITICAL: Verify changelog renders correctly at `/changelog`** ⭐
 - [ ] ⛔ **STOP: Wait for explicit user approval before merging** ⛔
 - [ ] Merge via GitHub UI or `gh pr merge <#>` **(ONLY after user says "merge" or "approve")**
