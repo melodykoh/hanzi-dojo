@@ -96,6 +96,20 @@ export function TrainingMode() {
   const [kidId, setKidId] = useState<string | null>(null)
   const [showSummary, setShowSummary] = useState(false)
 
+  // Guard against accidental browser back-navigation (e.g., iOS Safari back-swipe)
+  useEffect(() => {
+    // Push guard entry so first back-swipe stays on /training
+    window.history.pushState(null, '', window.location.href)
+
+    const handlePopState = () => {
+      // Re-push to absorb accidental back navigation
+      window.history.pushState(null, '', window.location.href)
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
   // Fetch practice queue from Supabase (for Drills A/B only)
   // Drill C (Word Match) manages its own data loading via WordMatchDrill component
   useEffect(() => {
@@ -231,7 +245,10 @@ export function TrainingMode() {
 
   return (
     <OfflineGuard>
-      <div className="fixed inset-0 bg-gradient-to-r from-ninja-red-dark via-ninja-red to-ninja-orange overflow-auto">
+      <div
+        className="fixed inset-0 bg-gradient-to-r from-ninja-red-dark via-ninja-red to-ninja-orange overflow-auto"
+        style={{ overscrollBehavior: 'none', touchAction: 'manipulation' }}
+      >
       {/* Top Bar - Fixed position for Exit button and stats */}
       <div className="fixed top-0 left-0 right-0 bg-black bg-opacity-20 backdrop-blur-sm z-10">
         <div className="w-full mx-auto px-3 py-3">
