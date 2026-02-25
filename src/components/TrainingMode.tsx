@@ -97,17 +97,18 @@ export function TrainingMode() {
   const [showSummary, setShowSummary] = useState(false)
 
   // Guard against accidental browser back-navigation (e.g., iOS Safari back-swipe)
+  // Uses capture-phase listener + stopImmediatePropagation to fire BEFORE
+  // React Router's popstate handler, preventing it from navigating away.
   useEffect(() => {
-    // Push guard entry so first back-swipe stays on /training
     window.history.pushState(null, '', window.location.href)
 
-    const handlePopState = () => {
-      // Re-push to absorb accidental back navigation
+    const handlePopState = (e: PopStateEvent) => {
+      e.stopImmediatePropagation()
       window.history.pushState(null, '', window.location.href)
     }
 
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
+    window.addEventListener('popstate', handlePopState, { capture: true })
+    return () => window.removeEventListener('popstate', handlePopState, { capture: true })
   }, [])
 
   // Fetch practice queue from Supabase (for Drills A/B only)
