@@ -2,8 +2,8 @@
 // Epic 4: Training Mode UX & Guardrails
 // Epic: Drill C (Word Match) integration
 
-import { useState, useEffect } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { useNavigate, useSearchParams, useBlocker } from 'react-router-dom'
 import { PracticeCard } from './PracticeCard'
 import { WordMatchDrill } from './WordMatchDrill'
 import { FeedbackToast } from './FeedbackToast'
@@ -96,20 +96,22 @@ export function TrainingMode() {
   const [kidId, setKidId] = useState<string | null>(null)
   const [showSummary, setShowSummary] = useState(false)
 
-  // Guard against accidental browser back-navigation (e.g., iOS Safari back-swipe)
-  // Uses capture-phase listener + stopImmediatePropagation to fire BEFORE
-  // React Router's popstate handler, preventing it from navigating away.
+  // Guard against accidental browser back-navigation (e.g., iOS Safari back-swipe).
+  // useBlocker works at the React Router level — it intercepts navigation INSIDE the
+  // router before any route change renders, regardless of how it was triggered (back
+  // button, swipe gesture, programmatic navigate). The intentionalExit ref lets our
+  // own Exit button / exitToDashboard bypass the blocker.
+  const intentionalExit = useRef(false)
+  const blocker = useBlocker(
+    useCallback(() => !intentionalExit.current, [])
+  )
+
+  // When the blocker catches an accidental navigation, silently reset it
   useEffect(() => {
-    window.history.pushState(null, '', window.location.href)
-
-    const handlePopState = (e: PopStateEvent) => {
-      e.stopImmediatePropagation()
-      window.history.pushState(null, '', window.location.href)
+    if (blocker.state === 'blocked') {
+      blocker.reset()
     }
-
-    window.addEventListener('popstate', handlePopState, { capture: true })
-    return () => window.removeEventListener('popstate', handlePopState, { capture: true })
-  }, [])
+  }, [blocker])
 
   // Fetch practice queue from Supabase (for Drills A/B only)
   // Drill C (Word Match) manages its own data loading via WordMatchDrill component
@@ -197,12 +199,14 @@ export function TrainingMode() {
       setShowSummary(true)
     } else {
       // If no practice done yet, exit directly
+      intentionalExit.current = true
       navigate('/')
     }
   }
 
   const exitToDashboard = () => {
     // Always exit to dashboard (used by summary modal buttons)
+    intentionalExit.current = true
     navigate('/')
   }
 
