@@ -2,8 +2,8 @@
 // Epic 4: Training Mode UX & Guardrails
 // Epic: Drill C (Word Match) integration
 
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { useNavigate, useSearchParams, useBlocker } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PracticeCard } from './PracticeCard'
 import { WordMatchDrill } from './WordMatchDrill'
 import { FeedbackToast } from './FeedbackToast'
@@ -97,21 +97,27 @@ export function TrainingMode() {
   const [showSummary, setShowSummary] = useState(false)
 
   // Guard against accidental browser back-navigation (e.g., iOS Safari back-swipe).
-  // useBlocker works at the React Router level — it intercepts navigation INSIDE the
-  // router before any route change renders, regardless of how it was triggered (back
-  // button, swipe gesture, programmatic navigate). The intentionalExit ref lets our
-  // own Exit button / exitToDashboard bypass the blocker.
+  // iOS Safari interprets a left-edge swipe as "browser back", navigating away from
+  // /training to / (dashboard). We can't use React Router's useBlocker because the
+  // app uses <BrowserRouter> (legacy), not createBrowserRouter (data router).
+  //
+  // Strategy: Push a guard entry on mount. On every popstate, if the exit wasn't
+  // intentional, re-push the guard to absorb the back navigation. The ref lets our
+  // own Exit button bypass the guard.
   const intentionalExit = useRef(false)
-  const blocker = useBlocker(
-    useCallback(() => !intentionalExit.current, [])
-  )
 
-  // When the blocker catches an accidental navigation, silently reset it
   useEffect(() => {
-    if (blocker.state === 'blocked') {
-      blocker.reset()
+    window.history.pushState({ trainingGuard: true }, '', window.location.href)
+
+    const handlePopState = () => {
+      if (!intentionalExit.current) {
+        window.history.pushState({ trainingGuard: true }, '', window.location.href)
+      }
     }
-  }, [blocker])
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   // Fetch practice queue from Supabase (for Drills A/B only)
   // Drill C (Word Match) manages its own data loading via WordMatchDrill component
