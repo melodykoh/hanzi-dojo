@@ -183,13 +183,42 @@ function hasConflict(
 }
 
 /**
+ * Build a kid-scoped conflict lookup from the comprehensive vocabulary.
+ * Only includes word pairs where BOTH characters appear in the kid's eligible set.
+ * This avoids flagging obscure words (e.g., 日晷) that the kid wouldn't recognize.
+ */
+function buildKidScopedLookup(
+  eligiblePairs: WordPairWithZhuyin[],
+  comprehensiveLookup: Set<string>
+): Set<string> {
+  // Collect all characters the kid knows (from both sides of eligible pairs)
+  const knownChars = new Set<string>()
+  for (const pair of eligiblePairs) {
+    knownChars.add(pair.char1)
+    knownChars.add(pair.char2)
+  }
+
+  // Filter comprehensive lookup to only pairs where both chars are known
+  const scoped = new Set<string>()
+  for (const key of comprehensiveLookup) {
+    const sep = key.indexOf('|')
+    const char1 = key.slice(0, sep)
+    const char2 = key.slice(sep + 1)
+    if (knownChars.has(char1) && knownChars.has(char2)) {
+      scoped.add(key)
+    }
+  }
+  return scoped
+}
+
+/**
  * Generate a round of MIN_PAIRS_FOR_ROUND word pairs with unique characters and no ambiguity.
  *
  * @param eligiblePairs - The kid's eligible word pairs
  * @param comprehensiveLookup - Optional Set of "char1|char2" keys covering ALL known words.
- *   When provided, conflict detection uses this comprehensive vocabulary instead of only
- *   the eligible pairs. This catches ambiguity from real Chinese words not in the kid's set
- *   (e.g., 日記 and 日光 both exist even if only one is in the kid's eligible pairs).
+ *   When provided, it's filtered to only pairs where both characters appear in the kid's
+ *   eligible set — catching real ambiguity (日記/日光 when kid knows 日, 記, and 光) without
+ *   blocking rounds due to obscure words the kid wouldn't recognize (日晷).
  *   When absent, falls back to eligible-only lookup (backward-compatible).
  * @throws InsufficientPairsError if not enough non-conflicting pairs available
  */
@@ -201,9 +230,9 @@ export function generateRound(
   const selected: WordPairWithZhuyin[] = []
   const usedChar1 = new Set<string>()
   const usedChar2 = new Set<string>()
-  // Use comprehensive lookup if provided, otherwise fall back to eligible-only
+  // Scope comprehensive lookup to kid's known characters, or fall back to eligible-only
   const wordPairLookup = comprehensiveLookup && comprehensiveLookup.size > 0
-    ? comprehensiveLookup
+    ? buildKidScopedLookup(eligiblePairs, comprehensiveLookup)
     : buildWordPairLookup(eligiblePairs)
 
   for (const pair of shuffled) {
