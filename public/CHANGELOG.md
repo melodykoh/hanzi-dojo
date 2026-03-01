@@ -4,6 +4,17 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## February 22, 2026 - Session 29
+
+### 🐛 Bug Fix: Drills No Longer Exit Accidentally on Mobile
+- **Fixed random exits**: Drills A and B would sometimes exit unexpectedly on iPhones and iPads when Aiden's finger swiped near the left edge of the screen
+  - This triggered Safari's built-in "go back" gesture, which navigated away from training mode
+  - Training mode now blocks accidental back-swipes — the only way to exit is by tapping the Exit button
+- **No more pull-to-refresh**: Swiping down during practice no longer reloads the page
+- **Faster taps**: Removed the tiny delay iOS adds to detect double-taps, so answer buttons respond instantly
+
+---
+
 ## February 15, 2026 - Session 28
 
 ### 🐛 Bug Fix: Drill C Word Pairs Now Correctly Filter by Pronunciation

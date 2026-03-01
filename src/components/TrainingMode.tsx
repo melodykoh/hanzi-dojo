@@ -2,7 +2,7 @@
 // Epic 4: Training Mode UX & Guardrails
 // Epic: Drill C (Word Match) integration
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PracticeCard } from './PracticeCard'
 import { WordMatchDrill } from './WordMatchDrill'
@@ -96,6 +96,47 @@ export function TrainingMode() {
   const [kidId, setKidId] = useState<string | null>(null)
   const [showSummary, setShowSummary] = useState(false)
 
+  // Guard against accidental browser back-navigation (e.g., iOS Safari back-swipe).
+  // iOS Safari interprets a left-edge swipe as "browser back". The popstate approach
+  // alone doesn't work because React Router processes the navigation before our
+  // handler can re-push state. useBlocker would fix this but requires createBrowserRouter.
+  //
+  // Strategy: Two layers of defense:
+  // 1. Prevent the gesture itself — intercept touchstart near screen edges with
+  //    preventDefault() so Safari never recognizes the swipe as a back gesture.
+  // 2. Popstate fallback — if a back navigation still gets through, re-push state.
+  const intentionalExit = useRef(false)
+
+  // Layer 1: Block edge-swipe gesture recognition
+  useEffect(() => {
+    const EDGE_ZONE = 20 // px from left/right edge where Safari triggers back/forward
+
+    const blockEdgeSwipe = (e: TouchEvent) => {
+      const x = e.touches[0]?.clientX
+      if (x != null && (x < EDGE_ZONE || x > window.innerWidth - EDGE_ZONE)) {
+        e.preventDefault()
+      }
+    }
+
+    // passive: false is required to allow preventDefault on touch events
+    document.addEventListener('touchstart', blockEdgeSwipe, { passive: false })
+    return () => document.removeEventListener('touchstart', blockEdgeSwipe)
+  }, [])
+
+  // Layer 2: Popstate fallback for non-touch back navigation (e.g., keyboard, browser button)
+  useEffect(() => {
+    window.history.pushState({ trainingGuard: true }, '', window.location.href)
+
+    const handlePopState = () => {
+      if (!intentionalExit.current) {
+        window.history.pushState({ trainingGuard: true }, '', window.location.href)
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
   // Fetch practice queue from Supabase (for Drills A/B only)
   // Drill C (Word Match) manages its own data loading via WordMatchDrill component
   useEffect(() => {
@@ -182,12 +223,14 @@ export function TrainingMode() {
       setShowSummary(true)
     } else {
       // If no practice done yet, exit directly
+      intentionalExit.current = true
       navigate('/')
     }
   }
 
   const exitToDashboard = () => {
     // Always exit to dashboard (used by summary modal buttons)
+    intentionalExit.current = true
     navigate('/')
   }
 
@@ -231,7 +274,10 @@ export function TrainingMode() {
 
   return (
     <OfflineGuard>
-      <div className="fixed inset-0 bg-gradient-to-r from-ninja-red-dark via-ninja-red to-ninja-orange overflow-auto">
+      <div
+        className="fixed inset-0 bg-gradient-to-r from-ninja-red-dark via-ninja-red to-ninja-orange overflow-auto"
+        style={{ overscrollBehavior: 'none', touchAction: 'manipulation' }}
+      >
       {/* Top Bar - Fixed position for Exit button and stats */}
       <div className="fixed top-0 left-0 right-0 bg-black bg-opacity-20 backdrop-blur-sm z-10">
         <div className="w-full mx-auto px-3 py-3">
