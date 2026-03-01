@@ -126,24 +126,44 @@ export async function fetchEligibleWordPairs(kidId: string): Promise<WordPairWit
  * Intended to be called once per drill session and cached.
  */
 export async function fetchWordPairConflictSet(): Promise<Set<string>> {
-  // Supabase default limit is 1,000 rows. The conflict set has ~87k rows,
-  // so we must explicitly request a higher limit to get the full set.
-  const { data, error } = await supabase
-    .rpc('get_word_pair_conflict_set')
-    .limit(100000)
+  // Supabase enforces a server-side max_rows limit (default 1,000).
+  // Client .limit() cannot exceed this cap. We paginate with .range()
+  // using parallel batches for performance (~87k rows / 1000 per page).
+  const PAGE_SIZE = 1000
+  const lookup = new Set<string>()
 
-  if (error) {
-    console.error('[wordPairService] fetchWordPairConflictSet error:', error)
-    // Return empty set — generateRound will fall back to eligible-only lookup
+  // Step 1: Get total count with a single query
+  const { count, error: countError } = await supabase
+    .rpc('get_word_pair_conflict_set', undefined, { count: 'exact', head: true })
+
+  if (countError || count === null) {
+    console.error('[wordPairService] fetchWordPairConflictSet count error:', countError)
     return new Set<string>()
   }
 
-  const lookup = new Set<string>()
-  if (data) {
-    for (const row of data as { char1: string; char2: string }[]) {
-      lookup.add(`${row.char1}|${row.char2}`)
+  // Step 2: Fire all page requests in parallel
+  const totalPages = Math.ceil(count / PAGE_SIZE)
+  const pagePromises = Array.from({ length: totalPages }, (_, i) => {
+    const start = i * PAGE_SIZE
+    return supabase
+      .rpc('get_word_pair_conflict_set')
+      .range(start, start + PAGE_SIZE - 1)
+  })
+
+  const results = await Promise.all(pagePromises)
+
+  for (const { data, error } of results) {
+    if (error) {
+      console.error('[wordPairService] fetchWordPairConflictSet page error:', error)
+      continue
+    }
+    if (data) {
+      for (const row of data as { char1: string; char2: string }[]) {
+        lookup.add(`${row.char1}|${row.char2}`)
+      }
     }
   }
+
   return lookup
 }
 
