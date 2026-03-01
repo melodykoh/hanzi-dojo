@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import type { WordMatchRoundData, WordMatchCard } from '../types'
 import {
   fetchAndGenerateRound,
+  fetchWordPairConflictSet,
   recordWordMatchAttempt,
   InsufficientPairsError,
   MIN_PAIRS_FOR_ROUND
@@ -130,6 +131,9 @@ export function WordMatchDrill({
     onErrorRef.current = onError
   }, [onError])
 
+  // Comprehensive conflict set — fetched once on mount, cached for all rounds
+  const conflictSetRef = useRef<Set<string> | null>(null)
+
   // Force re-render for SVG lines when cards change position
   const [, forceUpdate] = useState({})
 
@@ -155,7 +159,11 @@ export function WordMatchDrill({
 
     setIsLoading(true)
     try {
-      const data = await fetchAndGenerateRound(kidId)
+      // Fetch comprehensive conflict set once (first round only)
+      if (!conflictSetRef.current) {
+        conflictSetRef.current = await fetchWordPairConflictSet()
+      }
+      const data = await fetchAndGenerateRound(kidId, conflictSetRef.current)
       setRoundData(data)
 
       // Initialize match states

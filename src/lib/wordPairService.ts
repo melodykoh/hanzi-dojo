@@ -114,6 +114,37 @@ export async function fetchEligibleWordPairs(kidId: string): Promise<WordPairWit
 }
 
 // =============================================================================
+// COMPREHENSIVE CONFLICT SET
+// =============================================================================
+
+/**
+ * Fetch the full word pair conflict set from the database.
+ * Returns a Set of "char1|char2" keys covering ALL known 2-character words
+ * (MOE dictionary + CCCC pairs). Used for comprehensive cross-column
+ * ambiguity detection in generateRound().
+ *
+ * Intended to be called once per drill session and cached.
+ */
+export async function fetchWordPairConflictSet(): Promise<Set<string>> {
+  const { data, error } = await supabase
+    .rpc('get_word_pair_conflict_set')
+
+  if (error) {
+    console.error('[wordPairService] fetchWordPairConflictSet error:', error)
+    // Return empty set — generateRound will fall back to eligible-only lookup
+    return new Set<string>()
+  }
+
+  const lookup = new Set<string>()
+  if (data) {
+    for (const row of data as { char1: string; char2: string }[]) {
+      lookup.add(`${row.char1}|${row.char2}`)
+    }
+  }
+  return lookup
+}
+
+// =============================================================================
 // ROUND GENERATION
 // =============================================================================
 
@@ -152,15 +183,28 @@ function hasConflict(
 }
 
 /**
- * Generate a round of MIN_PAIRS_FOR_ROUND word pairs with unique characters and no ambiguity
+ * Generate a round of MIN_PAIRS_FOR_ROUND word pairs with unique characters and no ambiguity.
+ *
+ * @param eligiblePairs - The kid's eligible word pairs
+ * @param comprehensiveLookup - Optional Set of "char1|char2" keys covering ALL known words.
+ *   When provided, conflict detection uses this comprehensive vocabulary instead of only
+ *   the eligible pairs. This catches ambiguity from real Chinese words not in the kid's set
+ *   (e.g., 日記 and 日光 both exist even if only one is in the kid's eligible pairs).
+ *   When absent, falls back to eligible-only lookup (backward-compatible).
  * @throws InsufficientPairsError if not enough non-conflicting pairs available
  */
-export function generateRound(eligiblePairs: WordPairWithZhuyin[]): WordPairWithZhuyin[] {
+export function generateRound(
+  eligiblePairs: WordPairWithZhuyin[],
+  comprehensiveLookup?: Set<string>
+): WordPairWithZhuyin[] {
   const shuffled = shuffle([...eligiblePairs])
   const selected: WordPairWithZhuyin[] = []
   const usedChar1 = new Set<string>()
   const usedChar2 = new Set<string>()
-  const wordPairLookup = buildWordPairLookup(eligiblePairs)
+  // Use comprehensive lookup if provided, otherwise fall back to eligible-only
+  const wordPairLookup = comprehensiveLookup && comprehensiveLookup.size > 0
+    ? comprehensiveLookup
+    : buildWordPairLookup(eligiblePairs)
 
   for (const pair of shuffled) {
     // Uniqueness checks: both char1 and char2 must be unique in the round
@@ -248,11 +292,23 @@ export async function recordWordMatchAttempt(
 // =============================================================================
 
 /**
- * Fetch eligible pairs and generate a round in one call
+ * Fetch eligible pairs and generate a round in one call.
+ *
+ * @param kidId - The kid's ID
+ * @param conflictLookup - Optional pre-fetched comprehensive conflict set.
+ *   When provided, avoids re-fetching the full word pair table.
+ *   When absent, fetches it internally via fetchWordPairConflictSet().
  * @throws InsufficientPairsError if not enough pairs
  */
-export async function fetchAndGenerateRound(kidId: string): Promise<WordMatchRoundData> {
-  const eligiblePairs = await fetchEligibleWordPairs(kidId)
+export async function fetchAndGenerateRound(
+  kidId: string,
+  conflictLookup?: Set<string>
+): Promise<WordMatchRoundData> {
+  // Fetch eligible pairs and (if needed) the comprehensive conflict set in parallel
+  const [eligiblePairs, comprehensiveLookup] = await Promise.all([
+    fetchEligibleWordPairs(kidId),
+    conflictLookup ? Promise.resolve(conflictLookup) : fetchWordPairConflictSet()
+  ])
 
   if (eligiblePairs.length < MIN_PAIRS_FOR_ROUND) {
     throw new InsufficientPairsError(
@@ -261,6 +317,6 @@ export async function fetchAndGenerateRound(kidId: string): Promise<WordMatchRou
     )
   }
 
-  const roundPairs = generateRound(eligiblePairs)
+  const roundPairs = generateRound(eligiblePairs, comprehensiveLookup)
   return buildRoundDisplayData(roundPairs)
 }

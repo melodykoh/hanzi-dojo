@@ -29,5 +29,9 @@ dist-ssr
 .env.production
 screenshots/
 .worktrees
+
+# Large external dictionary data (72MB MOE dict + 5.8MB extracted pairs)
+data/moe/
+data/moe_word_pairs.json
 supabase/.temp/
 docs/reviews/

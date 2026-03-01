@@ -359,6 +359,60 @@ describe('wordPairService', () => {
     })
   })
 
+  describe('generateRound with comprehensive lookup', () => {
+    // Scenario: eligible pairs include 日記 and 小光, which have no conflict
+    // based on eligible-only lookup. But the comprehensive vocabulary knows
+    // 日光 is a real word, so 日 + 光 would be ambiguous.
+    const eligibleWithHiddenConflict: WordPairWithZhuyin[] = [
+      createMockPair('pair-1', '日記', '日', '記'),
+      createMockPair('pair-2', '小光', '小', '光'), // 日+光 = 日光 is real!
+      createMockPair('pair-3', '電燈', '電', '燈'),
+      createMockPair('pair-4', '校園', '校', '園'),
+      createMockPair('pair-5', '然後', '然', '後'),
+      createMockPair('pair-6', '這裡', '這', '裡'),
+      createMockPair('pair-7', '風車', '風', '車'),
+    ]
+
+    // Comprehensive lookup includes 日光 — a word not in eligible pairs
+    const comprehensiveLookup = new Set([
+      '日|記', '小|光', '電|燈', '校|園', '然|後', '這|裡', '風|車',
+      '日|光', // This is the hidden conflict! 日記's char1 + 小光's char2
+    ])
+
+    it('should catch conflicts invisible to eligible-only lookup', () => {
+      // Without comprehensive lookup, 日記 and 小光 can coexist
+      // (eligible-only lookup doesn't know about 日光)
+      const withoutComprehensive = generateRound(eligibleWithHiddenConflict)
+      // This MAY include both 日記 and 小光 since eligible-only doesn't catch it
+
+      // With comprehensive lookup, they should NEVER coexist
+      for (let i = 0; i < 20; i++) {
+        const result = generateRound(eligibleWithHiddenConflict, comprehensiveLookup)
+        const ids = result.map(p => p.id)
+        // 日記 and 小光 should never both appear
+        const hasBoth = ids.includes('pair-1') && ids.includes('pair-2')
+        expect(hasBoth).toBe(false)
+      }
+    })
+
+    it('should still return MIN_PAIRS_FOR_ROUND pairs with comprehensive lookup', () => {
+      const result = generateRound(eligibleWithHiddenConflict, comprehensiveLookup)
+      expect(result).toHaveLength(MIN_PAIRS_FOR_ROUND)
+    })
+
+    it('should fall back to eligible-only when comprehensive lookup is empty', () => {
+      const emptyLookup = new Set<string>()
+      // Should behave like no lookup provided — no crash, returns valid round
+      const result = generateRound(eligibleWithHiddenConflict, emptyLookup)
+      expect(result).toHaveLength(MIN_PAIRS_FOR_ROUND)
+    })
+
+    it('should fall back to eligible-only when comprehensive lookup is undefined', () => {
+      const result = generateRound(eligibleWithHiddenConflict, undefined)
+      expect(result).toHaveLength(MIN_PAIRS_FOR_ROUND)
+    })
+  })
+
   describe('Edge Cases', () => {
     it('should handle pairs with identical char1 and char2', () => {
       const identicalPairs: WordPairWithZhuyin[] = [
