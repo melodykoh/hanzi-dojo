@@ -97,15 +97,33 @@ export function TrainingMode() {
   const [showSummary, setShowSummary] = useState(false)
 
   // Guard against accidental browser back-navigation (e.g., iOS Safari back-swipe).
-  // iOS Safari interprets a left-edge swipe as "browser back", navigating away from
-  // /training to / (dashboard). We can't use React Router's useBlocker because the
-  // app uses <BrowserRouter> (legacy), not createBrowserRouter (data router).
+  // iOS Safari interprets a left-edge swipe as "browser back". The popstate approach
+  // alone doesn't work because React Router processes the navigation before our
+  // handler can re-push state. useBlocker would fix this but requires createBrowserRouter.
   //
-  // Strategy: Push a guard entry on mount. On every popstate, if the exit wasn't
-  // intentional, re-push the guard to absorb the back navigation. The ref lets our
-  // own Exit button bypass the guard.
+  // Strategy: Two layers of defense:
+  // 1. Prevent the gesture itself — intercept touchstart near screen edges with
+  //    preventDefault() so Safari never recognizes the swipe as a back gesture.
+  // 2. Popstate fallback — if a back navigation still gets through, re-push state.
   const intentionalExit = useRef(false)
 
+  // Layer 1: Block edge-swipe gesture recognition
+  useEffect(() => {
+    const EDGE_ZONE = 20 // px from left/right edge where Safari triggers back/forward
+
+    const blockEdgeSwipe = (e: TouchEvent) => {
+      const x = e.touches[0]?.clientX
+      if (x != null && (x < EDGE_ZONE || x > window.innerWidth - EDGE_ZONE)) {
+        e.preventDefault()
+      }
+    }
+
+    // passive: false is required to allow preventDefault on touch events
+    document.addEventListener('touchstart', blockEdgeSwipe, { passive: false })
+    return () => document.removeEventListener('touchstart', blockEdgeSwipe)
+  }, [])
+
+  // Layer 2: Popstate fallback for non-touch back navigation (e.g., keyboard, browser button)
   useEffect(() => {
     window.history.pushState({ trainingGuard: true }, '', window.location.href)
 
