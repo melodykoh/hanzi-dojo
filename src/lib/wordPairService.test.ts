@@ -455,6 +455,42 @@ describe('wordPairService', () => {
       const result = generateRound(eligibleWithHiddenConflict, undefined)
       expect(result).toHaveLength(MIN_PAIRS_FOR_ROUND)
     })
+
+    it('should prevent 聲色/氣色/黑色 ambiguity (real user-reported case)', () => {
+      // Reproduces exact scenario from user testing:
+      // 聲音, 氣球, 黑色 all in same round → 色 is ambiguous because
+      // 聲色 and 氣色 are both real words in MOE dictionary
+      const eligiblePairs: WordPairWithZhuyin[] = [
+        createMockPair('p-聲音', '聲音', '聲', '音'),
+        createMockPair('p-氣球', '氣球', '氣', '球'),
+        createMockPair('p-黑色', '黑色', '黑', '色'),
+        createMockPair('p-可以', '可以', '可', '以'),
+        createMockPair('p-頭上', '頭上', '頭', '上'),
+        createMockPair('p-電話', '電話', '電', '話'),
+        createMockPair('p-學校', '學校', '學', '校'),
+      ]
+
+      // Comprehensive lookup includes 聲色 and 氣色 (real MOE words)
+      const lookup = new Set([
+        '聲|音', '氣|球', '黑|色', '可|以', '頭|上', '電|話', '學|校',
+        '聲|色', // 聲色 = real word (looks/voice) → 聲+色 ambiguous with 黑+色
+        '氣|色', // 氣色 = real word (complexion) → 氣+色 ambiguous with 黑+色
+      ])
+
+      // Run many times — should NEVER have 聲音+黑色 or 氣球+黑色 in same round
+      for (let i = 0; i < 50; i++) {
+        const result = generateRound(eligiblePairs, lookup)
+        const ids = result.map(p => p.id)
+
+        // 聲音 and 黑色 should never coexist (聲|色 conflict)
+        const has聲音And黑色 = ids.includes('p-聲音') && ids.includes('p-黑色')
+        expect(has聲音And黑色).toBe(false)
+
+        // 氣球 and 黑色 should never coexist (氣|色 conflict)
+        const has氣球And黑色 = ids.includes('p-氣球') && ids.includes('p-黑色')
+        expect(has氣球And黑色).toBe(false)
+      }
+    })
   })
 
   describe('Edge Cases', () => {
