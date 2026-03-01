@@ -126,8 +126,11 @@ export async function fetchEligibleWordPairs(kidId: string): Promise<WordPairWit
  * Intended to be called once per drill session and cached.
  */
 export async function fetchWordPairConflictSet(): Promise<Set<string>> {
+  // Supabase default limit is 1,000 rows. The conflict set has ~87k rows,
+  // so we must explicitly request a higher limit to get the full set.
   const { data, error } = await supabase
     .rpc('get_word_pair_conflict_set')
+    .limit(100000)
 
   if (error) {
     console.error('[wordPairService] fetchWordPairConflictSet error:', error)
