@@ -4,13 +4,14 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
-## February 28, 2026 - Session 29
+## March 1, 2026 - Session 29
 
 ### 🐛 Bug Fix: Drill C Now Catches ALL Ambiguous Word Pairs
 - **Comprehensive vocabulary coverage**: Drill C now uses the full Taiwan Ministry of Education dictionary (~87,000 word pairs) to detect ambiguous matches
-  - Before: Only checked against word pairs your child was practicing (~600 pairs), so real words like 日光 could still cause unfair "wrong" answers
+  - Before: Only checked against word pairs your child was practicing (~600 pairs), so real words like 風光, 聲色, 氣色 could still cause unfair "wrong" answers
   - After: Every known 2-character Traditional Chinese word is checked — no more hidden ambiguity
-- **Automatic word pair discovery**: As you add new characters, matching word pairs from the MOE dictionary are automatically available for Drill C
+- **Smarter filtering**: Only flags ambiguity for words your child would actually recognize (both characters must be in their learned set)
+- **Practice content stays kid-friendly**: Only curated word pairs (~500) appear in practice — the full dictionary is used only for detecting conflicts behind the scenes
 
 ---
 
