@@ -295,6 +295,7 @@ For significant changes (>50 lines or >3 files):
 - Emit actionable errors (what failed, how it impacts parent/kid experience).
 - Exercise offline guard scenarios and training mode transitions.
 - **For RPC functions:** Use explicit table aliases (e.g., `k.id` not `id`) to avoid RETURNS TABLE conflicts.
+- **Before claiming a feature/column affects or doesn't affect a drill:** Trace the actual RPC code path in the migration files. `locked_reading_id` flows through `get_eligible_word_pairs` to filter Drill C word pairs by pronunciation context — this was missed by assuming the column was only relevant to Drill A (Session 29, Mar 2026).
 
 ### Definition of Done
 - [ ] Feature works end-to-end with production-like data
@@ -379,6 +380,7 @@ For significant changes (>50 lines or >3 files):
 - Dictionary: public read-only reference data
 - User data: protected by RLS tied to `auth.uid()`
 - Practice events: immutable append-only log for analytics
+- **Word pairs dual-purpose caution:** `word_pairs` table serves both practice content AND conflict detection. Seeding reference data (e.g., MOE dictionary) into it will flood kid-facing drills. Use `category IS NOT NULL` filter or separate tables. See `docs/solutions/database-issues/shared-table-divergent-concerns-20260228.md`
 
 ### UI/UX Patterns
 - Zhuyin displayed horizontally (ㄓㄠˊ) matching Taiwan textbook format
@@ -514,10 +516,11 @@ For significant changes (>50 lines or >3 files):
 - ✅ **Bug 6.1.6** - Exit Training summary modal when clicked mid-session (TrainingMode.tsx)
 - ✅ **Bug 6.1.7** - Drill B duplicate character options prevented (drillBuilders.ts)
 
-### Test Account (Can be deleted)
+### Test Account
 - Email: `test@hanzidojo.local`
 - Password: `testpassword123`
-- Purpose: Used during Epic 5-6 development, production testing complete
+- **Sync script:** `scripts/sync-test-user-from-production.sql` — copies learned characters (entries + readings + locked pronunciations) from the production account to the test account. Run in Supabase SQL Editor. Additive and re-runnable (skips characters the test kid already has). Re-run whenever the production kid's character set grows.
+- ⚠️ **MULTI-CHILD (V2):** Script picks the kid with the most entries per account. When V2 adds multiple children, update to filter by name instead.
 
 ---
 
@@ -575,6 +578,7 @@ For significant changes (>50 lines or >3 files):
 - **`docs/solutions/database-issues/`** - Database/SQL gotchas and fixes
   - `plpgsql-ambiguous-column-reference.md` - RETURNS TABLE + bare column names (Issue #40)
   - `incomplete-data-fix-scope-discovery-20251215.md` - Migration scope discovery
+  - `shared-table-divergent-concerns-20260228.md` - MOE data flooding Drill C practice content
 - **`docs/solutions/process-learnings/`** - Development process insights
   - `drill-c-session-learnings-20260112.md` - Playwright gaps, data model issues
 
