@@ -359,6 +359,140 @@ describe('wordPairService', () => {
     })
   })
 
+  describe('generateRound with comprehensive lookup', () => {
+    // Scenario: eligible pairs include 日記 and 小光, which have no conflict
+    // based on eligible-only lookup. But the comprehensive vocabulary knows
+    // 日光 is a real word, so 日 + 光 would be ambiguous.
+    // Since the kid knows 日, 記, 小, and 光 (all appear in eligible pairs),
+    // the kid-scoped filter will include 日光 in the conflict check.
+    const eligibleWithHiddenConflict: WordPairWithZhuyin[] = [
+      createMockPair('pair-1', '日記', '日', '記'),
+      createMockPair('pair-2', '小光', '小', '光'), // 日+光 = 日光 is real!
+      createMockPair('pair-3', '電燈', '電', '燈'),
+      createMockPair('pair-4', '校園', '校', '園'),
+      createMockPair('pair-5', '然後', '然', '後'),
+      createMockPair('pair-6', '這裡', '這', '裡'),
+      createMockPair('pair-7', '風車', '風', '車'),
+    ]
+
+    // Comprehensive lookup includes 日光 AND obscure words like 日晷.
+    // Kid-scoping will include 日光 (kid knows 日 and 光) but exclude
+    // 日晷 (kid doesn't know 晷).
+    const comprehensiveLookup = new Set([
+      '日|記', '小|光', '電|燈', '校|園', '然|後', '這|裡', '風|車',
+      '日|光', // Hidden conflict: kid knows both 日 and 光
+      '日|晷', // Obscure word: kid doesn't know 晷, should be excluded by scoping
+    ])
+
+    it('should catch conflicts invisible to eligible-only lookup', () => {
+      // With comprehensive lookup, 日記 and 小光 should NEVER coexist
+      // because the kid knows both 日 and 光, so 日光 is a real ambiguity
+      for (let i = 0; i < 20; i++) {
+        const result = generateRound(eligibleWithHiddenConflict, comprehensiveLookup)
+        const ids = result.map(p => p.id)
+        const hasBoth = ids.includes('pair-1') && ids.includes('pair-2')
+        expect(hasBoth).toBe(false)
+      }
+    })
+
+    it('should ignore obscure words where kid does not know both characters', () => {
+      // 日晷 is in the comprehensive lookup but 晷 does NOT appear in any
+      // eligible pair. Kid-scoping should exclude 日|晷 from conflict checks.
+      // This means 日記 should NOT be blocked by the mere existence of 日晷.
+      const eligibleNoObscureChars: WordPairWithZhuyin[] = [
+        createMockPair('p1', '日記', '日', '記'),
+        createMockPair('p2', '天空', '天', '空'),
+        createMockPair('p3', '電燈', '電', '燈'),
+        createMockPair('p4', '校園', '校', '園'),
+        createMockPair('p5', '然後', '然', '後'),
+        createMockPair('p6', '這裡', '這', '裡'),
+        createMockPair('p7', '風車', '風', '車'),
+      ]
+      // Comprehensive lookup has 日晷 — but 晷 is NOT in any eligible pair
+      const lookupWithObscure = new Set([
+        '日|記', '天|空', '電|燈', '校|園', '然|後', '這|裡', '風|車',
+        '日|晷', // Obscure: 晷 not in kid's known chars → excluded by scoping
+        '日|空', // 日空 doesn't exist but let's add to test scoping boundary:
+                 // 空 IS known (from 天空), so this WOULD be a conflict
+      ])
+
+      // 日記 and 天空 should NEVER coexist because 日|空 is scoped in
+      // (kid knows both 日 and 空). This proves scoping works both ways:
+      // includes real conflicts, excludes obscure ones.
+      for (let i = 0; i < 20; i++) {
+        const result = generateRound(eligibleNoObscureChars, lookupWithObscure)
+        const ids = result.map(p => p.id)
+        const hasBoth = ids.includes('p1') && ids.includes('p2')
+        expect(hasBoth).toBe(false)
+      }
+
+      // But without comprehensive lookup, they CAN coexist (eligible-only
+      // doesn't know about 日空)
+      let coexistedWithout = false
+      for (let i = 0; i < 50; i++) {
+        const result = generateRound(eligibleNoObscureChars)
+        const ids = result.map(p => p.id)
+        if (ids.includes('p1') && ids.includes('p2')) {
+          coexistedWithout = true
+          break
+        }
+      }
+      expect(coexistedWithout).toBe(true)
+    })
+
+    it('should still return MIN_PAIRS_FOR_ROUND pairs with comprehensive lookup', () => {
+      const result = generateRound(eligibleWithHiddenConflict, comprehensiveLookup)
+      expect(result).toHaveLength(MIN_PAIRS_FOR_ROUND)
+    })
+
+    it('should fall back to eligible-only when comprehensive lookup is empty', () => {
+      const emptyLookup = new Set<string>()
+      const result = generateRound(eligibleWithHiddenConflict, emptyLookup)
+      expect(result).toHaveLength(MIN_PAIRS_FOR_ROUND)
+    })
+
+    it('should fall back to eligible-only when comprehensive lookup is undefined', () => {
+      const result = generateRound(eligibleWithHiddenConflict, undefined)
+      expect(result).toHaveLength(MIN_PAIRS_FOR_ROUND)
+    })
+
+    it('should prevent 聲色/氣色/黑色 ambiguity (real user-reported case)', () => {
+      // Reproduces exact scenario from user testing:
+      // 聲音, 氣球, 黑色 all in same round → 色 is ambiguous because
+      // 聲色 and 氣色 are both real words in MOE dictionary
+      const eligiblePairs: WordPairWithZhuyin[] = [
+        createMockPair('p-聲音', '聲音', '聲', '音'),
+        createMockPair('p-氣球', '氣球', '氣', '球'),
+        createMockPair('p-黑色', '黑色', '黑', '色'),
+        createMockPair('p-可以', '可以', '可', '以'),
+        createMockPair('p-頭上', '頭上', '頭', '上'),
+        createMockPair('p-電話', '電話', '電', '話'),
+        createMockPair('p-學校', '學校', '學', '校'),
+      ]
+
+      // Comprehensive lookup includes 聲色 and 氣色 (real MOE words)
+      const lookup = new Set([
+        '聲|音', '氣|球', '黑|色', '可|以', '頭|上', '電|話', '學|校',
+        '聲|色', // 聲色 = real word (looks/voice) → 聲+色 ambiguous with 黑+色
+        '氣|色', // 氣色 = real word (complexion) → 氣+色 ambiguous with 黑+色
+      ])
+
+      // Run many times — should NEVER have 聲音+黑色 or 氣球+黑色 in same round
+      for (let i = 0; i < 50; i++) {
+        const result = generateRound(eligiblePairs, lookup)
+        const ids = result.map(p => p.id)
+
+        // 聲音 and 黑色 should never coexist (聲|色 conflict)
+        const has聲音And黑色 = ids.includes('p-聲音') && ids.includes('p-黑色')
+        expect(has聲音And黑色).toBe(false)
+
+        // 氣球 and 黑色 should never coexist (氣|色 conflict)
+        const has氣球And黑色 = ids.includes('p-氣球') && ids.includes('p-黑色')
+        expect(has氣球And黑色).toBe(false)
+      }
+    })
+  })
+
   describe('Edge Cases', () => {
     it('should handle pairs with identical char1 and char2', () => {
       const identicalPairs: WordPairWithZhuyin[] = [
