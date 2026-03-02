@@ -4,7 +4,7 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
-## March 1, 2026 - Session 29
+## March 2, 2026 - Session 30
 
 ### 🐛 Bug Fix: Drill C Now Catches ALL Ambiguous Word Pairs
 - **Comprehensive vocabulary coverage**: Drill C now uses the full Taiwan Ministry of Education dictionary (~87,000 word pairs) to detect ambiguous matches
@@ -12,6 +12,17 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
   - After: Every known 2-character Traditional Chinese word is checked — no more hidden ambiguity
 - **Smarter filtering**: Only flags ambiguity for words your child would actually recognize (both characters must be in their learned set)
 - **Practice content stays kid-friendly**: Only curated word pairs (~500) appear in practice — the full dictionary is used only for detecting conflicts behind the scenes
+
+---
+
+## February 22, 2026 - Session 29
+
+### 🐛 Bug Fix: Drills No Longer Exit Accidentally on Mobile
+- **Fixed random exits**: Drills A and B would sometimes exit unexpectedly on iPhones and iPads when Aiden's finger swiped near the left edge of the screen
+  - This triggered Safari's built-in "go back" gesture, which navigated away from training mode
+  - Training mode now blocks accidental back-swipes — the only way to exit is by tapping the Exit button
+- **No more pull-to-refresh**: Swiping down during practice no longer reloads the page
+- **Faster taps**: Removed the tiny delay iOS adds to detect double-taps, so answer buttons respond instantly
 
 ---
 
