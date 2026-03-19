@@ -114,6 +114,60 @@ export async function fetchEligibleWordPairs(kidId: string): Promise<WordPairWit
 }
 
 // =============================================================================
+// COMPREHENSIVE CONFLICT SET
+// =============================================================================
+
+/**
+ * Fetch the full word pair conflict set from the database.
+ * Returns a Set of "char1|char2" keys covering ALL known 2-character words
+ * (MOE dictionary + CCCC pairs). Used for comprehensive cross-column
+ * ambiguity detection in generateRound().
+ *
+ * Intended to be called once per drill session and cached.
+ */
+export async function fetchWordPairConflictSet(): Promise<Set<string>> {
+  // Supabase enforces a server-side max_rows limit (default 1,000).
+  // Client .limit() cannot exceed this cap. We paginate with .range()
+  // using parallel batches for performance (~87k rows / 1000 per page).
+  const PAGE_SIZE = 1000
+  const lookup = new Set<string>()
+
+  // Step 1: Get total count with a single query
+  const { count, error: countError } = await supabase
+    .rpc('get_word_pair_conflict_set', undefined, { count: 'exact', head: true })
+
+  if (countError || count === null) {
+    console.error('[wordPairService] fetchWordPairConflictSet count error:', countError)
+    return new Set<string>()
+  }
+
+  // Step 2: Fire all page requests in parallel
+  const totalPages = Math.ceil(count / PAGE_SIZE)
+  const pagePromises = Array.from({ length: totalPages }, (_, i) => {
+    const start = i * PAGE_SIZE
+    return supabase
+      .rpc('get_word_pair_conflict_set')
+      .range(start, start + PAGE_SIZE - 1)
+  })
+
+  const results = await Promise.all(pagePromises)
+
+  for (const { data, error } of results) {
+    if (error) {
+      console.error('[wordPairService] fetchWordPairConflictSet page error:', error)
+      continue
+    }
+    if (data) {
+      for (const row of data as { char1: string; char2: string }[]) {
+        lookup.add(`${row.char1}|${row.char2}`)
+      }
+    }
+  }
+
+  return lookup
+}
+
+// =============================================================================
 // ROUND GENERATION
 // =============================================================================
 
@@ -152,15 +206,57 @@ function hasConflict(
 }
 
 /**
- * Generate a round of MIN_PAIRS_FOR_ROUND word pairs with unique characters and no ambiguity
+ * Build a kid-scoped conflict lookup from the comprehensive vocabulary.
+ * Only includes word pairs where BOTH characters appear in the kid's eligible set.
+ * This avoids flagging obscure words (e.g., 日晷) that the kid wouldn't recognize.
+ */
+function buildKidScopedLookup(
+  eligiblePairs: WordPairWithZhuyin[],
+  comprehensiveLookup: Set<string>
+): Set<string> {
+  // Collect all characters the kid knows (from both sides of eligible pairs)
+  const knownChars = new Set<string>()
+  for (const pair of eligiblePairs) {
+    knownChars.add(pair.char1)
+    knownChars.add(pair.char2)
+  }
+
+  // Filter comprehensive lookup to only pairs where both chars are known
+  const scoped = new Set<string>()
+  for (const key of comprehensiveLookup) {
+    const sep = key.indexOf('|')
+    const char1 = key.slice(0, sep)
+    const char2 = key.slice(sep + 1)
+    if (knownChars.has(char1) && knownChars.has(char2)) {
+      scoped.add(key)
+    }
+  }
+  return scoped
+}
+
+/**
+ * Generate a round of MIN_PAIRS_FOR_ROUND word pairs with unique characters and no ambiguity.
+ *
+ * @param eligiblePairs - The kid's eligible word pairs
+ * @param comprehensiveLookup - Optional Set of "char1|char2" keys covering ALL known words.
+ *   When provided, it's filtered to only pairs where both characters appear in the kid's
+ *   eligible set — catching real ambiguity (日記/日光 when kid knows 日, 記, and 光) without
+ *   blocking rounds due to obscure words the kid wouldn't recognize (日晷).
+ *   When absent, falls back to eligible-only lookup (backward-compatible).
  * @throws InsufficientPairsError if not enough non-conflicting pairs available
  */
-export function generateRound(eligiblePairs: WordPairWithZhuyin[]): WordPairWithZhuyin[] {
+export function generateRound(
+  eligiblePairs: WordPairWithZhuyin[],
+  comprehensiveLookup?: Set<string>
+): WordPairWithZhuyin[] {
   const shuffled = shuffle([...eligiblePairs])
   const selected: WordPairWithZhuyin[] = []
   const usedChar1 = new Set<string>()
   const usedChar2 = new Set<string>()
-  const wordPairLookup = buildWordPairLookup(eligiblePairs)
+  // Scope comprehensive lookup to kid's known characters, or fall back to eligible-only
+  const wordPairLookup = comprehensiveLookup && comprehensiveLookup.size > 0
+    ? buildKidScopedLookup(eligiblePairs, comprehensiveLookup)
+    : buildWordPairLookup(eligiblePairs)
 
   for (const pair of shuffled) {
     // Uniqueness checks: both char1 and char2 must be unique in the round
@@ -248,11 +344,23 @@ export async function recordWordMatchAttempt(
 // =============================================================================
 
 /**
- * Fetch eligible pairs and generate a round in one call
+ * Fetch eligible pairs and generate a round in one call.
+ *
+ * @param kidId - The kid's ID
+ * @param conflictLookup - Optional pre-fetched comprehensive conflict set.
+ *   When provided, avoids re-fetching the full word pair table.
+ *   When absent, fetches it internally via fetchWordPairConflictSet().
  * @throws InsufficientPairsError if not enough pairs
  */
-export async function fetchAndGenerateRound(kidId: string): Promise<WordMatchRoundData> {
-  const eligiblePairs = await fetchEligibleWordPairs(kidId)
+export async function fetchAndGenerateRound(
+  kidId: string,
+  conflictLookup?: Set<string>
+): Promise<WordMatchRoundData> {
+  // Fetch eligible pairs and (if needed) the comprehensive conflict set in parallel
+  const [eligiblePairs, comprehensiveLookup] = await Promise.all([
+    fetchEligibleWordPairs(kidId),
+    conflictLookup ? Promise.resolve(conflictLookup) : fetchWordPairConflictSet()
+  ])
 
   if (eligiblePairs.length < MIN_PAIRS_FOR_ROUND) {
     throw new InsufficientPairsError(
@@ -261,6 +369,6 @@ export async function fetchAndGenerateRound(kidId: string): Promise<WordMatchRou
     )
   }
 
-  const roundPairs = generateRound(eligiblePairs)
+  const roundPairs = generateRound(eligiblePairs, comprehensiveLookup)
   return buildRoundDisplayData(roundPairs)
 }
