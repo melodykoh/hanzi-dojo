@@ -78,7 +78,7 @@ echo "Ralph Loop complete. Review changes with: git log --oneline -20"
 - Tasks MUST be atomic with machine-verifiable acceptance criteria
 - Each iteration spawns a fresh Claude instance (no context degradation)
 - Review the git log and all changes after the loop completes before merging
-- Consider using Agent Browser (`agent-browser`) for UI acceptance criteria
+- Consider using Browserbase MCP or Playwright MCP for UI acceptance criteria
 
 ---
 
