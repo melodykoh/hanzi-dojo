@@ -40,8 +40,8 @@ import { usePracticeSession } from '../hooks/usePracticeSession'
  *
  * STATE MANAGEMENT:
  * - currentDrill: 'zhuyin' | 'trad' (from URL params or switcher)
- * - currentQueue: Array of 20 practice entries
- * - currentIndex: Position in queue (0-19)
+ * - currentQueue: Array of all available practice entries
+ * - currentIndex: Position in queue
  * - Session stats: Delegated to usePracticeSession hook (shared with Practice Demo)
  *
  * DRILL SWITCHING:
@@ -174,8 +174,8 @@ export function TrainingMode() {
           return
         }
 
-        // Fetch practice queue (20 items for longer sessions) for Drills A/B
-        const queue = await fetchPracticeQueue(kid.id, currentDrill, 20)
+        // Fetch full practice queue for Drills A/B (no limit — session ends when kid exits)
+        const queue = await fetchPracticeQueue(kid.id, currentDrill)
 
         setCurrentQueue(queue)
         setIsLoading(false)
