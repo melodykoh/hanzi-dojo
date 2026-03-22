@@ -4,6 +4,15 @@ All notable updates to Hanzi Dojo are documented here in simple, non-technical l
 
 ---
 
+## March 22, 2026 - Session 31
+
+### ✨ Improvement: Unlimited Drill Sessions
+- **No more 20-question cap**: Drills A and B used to stop after 20 questions and show a summary screen — this sometimes felt like the app was kicking you out mid-practice
+- **Practice as long as you want**: Drills now run through all your characters until you choose to exit
+- **Exit is always in your control**: Tap the Exit button whenever you're done — the summary screen only appears if you've practiced every single character
+
+---
+
 ## March 2, 2026 - Session 30
 
 ### 🐛 Bug Fix: Drill C Now Catches ALL Ambiguous Word Pairs
