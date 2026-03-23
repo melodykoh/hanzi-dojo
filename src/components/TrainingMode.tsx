@@ -174,7 +174,7 @@ export function TrainingMode() {
           return
         }
 
-        // Fetch full practice queue for Drills A/B (no limit — session ends when kid exits)
+        // Fetch full practice queue for Drills A/B (no limit — loops forever, session ends when kid exits)
         const queue = await fetchPracticeQueue(kid.id, currentDrill)
 
         setCurrentQueue(queue)
@@ -206,8 +206,9 @@ export function TrainingMode() {
       if (currentIndex + 1 < currentQueue.length) {
         setCurrentIndex(prev => prev + 1)
       } else {
-        // Session complete
-        setShowSummary(true)
+        // Queue exhausted — loop back to the beginning instead of ending
+        // Session only ends when the kid taps "Exit Training"
+        setCurrentIndex(0)
       }
     })
   }
